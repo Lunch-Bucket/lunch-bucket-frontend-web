@@ -1,8 +1,4 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 
 .Item1{
   background-color: #FFFF99;
@@ -41,8 +37,8 @@
   box-sizing: border-box;
   margin-top: 2000%;
   margin-left: -1400%;
-    padding-top: 520%;
-    padding-bottom: 2250%;
+    padding-top: 525%;
+    padding-bottom: 2650%;
     padding-left: 300%;
     padding-inline-start: 25%;
     background-color:hsl(60, 100%, 50%);
@@ -52,10 +48,19 @@
   
 }
 .input{
-      padding-left:0 ;
-      margin-bottom: 10%;
+  border: 1px solid hsl(229, 100%, 50%); 
+  padding-top: 100%;
+  padding-bottom: 50%;
+  margin-bottom: 150%;
+  margin-top: 100%;
+  border-radius: 50px;
       
 }
 .header{
-  color: aqua;
+  color: rgb(26, 10, 3);
+}
+
+.sbtbutton{
+  border: 1px solid hsl(229, 100%, 50%); 
+  background-color:hsl(60, 100%, 50%) ;
 }

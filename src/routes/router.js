@@ -3,6 +3,9 @@ import Login from '../pages/auth/login/Login';
 import DashboardHome from '../pages/dashboard/DashboardHome';
 import AdminRoutes from './AdminRoutes';
 
+import Chat from '../pages/chat/Chat';
+
+
 const router = createBrowserRouter([
     {
         path: '/npm',
@@ -18,6 +21,14 @@ const router = createBrowserRouter([
         path: 'auth/login',
         element: <Login />,
     },
+
+    {
+        path: 'chat',
+        element: <Chat/>,
+    },
+
+
+    
 ]);
 
 export default router;

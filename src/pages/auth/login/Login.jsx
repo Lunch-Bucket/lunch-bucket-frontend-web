@@ -15,16 +15,23 @@ export default function Login() {
               <div className="form" >
               <form>
                   <h1 className="Header">Login</h1>
-                <label className="input"> <input type="text" placeholder="User Name" /> </label>
+                <div className="input">
+                <label> <input type="text" placeholder="User Name" /> </label>
                 <br></br>
-                <label className="input"> <input type="text" placeholder="Password" /> </label>
+                <label> <input type="text" placeholder="Password" /> </label>
+                </div>
+                <div className="sbtbutton">
+                <input type ="submit" value="Login"/>
+                </div>
+               
+                
             </form>
 
 
               </div>
             </div>
             <div className="Item2">
-              <div className="stylebox">
+              <div className="stylebox" >
                   hi
               </div>
             </div>    
