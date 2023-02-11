@@ -5,7 +5,7 @@ import AdminRoutes from './AdminRoutes';
 
 const router = createBrowserRouter([
     {
-        path: '/',
+        path: '/npm',
         element: <AdminRoutes />,
         children: [
             {
