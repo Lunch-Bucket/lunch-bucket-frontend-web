@@ -1,0 +1,45 @@
+.new {
+    width: 100%;
+    display: flex;
+  
+    .newContainer {
+      flex: 6;
+  
+      .topContainer {
+        
+        
+        padding: 10px;
+        margin: 20px;
+        display: flex;
+
+        
+  
+        
+  
+        
+         
+            
+  
+            
+            button {
+              width: 150px;
+              padding: 10px;
+              border: none;
+              background-color: #0085cc;
+              color: white;
+              font-weight: bold;
+              cursor: pointer;
+              margin-top: 10px;
+            }
+        
+        
+      }
+    }
+  }
+
+  .txtarea{
+    border-color: aqua;
+     padding-top: 75vh;
+     width: 100px;
+      
+  }  
