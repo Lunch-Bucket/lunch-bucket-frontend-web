@@ -5,6 +5,7 @@ import AdminRoutes from './AdminRoutes';
 import TopBar from '../component/TopBar';
 import TabBar from '../component/TabBar';
 import Feedback from '../pages/feedback/Feedback';
+import User from '../pages/dashboard/User';
 
 import Chat from '../pages/chat/Chat';
 
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
     {
         path: 'feedback',
         element: <Feedback/>
+    },
+    {
+        path: 'user',
+        element: <User/>
     },
 
 
