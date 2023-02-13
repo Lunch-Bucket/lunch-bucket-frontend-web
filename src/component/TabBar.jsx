@@ -1,7 +1,12 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import "./Header.css";
 
 export default function TabBar({action}){
+
+    const[state, setState] = useState(action);
+    const[mealType, setMealType] = useState("Lunch");
 
     function frequencyCal(){
 
@@ -12,10 +17,13 @@ export default function TabBar({action}){
     function orderAmountCal(){
         
     }
+    useEffect=()=>{
+        setState("");
+    }
 
     return(
         <div className="tabBarContainer">
-           {action==="1" &&(
+           {state=="1" &&(
             <div className="userTab">
                 <table>
                     <tr>
@@ -26,6 +34,18 @@ export default function TabBar({action}){
                 </table>
             </div>
            )}
+{/* 
+State changing error - multiple render */}
+            {state=="2" &&(
+                <div className="userTab">
+                    <table>
+                        <tr>
+                            <td><button onClick={setMealType("Lunch")}>Lunch</button></td>
+                            <td><button onClick={setMealType("Dinner")}>Dinner</button></td>
+                        </tr>
+                    </table>
+                </div>
+            )}
         </div>
     );
 }

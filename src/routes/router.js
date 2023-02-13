@@ -6,6 +6,7 @@ import TopBar from '../component/TopBar';
 import TabBar from '../component/TabBar';
 import Feedback from '../pages/feedback/Feedback';
 import User from '../pages/dashboard/User';
+import MenuHome from '../pages/menu/MenuHome';
 
 import Chat from '../pages/chat/Chat';
 
@@ -46,6 +47,11 @@ const router = createBrowserRouter([
         path: 'user',
         element: <User/>
     },
+    {
+        path: 'menu',
+        element: <MenuHome/>
+    },
+
 
 
     
