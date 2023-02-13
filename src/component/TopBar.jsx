@@ -5,7 +5,7 @@ export default function TopBar({title}, {action}){
     return(
         <div className="container">
             <div className="titleContainer">
-                <h1>{title}</h1>
+                <h2 className="pageTitle">{title}</h2>
             </div>
             <div className="actionContainer">
                 <h2>{action}</h2>
