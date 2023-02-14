@@ -4,6 +4,8 @@ import DashboardHome from '../pages/dashboard/DashboardHome';
 import AdminRoutes from './AdminRoutes';
 
 import Chat from '../pages/chat/Chat';
+import DailyWinnerView from '../pages/DailyWinnerView/DailyWinner';
+
 
 
 const router = createBrowserRouter([
@@ -25,6 +27,11 @@ const router = createBrowserRouter([
     {
         path: 'chat',
         element: <Chat/>,
+    },
+
+    {
+        path: 'DWV',
+        element: <DailyWinnerView/>,
     },
 
 
