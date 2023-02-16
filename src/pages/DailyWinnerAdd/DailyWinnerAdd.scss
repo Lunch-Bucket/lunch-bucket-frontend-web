@@ -1,0 +1,87 @@
+.new {
+    width: 100%;
+    display: flex;
+  
+    .newContainer {
+      flex: 6;
+  
+      .topContainer {
+        
+        
+        padding: 50px;
+        margin: 20px;
+        display: flex;
+
+    
+        
+      }
+    }
+  }
+
+  .txtarea{
+    border-color: rgb(0, 0, 0);
+    padding-top: 25px;
+    width: 300px;
+    height: 150px;
+    margin-left:  150px; 
+ 
+    border-radius: 20px;
+  }  
+
+  .txt1{
+      color: rgb(10, 10, 10);
+      font-size: 18px;
+      align-items: center;
+      padding-left: 500px;
+      padding-top: 180px;
+
+
+  }
+
+  
+  .txt2{
+    color: rgb(10, 10, 10);
+    font-size: 20px;
+  font-weight: 300;
+    align-items: center;
+    padding-left: 550px;
+    padding-top: 40px;
+
+
+}
+
+    .txtinput
+{
+    font-size: 20px;
+    padding-left: 25px;
+    border-radius: 50px;
+    
+    margin-left: 200px;
+}
+
+.label{
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 50px;
+    
+}
+.btn{
+    width: 150px;
+    font-size: large;
+    padding: 10px;
+    border: none;
+    background-color: #ffff00;
+    color:#0c0c0c;
+     font-weight: bold;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-top: 200px;
+    margin-left: 750px;
+}
+
+.coverimage{
+    padding: 10px;
+    margin-left: 680px;
+    margin-top: -170px;
+}

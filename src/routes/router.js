@@ -5,6 +5,8 @@ import AdminRoutes from './AdminRoutes';
 
 import Chat from '../pages/chat/Chat';
 import DailyWinnerView from '../pages/DailyWinnerView/DailyWinner';
+import DailyWinnerAdd from '../pages/DailyWinnerAdd/DailyWinnerAdd';
+
 
 
 
@@ -33,6 +35,12 @@ const router = createBrowserRouter([
         path: 'DWV',
         element: <DailyWinnerView/>,
     },
+
+    {
+        path: 'DWA',
+        element: <DailyWinnerAdd/>,
+    },
+
 
 
     
