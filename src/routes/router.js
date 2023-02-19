@@ -6,6 +6,7 @@ import AdminRoutes from './AdminRoutes';
 import Chat from '../pages/chat/Chat';
 import DailyWinnerView from '../pages/DailyWinnerView/DailyWinner';
 import DailyWinnerAdd from '../pages/DailyWinnerAdd/DailyWinnerAdd';
+import OrderList from '../pages/orderList/OrderList';
 
 
 
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
     {
         path: 'DWA',
         element: <DailyWinnerAdd/>,
+    },
+
+    {
+        path: 'OList',
+        element: <OrderList/>,
     },
 
 
