@@ -3,9 +3,18 @@ import Login from '../pages/auth/login/Login';
 import DashboardHome from '../pages/dashboard/DashboardHome';
 import AdminRoutes from './AdminRoutes';
 
+import Chat from '../pages/chat/Chat';
+import DailyWinnerView from '../pages/DailyWinnerView/DailyWinner';
+import DailyWinnerAdd from '../pages/DailyWinnerAdd/DailyWinnerAdd';
+import OrderList from '../pages/orderList/OrderList';
+import Order from '../pages/Order/Order'
+
+
+
+
 const router = createBrowserRouter([
     {
-        path: '/',
+        path: '/npm',
         element: <AdminRoutes />,
         children: [
             {
@@ -18,6 +27,36 @@ const router = createBrowserRouter([
         path: 'auth/login',
         element: <Login />,
     },
+
+    {
+        path: 'chat',
+        element: <Chat/>,
+    },
+
+    {
+        path: 'DWV',
+        element: <DailyWinnerView/>,
+    },
+
+    {
+        path: 'DWA',
+        element: <DailyWinnerAdd/>,
+    },
+
+    {
+        path: 'OList',
+        element: <OrderList/>,
+    },
+
+    {
+        path: 'order',
+        element: <Order/>,
+    },
+
+
+
+
+    
 ]);
 
 export default router;
