@@ -1,0 +1,93 @@
+.new {
+    width: 100%;
+    display: flex;
+  
+    .newContainer {
+      flex: 6;
+  
+      .topContainer {
+        
+        
+        padding: 10px;
+        margin: 20px;
+        display: flex;
+
+        
+  
+        
+  
+        
+         
+            
+  
+            
+            button {
+              width: 150px;
+              padding: 10px;
+              border: none;
+              background-color: #0085cc;
+              color: white;
+              font-weight: bold;
+              cursor: pointer;
+              margin-top: 10px;
+            }
+        
+        
+      }
+    }
+  }
+
+  .txtarea{
+    border-color: aqua;
+     padding-top: 75vh;
+     width: 100px;
+      
+  }  
+
+  .txt1{
+      color: rgb(10, 10, 10);
+      font-size: 18px;
+      padding-top: 0px;
+      padding-left: 10px;
+      background:local;
+      background-color: #FFEF9C;
+      margin-right: 0px;
+      
+      
+
+
+  }
+
+  
+  .txt2{
+    color: rgb(10, 10, 10);
+    font-size: 20px;
+  font-weight: 300;
+    align-items: center;
+    padding-left: 550px;
+    padding-top: 40px;
+
+
+}
+
+.App {
+  width: 100%;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  
+table {
+ 
+  width: 800px;
+  height: 100px;
+}
+  
+th {
+  border-bottom: 1px solid rgb(110, 110, 110);
+}
+  
+td {
+  text-align: center;
+}
