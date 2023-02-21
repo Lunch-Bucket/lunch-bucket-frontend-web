@@ -7,6 +7,7 @@ import TabBar from '../component/TabBar';
 import Feedback from '../pages/feedback/Feedback';
 import User from '../pages/dashboard/User';
 import MenuHome from '../pages/menu/MenuHome';
+import OrderHome from '../pages/order/OrderHome';
 
 import Chat from '../pages/chat/Chat';
 
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
     {
         path: 'menu',
         element: <MenuHome/>
+    },
+    {
+        path: 'order',
+        element: <OrderHome/>
     },
 
 
