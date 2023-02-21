@@ -5,6 +5,7 @@ import TabBar from "../../component/TabBar";
 
 export default function OrderHome()
 {
+    const [showModal, setShowModal] = useState(false);
     const [order, setOrder] = useState([
         {
             orderID: '0001',
@@ -38,7 +39,6 @@ export default function OrderHome()
  
     return(
         <div className="full-container">
-
                 <TopBar
                     title ="Orders"
                     action="Search Bar"
@@ -56,13 +56,20 @@ export default function OrderHome()
                         {order.map((data, id) => (<tr className="data-row"> 
                             <td><input type="checkbox"/> </td>
                             <td key={id}>{data.orderID}</td>
-                            <td>{data.meal+" "}</td>
-                            <td>{data.note}</td>
                             <td>{data.orderCount}</td>
                             <td>{data.userID}</td>
                             <td style={{maxLines:'1', overflow:'clip'}}>{data.address}</td>
+                            <td><button onClick={()=>{setShowModal(!showModal)}}>View</button></td>
                         </tr>))}
                     </table>
+                   { showModal && (<div className="order-modal">
+                        <div className="modal-header">
+                            <h3>#0001</h3>
+                        </div>
+                        <div className="modal-content">
+
+                        </div>
+                    </div>)}
                 </div>
         </div>
     );
