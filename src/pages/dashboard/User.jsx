@@ -3,7 +3,6 @@ import { useState } from "react";
 import "../feedback/FeedbackStyles.css";
 import TopBar from "../../component/TopBar";
 import TabBar from "../../component/TabBar";
-import SideBar from '../../component/Sidebar'
 
 export default function User()
 {
@@ -52,18 +51,15 @@ export default function User()
     },
 ])
     return(
-        <div className="fullContainer">
-            <div className="sideBar">
-                <SideBar/>
-            </div>
-            <div className="leftContainer">
+        <div className="full-container">
+
                 <TopBar
                     title ="Users"
                     action="Search Bar"
                 />
                 <TabBar action="1"/>
-                <div className="detailContainer">
-                    <table className="detailTable">
+                <div className="detail-container">
+                    <table className="detail-table">
                         {/* <tr>
                             <th>User Id</th>
                             <th>Delivery Detail</th>
@@ -71,7 +67,7 @@ export default function User()
                             <th>Order Count</th>
                             <th>Order Amount</th>
                         </tr> */}
-                        {user.map((data, id) => (<tr className="dataRow">
+                        {user.map((data, id) => (<tr className="data-row">
                             <td>{data.userID}</td>
                             <td>{data.deliveryAddress}</td>
                             <td>{data.contact}</td>
@@ -81,6 +77,5 @@ export default function User()
                     </table>
                 </div>
             </div>
-        </div>
     );
 }
