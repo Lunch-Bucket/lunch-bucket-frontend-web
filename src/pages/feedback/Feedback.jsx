@@ -46,7 +46,7 @@ export default function Feedback()
     return(
             <div className="full-container">
                 <TopBar
-                    title ="Feedback"
+                    title ="Feedbacks"
                     action="Search Bar"
                 />
                 {/* This tabBar is not used in Feedback screen - just for testing */}
