@@ -1,4 +1,6 @@
 import React from "react";
+import "@fontsource/poppins"; 
+import { FaStar } from "react-icons/fa";
 import { useState } from "react";
 import "./FeedbackStyles.css";
 import TopBar from "../../component/TopBar";
@@ -54,10 +56,10 @@ export default function Feedback()
                 <div className="detail-container">
                     <table className="detail-table">
                         {feedback.map((data, id) => (<tr className="data-row">
-                            <td>{data.user}</td>
+                            <td className="user">{data.user}</td>
                             <td>{data.description}</td>
-                            <td>{data.rating}</td>
-                            <td>{data.menu}</td>
+                            <td className="rating"> < FaStar className="starIcon"/>{data.rating}</td>
+                            <td> <button className="menu">View Order</button></td>
                             <td>{data.date}</td>
                         </tr>))}
                     </table>
