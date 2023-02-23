@@ -15,8 +15,6 @@
     margin-left: auto;
     margin-right: auto;
     width: 90%;
-
- 
 }
 
 .data-row{
@@ -29,31 +27,44 @@
     height: 5px;
 }
 
-.menu{
-    border-radius: 20px;
-    background-color: #FFE662;
-    border-style: calc();
-    border-color: #FFE662;
-    width: 100px;
-    height: 30px;
-    font-family: "Poppins";
-    box-shadow: none;
-   
-    
-}
+
 .starIcon{
     color: #FFE662;
     margin-right: 10px;
 }
 
 .user{
-    color: #565656;
-    
+    color: #565656;  
+}
 
-
+.description{
+    max-width:600px;
 }
 
 .rating{
     color: #666666;
 }
+
+.menu{
+    border-radius: 20px;
+    background-color: #FFE662;
+    border-style: none;
+    width: 100px;
+    height: 30px;
+    font-family: "Poppins";
+    display:flex;
+    align-items:center; 
+    display:table-cell; 
+    vertical-align: middle; 
+    justify-content:center;
+}
+
+
+
+@media screen and (min-width: 500px) {
+    
+    .full-container {
+        margin-left: 10px; 
+        margin-bottom: 10px;}
+  }
 
