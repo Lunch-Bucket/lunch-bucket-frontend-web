@@ -12,35 +12,35 @@ export default function Feedback()
     {
         user: '001',
         description: 'The food was good. ',
-        rating: '4',
+        rating: '4.0',
         menu: 'abcd',
         date: '12/02/2023'
     },
     {
         user: '001',
         description: 'The food was good.',
-        rating: '4',
+        rating: '4.5',
         menu: 'abcd',
         date: '12/02/2023'
     },
     {
         user: '001',
         description: 'The food was good.',
-        rating: '4',
+        rating: '4.5',
         menu: 'abcd',
         date: '12/02/2023'
     },
     {
         user: '001',
         description: 'The food was good.',
-        rating: '4',
+        rating: '4.5',
         menu: 'abcd',
         date: '12/02/2023'
     },
     {
         user: '001',
         description: 'The food was good.',
-        rating: '4',
+        rating: '4.5',
         menu: 'abcd',
         date: '12/02/2023'
     },
@@ -60,7 +60,7 @@ export default function Feedback()
                             <td className="description">{data.description}</td>
                             <td className="rating"> < FaStar className="starIcon"/>{data.rating}</td>
                             <td> <button className="menu">View Order</button></td>
-                            <td>{data.date}</td>
+                            <td className="date">{data.date}</td>
                         </tr>))}
                     </table>
                 </div>
