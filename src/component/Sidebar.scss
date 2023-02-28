@@ -1,58 +1,91 @@
-.Sidebar {
-    flex: 1;
-    //border-right: 0.5px solid rgb(230, 227, 227);
-    min-height: 100vh;
-    background-color: #1f90ce;
-  
+.SideBar {
+          flex: 1;
+          //border-right: 0.5px solid rgb(230, 227, 227);
+          min-height: 100vh;
+          width: 35vh;
+          border-color: #161612;
+          background-color: #f2f3aecc;
+          ;
+          
+
     .top {
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  
-    
-    .center {
-      padding-left: 10px;
-      padding-top: 10px;
-  
-      ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-  
-        .title {
-          font-size: 10px;
-          font-weight: bold;
-          color: #fff;
-          margin-top: 15px;
-          margin-bottom: 5px;
-        }
-  
-        li {
+          height: 50px;
           display: flex;
           align-items: center;
-          padding: 5px;
+          justify-content: center;
+         }
+
+    .logo {
+          font-size: 25px;
+          font-weight: bold;
+          margin-top: 100px;
+          padding-left: 20px;
+          color: #630A10;
+          padding-bottom: 50px;
+          font-family: "Poppins";
+          font-size: 24px;
+          font-weight: 600;
+          line-height: 36px;
+          letter-spacing: 0em;
+          text-align: center;
+
+          }
+    .chtbtn{
+          width: 150px;
+          font-size: large;
+          padding: 10px;
+          border: none;
+          background-color: #ffff00;
+          color:#0c0c0c;
+          font-weight: bold;
           cursor: pointer;
-  
-          &:hover {
-            background-color: #0085cc;
+          overflow: hidden;
+          border-radius: 10px;
+          margin-top: 25px;
           }
+
   
-          .icon {
-            font-size: 18px;
-            color: #ccc;
-          }
-  
-          span{
-              font-size: 13px;
-              font-weight: 600;
-              color: #ccc;
-              margin-left: 10px;
-          }
+    .center {
+          padding-left: 20px;
+          padding-top: 15px;
+
+    ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+
+    .title {
+     
+      color: #2B2B2B;
+      margin-top: 30px;
+      font-family: 'Poppins';
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 30px;
+      letter-spacing: 0em;
+      text-align: left;
+     
+      }
+
+      .title :hover:not(.active) {
+        background-color: #ffffff;
+        color: #dd1d5e;
+    }
+
+      li {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        
+
+      span{
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 10px;
         }
       }
     }
-  
-    
   }
+
+  
+}

@@ -1,4 +1,5 @@
 import "./Sidebar.scss";
+import "@fontsource/poppins"; 
 const Sidebar = () => {
     
    
@@ -6,10 +7,10 @@ const Sidebar = () => {
       <div className="SideBar">
         <div className="top">
          
-            <span className="logo">Lunch Bucket</span>
+            <span className="logo">LunchBucket</span>
           
         </div>
-        <hr />
+       
         <div className="center">
         <ul>
             <p className="title">Orders</p>
@@ -17,7 +18,8 @@ const Sidebar = () => {
             <p className="title">Users</p>
             <p className="title">Promotions</p>
             <p className="title">Daily Winner</p>
-            <p className="title">feed backs</p>
+            <p className="title">Feedbacks</p>
+            <p className="title">Chats</p>
         </ul>
         </div>
         
