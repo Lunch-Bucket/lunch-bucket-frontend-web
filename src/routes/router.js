@@ -8,6 +8,8 @@ import Feedback from '../pages/feedback/Feedback';
 import User from '../pages/dashboard/User';
 import MenuHome from '../pages/menu/MenuHome';
 import OrderHome from '../pages/order/OrderHome';
+import AddWinner from '../pages/winner/AddWinner';
+import Winner from '../pages/winner/Winner';
 
 import Chat from '../pages/chat/Chat';
 
@@ -55,6 +57,14 @@ const router = createBrowserRouter([
     {
         path: 'order',
         element: <OrderHome/>
+    },
+    {
+        path: 'winner',
+        element: <Winner/>
+    },
+    {
+        path: 'addWinner',
+        element: <AddWinner/>
     },
 
 

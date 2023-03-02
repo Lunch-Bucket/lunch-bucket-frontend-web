@@ -44,3 +44,11 @@
     width: 100%;
 }
 
+.form-label{
+    height: 10px;
+    width: 70px;
+}
+
+.form-input{
+    margin-left: 10px;
+}
