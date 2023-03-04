@@ -32,3 +32,14 @@
     padding: 1rem;
     background-color: rgb(150, 149, 148);
 }
+
+.add-menu-full-container{
+    width: auto;
+    height: auto;
+    margin: 5rem;
+    box-shadow: .1rem .1rem grey;
+}
+
+.add-menu-container{
+    display: flex;
+}

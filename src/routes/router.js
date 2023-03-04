@@ -7,6 +7,7 @@ import TabBar from '../component/TabBar';
 import Feedback from '../pages/feedback/Feedback';
 import User from '../pages/dashboard/User';
 import MenuHome from '../pages/menu/MenuHome';
+import AddMenu from '../pages/menu/AddMenu';
 import OrderHome from '../pages/order/OrderHome';
 import AddWinner from '../pages/winner/AddWinner';
 import Winner from '../pages/winner/Winner';
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
         element: <MenuHome/>
     },
     {
+        path: 'addmenu',
+        element: <AddMenu/>
+    },
+    {
         path: 'order',
         element: <OrderHome/>
     },
@@ -63,7 +68,7 @@ const router = createBrowserRouter([
         element: <Winner/>
     },
     {
-        path: 'addWinner',
+        path: 'addwinner',
         element: <AddWinner/>
     },
 

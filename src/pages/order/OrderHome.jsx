@@ -59,7 +59,7 @@ export default function OrderHome()
                         {order.map((data, id) => ( 
                         <div className="modal-detail-content">
                             <dl>
-                            <React.Fragment>
+                                <React.Fragment>
                                     <dt>Order ID: {data.orderID} </dt>
                                 </React.Fragment>
                                 <React.Fragment>

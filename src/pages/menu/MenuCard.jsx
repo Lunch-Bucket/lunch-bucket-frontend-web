@@ -21,7 +21,10 @@ export default function MenuCard()
         <div className="menucontainer">
           {menuList.map((item, id) => (
             <div className="cardContainer">
-                  <div className="menu-card-header"><h3>{item.name}</h3><span><AiFillEdit size={20} onClick={()=>{setEditabale(true)}}/><FaTrashAlt size={20}/></span></div>  
+                  <div className="menu-card-header">
+                    <h3>{item.name}</h3>
+                    <span><AiFillEdit size={20} onClick={()=>{setEditabale(true)}}/><FaTrashAlt size={20}/></span>
+                  </div>  
                   <div className="menu-card-content">
                     <h4 className="menu-card-content-item" contentEditable={editable}>{item.vege1}</h4>
                     <h4 className="menu-card-content-item" contentEditable={editable}>{item.vege2}</h4>
@@ -30,6 +33,7 @@ export default function MenuCard()
                     <h4 className="menu-card-content-item" contentEditable={editable}>{item.meat}</h4>
                     {editable && <button>Update</button>}
                  </div>
+                 <button>APPLY</button>
             </div>))}
         </div>
         </>
