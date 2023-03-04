@@ -24,26 +24,6 @@
     border-bottom: solid rgb(66, 61, 61) ;
 }
 
-.order-modal{
-    height: auto;
-    width: auto;
-    border-radius: 10px;
-    background-color: rgb(196, 196, 196);
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.modal-header{
-    height: 50px;
-    width: 100%;
-    border-bottom: solid black .1rem;
-}
-
-.modal-content{
-    height: 500px;
-    width: 100%;
-}
-
 .form-label{
     height: 10px;
     width: 70px;
