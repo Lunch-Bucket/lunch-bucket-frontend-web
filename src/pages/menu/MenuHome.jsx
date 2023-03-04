@@ -11,8 +11,7 @@ export default function MenuHome()
         <div className="full-container">
 
                 <TopBar
-                    title ="Menu"
-                    action="Search Bar"
+                    action={'Menu'}
                 />
                 <TabBar />
                 <div className="detail-container">
