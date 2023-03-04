@@ -5,7 +5,7 @@
 
 .cardContainer{
     height: auto;
-    width: 60%;
+    width: 90%;
     padding: 1%;
     margin-left: auto;
     margin-right: auto;
@@ -19,4 +19,16 @@
     justify-content: space-between;
     padding: 5px;
     background-color: antiquewhite;
+}
+.menu-card-content{
+    display: flex;
+    justify-content: space-between;
+    padding: 1px;
+
+}
+.menu-card-content-item{
+    min-width: 4rem;
+    overflow: clip;
+    padding: 1rem;
+    background-color: rgb(150, 149, 148);
 }

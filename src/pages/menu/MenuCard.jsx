@@ -1,12 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import "./MenuStyles.css";
-import { HiUpload } from "react-icons/hi";
+import { AiFillEdit } from "react-icons/ai";
 import { FaTrashAlt } from "react-icons/fa";
 
 export default function MenuCard()
 {   
-    const[expand, setExpand] = useState(false);
+    const[editable, setEditabale] = useState(false);
     const[menuList, setMenuList] = useState([
         {id: '0', name: 'Menu 1', vege1: "Pumpkin",vege2: 'Polos', vege3: 'Cashew', stew:'Fish stew', meat: 'Egg'},
         {id: '1', name: 'Menu 2', vege1: "Pumpkin",vege2: 'Polos', vege3: 'Cashew', stew:'Fish stew', meat: 'Egg'},
@@ -21,12 +21,15 @@ export default function MenuCard()
         <div className="menucontainer">
           {menuList.map((item, id) => (
             <div className="cardContainer">
-                  <div className="menu-card-header"><h3>{item.name}</h3><span><HiUpload size={20}/><FaTrashAlt size={20}/></span></div>  
-                    <p contentEditable={true}>{item.vege1}</p>
-                    <p contentEditable={true}>{item.vege2}</p>
-                    <p contentEditable={true}>{item.vege3}</p>
-                    <p contentEditable={true}>{item.stew}</p>
-                    <p contentEditable={true}>{item.meat}</p>
+                  <div className="menu-card-header"><h3>{item.name}</h3><span><AiFillEdit size={20} onClick={()=>{setEditabale(true)}}/><FaTrashAlt size={20}/></span></div>  
+                  <div className="menu-card-content">
+                    <h4 className="menu-card-content-item" contentEditable={editable}>{item.vege1}</h4>
+                    <h4 className="menu-card-content-item" contentEditable={editable}>{item.vege2}</h4>
+                    <h4 className="menu-card-content-item" contentEditable={editable}>{item.vege3}</h4>
+                    <h4 className="menu-card-content-item" contentEditable={editable}>{item.stew}</h4>
+                    <h4 className="menu-card-content-item" contentEditable={editable}>{item.meat}</h4>
+                    {editable && <button>Update</button>}
+                 </div>
             </div>))}
         </div>
         </>
