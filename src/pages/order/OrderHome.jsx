@@ -94,8 +94,7 @@ export default function OrderHome()
                                                 <li>{item.meat}</li>
                                             </ul>
                                         </td>
-                                        <td>2</td>
-                                        <td>400</td>
+                                        <td>{item.orderCount}</td>
                                     </tr>
                                 </table>
                             </div>
