@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import "../feedback/FeedbackStyles.css";
+import "./User.css";
 import TopBar from "../../component/TopBar";
 import TabBar from "../../component/TabBar";
 
@@ -60,19 +60,19 @@ export default function User()
                 <TabBar action="1"/>
                 <div className="detail-container">
                     <table className="detail-table">
-                        {/* <tr>
+                        { /*<tr>
                             <th>User Id</th>
                             <th>Delivery Detail</th>
                             <th>Contact</th>
                             <th>Order Count</th>
                             <th>Order Amount</th>
-                        </tr> */}
+    </tr>*/}
                         {user.map((data, id) => (<tr className="data-row">
-                            <td>{data.userID}</td>
-                            <td>{data.deliveryAddress}</td>
-                            <td>{data.contact}</td>
-                            <td>{data.orderCount}</td>
-                            <td>{data.orderAmount}</td>
+                            <td className="uid">{data.userID}</td>
+                            <td className="delivery">{data.deliveryAddress}</td>
+                            <td className="contact">{data.contact}</td>
+                            <td className="order">{data.orderCount}</td>
+                            <td className="total">{data.orderAmount}</td>
                         </tr>))}
                     </table>
                 </div>
