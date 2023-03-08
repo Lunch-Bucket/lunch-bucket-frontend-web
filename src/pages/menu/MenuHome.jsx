@@ -9,7 +9,6 @@ export default function MenuHome()
  
     return(
         <div className="full-container">
-
                 <TopBar
                     action={'Menu'}
                 />
