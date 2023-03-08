@@ -13,6 +13,7 @@ import AddWinner from '../pages/winner/AddWinner';
 import Winner from '../pages/winner/Winner';
 
 import Chat from '../pages/chat/Chat';
+import AddPromotion from '../pages/promotion/AddPromotion';
 
 
 const router = createBrowserRouter([
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
     {
         path: 'addwinner',
         element: <AddWinner/>
+    },
+    {
+        path: 'addPromotion',
+        element: <AddPromotion/>
     },
 
 
