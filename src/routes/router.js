@@ -14,6 +14,7 @@ import Winner from '../pages/winner/Winner';
 
 import Chat from '../pages/chat/Chat';
 import AddPromotion from '../pages/promotion/AddPromotion';
+import Promotion from '../pages/promotion/PromotionHome';
 
 
 const router = createBrowserRouter([
@@ -76,6 +77,11 @@ const router = createBrowserRouter([
         path: 'addPromotion',
         element: <AddPromotion/>
     },
+    {
+        path: 'promotion',
+        element: <Promotion/>
+    },
+
 
 
 
