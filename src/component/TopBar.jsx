@@ -1,14 +1,16 @@
 import React from "react";
 import "./Header.css";
+import AddButton from "./HeaderButton";
 
-export default function TopBar({title}, {action}){
+export default function TopBar({action}){
+
     return(
         <div className="container">
-            <div className="titleContainer">
-                <h2 className="pageTitle">{title}</h2>
+            <div className="title-container">
+            <h2 className="page-title">{action}</h2>
             </div>
-            <div className="actionContainer">
-                <h2>{action}</h2>
+            <div className="action-container">           
+                <AddButton title={action}/>
             </div>
         </div>
     );

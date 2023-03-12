@@ -7,8 +7,14 @@ import TabBar from '../component/TabBar';
 import Feedback from '../pages/feedback/Feedback';
 import User from '../pages/dashboard/User';
 import MenuHome from '../pages/menu/MenuHome';
+import AddMenu from '../pages/menu/AddMenu';
+import OrderHome from '../pages/order/OrderHome';
+import AddWinner from '../pages/winner/AddWinner';
+import Winner from '../pages/winner/Winner';
 
 import Chat from '../pages/chat/Chat';
+import AddPromotion from '../pages/promotion/AddPromotion';
+import Promotion from '../pages/promotion/PromotionHome';
 
 
 const router = createBrowserRouter([
@@ -51,6 +57,31 @@ const router = createBrowserRouter([
         path: 'menu',
         element: <MenuHome/>
     },
+    {
+        path: 'addmenu',
+        element: <AddMenu/>
+    },
+    {
+        path: 'order',
+        element: <OrderHome/>
+    },
+    {
+        path: 'winner',
+        element: <Winner/>
+    },
+    {
+        path: 'addwinner',
+        element: <AddWinner/>
+    },
+    {
+        path: 'addPromotion',
+        element: <AddPromotion/>
+    },
+    {
+        path: 'promotion',
+        element: <Promotion/>
+    },
+
 
 
 

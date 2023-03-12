@@ -1,0 +1,17 @@
+.form-label{
+    font-size: 16px;
+    padding-top: 1vw;
+}
+
+.form-input{
+    width: 20vw;
+}
+
+.form-input-file-background{
+    height: 100px;
+    width:200px;
+    border-radius: 5px;
+    background-color: aliceblue;
+    margin-left: auto;
+    margin-right: auto;
+}
