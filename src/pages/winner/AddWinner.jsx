@@ -53,7 +53,7 @@ export default function Winner()
                             <td className="form-input-file-background"> <input className="form-input-file" type='file'/></td>  
                         </tr>
                     </table> 
-                    <button type="submit" onSubmit={handleSubmit}>Submit</button>    
+                    <button className="btn" type="submit" onSubmit={handleSubmit}>Submit</button>    
                    </form>
                 </div>
             </div>
