@@ -1,4 +1,4 @@
-import "./Chat.scss";
+
 import Sidebar from "../../component/Sidebar"
 
 import React from "react";
