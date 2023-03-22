@@ -1,10 +1,9 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import "./Header.css";
+import "../header/Header.css";
 
 export default function TabBar({action}){
-
     const[state, setState] = useState(action);
     const[mealType, setMealType] = useState("Lunch");
 

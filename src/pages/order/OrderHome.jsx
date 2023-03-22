@@ -3,8 +3,6 @@ import "../feedback/FeedbackStyles.css";
 import "./OrderStyles.css";
 import { BsFillChatFill } from "react-icons/bs";
 
-import TopBar from "../../component/TopBar";
-import TabBar from "../../component/TabBar";
 
 export default function OrderHome()
 {
@@ -35,21 +33,21 @@ export default function OrderHome()
  
     return(
         <div className="full-container">
-                <TopBar
-                    title ="Orders"
-                    action="Search Bar"
-                />
-                <TabBar />
                 <div className="detail-container">
                     <table className="detail-table">
+                        <thead>
+
+                        </thead>
+                        <tbody>
                         {order.map((data, id) => (
-                            <tr className="data-row"> 
+                            <tr className="data-row" key={id}>
                                 <td><input type="checkbox"/> </td>
                                 <td key={id}>{data.orderID}</td>
                                 <td style={{maxLines:'1', overflow:'clip'}}>{data.price}</td>
                                 <td><button onClick={()=>{setShowModal(!showModal)}}>View</button></td>
                             </tr>
                         ))}
+                        </tbody>
                     </table>
                    { showModal && (
                         <div className="order-modal" onClick={()=>{setShowModal(!showModal)}}>

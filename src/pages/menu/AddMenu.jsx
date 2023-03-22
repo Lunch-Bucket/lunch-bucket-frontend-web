@@ -1,15 +1,11 @@
 import React from "react";
-import TopBar from "../../component/TopBar";
-import { BsPlusCircleFill } from "react-icons/bs";
+import {BsPlusCircleFill} from "react-icons/bs";
 
 export default function AddMenu()
 {
     return(
         <>
         <div className="full-container">
-            <TopBar
-                title={'Add Menu'}
-            />
             <div className="add-menu-container">
                 <div className="add-menu-row">
                         <h4>Vegetables</h4> 
