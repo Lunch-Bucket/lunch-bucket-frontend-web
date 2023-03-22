@@ -14,7 +14,7 @@ import Promotion from '../pages/promotion/PromotionHome';
 
 const router = createBrowserRouter([
     {
-        path: '/',
+        path: 'lunch-bucket-frontend-web',
         element: <AdminRoutes/>,
         children: [
             {
@@ -22,11 +22,11 @@ const router = createBrowserRouter([
                 element: <DashboardHome/>
             },
             {
-                path: '/feedback',
+                path: 'feedback',
                 element: <Feedback/>
             },
             {
-                path: '/user',
+                path: 'user',
                 element: <User/>
             },
             {

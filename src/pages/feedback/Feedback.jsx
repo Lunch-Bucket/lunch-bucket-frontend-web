@@ -51,7 +51,7 @@ export default function Feedback() {
 
                     </thead>
                     <tbody>
-                    {data.map((data, index) => (
+                    {data && data.map((data, index) => (
                         <tr className="data-row" key={index}>
                             <td className="user">{data.user}</td>
                             <td className="description">{data.description}</td>
