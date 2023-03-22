@@ -18,9 +18,20 @@
 }
 
 .title{
-    padding: 1.5rem 0 0 2rem;
+    padding: 0 0 0 2rem;
 }
 
 .title a{
+    display: block;
     text-decoration: none;
+    padding: 0.5rem 3rem 0.5rem 1rem;
+    border-radius: 10px;
+    width: 15vh;
+}
+
+.active{
+    background-color: #525252;
+    padding: 0.5rem 3rem 0.5rem 1rem;
+    color: white;
+    border-radius: 10px;
 }
