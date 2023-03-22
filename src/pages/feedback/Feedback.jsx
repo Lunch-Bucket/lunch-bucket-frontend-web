@@ -49,11 +49,8 @@ export default function Feedback()
     return(
             <div className="full-container">
                 <TopBar
-                    title ="Feedbacks"
-                    action="Search Bar"
+                    action="Feedbacks"
                 />
-                {/* This tabBar is not used in Feedback screen - just for testing */}
-                {/* <TabBar/> */}
                 <div className="detail-container">
                     <table className="detail-table">
                         {feedback.map((data, id) => (<tr className="data-row">
@@ -62,6 +59,18 @@ export default function Feedback()
                             <td className="rating"> < FaStar className="starIcon"/>{data.rating}</td>
                             <td> <button className="menu">View Order</button></td>
                             <td className="date">{data.date}</td>
+
+                                <div className="feedback-show-menu">
+                                    <div className="feedback-show-menu-item">
+                                        <table>
+                                            <tr>
+                                                <td>Meal</td>
+                                                <td>Items</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
                         </tr>))}
                     </table>
                 </div>
