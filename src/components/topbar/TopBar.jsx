@@ -1,6 +1,6 @@
 import React from "react";
-import "./Header.css";
-import AddButton from "./HeaderButton";
+import "../header/Header.css";
+import AddButton from "../header/HeaderButton";
 
 export default function TopBar({action}){
 

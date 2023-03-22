@@ -1,22 +1,15 @@
-
-
-.Item1{
+.item1 {
   background-color: #FFFF99;
-  padding:30rem,
-  
-  
-
+  padding: 30rem;
 }
-.Item2{
-  padding-top: 0;
-  padding-bottom: 0;
+
+.item2 {
   background-color: #FFFFFF;
-  padding:12.5rem,
-
+  padding: 12.5rem;
 }
-.Container{
+
+.Container {
   display: flex;
-  
 }
 
 .form{
@@ -29,23 +22,20 @@
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
   background-color: #FFFFFF;
-  
-  
 }
 
-.stylebox{
+.style-box {
   box-sizing: border-box;
   margin-top: 2000%;
   margin-left: -1400%;
-    padding-top: 525%;
-    padding-bottom: 2650%;
-    padding-left: 300%;
-    padding-inline-start: 25%;
-    background-color:hsl(60, 100%, 50%);
-    border: 1px solid hsl(60, 100%, 50%);
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-  
+  padding-top: 525%;
+  padding-bottom: 2650%;
+  padding-left: 300%;
+  padding-inline-start: 25%;
+  background-color: hsl(60, 100%, 50%);
+  border: 1px solid hsl(60, 100%, 50%);
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
 }
 .input{
   border: 1px solid hsl(229, 100%, 50%); 
@@ -54,13 +44,12 @@
   margin-bottom: 150%;
   margin-top: 100%;
   border-radius: 50px;
-      
 }
 .header{
   color: rgb(26, 10, 3);
 }
 
-.sbtbutton{
-  border: 1px solid hsl(229, 100%, 50%); 
-  background-color:hsl(60, 100%, 50%) ;
+.sbt-button {
+  border: 1px solid hsl(229, 100%, 50%);
+  background-color: hsl(60, 100%, 50%);
 }

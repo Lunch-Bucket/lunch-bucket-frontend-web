@@ -1,15 +1,9 @@
 import React from "react";
-import "@fontsource/poppins"; 
-import { FaStar } from "react-icons/fa";
-import { useState } from "react";
+import "@fontsource/poppins";
+import {FaStar} from "react-icons/fa";
 import "./FeedbackStyles.css";
 
-import TopBar from "../../component/TopBar";
-import TabBar from "../../component/TabBar";
-
-export default function Feedback()
-{
-    const [feedback, setFeedback] = useState([
+const data = [
     {
         user: '001',
         description: 'The food was good. ',
@@ -45,26 +39,31 @@ export default function Feedback()
         menu: 'abcd',
         date: '12/02/2023'
     },
-])
-    return(
-            <div className="full-container">
-                <TopBar
-                    title ="Feedbacks"
-                    action="Search Bar"
-                />
-                {/* This tabBar is not used in Feedback screen - just for testing */}
-                {/* <TabBar/> */}
-                <div className="detail-container">
-                    <table className="detail-table">
-                        {feedback.map((data, id) => (<tr className="data-row">
+];
+
+export default function Feedback() {
+    return (
+
+        <div className="full-container">
+            <div className="detail-container">
+                <table className="detail-table">
+                    <thead>
+
+                    </thead>
+                    <tbody>
+                    {data.map((data, index) => (
+                        <tr className="data-row" key={index}>
                             <td className="user">{data.user}</td>
                             <td className="description">{data.description}</td>
-                            <td className="rating"> < FaStar className="starIcon"/>{data.rating}</td>
-                            <td> <button className="menu">View Order</button></td>
+                            <td className="rating">< FaStar className="starIcon"/>{data.rating}</td>
+                            <td>
+                                <button className="menu">View Order</button>
+                            </td>
                             <td className="date">{data.date}</td>
                         </tr>))}
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
+        </div>
     );
 }
