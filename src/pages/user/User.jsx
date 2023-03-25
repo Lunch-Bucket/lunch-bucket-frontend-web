@@ -3,6 +3,14 @@ import "./User.css";
 
 const data = [
     {
+        userID: 'User Id',
+        deliveryAddress: 'Delivery Detail',
+        contact: 'Contact',
+        orderCount: 'Order Count',
+        orderAmount: 'Order Amount'
+    },
+
+    {
         userID: '001',
         deliveryAddress: '22/1, Temple Rd, Colombo 07',
         contact: '0772345674',
@@ -52,6 +60,8 @@ export default function User() {
         <div className="full-container">
             <div className="detail-container">
                 <table className="detail-table">
+                    <h1 className="title">Users</h1>
+                    <hr/>
                     <thead>
                     { /*<tr>
                             <th>User Id</th>

@@ -2,19 +2,48 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    background-color: #FFE662;
+    background-color: #f8f6ef;
+    color:#000000;
     min-height: 100vh;
-    width: 16vw;
+    width: 18vw;
     position: fixed;
 }
 
 .top{
     font-size: 1.3rem;
-    padding: 3rem 0 0 2rem;
+    padding: 2rem 2rem 2rem 2rem;
+    text-align: center;
+    
 }
 
 .logo a {
     text-decoration: none;
+    color:#630A10;
+    font-family: Poppins;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: center;
+    margin-left: 10px;
+    padding-top: 10px;
+    margin-bottom: 100px;
+
+}
+
+
+.center{
+    font-family: Poppins;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: left;
+    color:#000000;
+    margin-left: 10px;
+
+    
+
 }
 
 .title{
@@ -30,8 +59,10 @@
 }
 
 .active{
-    background-color: #525252;
+    background-color: #FFEF9C;
     padding: 0.5rem 3rem 0.5rem 1rem;
-    color: white;
-    border-radius: 10px;
+    color: #2B2B2B;
+    border-radius: 10dp;
+    border: 4dp shadow black; 
+    
 }

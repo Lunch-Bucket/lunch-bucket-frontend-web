@@ -47,8 +47,9 @@ export default function Feedback() {
         <div className="full-container">
             <div className="detail-container">
                 <table className="detail-table">
+                <h1 className="title">Feedbacks</h1>
                     <thead>
-
+                
                     </thead>
                     <tbody>
                     {data && data.map((data, index) => (
