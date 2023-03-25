@@ -1,5 +1,13 @@
+.full-container{
+    margin-left: 100px;
+}
+.detail-container{
+    margin-top: 50px;
+    margin-left: 40px;
+}
+
 .form-label{
-    font-size: 16px;
+    font-size: 20px;
     padding-top: 1vw;
     margin-bottom: 20px;
     margin-top:  35px;
@@ -7,13 +15,13 @@
 }
 
 .form-input{
-    height: 25px;
-    width: 227px;
-    left: 210px;
-    top: 0px;
+    height: 30px;
+    width: 237px;
+    left: 220px;
+    top: 10px;
     border-radius: 20px;
     margin-bottom: 20px;
-    margin-top:  35px;;
+    margin-top:  45px;;
     margin-left: 100px;
 
 }
@@ -28,12 +36,13 @@
 }
 .btn{
     background-color: #FFE662;
-    height: 35px;
-    width: 130px;
+    height: 45px;
+    width: 140px;
     border-style: hidden;
     border-radius: 30px;
     font-family: Poppins;
     font-weight: bold;
+    font-size: 20px;
     margin-top: 80px;
     margin-left: 700px;
 }

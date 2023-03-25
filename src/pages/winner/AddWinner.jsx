@@ -17,6 +17,8 @@ export default function Winner()
 
     return(
             <div className="full-container">
+                <h1>Daily winner</h1>
+                <hr/>
                 <div className="detail-container">
                    <form>
                     <table>
