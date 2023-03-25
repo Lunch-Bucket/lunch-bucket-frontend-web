@@ -1,6 +1,7 @@
 .full-container{
     background-color: rgba(255, 255, 255, 0.98);
     font-family: "Poppins";
+    width: 80%; 
 }
 
 .detail-container{

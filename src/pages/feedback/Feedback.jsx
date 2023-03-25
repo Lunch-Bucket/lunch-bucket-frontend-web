@@ -45,9 +45,11 @@ export default function Feedback() {
     return (
 
         <div className="full-container">
+            <h1 className="title">Feedbacks</h1>
+            <hr/>
             <div className="detail-container">
                 <table className="detail-table">
-                <h1 className="title">Feedbacks</h1>
+                
                     <thead>
                 
                     </thead>

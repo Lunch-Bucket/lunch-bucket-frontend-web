@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../winner/WinnerStyles.css";
+import "./AddPromotion.css";
 
 export default function AddPromotion()
 {
@@ -17,6 +17,13 @@ export default function AddPromotion()
 
     return(
             <div className="full-container">
+                 <h2>Add New Promotion</h2>
+                <hr/>
+                <div className="nameSpace">
+                    <p className="promoName">Promotion#010</p>
+                   
+                </div>
+                <hr/>
                 <div className="detail-container">
                    <form>
                        <table>
@@ -31,7 +38,7 @@ export default function AddPromotion()
                                </td>
                            </tr>
                            <tr>
-                               <td><label className="form-label" htmlFor="">Valid Period</label></td>
+                               <td><label className="form-label" htmlFor="">Valid from</label></td>
                                <td>
                                    <input className="form-input" type='date'
                                           value={validFromDate}
@@ -56,7 +63,7 @@ export default function AddPromotion()
                            </tr>
                            </tbody>
                     </table> 
-                    <button type="submit" onSubmit={handleSubmit}>Submit</button>    
+                    <button className="btn" type="submit" onSubmit={handleSubmit}>Submit</button>    
                    </form>
                 </div>
             </div>
