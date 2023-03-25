@@ -58,10 +58,11 @@ export default function User() {
 
     return (
         <div className="full-container">
+            <h1>Users</h1>
+            <hr/>
             <div className="detail-container">
                 <table className="detail-table">
-                    <h1 className="title">Users</h1>
-                    <hr/>
+                   
                     <thead>
                     { /*<tr>
                             <th>User Id</th>

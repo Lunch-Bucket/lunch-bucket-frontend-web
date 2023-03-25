@@ -1,20 +1,24 @@
 .full-container{
     background-color: rgba(255, 255, 255, 0.98);
+    width: 80%;
+    
 }
 
 .detail-container{
     height: fit-content;
     width: 80%;
+    margin-right:50px;
+    padding-right: 50px;
 }
 
 .detail-table{
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
+    
+    margin-right:50px;
+    width: 80%;
 }
 
 .data-row{
-    padding: 2rem;
+    
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -24,10 +28,6 @@
     align-items: center;
 }
 
-.title{
-    align-items: center;
-    margin-left: 10px;
-}
 
 .starIcon{
     color: #FFE662;
