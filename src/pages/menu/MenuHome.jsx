@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../menu/MenuStyles.css";
-import {BsPlusCircleFill} from "react-icons/bs";
+import {BsPlusCircleFill,BsFillCheckCircleFill} from "react-icons/bs";
 
 export default function MenuHome() {
     const[mealType, setmealType] = useState(0)
@@ -50,7 +50,7 @@ export default function MenuHome() {
                         <h3>Vegetables</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddLunchVege(true)}}/>
                     </div> 
                         {lunchMenuList.map((data,id)=>( <ul>
-                          {data.VegeList.map((item,id)=>( <li>{item}</li>))}
+                          {data.VegeList.map((item,id)=>( <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addLunchVege && 
                           <li className="menu-list-add-input">
                             <input type="text" /><button>ADD</button>
@@ -64,7 +64,7 @@ export default function MenuHome() {
                         <h3>Stew</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddLunchStew(true)}}/>
                     </div>
                         {lunchMenuList.map((data,id)=>( <ul>
-                          {data.StewList.map((item,id)=>( <li>{item}</li>))}
+                          {data.StewList.map((item,id)=>(  <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addLunchStew && 
                           <li>
                             <input type="text" /><button>ADD</button>
@@ -78,7 +78,7 @@ export default function MenuHome() {
                         <h3>Meat</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddLunchMeat(true)}}/>
                     </div>
                         {lunchMenuList.map((data,id)=>( <ul>
-                          {data.MeatList.map((item,id)=>( <li>{item}</li>))}
+                          {data.MeatList.map((item,id)=>( <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addLunchMeat && 
                           <li>
                             <input type="text" /><button>ADD</button>
@@ -95,7 +95,7 @@ export default function MenuHome() {
                         <h3>Vegetables</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddDinnerVege(true)}}/>
                     </div> 
                         {dinnerMenuList.map((data,id)=>( <ul>
-                          {data.VegeList.map((item,id)=>( <li>{item}</li>))}
+                          {data.VegeList.map((item,id)=>(  <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addDinnerVege && 
                           <li>
                             <input type="text" /><button>ADD</button>
@@ -109,7 +109,7 @@ export default function MenuHome() {
                         <h3>Stew</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddDinnerStew(true)}}/>
                     </div>
                         {dinnerMenuList.map((data,id)=>( <ul>
-                          {data.StewList.map((item,id)=>( <li>{item}</li>))}
+                          {data.StewList.map((item,id)=>( <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addDinnerStew && 
                           <li>
                             <input type="text" /><button>ADD</button>
@@ -123,7 +123,7 @@ export default function MenuHome() {
                         <h3>Meat</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddDinnerMeat(true)}}/>
                     </div>
                         {dinnerMenuList.map((data,id)=>( <ul>
-                          {data.MeatList.map((item,id)=>( <li>{item}</li>))}
+                          {data.MeatList.map((item,id)=>(  <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addDinnerMeat && 
                           <li>
                             <input type="text" /><button>ADD</button>
