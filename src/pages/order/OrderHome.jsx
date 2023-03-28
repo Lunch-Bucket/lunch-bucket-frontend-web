@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "../feedback/FeedbackStyles.css";
 import "./OrderStyles.css";
 import { BsFillChatFill } from "react-icons/bs";
-
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 export default function OrderHome()
 {
@@ -19,11 +19,11 @@ export default function OrderHome()
                 },
             menuInfo:
             ([
-                {id: '1', name: 'Menu 1', vege1: "Pumpkin",vege2: 'Polos', vege3: 'Cashew', stew:'Fish stew', meat: 'Egg', orderCount:'4'},
-                {id: '2', name: 'Menu 1', vege1: "Pumpkin",vege2: 'Polos', vege3: 'Cashew', stew:'Fish stew', meat: 'Egg', orderCount:'4'},
-                {id: '3', name: 'Menu 1', vege1: "Pumpkin",vege2: 'Polos', vege3: 'Cashew', stew:'Fish stew', meat: 'Egg', orderCount:'4'},
-                {id: '4', name: 'Menu 1', vege1: "Pumpkin",vege2: 'Polos', vege3: 'Cashew', stew:'Fish stew', meat: 'Egg', orderCount:'4'},
-                {id: '5', name: 'Menu 1', vege1: "Pumpkin",vege2: 'Polos', vege3: 'Cashew', stew:'Fish stew', meat: 'Egg', orderCount:'4'},
+                {id: '1', name: 'Menu 1', vege1: "Pumpkin",vege2: 'Polos', vege3: 'Cashew', stew:'Fish stew', meat: 'Egg', orderCount:'4', mealPrice:'430'},
+                {id: '2', name: 'Menu 1', vege1: "Pumpkin",vege2: 'Polos', vege3: 'Cashew', stew:'Fish stew', meat: 'Egg', orderCount:'4', mealPrice:'400'},
+                {id: '3', name: 'Menu 1', vege1: "Pumpkin",vege2: 'Polos', vege3: 'Cashew', stew:'Fish stew', meat: 'Egg', orderCount:'4', mealPrice:'400'},
+                {id: '4', name: 'Menu 1', vege1: "Pumpkin",vege2: 'Polos', vege3: 'Cashew', stew:'Fish stew', meat: 'Egg', orderCount:'4', mealPrice:'400'},
+                {id: '5', name: 'Menu 1', vege1: "Pumpkin",vege2: 'Polos', vege3: 'Cashew', stew:'Fish stew', meat: 'Egg', orderCount:'4', mealPrice:'400'},
             ]),
             price: '1200',
             note: 'Special Notes: Hi, I would like to have the 2 meals packed seperately.',
@@ -70,31 +70,34 @@ export default function OrderHome()
                                     <dt>Special Notes: {data.note}</dt>
                                 </React.Fragment>
                             </dl>
+                            
                         </div>
                         ))}
                         <div >
                         {order.map((data, id) => (
                             <div className="modal-menu-content">
+                                <div className="modal-detail-content-nav">
+                                    <IoIosArrowBack/>1 of 3<IoIosArrowForward/>
+                                </div>
                             {data.menuInfo.map((item, id) => ( 
                             <div className="modal-menu-content-card">
-                                <table>
-                                    <tr>
+                                
+                                    <div className="modal-menu-content-card-column-element">
                                         <th>Meal</th><th>Item</th><th>Quantity</th><th>Price(Rs.)</th>
-                                    </tr>
-                                    <tr>
-                                        <td>{item.name}</td>
-                                        <td>
-                                            <ul>
-                                                <li>{item.vege1}</li>
-                                                <li>{item.vege2}</li>
-                                                <li>{item.vege3}</li>
-                                                <li>{item.stew}</li>
-                                                <li>{item.meat}</li>
-                                            </ul>
-                                        </td>
-                                        <td>{item.orderCount}</td>
-                                    </tr>
-                                </table>
+                                    </div>
+                                    <div className="modal-menu-content-card-column-element">
+                                        <h4 >{item.name}</h4>
+                                        <ul >
+                                            <li>{item.vege1}</li>
+                                            <li>{item.vege2}</li>
+                                            <li>{item.vege3}</li>
+                                            <li>{item.stew}</li>
+                                            <li>{item.meat}</li>
+                                        </ul>
+                                        <h5 style={{marginRight:'8vw'}}>{item.orderCount}</h5>
+                                        <h5 style={{marginRight:'6vw'}}>{item.mealPrice}</h5>
+                                    </div>
+                              
                             </div>
                             ))}
                             </div>
