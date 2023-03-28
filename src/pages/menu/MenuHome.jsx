@@ -40,6 +40,9 @@ export default function MenuHome() {
      ])
     return (
         <div className="full-container">
+            <div className="menu-title">
+              <h1 className="menu-title-text">Menu</h1>
+            </div>
             <div className="menu-tab-bar">
                 <button className="menu-tab-bar-btn" onClick={(e)=>{setmealType(0)}}>Lunch</button>
                 <button className="menu-tab-bar-btn" onClick={(e)=>{setmealType(1)}}>Dinner</button>
