@@ -82,3 +82,12 @@
     display: flex;
     justify-content: space-between;
 }
+
+.modal-menu-content-card-column-element{
+    margin-right: 20px;
+}
+
+.modal-detail-content-nav{
+    position: absolute;
+    margin-left: 45%;
+}
