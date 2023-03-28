@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../menu/MenuStyles.css";
-import {BsPlusCircleFill,BsFillCheckCircleFill} from "react-icons/bs";
+import {BsPlusCircleFill} from "react-icons/bs";
+import {FaTrashAlt} from "react-icons/fa";
 
 export default function MenuHome() {
     const[mealType, setmealType] = useState(0)
@@ -53,7 +54,12 @@ export default function MenuHome() {
                         <h3>Vegetables</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddLunchVege(true)}}/>
                     </div> 
                         {lunchMenuList.map((data,id)=>( <ul>
-                          {data.VegeList.map((item,id)=>( <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
+                          {data.VegeList.map((item,id)=>( 
+                            <li className="menu-detail-list-item">
+                              <div className="menu-detail-list-item-name">{item}</div>
+                              <div className="menu-detail-list-item-trash"><FaTrashAlt/></div>
+                            </li>
+                            ))}
                           {addLunchVege && 
                           <li className="menu-list-add-input">
                             <input type="text" /><button>ADD</button>

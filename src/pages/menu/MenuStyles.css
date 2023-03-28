@@ -91,3 +91,23 @@
     position: absolute;
     margin-left: 45%;
 }
+
+.menu-detail-list-item{
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu-detail-list-item-name{
+    width: 90%;
+}
+
+.menu-detail-list-item-name:hover + .menu-detail-list-item-trash {
+    opacity: 1;
+}
+
+.menu-detail-list-item-trash{
+    opacity: 0;
+}
+.menu-detail-list-item-trash:hover{
+    opacity: 1;
+}
