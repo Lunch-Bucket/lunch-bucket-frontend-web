@@ -43,15 +43,18 @@ export default function MenuHome() {
         <div className="full-container">
             <div className="menu-title">
               <h1 className="menu-title-text">Menu</h1>
+              
             </div>
+            <hr/>
             <div className="menu-tab-bar">
                 <button className="menu-tab-bar-btn" onClick={(e)=>{setmealType(0)}}>Lunch</button>
                 <button className="menu-tab-bar-btn" onClick={(e)=>{setmealType(1)}}>Dinner</button>
             </div>
+            <hr/> 
            {mealType===0 && <div className="menu-detail-content">
                 <div className="menu-detail-list">
                     <div className="menu-detail-list-title">
-                        <h3>Vegetables</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddLunchVege(true)}}/>
+                        <h3>Vegetables</h3><div className="menu-detail-list-title-icon"><BsPlusCircleFill size={30}  onClick={(e)=>{setAddLunchVege(true)}}/></div>
                     </div> 
                         {lunchMenuList.map((data,id)=>( <ul>
                           {data.VegeList.map((item,id)=>( 
@@ -70,7 +73,7 @@ export default function MenuHome() {
                 </div>
                 <div className="menu-detail-list">
                     <div className="menu-detail-list-title">
-                        <h3>Stew</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddLunchStew(true)}}/>
+                        <h3>Stew</h3><div className="menu-detail-list-title-icon"><BsPlusCircleFill size={30}  onClick={(e)=>{setAddLunchVege(true)}}/></div>
                     </div>
                         {lunchMenuList.map((data,id)=>( <ul>
                           {data.StewList.map((item,id)=>(  <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
@@ -84,7 +87,7 @@ export default function MenuHome() {
                 </div>
                 <div className="menu-detail-list">
                     <div className="menu-detail-list-title">
-                        <h3>Meat</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddLunchMeat(true)}}/>
+                        <h3>Meat</h3><div className="menu-detail-list-title-icon"><BsPlusCircleFill size={30}  onClick={(e)=>{setAddLunchVege(true)}}/></div>
                     </div>
                         {lunchMenuList.map((data,id)=>( <ul>
                           {data.MeatList.map((item,id)=>( <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
@@ -101,13 +104,14 @@ export default function MenuHome() {
            {mealType===1 && <div className="menu-detail-content">
                 <div className="menu-detail-list">
                     <div className="menu-detail-list-title">
-                        <h3>Vegetables</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddDinnerVege(true)}}/>
+                        <h3>Vegetables</h3><div className="menu-detail-list-title-icon"><BsPlusCircleFill  size={30} onClick={(e)=>{setAddLunchVege(true)}}/></div>
                     </div> 
                         {dinnerMenuList.map((data,id)=>( <ul>
-                          {data.VegeList.map((item,id)=>(  <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
+                          {data.VegeList.map((item,id)=>( <li>{item}</li>))} 
                           {addDinnerVege && 
                           <li>
-                            <input type="text" /><button>ADD</button>
+                            <input type="text" className="menu-detail-list-add" /><button>ADD</button>
+                           
                           </li>
                           }
                         </ul>
@@ -115,7 +119,7 @@ export default function MenuHome() {
                 </div>
                 <div className="menu-detail-list">
                     <div className="menu-detail-list-title">
-                        <h3>Stew</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddDinnerStew(true)}}/>
+                        <h3>Stew</h3><div className="menu-detail-list-title-icon"><BsPlusCircleFill size={30}  onClick={(e)=>{setAddLunchVege(true)}}/></div>
                     </div>
                         {dinnerMenuList.map((data,id)=>( <ul>
                           {data.StewList.map((item,id)=>( <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
@@ -129,7 +133,7 @@ export default function MenuHome() {
                 </div>
                 <div className="menu-detail-list">
                     <div className="menu-detail-list-title">
-                        <h3>Meat</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddDinnerMeat(true)}}/>
+                        <h3>Meat</h3><div className="menu-detail-list-title-icon"><BsPlusCircleFill size={30}  onClick={(e)=>{setAddLunchVege(true)}}/></div>
                     </div>
                         {dinnerMenuList.map((data,id)=>( <ul>
                           {data.MeatList.map((item,id)=>(  <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
