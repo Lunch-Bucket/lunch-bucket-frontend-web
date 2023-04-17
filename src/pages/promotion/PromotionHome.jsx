@@ -99,9 +99,10 @@ export default function PromotionHome() {
                     <div  key={index}>
                         <div className="promotion-content-display-title">
                                 <h4 style={{textDecoration:'underline'}}>Promotion #{item.id}</h4>
-                                <div>
+                                <div style={{display:"flex"}}>
                                     <AiFillEdit size={20} className="promotion-content-display-title-icon"/>
                                     <FaTrashAlt size={20} className="promotion-content-display-title-icon"/>
+                                    <button className="promotion-content-display-title-icon apply-btn">APPLY</button>
                                 </div>
                         </div>
                         <div>
