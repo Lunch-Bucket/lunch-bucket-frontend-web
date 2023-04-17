@@ -1,0 +1,50 @@
+.container{
+    height: 100%;
+    width: 50%;
+    margin: 3rem;
+}
+
+/* Common header styles */
+.header-title-bar{
+    position: absolute;
+    height: 13%;
+    width: 75%;
+    top: 0;
+    margin-left: .5rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid grey .2rem;
+}
+
+.header-title-bar-text{
+    padding-left: 20px;
+}
+
+.header-line{
+    width: 100%;
+}
+
+.header-add-button{
+    padding: 1rem;
+    background-color: #FFE662;
+    border: none;
+    margin-top: 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(49, 20, 20);
+    margin: .5rem 1rem .5rem 0rem;
+}
+
+
+.header-add-button-text{
+    font-weight: 700;
+    font-size: 14px;
+    padding-top: 0;
+}
+
+.header-add-button:hover{
+    opacity: 0.7;
+}
