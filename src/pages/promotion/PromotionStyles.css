@@ -1,14 +1,56 @@
+.promotion-card-display::-webkit-scrollbar {
+    display: none;
+  }
+
+
 .promotion-card-display{
+    position: absolute;
     display: inline-flex;
     overflow-x: scroll;
-    height: 300px;
-    width: 100%;
+    margin-top:8%;
+    height: 35%;
+    width: 75%;
+    border-bottom: solid grey .1rem;
 }
 
 .promotion-card{
     margin-left: 2vw;
-    height: 200px;
-    width: 250px;
-    background-image: url('https://picsum.photos/id/237/200/300');
+    height: 80%;
+    width: 90%;
     border-radius: 20px;
+    box-shadow: 2px 1px grey;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.promotion-detail{
+    position: absolute;
+    margin-top: 28%;
+}
+
+.promotion-content-display-title{
+    height: 3rem;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.promotion-content-display-title-icon{
+    margin: 0.4rem;
+    padding: .5rem;
+    background-color: #FFE662;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.promotion-content-display-title-icon:hover{
+    opacity: 0.7;
+}
+
+.promotion-content-display-description{
+    display: flex;
+}
+
+.promotion-content-display-description-text{
+    min-width: 12rem;
 }
