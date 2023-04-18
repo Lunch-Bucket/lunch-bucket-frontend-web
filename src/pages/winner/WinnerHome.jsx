@@ -15,7 +15,7 @@ export default function WinnerHome()
     const[winnerForm, setWinnerForm] = useState(false);
     const[winnerDetail, seteWinnerDetail] = useState([
         {
-            name: 'Dilini Kulawansa',
+            name: 'Charith Asalanka',
             profileImgUrl: profileImg,
             orderCount: 13,
             totalAmount: 'Rs.'+ 5600,
@@ -67,30 +67,30 @@ export default function WinnerHome()
                         </>
                     }
                     { winnerForm &&
-                        <div className="add-winner-form">
-                            <div className="add-winner-form-item">
-                                <h4 className="add-winner-form-item-label-text">User ID</h4>
-                                <input className="add-winner-form-item-input" type="text" />
+                        <div className="add-form">
+                            <div className="add-form-item">
+                                <h4 className="add-form-item-label-text">User ID</h4>
+                                <input className="add-form-item-input" type="text" />
                             </div>
 
-                            <div className="add-winner-form-item">
-                                <h4 className="add-winner-form-item-label-text">Number of Meals</h4>
-                                <input className="add-winner-form-item-input" type="text" />
+                            <div className="add-form-item">
+                                <h4 className="add-form-item-label-text">Number of Meals</h4>
+                                <input className="add-form-item-input" type="text" />
                             </div>
 
-                            <div className="add-winner-form-item">
-                                <h4 className="add-winner-form-item-label-text">Prize</h4>
-                                <input className="add-winner-form-item-input" type="text" />
+                            <div className="add-form-item">
+                                <h4 className="add-form-item-label-text">Prize</h4>
+                                <input className="add-form-item-input" type="text" />
                             </div>
 
-                            <div className="add-winner-form-item">
-                                <h4 className="add-winner-form-item-label-text">Cover Image</h4>
-                                <input className="add-winner-form-item-input-img" type="file" />
+                            <div className="add-form-item">
+                                <h4 className="add-form-item-label-text">Cover Image</h4>
+                                <input className="addform-item-input-img" type="file" />
                             </div>
 
-                            <div className="add-winner-form-item-btn">
-                                <button className="add-winner-form-item-btn-submit cancel" onClick={(e)=>{setWinnerForm(false)}}>Cancel</button>
-                                <button className="add-winner-form-item-btn-submit" onClick={handleSubmit}>Submit</button>
+                            <div className="add-form-item-btn">
+                                <button className="add-form-item-btn-submit cancel" onClick={(e)=>{setWinnerForm(false)}}>Cancel</button>
+                                <button className="add-form-item-btn-submit" onClick={handleSubmit}>Submit</button>
                             </div>
 
                             <div style={{height:'5rem'}}></div>

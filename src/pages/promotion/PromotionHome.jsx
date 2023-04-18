@@ -3,7 +3,7 @@ import './PromotionStyles.css';
 import '../CommonStyles.css'
 import {AiFillEdit} from "react-icons/ai";
 import {FaTrashAlt} from "react-icons/fa";
-import {BsPlusCircleFill} from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 // Sample Images for promotion card
 import promo1 from '../../resources/images/sample/promotion1.jpg'
@@ -74,8 +74,9 @@ export default function PromotionHome() {
                     <h1 className="header-title-bar-text">
                         Promotion
                     </h1>
-
+                <Link to="/addPromotion">
                     <button className="header-add-button">Add Promotion</button>
+                </Link>
                 </div>
                 
 
