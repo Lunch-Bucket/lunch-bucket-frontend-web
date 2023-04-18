@@ -1,3 +1,8 @@
+.show-winner-detail-content::-webkit-scrollbar {
+    display: none;
+}
+
+
 .full-container{
     margin-left: 100px;
 }
@@ -52,3 +57,60 @@
 
 
 }
+
+/* Empty Winner Page Styles */
+.winner-detail-content{
+    height: 87%;
+    width: 100%;
+    top: 13%;
+}
+
+.add-winner-input-box{
+    height: 80%;
+    width: 80%;
+    border-radius: 7px;
+    margin-left: 50%;
+    margin-top: 40%;
+    background-color: rgba(223, 222, 222, 0.575);
+    cursor: pointer;
+}
+
+.add-winner-input-box-text{
+    text-align: center;
+    padding-top: 2rem;
+    color: #707070;
+}
+
+.add{
+    color: black;
+}
+
+
+/* Show Winner Styles */
+
+.show-winner-detail-content{
+    height: 75%;
+    width: 100%;
+    margin-top: 22%;
+    margin-left: 30%;
+    overflow-y: scroll;
+}
+
+.winner-detail-content-area{
+    text-align: center;
+}
+
+.winner-detail-content-img-profile{
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+
+}
+
+.winner-detail-content-img-gift{
+    height: 200px;
+    width: 260px;
+    object-fit: contain;
+    background-color: rgb(180, 178, 178);
+}
+
