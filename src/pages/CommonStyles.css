@@ -48,3 +48,78 @@
 .header-add-button:hover{
     opacity: 0.7;
 }
+
+
+/* Form styles */
+.add-form-item-input-img::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+
+.add-form{
+    position: absolute;
+    height: auto;
+    width: 50rem;
+    background-color: rgb(241, 239, 239);
+    left: 30%;
+    top: 20%;
+}
+
+.add-form-item{
+    display: flex;
+}
+.add-form-item-label-text{
+    min-width: 12rem;
+    padding-left: 5rem;
+}
+
+.add-form-item-input{
+    height: 2rem;
+    margin-top: 0.5rem;
+    width: 16rem;
+    border-radius: 5px;
+}
+.input-period{
+    width: 6rem;
+    margin-left: .2rem;
+}
+.input-description{
+    height: 6rem;
+}
+
+.add-form-item-input-img::before {
+    content: 'Choose File';
+    display: inline-block;
+    margin-top: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    background-color: white;
+    text-align: center;
+    padding: 3rem;
+}
+
+.add-form-item-btn{
+    float: right;
+    margin-right: 2rem;
+}
+.add-form-item-btn-submit{
+    font-weight: 600;
+    background-color:  #fcd204;
+    padding: .8rem;
+    border-radius: 4px;
+    border: none;
+}
+
+.cancel{
+    background-color: transparent;
+    border: solid black 1px;
+    margin-right: .8rem;
+}
+.add-form-item-btn-submit:hover{
+    opacity: 0.7;
+}
+
+/* Add Promo - Form Styles */
+.promo-id-map-content{
+    margin-top: 2rem;
+    text-align: center;
+}

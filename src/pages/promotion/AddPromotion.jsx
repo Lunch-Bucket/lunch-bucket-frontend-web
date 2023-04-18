@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import "./AddPromotion.css";
+import '../CommonStyles.css';
+import { Link } from "react-router-dom";
 
 export default function AddPromotion()
 {
@@ -16,56 +17,60 @@ export default function AddPromotion()
       }
 
     return(
-            <div className="full-container">
-                 <h2>Add New Promotion</h2>
-                <hr/>
-                <div className="nameSpace">
-                    <p className="promoName">Promotion#010</p>
-                   
+            <div className="container">
+                <div className="header-title-bar">
+                    <h1 className="header-title-bar-text">
+                        Add Promotion
+                    </h1>
                 </div>
-                <hr/>
+                
                 <div className="detail-container">
-                   <form>
-                       <table>
-                           <thead></thead>
-                           <tbody>
-                           <tr>
-                               <td><label className="form-label">Name</label></td>
-                               <td>
-                                   <input className="form-input" type='text'
-                                          value={name}
-                                          onChange={(e) => setName(e.target.value)}/>
-                               </td>
-                           </tr>
-                           <tr>
-                               <td><label className="form-label" htmlFor="">Valid from</label></td>
-                               <td>
-                                   <input className="form-input" type='date'
-                                          value={validFromDate}
-                                          onChange={(e) => setValidFromDate(e.target.value)}/> to
-                                   <input className="form-input" type='date'
-                                          value={validToDate}
-                                          onChange={(e) => setValidToDate(e.target.value)}/>
-                               </td>
-                           </tr>
-                           <tr>
-                               <td><label className="form-label" htmlFor="">Desription</label></td>
-                               <td>
-                                <textarea className="form-input" type='text'
-                                          value={description}
-                                          onChange={(e) => setDescription(e.target.value)}/>
-                               </td>
-                           </tr>
-                           <tr>
-                               <td><label className="form-label" htmlFor="">Cover Image</label></td>
-                               <td className="form-input-file-background"><input className="form-input-file"
-                                                                                 type='file'/></td>
-                           </tr>
-                           </tbody>
-                    </table> 
-                    <button className="btn" type="submit" onSubmit={handleSubmit}>Submit</button>    
-                   </form>
-                </div>
+     
+                    <div className="add-form">
+                            <div className="promo-id-map-content">
+                                <p className="promoName">Promotion#010</p> 
+                                <hr/>
+
+                            </div>
+                            <div className="add-form-item">
+                                <h4 className="add-form-item-label-text">Name</h4>
+                                <input className="add-form-item-input" type="text" />
+                            </div>
+
+                            <div className="add-form-item">
+                                <h4 className="add-form-item-label-text">Valid Period</h4>
+                                <div>
+                                    <input className="add-form-item-input input-period" type="date" />
+                                    <input className="add-form-item-input input-period" type="time" />
+                                    to
+                                    <input className="add-form-item-input input-period" type="date" />
+                                    <input className="add-form-item-input input-period" type="time" />
+                                </div>
+                            </div>
+
+                            <div className="add-form-item">
+                                <h4 className="add-form-item-label-text">Description</h4>
+                                <input className="add-form-item-input input-description" type="textarea" />
+                            </div>
+
+                            <div className="add-form-item">
+                                <h4 className="add-form-item-label-text">Cover Image</h4>
+                                <input className="add-form-item-input-img" type="file" />
+                            </div>
+
+                            <div className="add-form-item-btn">
+                              <Link to="/promotion"> 
+                                <button className="add-form-item-btn-submit cancel" onClick={null}>Cancel</button>
+                              </Link> 
+                                <button className="add-form-item-btn-submit" onClick={handleSubmit}>Submit</button>
+                            </div>
+
+                            <div style={{height:'5rem'}}></div>
+                            
+                        </div>
+                    
+                
+                    </div>
             </div>
     );
 }
