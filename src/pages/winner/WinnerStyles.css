@@ -2,6 +2,11 @@
     display: none;
 }
 
+.winner-container{
+    height: 75%;
+    width: 50%;
+    margin: 3rem;
+}
 
 .full-container{
     margin-left: 100px;
@@ -87,9 +92,8 @@
 
 
 /* Show Winner Styles */
-
 .show-winner-detail-content{
-    height: 75%;
+    height: 100%;
     width: 100%;
     margin-top: 22%;
     margin-left: 30%;
@@ -112,5 +116,66 @@
     width: 260px;
     object-fit: contain;
     background-color: rgb(180, 178, 178);
+}
+
+/* Add Winner Form Styles */
+
+.add-winner-form-item-input-img::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+
+.add-winner-form{
+    position: absolute;
+    height: auto;
+    width: 50rem;
+    background-color: rgb(241, 239, 239);
+    left: 30%;
+    top: 20%;
+}
+
+.add-winner-form-item{
+    display: flex;
+}
+.add-winner-form-item-label-text{
+    min-width: 12rem;
+    padding-left: 5rem;
+}
+
+.add-winner-form-item-input{
+    height: 2rem;
+    margin-top: 0.5rem;
+    width: 16rem;
+    border-radius: 5px;
+}
+.add-winner-form-item-input-img::before {
+    content: 'Choose File';
+    display: inline-block;
+    margin-top: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    background-color: white;
+    text-align: center;
+    padding: 3rem;
+}
+
+.add-winner-form-item-btn{
+    float: right;
+    margin-right: 2rem;
+}
+.add-winner-form-item-btn-submit{
+    font-weight: 600;
+    background-color:  #fcd204;
+    padding: .8rem;
+    border-radius: 4px;
+    border: none;
+}
+
+.cancel{
+    background-color: transparent;
+    border: solid black 1px;
+    margin-right: .8rem;
+}
+.add-winner-form-item-btn-submit:hover{
+    opacity: 0.7;
 }
 
