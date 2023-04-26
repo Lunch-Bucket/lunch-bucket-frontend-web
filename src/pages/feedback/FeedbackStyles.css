@@ -12,13 +12,11 @@
 }
 
 .detail-table{
-    
     margin-right:50px;
     width: 80%;
 }
 
 .data-row{
-    
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
