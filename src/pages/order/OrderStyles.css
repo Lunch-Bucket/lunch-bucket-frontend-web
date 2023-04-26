@@ -1,3 +1,6 @@
+.modal-menu-content::-webkit-scrollbar{
+    display: none;
+  }
 
 .order-modal{
     position: absolute;
@@ -34,7 +37,7 @@
 .modal-menu-content-card{
     margin: 25px 0px 0px 15px;
     flex-shrink: 0;
-    background-color: antiquewhite;
+    background-color: rgb(253, 242, 191);
     border-radius: 10px;
     padding: 2%;
     width: 90%;
