@@ -8,7 +8,7 @@ const Sidebar = () => {
         <div className="sidebar-container">
             <div className="sidebar-logo-container">
                 <span className="sidebar-logo">
-                    <Link to={PATHS.dashboard}>LunchBucket</Link>
+                    <Link to={PATHS.login}>LunchBucket</Link>
                 </span>
             </div>
             <div className="side-bar-page-list">
