@@ -58,7 +58,8 @@ export default function OrderHome()
                         <div className="order-modal" onClick={()=>{setShowModal(!showModal)}}>
                         <div className="modal-header">
                             <button className="order-page-modal-header-chat-btn">
-                                <BsFillChatFill size={30}/> Go to Chat
+                                <BsFillChatFill size={20} style={{paddingTop:'1rem'}}/>
+                                <h4> Go to Chat</h4>
                             </button>
                         </div>
                         {order.map((data, id) => ( 
