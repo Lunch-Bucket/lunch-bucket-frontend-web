@@ -27,6 +27,7 @@ export default function OrderHome()
             ]),
             price: '1200',
             note: 'Special Notes: Hi, I would like to have the 2 meals packed seperately.',
+            address: 'Temple Rd, Malwana, Gampaha',
         },
     ])
   
@@ -40,11 +41,15 @@ export default function OrderHome()
                         </thead>
                         <tbody>
                         {order.map((data, id) => (
-                            <tr className="data-row" key={id}>
-                                <td><input type="checkbox"/> </td>
-                                <td key={id}>{data.orderID}</td>
-                                <td style={{maxLines:'1', overflow:'clip'}}>{data.price}</td>
-                                <td><button onClick={()=>{setShowModal(!showModal)}}>View</button></td>
+                            <tr className="order-page-table-row" key={id}>
+                                <td className="order-page-data-row"><input type="checkbox"/> </td>
+                                <td className="order-page-data-row" key={id}>{data.orderID}</td>
+                                <td className="order-page-data-row" key={id}>{data.userID}</td>
+                                <td className="order-page-data-row">
+                                    <button className="order-page-view-btn" onClick={()=>{setShowModal(!showModal)}}>View</button>
+                                </td>
+                                <td className="order-page-data-row-address">{data.address}</td>
+                                <td className="order-page-data-row">{data.price}</td>
                             </tr>
                         ))}
                         </tbody>
@@ -52,7 +57,9 @@ export default function OrderHome()
                    { showModal && (
                         <div className="order-modal" onClick={()=>{setShowModal(!showModal)}}>
                         <div className="modal-header">
-                            <button className="modal-header-chat"><BsFillChatFill size={30}/> Go to Chat</button>
+                            <button className="order-page-modal-header-chat-btn">
+                                <BsFillChatFill size={30}/> Go to Chat
+                            </button>
                         </div>
                         {order.map((data, id) => ( 
                         <div className="modal-detail-content">
