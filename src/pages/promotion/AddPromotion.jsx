@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import '../CommonStyles.css';
 import { Link } from "react-router-dom";
+import strings from '../../common/strings/strings'
 
 export default function AddPromotion()
 {
@@ -20,7 +21,7 @@ export default function AddPromotion()
             <div className="container">
                 <div className="header-title-bar">
                     <h1 className="header-title-bar-text">
-                        Add Promotion
+                        {strings.addPromotion}
                     </h1>
                 </div>
                 

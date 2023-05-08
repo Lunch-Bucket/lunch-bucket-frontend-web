@@ -10,6 +10,8 @@ import promo1 from '../../resources/images/sample/promotion1.jpg'
 import promo2 from '../../resources/images/sample/promotion2.jpg'
 import promo3 from '../../resources/images/sample/promotion3.jpg'
 
+import strings from '../../common/strings/strings'
+
 
 export default function PromotionHome() {
     const [promoDetail, setPromoDetail] = useState("0");
@@ -72,10 +74,10 @@ export default function PromotionHome() {
                 {/* Header Bar - Promotion */}
                 <div className="header-title-bar">
                     <h1 className="header-title-bar-text">
-                        Promotion
+                    {strings.promotion}
                     </h1>
                 <Link to="/addPromotion">
-                    <button className="header-add-button">Add Promotion</button>
+                    <button className="header-add-button">{strings.addPromotion}</button>
                 </Link>
                 </div>
                 

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import "@fontsource/poppins";
 import {FaStar} from "react-icons/fa";
 import "./FeedbackStyles.css";
+import strings from '../../common/strings/strings'
 
 
 
@@ -179,7 +180,7 @@ export default function Feedback() {
     return (
 
         <div className="feedback-container">
-            <h1 className="title">Feedbacks</h1>
+            <h1 className="title">{strings.feedback}</h1>
             <hr/>
             <div className="feedback-detail-content">
                 <table className="detail-table">
