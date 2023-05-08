@@ -1,5 +1,6 @@
 import React from "react";
 import "./User.css";
+import strings from '../../common/strings/strings'
 
 const data = [
    
@@ -51,7 +52,7 @@ export default function User() {
 
     return (
         <div className="full-container">
-            <h1>Users</h1>
+            <h1 className="header-title-bar-text">{strings.user}</h1>
             <hr/>
             <div>
                 <table className="detail-container">

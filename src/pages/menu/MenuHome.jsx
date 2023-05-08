@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../menu/MenuStyles.css";
 import {BsPlusCircleFill} from "react-icons/bs";
 import {FaTrashAlt} from "react-icons/fa";
-import { useEffect } from "react";
+import strings from '../../common/strings/strings'
 
 export default function MenuHome() {
     const[mealType, setmealType] = useState(0)
@@ -45,7 +45,7 @@ export default function MenuHome() {
     return (
         <div className="full-container">
             <div className="menu-title">
-              <h1 className="menu-title-text">Menu</h1>
+              <h1 className="menu-title-text">{strings.menu}</h1>
               
             </div>
             <hr/>

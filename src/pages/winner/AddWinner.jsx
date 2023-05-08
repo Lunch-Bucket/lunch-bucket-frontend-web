@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import "./WinnerStyles.css";
+import strings from '../../common/strings/strings'
 
 export default function Winner()
 {
@@ -17,7 +18,7 @@ export default function Winner()
 
     return(
             <div className="full-container">
-                <h1>Daily winner</h1>
+                <h1>{strings.addWinner}</h1>
                 <hr/>
                 <div className="detail-container">
                    <form>

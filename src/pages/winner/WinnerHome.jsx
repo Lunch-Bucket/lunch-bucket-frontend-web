@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import '../CommonStyles.css';
 import './WinnerStyles.css';
+import strings from '../../common/strings/strings'
 
 // Sample Images
 import profileImg from '../../resources/images/sample/winnerProfileImg.jpeg';
@@ -36,7 +37,7 @@ export default function WinnerHome()
                 {/* Header Bar - Promotion */}
                 <div className="header-title-bar">
                     <h1 className="header-title-bar-text">
-                        Daily Winner
+                        {strings.winner}
                     </h1>
                 </div>
 
