@@ -1,0 +1,19 @@
+.chat-page-data-row-data{
+    min-width: 10rem;
+    background-color: rgb(194, 83, 83);
+}
+
+.latestMessage{
+    min-width: 20rem;
+    background-color: rgb(163, 107, 107);
+    padding-right: 2rem;
+    text-overflow: clip;
+}
+
+.timestamp{
+    min-width: 14rem;
+}
+
+.table-row{
+    line-height: 2rem;
+}
