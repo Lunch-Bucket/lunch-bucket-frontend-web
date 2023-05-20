@@ -1,3 +1,6 @@
+.modal-menu-content::-webkit-scrollbar{
+    display: none;
+  }
 
 .order-modal{
     position: absolute;
@@ -6,11 +9,13 @@
     z-index: 1000;
     border-radius: 10px;
     padding: 2%;
-    background-color: rgb(223, 205, 146);
+    background-color: rgb(255, 255, 255);
     box-shadow: .5 .5 grey;
     top: 20%;
     left: 10%;
+    border: 2px solid black
 }
+
 
 .modal-header{
     height: 5%;
@@ -30,14 +35,61 @@
 }
 
 .modal-menu-content-card{
-    margin-left: 5px;
+    margin: 25px 0px 0px 15px;
     flex-shrink: 0;
-    background-color: antiquewhite;
+    background-color: rgb(253, 242, 191);
     border-radius: 10px;
-    padding: 4%;
+    padding: 2%;
+    width: 90%;
 }
 
-.modal-header-chat{
+.modal-menu-content-card-column-element{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.order-page-view-btn{
+    border: none;
+    background-color: transparent;
+    color: rgb(179, 178, 177);
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.order-page-table-row{
+    display: flex
+}
+
+.order-page-data-row{
+    width: 15%;
+    border-bottom: 1px solid rgb(165, 164, 164);
+}
+
+.order-page-data-row-address{
+    width: 30%;
+    text-overflow: hidden;
+    border-bottom: 1px solid rgb(165, 164, 164);
+}
+
+.order-page-modal-header-chat-btn{
+    background-color: rgb(255, 230, 2);
     float: right;
+    border: none;
+    box-shadow: 1px 1px grey;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+    width: 8rem;
 }
 
+.order-page-modal-header-chat-btn:hover {
+    opacity: 0.7;
+}
+
+.order-page-view-btn:hover{
+    opacity: 0.8;
+}

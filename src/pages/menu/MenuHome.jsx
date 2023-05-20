@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "../menu/MenuStyles.css";
+import {BsPlusCircleFill} from "react-icons/bs";
+import {FaTrashAlt} from "react-icons/fa";
+import { useEffect } from "react";
 import {BsPlusCircleFill,BsFillCheckCircleFill} from "react-icons/bs";
 
 export default function MenuHome() {
@@ -38,36 +41,63 @@ export default function MenuHome() {
              ]),
         },
      ])
+
+
     return (
         <div className="full-container">
+            <div className="menu-title">
+              <h1 className="menu-title-text">Menu</h1>
+              
+            </div>
+            <hr/>
             <div className="menu-tab-bar">
                 <button className="menu-tab-bar-btn" onClick={(e)=>{setmealType(0)}}>Lunch</button>
                 <button className="menu-tab-bar-btn" onClick={(e)=>{setmealType(1)}}>Dinner</button>
             </div>
+            <hr/> 
            {mealType===0 && <div className="menu-detail-content">
                 <div className="menu-detail-list">
                     <div className="menu-detail-list-title">
-                        <h3>Vegetables</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddLunchVege(true)}}/>
+                        <h3>Vegetables</h3><div className="menu-detail-list-title-icon"><BsPlusCircleFill size={30}  onClick={(e)=>{setAddLunchVege(!addLunchVege)}}/></div>
                     </div> 
                         {lunchMenuList.map((data,id)=>( <ul>
+                          {data.VegeList.map((item,id)=>( 
+                            <li className="menu-detail-list-item">
+                              <div className="menu-detail-list-item-name">{item}</div>
+                              <div className="menu-detail-list-item-trash">
+                                <FaTrashAlt size={14}  style={{marginLeft:'5px'}}/>
+                              </div>
+                            </li>
+                            ))}
                           {data.VegeList.map((item,id)=>( <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addLunchVege && 
                           <li className="menu-list-add-input">
-                            <input type="text" /><button>ADD</button>
+                            <input type="text" className="menu-list-add-input-box"/>
+                            <button className="menu-list-add-input-box-add">ADD</button>
                           </li>
                           }
                         </ul>
                         ))}
                 </div>
+
                 <div className="menu-detail-list">
                     <div className="menu-detail-list-title">
-                        <h3>Stew</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddLunchStew(true)}}/>
+                        <h3>Stew</h3><div className="menu-detail-list-title-icon"><BsPlusCircleFill size={30}  onClick={(e)=>{setAddLunchStew(!addLunchStew)}}/></div>
                     </div>
                         {lunchMenuList.map((data,id)=>( <ul>
+                          {data.StewList.map((item,id)=>( 
+                             <li className="menu-detail-list-item">
+                              <div className="menu-detail-list-item-name">{item}</div>
+                              <div className="menu-detail-list-item-trash">
+                                <FaTrashAlt size={14}  style={{marginLeft:'5px'}}/>
+                              </div>
+                           </li>
+                          ))}
                           {data.StewList.map((item,id)=>(  <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addLunchStew && 
-                          <li>
-                            <input type="text" /><button>ADD</button>
+                          <li className="menu-list-add-input">
+                            <input type="text" className="menu-list-add-input-box"/>
+                            <button className="menu-list-add-input-box-add">ADD</button>
                           </li>
                           }
                         </ul>
@@ -75,13 +105,22 @@ export default function MenuHome() {
                 </div>
                 <div className="menu-detail-list">
                     <div className="menu-detail-list-title">
-                        <h3>Meat</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddLunchMeat(true)}}/>
+                        <h3>Meat</h3><div className="menu-detail-list-title-icon"><BsPlusCircleFill size={30}  onClick={(e)=>{setAddLunchMeat(!addLunchMeat)}}/></div>
                     </div>
                         {lunchMenuList.map((data,id)=>( <ul>
+                          {data.MeatList.map((item,id)=>( 
+                               <li className="menu-detail-list-item">
+                               <div className="menu-detail-list-item-name">{item}</div>
+                               <div className="menu-detail-list-item-trash">
+                                 <FaTrashAlt size={14}  style={{marginLeft:'5px'}}/>
+                               </div>
+                            </li>
+                          ))}
                           {data.MeatList.map((item,id)=>( <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addLunchMeat && 
-                          <li>
-                            <input type="text" /><button>ADD</button>
+                          <li className="menu-list-add-input">
+                            <input type="text" className="menu-list-add-input-box"/>
+                            <button className="menu-list-add-input-box-add">ADD</button>
                           </li>
                           }
                         </ul>
@@ -92,13 +131,23 @@ export default function MenuHome() {
            {mealType===1 && <div className="menu-detail-content">
                 <div className="menu-detail-list">
                     <div className="menu-detail-list-title">
-                        <h3>Vegetables</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddDinnerVege(true)}}/>
+                        <h3>Vegetables</h3><div className="menu-detail-list-title-icon"><BsPlusCircleFill  size={30} onClick={(e)=>{setAddDinnerVege(!addDinnerVege)}}/></div>
                     </div> 
                         {dinnerMenuList.map((data,id)=>( <ul>
+                          {data.VegeList.map((item,id)=>( 
+                             <li className="menu-detail-list-item">
+                             <div className="menu-detail-list-item-name">{item}</div>
+                             <div className="menu-detail-list-item-trash">
+                               <FaTrashAlt size={14}  style={{marginLeft:'5px'}}/>
+                             </div>
+                          </li>
+                          ))} 
                           {data.VegeList.map((item,id)=>(  <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addDinnerVege && 
-                          <li>
-                            <input type="text" /><button>ADD</button>
+                          <li className="menu-list-add-input">
+                            <input type="text" className="menu-list-add-input-box"/>
+                            <button className="menu-list-add-input-box-add">ADD</button>
+                           
                           </li>
                           }
                         </ul>
@@ -106,13 +155,22 @@ export default function MenuHome() {
                 </div>
                 <div className="menu-detail-list">
                     <div className="menu-detail-list-title">
-                        <h3>Stew</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddDinnerStew(true)}}/>
+                        <h3>Stew</h3><div className="menu-detail-list-title-icon"><BsPlusCircleFill size={30}  onClick={(e)=>{setAddDinnerStew(!addDinnerStew)}}/></div>
                     </div>
                         {dinnerMenuList.map((data,id)=>( <ul>
+                          {data.StewList.map((item,id)=>( 
+                               <li className="menu-detail-list-item">
+                               <div className="menu-detail-list-item-name">{item}</div>
+                               <div className="menu-detail-list-item-trash">
+                                 <FaTrashAlt size={14}  style={{marginLeft:'5px'}}/>
+                               </div>
+                            </li>
+                            ))}
                           {data.StewList.map((item,id)=>( <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addDinnerStew && 
-                          <li>
-                            <input type="text" /><button>ADD</button>
+                          <li className="menu-list-add-input">
+                            <input type="text" className="menu-list-add-input-box"/>
+                            <button className="menu-list-add-input-box-add">ADD</button>
                           </li>
                           }
                         </ul>
@@ -120,13 +178,22 @@ export default function MenuHome() {
                 </div>
                 <div className="menu-detail-list">
                     <div className="menu-detail-list-title">
-                        <h3>Meat</h3><BsPlusCircleFill size={20}  onClick={(e)=>{setAddDinnerMeat(true)}}/>
+                        <h3>Meat</h3><div className="menu-detail-list-title-icon"><BsPlusCircleFill size={30}  onClick={(e)=>{setAddDinnerMeat(!addDinnerMeat)}}/></div>
                     </div>
                         {dinnerMenuList.map((data,id)=>( <ul>
+                          {data.MeatList.map((item,id)=>( 
+                               <li className="menu-detail-list-item">
+                               <div className="menu-detail-list-item-name">{item}</div>
+                               <div className="menu-detail-list-item-trash">
+                                 <FaTrashAlt size={14}  style={{marginLeft:'5px'}}/>
+                               </div>
+                            </li>
+                          ))}
                           {data.MeatList.map((item,id)=>(  <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addDinnerMeat && 
-                          <li>
-                            <input type="text" /><button>ADD</button>
+                          <li className="menu-list-add-input">
+                            <input type="text" className="menu-list-add-input-box"/>
+                            <button className="menu-list-add-input-box-add">ADD</button>
                           </li>
                           }
                         </ul>

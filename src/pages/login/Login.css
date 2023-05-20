@@ -1,0 +1,23 @@
+.login-full-screen{
+    height: 100%;
+    width: 100%;
+    background-color: #fdefa6;
+    display: flex;
+}
+
+.login-full-screen-left-container{
+    height: 100%;
+    width: 65%;
+}
+
+.login-full-screen-right-container{
+    height: 100%;
+    width: 35%;
+    background-color: #ffffff;
+}
+
+.login-form-container{
+    width: 700px;
+    height: 400px;
+    border-radius: 8px;
+}

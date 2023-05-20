@@ -7,10 +7,11 @@ import MenuHome from '../pages/menu/MenuHome';
 import AddMenu from '../pages/menu/AddMenu';
 import OrderHome from '../pages/order/OrderHome';
 import AddWinner from '../pages/winner/AddWinner';
-import Winner from '../pages/winner/Winner';
+import Winner from '../pages/winner/WinnerHome';
 import Chat from '../pages/chat/Chat';
 import AddPromotion from '../pages/promotion/AddPromotion';
 import Promotion from '../pages/promotion/PromotionHome';
+import Login from '../pages/login/Login';
 
 const router = createBrowserRouter([
     {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
             {
                 path: 'chat',
                 element: <Chat/>,
+            },
+            {
+                path: 'login',
+                element: <Login/>,
             },
         ]
     },

@@ -1,22 +1,28 @@
-.sidebar-styles{
+.sidebar-container::-webkit-scrollbar{
+    display: none;
+  }
+
+.sidebar-container{
     flex: 1;
     display: flex;
     flex-direction: column;
-    background-color: #f8f6ef;
+    background-color: #fdeaa5;
     color:#000000;
-    min-height: 100vh;
-    width: 18vw;
+    height: 100vh;
+    width: 20%;
     position: fixed;
+    overflow-y: scroll;
 }
 
-.top{
-    font-size: 1.3rem;
+.sidebar-logo-container{
+    font-size: 32px;
     padding: 2rem 2rem 2rem 2rem;
+    height: 8%;
     text-align: center;
     
 }
 
-.logo a {
+.sidebar-logo a{
     text-decoration: none;
     color:#630A10;
     font-family: Poppins;
@@ -32,37 +38,39 @@
 }
 
 
-.center{
+.side-bar-page-list{
     font-family: Poppins;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 36px;
     letter-spacing: 0em;
     text-align: left;
-    color:#000000;
+    color:#2b0b0b;
     margin-left: 10px;
-
-    
-
 }
 
-.title{
-    padding: 0 0 0 2rem;
+.side-bar-page-list-item{
+    padding: 0 1rem 0 2rem;
 }
 
-.title a{
+.side-bar-page-list-item a{
     display: block;
     text-decoration: none;
     padding: 0.5rem 3rem 0.5rem 1rem;
     border-radius: 10px;
-    width: 15vh;
+    width: 5.5vw;
+    color: rgb(173, 56, 2);
+    text-overflow: clip;
+}
+
+.side-bar-page-list-item:hover{
+    opacity: 0.9;
 }
 
 .active{
-    background-color: #FFEF9C;
-    padding: 0.5rem 3rem 0.5rem 1rem;
-    color: #2B2B2B;
-    border-radius: 10dp;
-    border: 4dp shadow black; 
+    background-color: #fce058;
+    color: #685904;
+    border-radius: 10px;
+    box-shadow: 1px 1px rgb(187, 187, 187);
     
 }

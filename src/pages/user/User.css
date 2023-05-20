@@ -14,100 +14,27 @@
     width: 100%;
 }
 
-.data-row{
+.user-page-data-row{
     display: flex;
-    font-family: "Poppins";
-    color : #A4A4A4;
     flex-wrap: wrap;
     justify-content: space-around;
     vertical-align:middle; 
-    
+    border-bottom: solid #E0E0E0 ;
     border-bottom-width:2px ;
     align-items: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    
-    
-}
-.title{
-    align-items: center;
+    width: 100%;
 }
 
-
-
-.uid{
+.user-page-data-row-data{
     color: #8D8D8D; 
-    font-family: Poppins;
     font-size: 16px;
     font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0em;
     text-align: center;
- 
+    line-height: 2rem;
 }
 
-.delivery{
-    max-width:600px;
-    color: #8D8D8D;
-    font-family: Poppins;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 27px;
-    letter-spacing: 0em;
-    text-align: center;
-
-}
-
-.contact{
-    color: #8D8D8D;
-    align-items: center;
-    font-family: Poppins;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0em;
-    text-align: right;
-
-    
-}
-
-.order{
-    width: 150px;
-    height: 40px;
-    color: #8D8D8D;
-    font-family: "Poppins";
-    font-weight: 500;
-    display:flex;
-    align-items:center; 
-    display:table-cell; 
-    vertical-align: middle; 
-    justify-content:center;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0em;
-    text-align: center;
-
-}
-
-.total{
-    color: #525252;
-    align-items: center;
-    font-family: Poppins;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0em;
-    text-align: right;
-
-    
-}
-
-
-
-
-
-@media screen and (min-width: 500px) {
-
+.address{
+    text-overflow: hidden;
+    max-width: 50%;
 }
 
