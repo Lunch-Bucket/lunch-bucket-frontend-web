@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../menu/MenuStyles.css";
-import {BsPlusCircleFill} from "react-icons/bs";
 import {FaTrashAlt} from "react-icons/fa";
 import strings from '../../common/strings/strings'
 import {BsPlusCircleFill,BsFillCheckCircleFill} from "react-icons/bs";
@@ -69,7 +68,6 @@ export default function MenuHome() {
                               </div>
                             </li>
                             ))}
-                          {data.VegeList.map((item,id)=>( <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addLunchVege && 
                           <li className="menu-list-add-input">
                             <input type="text" className="menu-list-add-input-box"/>
@@ -93,7 +91,6 @@ export default function MenuHome() {
                               </div>
                            </li>
                           ))}
-                          {data.StewList.map((item,id)=>(  <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addLunchStew && 
                           <li className="menu-list-add-input">
                             <input type="text" className="menu-list-add-input-box"/>
@@ -116,7 +113,6 @@ export default function MenuHome() {
                                </div>
                             </li>
                           ))}
-                          {data.MeatList.map((item,id)=>( <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addLunchMeat && 
                           <li className="menu-list-add-input">
                             <input type="text" className="menu-list-add-input-box"/>
@@ -142,7 +138,6 @@ export default function MenuHome() {
                              </div>
                           </li>
                           ))} 
-                          {data.VegeList.map((item,id)=>(  <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addDinnerVege && 
                           <li className="menu-list-add-input">
                             <input type="text" className="menu-list-add-input-box"/>
@@ -166,7 +161,6 @@ export default function MenuHome() {
                                </div>
                             </li>
                             ))}
-                          {data.StewList.map((item,id)=>( <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addDinnerStew && 
                           <li className="menu-list-add-input">
                             <input type="text" className="menu-list-add-input-box"/>
@@ -189,7 +183,6 @@ export default function MenuHome() {
                                </div>
                             </li>
                           ))}
-                          {data.MeatList.map((item,id)=>(  <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addDinnerMeat && 
                           <li className="menu-list-add-input">
                             <input type="text" className="menu-list-add-input-box"/>
