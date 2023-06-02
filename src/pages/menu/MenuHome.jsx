@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../menu/MenuStyles.css";
-import {BsPlusCircleFill} from "react-icons/bs";
 import {FaTrashAlt} from "react-icons/fa";
 import strings from '../../common/strings/strings'
 
@@ -105,7 +104,15 @@ export default function MenuHome() {
                         <h3>Meat</h3><div className="menu-detail-list-title-icon"><BsPlusCircleFill size={30}  onClick={(e)=>{setAddLunchMeat(!addLunchMeat)}}/></div>
                     </div>
                         {lunchMenuList.map((data,id)=>( <ul>
-                          {data.MeatList.map((item,id)=>( <li>{item}</li>))}
+                          {data.MeatList.map((item,id)=>( 
+                               <li className="menu-detail-list-item">
+                               <div className="menu-detail-list-item-name">{item}</div>
+                               <div className="menu-detail-list-item-trash">
+                                 <FaTrashAlt size={14}  style={{marginLeft:'5px'}}/>
+                               </div>
+                            </li>
+                          ))}
+                          {data.MeatList.map((item,id)=>( <li style={{display:'flex', justifyContent:'space-between'}}>{item} <BsFillCheckCircleFill/> </li>))}
                           {addLunchMeat && 
                           <li className="menu-list-add-input">
                             <input type="text" className="menu-list-add-input-box"/>
