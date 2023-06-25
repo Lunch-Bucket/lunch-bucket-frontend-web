@@ -12,6 +12,7 @@ const STRINGS = {
     addPromotion: 'Add New Promotion',
     chat: 'Chats',
     dashboard: 'Dashboard',
+    completedOrder: 'Completed Last 24H'
 }
 
 export default STRINGS;
