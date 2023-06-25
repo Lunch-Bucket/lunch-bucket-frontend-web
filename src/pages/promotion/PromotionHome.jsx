@@ -70,18 +70,15 @@ export default function PromotionHome() {
 
     return (
         <>
-            <div className="container">
-                {/* Header Bar - Promotion */}
-                <div className="header-title-bar">
-                    <h1 className="header-title-bar-text">
-                    {strings.promotion}
-                    </h1>
-                <Link to="/addPromotion">
-                    <button className="header-add-button">{strings.addPromotion}</button>
-                </Link>
+           <div className="full-container">
+                <div className="title-search-content">
+                    <h1 className="menu-title-text">{strings.promotion}</h1> 
+                    <Link to="/addPromotion">
+                        <button className="header-add-button">{strings.addPromotion}</button>
+                    </Link>
                 </div>
-                
-
+                <hr/>
+          
                 {/* Promotion Card Content */}
                 <div className="promotion-card-display">
                     {promotion.map((item, id) => (
