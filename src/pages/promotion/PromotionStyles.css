@@ -7,9 +7,9 @@
     position: absolute;
     display: inline-flex;
     overflow-x: scroll;
-    margin-top:8%;
+    margin-top:4%;
     height: 35%;
-    width: 75%;
+    width: 70%;
     border-bottom: solid grey .1rem;
 }
 
@@ -23,9 +23,15 @@
     object-fit: contain;
 }
 
+.promotion-card:hover{
+    height: 86%;
+    width: 98%;
+}
+
 .promotion-detail{
     position: absolute;
-    margin-top: 28%;
+    margin-top: 25%;
+    width: 70%;
 }
 
 .promotion-content-display-title{
