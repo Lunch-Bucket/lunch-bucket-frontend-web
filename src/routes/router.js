@@ -12,6 +12,7 @@ import Chat from '../pages/chat/Chat';
 import AddPromotion from '../pages/promotion/AddPromotion';
 import Promotion from '../pages/promotion/PromotionHome';
 import Login from '../pages/login/Login';
+import Home from '../pages/Home';
 
 const router = createBrowserRouter([
     {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '',
-                element: <DashboardHome/>
+                element: <OrderHome/>
             },
             {
                 path: 'feedback',
