@@ -12,6 +12,7 @@ const Sidebar = () => {
                 </span>
             </div>
             <div className="side-bar-page-list">
+                <p className="side-bar-page-list-item"><NavLink to={PATHS.dashboard}>Dashboard</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.order}>Orders</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.menu}>Menu</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.user}>Users</NavLink></p>
