@@ -92,9 +92,9 @@
 
 /* Show Winner Styles */
 .show-winner-detail-content{
-    height: 24rem;
+    height: 60vh;
     width: 100%;
-    margin-top: 22%;
+    margin-top: 10%;
     margin-left: 30%;
     overflow-y: scroll;
 }
