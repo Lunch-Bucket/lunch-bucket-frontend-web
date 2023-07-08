@@ -21,6 +21,10 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '',
+                element: <DashboardHome/>
+            },
+            {
+                path: 'order',
                 element: <OrderHome/>
             },
             {
