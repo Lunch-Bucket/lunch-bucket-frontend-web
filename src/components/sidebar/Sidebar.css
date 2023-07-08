@@ -64,14 +64,9 @@
     text-overflow: clip;
 }
 
-.side-bar-page-list-item:hover{
-  
-}
-
 .active{
     background-color: rgb(253, 233, 129);
     color: #685904;
     border-radius: 10px;
-    box-shadow: 1px 1px rgb(187, 187, 187);
-    
+    box-shadow: 6px 7px 10px -6px rgb(255, 192, 20);
 }
