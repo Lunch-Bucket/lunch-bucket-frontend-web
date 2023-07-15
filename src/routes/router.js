@@ -13,6 +13,7 @@ import AddPromotion from '../pages/promotion/AddPromotion';
 import Promotion from '../pages/promotion/PromotionHome';
 import Login from '../pages/login/Login';
 import Home from '../pages/Home';
+import OrderHome_Dinner from '../pages/order_dinner/OrderHome_Dinner';
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path: 'order',
                 element: <OrderHome/>
+            },
+            {
+                path: 'orderDinner',
+                element: <OrderHome_Dinner/>
             },
             {
                 path: 'feedback',

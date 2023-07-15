@@ -6,7 +6,7 @@ import { BsFillChatFill } from "react-icons/bs";
 import SearchBar from "../../components/SearchBar";
 import { getOrderData } from "../../services/orderService";
 
-export default function OrderHome()
+export default function OrderHome_Dinner()
 {
     const [orderList, setOrderList] = useState([]);
     const [notedOrder, setNotedOrder] = useState(false);
@@ -16,7 +16,7 @@ export default function OrderHome()
 
     async function fetchOrderData() {
         try {
-            const orderData  = await getOrderData('Lunch');
+            const orderData  = await getOrderData('Dinner');
             setOrderList(orderData);
             console.log('user data in user page', orderList);
 
