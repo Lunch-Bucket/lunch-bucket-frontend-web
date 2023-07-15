@@ -44,7 +44,7 @@
     font-family: Poppins;
     font-size: 15px;
     font-weight: 600;
-    line-height: 36px;
+    line-height: 32px;
     color:#2B2B2B;
     margin-left: 10px;
     display: flex;
@@ -57,9 +57,9 @@
 .side-bar-page-list-item a{
     display: block;
     text-decoration: none;
-    padding: 0.5rem 3rem 0.5rem 1rem;
-    border-radius: 10px;
-    width: 5.5vw;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    border-radius: 8px;
+    width: 8.5vw;
     color: #2B2B2B;
     text-overflow: clip;
 }
