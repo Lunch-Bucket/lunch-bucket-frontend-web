@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from "react";
-import "../feedback/FeedbackStyles.css";
+import "../../common/styles/CommonStyles.css";
 import "./OrderStyles.css";
 import strings from "../../common/strings/strings";
 import { BsFillChatFill } from "react-icons/bs";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import SearchBar from "../../components/SearchBar";
 import { getOrderData } from "../../services/orderService";
 
@@ -57,15 +56,14 @@ export default function OrderHome()
             </div>
             <hr/> 
                 <div>
-                    <table className="detail-table">
-                        
+                    <table className="detail-table">  
                         <tbody>
                         {orderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
-                                <td className="order-page-data-row">
+                                <td>
                                     <label class="checkbox-container">
-                                        <input type="checkbox" className="order-item-checkbox"/>
-                                        <span className="order-item-checkbox-checkmark"></span>
+                                        <input type="checkbox" className="item-checkbox"/>
+                                        <span className="item-checkbox-checkmark"></span>
                                     </label>   
                                 </td>
 
