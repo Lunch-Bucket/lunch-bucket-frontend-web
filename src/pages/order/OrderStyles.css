@@ -69,17 +69,21 @@
 .order-page-table-row{
     display: flex;
     margin-top: 1rem;
+    border-bottom: 2px solid rgb(165, 164, 164);
 }
 
-.order-page-data-row{
-    width: 15%;
-    border-bottom: 1px solid rgb(165, 164, 164);
+
+.order-page-data-row-description{
+  width: 100%;
+  font-size: 12px;
 }
 
-.order-page-data-row-address{
-    width: 30%;
-    text-overflow: hidden;
-    border-bottom: 1px solid rgb(165, 164, 164);
+.order-page-data-row-noted-btn{
+  border: none;
+  background-color: #FFE662;
+  padding: 0.6rem;
+  height: 4rem;
+  cursor:pointer;
 }
 
 .order-page-modal-header-chat-btn{
@@ -97,8 +101,8 @@
     max-height: 4rem;
 }
 
-.order-page-modal-header-chat-btn:hover {
-    background-color:#f3d852;
+.order-page-modal-header-chat-btn:hover, .order-page-data-row-noted-btn:hover{
+    background-color:#e4ca47;
 }
 
 .order-page-view-btn:hover{
@@ -107,15 +111,12 @@
 
 .order-total-sales-content{
   display: inline-flex;
-  float: right;
-  justify-content: center;
   align-items: center;
+  margin-left: 2rem;
 }
 
 .sales-content-amount{
-  padding: 0.6rem;
-  background-color: #FFE662;
-  border-radius: 5px;
+  font-weight: 600;
   margin-left: 1rem;
 }
 
