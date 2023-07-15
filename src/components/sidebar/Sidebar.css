@@ -45,13 +45,13 @@
     font-size: 15px;
     font-weight: 600;
     line-height: 36px;
-    letter-spacing: 0em;
     color:#2B2B2B;
     margin-left: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    padding: 7rem;
 }
 
 .side-bar-page-list-item a{
