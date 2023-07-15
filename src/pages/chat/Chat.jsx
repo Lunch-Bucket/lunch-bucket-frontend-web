@@ -1,7 +1,6 @@
 import React,{ useState } from "react";
 import './ChatStyles.css';
 import '../../common/styles/CommonStyles.css';
-
 import strings from '../../common/strings/strings'
 
 export default function Chat() {
@@ -35,18 +34,14 @@ export default function Chat() {
       <div className="container">
         <div className="header-title-bar">
           <h1 className="header-title-bar-text">{strings.chat}</h1>
+          <div>
+            <button className="action-bar-btn">Suggestions</button>
+            <button className="action-bar-btn">Live Chat</button>
+          </div>
         </div>
 
-        <div className="detail-table-container">
-            <table className="detail-table">
-                {chat.map((data, id) => (
-                    <tr className="table-row" key={id}>
-                        <td className="chat-page-data-row-data">{data.userID}</td>
-                        <td className="chat-page-data-row-data">{data.regarding}</td>
-                        <td className="chat-page-data-row-data latestMessage">{data.latestMessage}</td>
-                        <td className="chat-page-data-row-data timestamp">{data.timestamp}</td>
-                    </tr>))}
-            </table>
+        <div className="detail-table" style={{backgroundColor:'#F7EDA7', height:'70vh', width:'70vw'}}>
+           
           </div>
         </div>
     )
