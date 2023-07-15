@@ -15,14 +15,15 @@ const Sidebar = () => {
                 </span>
             </div>
             <div className="side-bar-page-list">
-                <p className="side-bar-page-list-item" style={{marginTop:'4rem'}}><NavLink to={PATHS.dashboard}>Dashboard</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.order}>Orders</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.menu}>Menu</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.user}>Users</NavLink></p>
+                <p className="side-bar-page-list-item"><NavLink to={PATHS.chat}>Chats</NavLink></p>
+
+                {/* <p className="side-bar-page-list-item" style={{marginTop:'4rem'}}><NavLink to={PATHS.dashboard}>Dashboard</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.promotion}>Promotions</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.winner}>DailyWinner</NavLink></p>
-                <p className="side-bar-page-list-item"><NavLink to={PATHS.feedback}>Feedbacks</NavLink></p>
-                <p className="side-bar-page-list-item"><NavLink to={PATHS.chat}>Chats</NavLink></p>
+                <p className="side-bar-page-list-item"><NavLink to={PATHS.feedback}>Feedbacks</NavLink></p> */}
             </div>
         </div>
     );
