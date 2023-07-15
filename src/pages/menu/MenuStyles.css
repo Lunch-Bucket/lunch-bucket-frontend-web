@@ -82,13 +82,10 @@
 }
 
 .menu-detail-list-title{
-    display: flex;
-    justify-content:space-between;
+    text-align: center;
     width: 100%;
     background-color: #FFEF9C;
     border-radius: 20px;
-    padding-left: 15px;
-
 }
 
 .menu-detail-list-title-icon{
@@ -113,11 +110,13 @@
 .menu-detail-list-item{
     display: flex;
     justify-content: space-between;
+    font-size: 14px;
+    padding-top: 0.5rem;
 }
 
 .menu-detail-list-item-name{
-    width: 90%;
-    color: rgb(77, 76, 76);
+    width: 80%;
+    text-overflow: clip;
 }
 
 .menu-detail-list-item-name:hover + .menu-detail-list-item-trash {
@@ -177,4 +176,16 @@ hr {
     background-color: transparent;
     font-weight: 600;
     cursor: pointer;
+}
+
+.add-menu-item-form-label{
+    width: 25rem;
+    font-size: 14px;
+    padding: 1.6rem;
+}
+
+#add-menu-item-form-input{
+    width: 20rem;
+    margin-top: 1rem;
+    height: 2rem;
 }
