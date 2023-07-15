@@ -45,8 +45,8 @@ export default function OrderHome()
             <hr/>
             <div className="action-bar">
                 <div style={{display:'inline-flex'}}>
-                    <button className="action-bar-btn" onClick={(e)=>{}}>Total Order Count</button>
-                    <div style={{marginLeft:'2rem'}}>{orderList.length}</div>
+                    <div>Total Order Count</div>
+                    <div style={{marginLeft:'2rem', fontWeight:'600'}}>{orderList.length}</div>
      
                     <div className="order-total-sales-content">
                         <div className="sales-content-label">Total Sales</div>
@@ -81,7 +81,7 @@ export default function OrderHome()
 
                             <tr>  
                                 <td style={{fontSize:'14px'}}>
-                                    <ul>
+                                    <ul style={{listStyle:'square'}}>
                                         <li>{data.vege1}</li>
                                         <li>{data.vege2}</li>
                                         <li>{data.stew}</li>
