@@ -31,7 +31,10 @@ export default function MenuHome() {
         <div className="full-container">
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
               <h1 className="menu-title-text">{strings.menu}</h1>  
-              <button className="header-item-add-button" onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
+              <div >
+                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C', marginRight:'1rem'}} onClick={()=>{}}>Apply Today's Meal</button>
+                <button className="header-item-add-button" onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
+              </div>
             </div>
             <hr/>
 
