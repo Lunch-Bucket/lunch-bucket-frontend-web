@@ -1,8 +1,9 @@
 import axios from "axios";
+import { baseUrl } from "./baseUrl";
 
-export async function getOrders() {
+export async function getOrders(meal) {
     try {
-        const response = await axios.get('https://78skmyfnj5.execute-api.ap-south-1.amazonaws.com/dev/getOrderByCustomer/6406be8578ab87227bd73ac5');
+        const response = await axios.get(`${baseUrl}getOrderByMeal/${meal}`);
         console.log('orders',response.data);
         return response.data;
     } catch (error) {

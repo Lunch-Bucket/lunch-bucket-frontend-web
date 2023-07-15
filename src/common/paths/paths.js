@@ -2,6 +2,7 @@ const initialPath = '/lunch-bucket-frontend-web/';
 
 const PATHS = {
     order: initialPath + 'order',
+    orderDinner: initialPath + 'orderDinner',
     menu: initialPath + 'menu',
     addMenu: initialPath + 'addMenu',
     user: initialPath + 'user',
