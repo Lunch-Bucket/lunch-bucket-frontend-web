@@ -1,8 +1,9 @@
 import axios from "axios";
+import { baseUrl } from "./baseUrl";
 
 export async function getUsers() {
     try {
-        const response = await axios.get('https://78skmyfnj5.execute-api.ap-south-1.amazonaws.com/dev/getCustomers');
+        const response = await axios.get(`${baseUrl}getCustomers`);
         console.log('users data: ',response.data);
         return response.data;
     } catch (error) {
