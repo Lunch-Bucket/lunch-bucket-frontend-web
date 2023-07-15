@@ -1,57 +1,16 @@
 import React, {useState, useEffect} from "react";
 import "./User.css";
+import "../../common/styles/CommonStyles.css"
 import strings from '../../common/strings/strings';
 import SearchBar from "../../components/SearchBar";
 import { getUserData } from "../../services/userService";
 
-// const data = [
-   
-//     {
-//         userID: '002',
-//         deliveryAddress: '22/1, Temple Rd, Colombo 07',
-//         contact: '0772345674',
-//         orderCount: '20',
-//         orderAmount: '4600'
-//     },
-//     {
-//         userID: '003',
-//         deliveryAddress: '22/1, Temple Rd, Colombo 07',
-//         contact: '0772345674',
-//         orderCount: '20',
-//         orderAmount: '4600'
-//     },
-//     {
-//         userID: '004',
-//         deliveryAddress: '22/1, Temple Rd, Colombo 07',
-//         contact: '0772345674',
-//         orderCount: '20',
-//         orderAmount: '4600'
-//     },
-//     {
-//         userID: '005',
-//         deliveryAddress: '22/1, Temple Rd, Colombo 07',
-//         contact: '0772345674',
-//         orderCount: '20',
-//         orderAmount: '4600'
-//     },
-//     {
-//         userID: '006',
-//         deliveryAddress: '22/1, Temple Rd, Colombo 07',
-//         contact: '0772345674',
-//         orderCount: '20',
-//         orderAmount: '4600'
-//     },
-//     {
-//         userID: '007',
-//         deliveryAddress: '22/1, Temple Rd, Colombo 07',
-//         contact: '0772345674',
-//         orderCount: '20',
-//         orderAmount: '4600'
-//     },
-// ];
+
 
 export default function User() {
 
+    const [showThreatBtn, setShowThreatBtn] = useState(true)
+    const [currUser, setCurrUser] = useState("")
     const [user, setUser] = useState([]);
 
     async function fetchUserData() {
@@ -69,6 +28,13 @@ export default function User() {
         fetchUserData();
     }, []);
 
+
+    function showThreat(value)
+    {
+    
+        setCurrUser(value);   
+    }
+
     return (
         <div className="full-container">
             <div className="title-search-content">
@@ -76,25 +42,20 @@ export default function User() {
               <SearchBar/>
             </div>
             <hr/>
-            <div className="action-bar">
-                <div style={{display:'inline-flex', justifyContent:'flex-start', alignItems:'center'}}>
-                    <h4>Sort By</h4>
-                    <button className="action-bar-btn user-action-bar-item" onClick={(e)=>{}}>Frequency</button>
-                    <button className="action-bar-btn user-action-bar-item" onClick={(e)=>{}}>Meal Count </button>
-                    <button className="action-bar-btn user-action-bar-item" onClick={(e)=>{}}>Sales</button>
-                </div>
-            </div>
-            <hr/> 
             <div>
-                <table className="detail-container">
+                <table className="detail-table">
+                <tbody>
                     {user.map((dataList, id) => (
-                        <tr className="user-page-data-row" >
-                            <td className="user-page-data-row-data">{dataList.customer_id}</td>
-                            {/* <td className="user-page-data-row-data address">{data.deliveryAddress}</td>
-                            <td className="user-page-data-row-data">{data.contact}</td>
-                            <td className="user-page-data-row-data">{data.orderCount}</td>
-                            <td className="user-page-data-row-data">{data.orderAmount}</td> */}
+                        <tr className="user-page-table-row" >
+                            <td className="user-page-data-row" style={{minWidth:'35%'}}>{(dataList.customer_id)}</td>
+                            <td className="user-page-data-row"  >{dataList.total_packets}</td>
+                            <td className="user-page-data-row" >{dataList.balance_packets}</td>
+                            <td className="user-page-data-row" >
+                              {showThreatBtn && <button className="user-page-data-row-data-threat-btn" onClick={()=>showThreat(dataList.customer_id)}>Threat</button>}
+                              {/* {(currUser == (dataList.customer_id) && !showThreatBtn) && <button className="user-page-data-row-data-threat-btn"  >Remove from Threat</button>} */}
+                            </td>
                         </tr>))}
+                    </tbody>
                 </table>
             </div>
         </div>
