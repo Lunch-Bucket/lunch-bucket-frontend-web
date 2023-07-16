@@ -13,7 +13,8 @@ export default function Login()
                     <div className="login-form-input-content">
                         <h2>Login</h2>
                         <input className="login-form-input-field" type="text" placeholder="User Name" /><br/>
-                        <input className="login-form-input-field" type="text" placeholder="Password" />
+                        <input className="login-form-input-field" type="text" placeholder="Password" /><br/><br/>
+                        <button className="login-submit-button">Submit</button>
                     </div>
                 </div>
                 <div>

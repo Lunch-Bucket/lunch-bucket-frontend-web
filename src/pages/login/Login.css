@@ -33,3 +33,18 @@
     right: 10vw;
     top: 12rem;
 }
+
+.login-submit-button{
+    float: right;
+    padding: 0.8rem;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    box-shadow: 1px 1px solid #e9c04e;
+    background-color: #FFE662;
+    cursor: pointer;
+}
+
+.login-submit-button:hover{
+    background-color: #f8ca4c;
+}
