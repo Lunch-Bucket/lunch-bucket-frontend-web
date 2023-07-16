@@ -14,11 +14,6 @@ export default function OrderHome()
     let  checkedOrders = []
     const [searchTerm, setSearchTerm] = useState('');
 
-    const handleSearch = async searchTerm => {
-        setSearchTerm(searchTerm);
-        const filteredData = await getOrderData(searchTerm);
-        setOrderList(filteredData);
-      };
 
     async function fetchOrderData() {
         try {
@@ -51,7 +46,7 @@ export default function OrderHome()
         <div className="full-container">
             <div className="title-search-content">
               <h1 className="menu-title-text">{strings.order}</h1> 
-              <SearchBar onChange={handleSearch}/>
+              <SearchBar/>
             </div>
             <hr/>
             <div className="action-bar">
