@@ -118,7 +118,7 @@ export default function Chat() {
 
         {chatType == 'suggestion' &&  
         <div className="chat-main-container">
-         {suggestionList.map((chat, id)=>( <div className="chat-suggestion-card">
+         {suggestionList.map((chat, id)=>( <div className="chat-card">
                 {chat.content}
            </div>))}
         </div>}
