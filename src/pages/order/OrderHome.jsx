@@ -11,7 +11,7 @@ export default function OrderHome()
     const [orderList, setOrderList] = useState([]);
     const [notedOrder, setNotedOrder] = useState(false);
     const [currOrder, setCurrOrder] = useState("")
-
+    let  checkedOrders = []
 
 
     async function fetchOrderData() {
@@ -32,6 +32,11 @@ export default function OrderHome()
     function NotedOrder(value){
         setNotedOrder(true);
         setCurrOrder(value);
+    }
+
+    function OrderItemChecked(value){
+        checkedOrders.push(value)
+        console.log('checked orders: ', checkedOrders)
     }
   
  
@@ -62,7 +67,7 @@ export default function OrderHome()
                             <tr className="order-page-table-row" key={id}>
                                 <td>
                                     <label class="checkbox-container">
-                                        <input type="checkbox" className="item-checkbox"/>
+                                        <input type="checkbox" className="item-checkbox" value={data.order_id} onClick={()=>{OrderItemChecked(data.order_id)}}/>
                                         <span className="item-checkbox-checkmark"></span>
                                     </label>   
                                 </td>
