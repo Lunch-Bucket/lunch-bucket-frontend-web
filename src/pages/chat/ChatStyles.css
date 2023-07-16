@@ -34,3 +34,24 @@
     margin: 1rem;
     width: calc(80% / 3)
 }
+
+.chat-reply-content{
+    display: flex;
+    margin-left: 40%;
+    width: 50vw;
+}
+
+.chat-reply-input{
+    height: 2.5rem;
+    border: 2px solid rgb(189, 188, 187);
+    border-radius: 8px;
+    width: 20vw;
+}
+
+.chat-reply-send-btn{
+    background-color:  #ffed87;
+}
+
+.chat-reply-send-btn:hover{
+    background-color:  #f0d957;
+}
