@@ -12,7 +12,13 @@ export default function OrderHome()
     const [notedOrder, setNotedOrder] = useState(false);
     const [currOrder, setCurrOrder] = useState("")
     let  checkedOrders = []
+    const [searchTerm, setSearchTerm] = useState('');
 
+    const handleSearch = async searchTerm => {
+        setSearchTerm(searchTerm);
+        const filteredData = await getOrderData(searchTerm);
+        setOrderList(filteredData);
+      };
 
     async function fetchOrderData() {
         try {
@@ -38,13 +44,14 @@ export default function OrderHome()
         checkedOrders.push(value)
         console.log('checked orders Lunch: ', checkedOrders)
     }
+
   
  
     return(
         <div className="full-container">
             <div className="title-search-content">
               <h1 className="menu-title-text">{strings.order}</h1> 
-              <SearchBar/>
+              <SearchBar onChange={handleSearch}/>
             </div>
             <hr/>
             <div className="action-bar">

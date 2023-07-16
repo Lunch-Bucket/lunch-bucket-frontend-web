@@ -6,7 +6,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    background-color: rgb(255, 255, 255, 0.7);
+    background-color: #ffffffb3;
     color:#000000;
     height: 100vh;
     width: 20%;
@@ -46,12 +46,11 @@
     font-weight: 600;
     line-height: 32px;
     color:#2B2B2B;
-    margin-left: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    padding: 7rem;
+    padding: 10vh;
 }
 
 .side-bar-page-list-item a{
@@ -65,7 +64,7 @@
 }
 
 .active{
-    background-color: rgb(253, 239, 169);
+    background-color: #F0BB59;
     color: #685904;
     border-radius: 10px;
     box-shadow: 6px 7px 10px -6px rgb(255, 192, 20);

@@ -2,7 +2,7 @@ import "./Sidebar.css";
 import "@fontsource/poppins";
 import {Link, NavLink} from "react-router-dom";
 import PATHS from "../../common/paths/paths";
-import logo from '../../resources/images/LunchBucket_Logo.png'
+import logo from '../../resources/images/LunchBucketLogo.png'
 
 const Sidebar = () => {
     return (
@@ -10,7 +10,7 @@ const Sidebar = () => {
             <div className="sidebar-logo-container">
                 <span className="sidebar-logo">
                     <Link to={PATHS.login}>
-                        <img src={logo} style={{height:'8rem', width:'8rem'}} />
+                        <img src={logo} style={{height:'7rem', width:'7rem'}} />
                     </Link>
                 </span>
             </div>
