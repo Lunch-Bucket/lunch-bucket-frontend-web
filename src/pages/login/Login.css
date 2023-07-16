@@ -1,7 +1,7 @@
 
 .login-form-container{
     width: 70vw;
-    height: 65vh;
+    height: 70vh;
     margin-top: 20vh;
     border-radius: 8px;
     border: 2px solid grey;
@@ -22,7 +22,7 @@
     width: 30vw;
     height: 2.5rem;
     border: 2px solid rgb(165, 165, 165);
-    border-radius: 1rem;
+    border-radius: 4px;
     margin-top: 1rem;
 }
 

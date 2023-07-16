@@ -24,10 +24,7 @@ const router = createBrowserRouter([
                 path: 'dashboard',
                 element: <DashboardHome/>
             },
-            {
-                path: '',
-                element: <OrderLunch/>
-            },
+         
             {
                 path: 'orderDinner',
                 element: <OrderDinner/>
@@ -73,7 +70,7 @@ const router = createBrowserRouter([
                 element: <Chat/>,
             },
             {
-                path: 'login',
+                path: '',
                 element: <Login/>,
             },
         ]

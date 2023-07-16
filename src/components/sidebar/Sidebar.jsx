@@ -1,3 +1,4 @@
+import React from "react";
 import "./Sidebar.css";
 import "@fontsource/poppins";
 import {Link, NavLink} from "react-router-dom";
@@ -5,17 +6,21 @@ import PATHS from "../../common/paths/paths";
 import logo from '../../resources/images/LunchBucketLogo.png'
 
 const Sidebar = () => {
+  
+    const isLoggedIn = localStorage.getItem('loginStatus') === 'true';
+    console.log("local storage value",isLoggedIn); 
+    
     return (
         <div className="sidebar-container">
             <div className="sidebar-logo-container">
                 <span className="sidebar-logo">
                     <Link to={PATHS.login}>
-                        <img src={logo} style={{height:'7rem', width:'7rem'}} />
+                        <img src={logo} alt="logo" style={{height:'7rem', width:'7rem'}} />
                     </Link>
                 </span>
             </div>
-            <div className="side-bar-page-list">
-                <p className="side-bar-page-list-item"><NavLink to={PATHS.orderLunch}>Lunch Orders</NavLink></p>
+          {isLoggedIn && <div className="side-bar-page-list">
+                <p className="side-bar-page-list-item" ><NavLink to={PATHS.orderLunch}>Lunch Orders</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.orderDinner}>Dinner Orders</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.menu}>Menu</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.user}>Users</NavLink></p>
@@ -26,6 +31,7 @@ const Sidebar = () => {
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.winner}>DailyWinner</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.feedback}>Feedbacks</NavLink></p> */}
             </div>
+            } 
         </div>
     );
 };
