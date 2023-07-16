@@ -1,17 +1,10 @@
 import { getOrders } from "../controllers/orderController";
 
-export async function getOrderData(keyword) {
+export async function getOrderData(meal) {
     try {
-        const result = await getOrders();
-        const orderData = result.data.data;
-    
-    // const filteredData = orderData.filter(order =>
-    //   order.order_id.toLowerCase().includes(keyword.toLowerCase())
-    // );
+        const result = await getOrders(meal);
+        return result.data.data;
 
-    //console.log("filteredData", filteredData);
-
-    return orderData;
     } catch (error) {
         console.log("error:", error.message);
     }

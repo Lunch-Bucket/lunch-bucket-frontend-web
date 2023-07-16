@@ -3,9 +3,9 @@ import './SearchBarStyles.css';
 import { BsSearch } from "react-icons/bs";
 
 
-const SearchBar = ({ onChange }) => {
+const SearchBar = () => {
   const handleChange = event => {
-    onChange(event.target.value);
+    // onChange(event.target.value);
   };
 
   return (
