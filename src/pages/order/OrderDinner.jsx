@@ -6,7 +6,7 @@ import { BsFillChatFill } from "react-icons/bs";
 import SearchBar from "../../components/SearchBar";
 import { getOrderData } from "../../services/orderService";
 
-export default function OrderHome_Dinner()
+export default function OrderDinner()
 {
     const [orderList, setOrderList] = useState([]);
     const [notedOrder, setNotedOrder] = useState(false);
