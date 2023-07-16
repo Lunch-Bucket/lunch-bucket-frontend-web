@@ -13,7 +13,7 @@ const PATHS = {
     addPromotion: initialPath + 'addPromotion',
     chat: initialPath + 'chat',
     dashboard: initialPath + '',
-    login: '/login',
+    login:  initialPath + 'login',
     register: '/register',
     forgotPassword: '/forgot-password',
 }
