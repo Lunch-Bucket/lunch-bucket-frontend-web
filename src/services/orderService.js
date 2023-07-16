@@ -5,11 +5,13 @@ export async function getOrderData(keyword) {
         const result = await getOrders();
         const orderData = result.data.data;
     
-    const filteredData = orderData.filter(order =>
-      order.order_id.toLowerCase().includes(keyword.toLowerCase())
-    );
+    // const filteredData = orderData.filter(order =>
+    //   order.order_id.toLowerCase().includes(keyword.toLowerCase())
+    // );
 
-    return filteredData;
+    //console.log("filteredData", filteredData);
+
+    return orderData;
     } catch (error) {
         console.log("error:", error.message);
     }
