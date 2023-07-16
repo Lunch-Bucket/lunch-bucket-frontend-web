@@ -36,7 +36,7 @@ export default function OrderHome()
 
     function OrderItemChecked(value){
         checkedOrders.push(value)
-        console.log('checked orders: ', checkedOrders)
+        console.log('checked orders Lunch: ', checkedOrders)
     }
   
  

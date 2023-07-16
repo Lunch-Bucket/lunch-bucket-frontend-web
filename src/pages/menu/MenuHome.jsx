@@ -9,6 +9,7 @@ export default function MenuHome() {
  
      const [showAddItemModal, setShowAddItemModal] = useState(false);
      const [foodItem, setfoodItem] = useState([]);
+     let selectedFoodItems = []
 
      async function fetchFood() {
       try {
@@ -25,6 +26,11 @@ export default function MenuHome() {
          fetchFood();
      }, []);
    
+     function FoodItemChecked(value){
+      selectedFoodItems.push(value)
+      console.log('checked food items: ', selectedFoodItems)
+  }
+
 
 
     return (
@@ -68,7 +74,7 @@ export default function MenuHome() {
                             <>
                             {item.category == 'vege' && <li className="menu-detail-list-item">
                               <label class="checkbox-container">
-                                  <input type="checkbox" className="item-checkbox"/>
+                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked(item.food_id)}}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               < div className="menu-detail-list-item-name">{item.type}</div>
@@ -85,7 +91,7 @@ export default function MenuHome() {
                             <>
                             {item.category == 'meat' && <li className="menu-detail-list-item">
                               <label class="checkbox-container">
-                                  <input type="checkbox" className="item-checkbox"/>
+                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked(item.food_id)}}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               <div className="menu-detail-list-item-name">{item.type}</div>
@@ -102,7 +108,7 @@ export default function MenuHome() {
                             <>
                             {item.category == 'stew' && <li className="menu-detail-list-item">
                               <label class="checkbox-container">
-                                  <input type="checkbox" className="item-checkbox"/>
+                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked(item.food_id)}}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               <div className="menu-detail-list-item-name">{item.type}</div>

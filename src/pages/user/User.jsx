@@ -17,7 +17,6 @@ export default function User() {
         try {
             const userData  = await getUserData([]);
             setUser(userData);
-            console.log('user data in user page', user);
 
         } catch (error) {
             console.log("Error fetching user data:", error.message);
@@ -31,7 +30,7 @@ export default function User() {
 
     function showThreat(value)
     {
-    
+
         setCurrUser(value);   
     }
 
