@@ -51,7 +51,7 @@ export default function MenuHome() {
     const handleAddFood = async (values, { resetForm }) => {
       try {
         const encryptedValueString = localStorage.getItem('auth');
-        const decryptedValue = AES.decrypt(encryptedValueString, 'your-secret-key').toString(CryptoJS.enc.Utf8);
+        const decryptedValue = AES.decrypt(encryptedValueString, 'secret-token').toString(CryptoJS.enc.Utf8);
         await axios.post(`${baseUrl}addFood`, values, {
           headers: {
             'token': decryptedValue
