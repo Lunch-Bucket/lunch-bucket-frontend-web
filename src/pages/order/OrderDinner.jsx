@@ -40,6 +40,11 @@ export default function OrderHome_Dinner()
         checkedOrders.push(value)
         console.log('checked orders Dinner: ', checkedOrders)
     }
+
+    function handleOrderDispatch(){
+
+    }
+
   
  
     return(
@@ -59,7 +64,7 @@ export default function OrderHome_Dinner()
                         <div className="sales-content-amount">Rs. 4100</div>
                     </div>
                 </div>
-                <button className="action-bar-btn" onClick={(e)=>{}}>Dispatched</button>
+                <button className="action-bar-btn" onClick={handleOrderDispatch}>Dispatched</button>
             </div>
             <hr/> 
                 <div>
