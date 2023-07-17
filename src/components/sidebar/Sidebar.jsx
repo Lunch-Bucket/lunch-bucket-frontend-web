@@ -6,6 +6,10 @@ import PATHS from "../../common/paths/paths";
 import logo from '../../resources/images/LunchBucketLogo.png'
 
 const Sidebar = () => {
+
+    window.addEventListener('beforeunload', () => {
+       isLoggedIn=false;
+      });
   
     const isLoggedIn = localStorage.getItem('loginStatus') === 'true';
     console.log("local storage value",isLoggedIn); 
