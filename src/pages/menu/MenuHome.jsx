@@ -8,6 +8,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from "axios";
 import CryptoJS, {AES} from 'crypto-js';
+import {baseUrl} from '../../controllers/baseUrl'
 
 export default function MenuHome() {
 
@@ -51,7 +52,7 @@ export default function MenuHome() {
       try {
         const encryptedValueString = localStorage.getItem('auth');
         const decryptedValue = AES.decrypt(encryptedValueString, 'your-secret-key').toString(CryptoJS.enc.Utf8);
-        await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/getFood', values, {
+        await axios.post(`${baseUrl}addFood`, values, {
           headers: {
             'token': decryptedValue
           }
