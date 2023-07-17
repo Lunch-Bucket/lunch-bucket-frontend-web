@@ -140,7 +140,6 @@ export default function MenuHome() {
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               < div className="menu-detail-list-item-name">{item.type}</div>
-                              <FaTrashAlt size={15} style={{color:'#ECDD70'}}/>
                             </li>}
                             </>))}
                         </ul>
@@ -157,7 +156,6 @@ export default function MenuHome() {
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               <div className="menu-detail-list-item-name">{item.type}</div>
-                              <FaTrashAlt size={15} style={{color:'#ECDD70'}}/>
                             </li>}
                             </>))}
                         </ul>
@@ -174,7 +172,6 @@ export default function MenuHome() {
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               <div className="menu-detail-list-item-name">{item.type}</div>
-                              <FaTrashAlt size={15} style={{color:'#ECDD70'}}/>
                             </li>}
                             </>))}
                         </ul>
