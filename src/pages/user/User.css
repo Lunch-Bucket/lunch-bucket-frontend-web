@@ -25,12 +25,24 @@
     min-width: 25%;
 }
 
-.user-page-data-row-data-threat-btn{
-    background-color: #D73316;
+.user-page-data-row-data-level-btn{
+    background-color: #269703;
     padding: 0.4rem;
+    margin-left: 0.4rem;
     border: none;
     color: white;
     cursor: pointer;
+}
+
+.level-down{
+    background-color: #e4a2a2;
+    color: black;
+    border: 2px solid rgb(172, 13, 13);
+}
+
+.level-down:focus{
+    background-color: #b90202;
+    color: white;
 }
 
 .user-page-data-row-data-threat-btn:hover{
