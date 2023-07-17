@@ -6,6 +6,7 @@ import strings from '../../common/strings/strings'
 import {getFoodItem } from "../../services/menuService";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import axios from "axios";
 
 export default function MenuHome() {
  
@@ -13,16 +14,16 @@ export default function MenuHome() {
      const [foodItem, setfoodItem] = useState([]);
      let selectedFoodItems = []
 
+
      async function fetchFood() {
       try {
-          const foodDetail  = await getFoodItem([]);
-          setfoodItem(foodDetail);
-          console.log('user data in menu page', foodItem);
-
+        const foodDetail = await getFoodItem([]);
+        setfoodItem(foodDetail);
+        console.log('user data in menu page', foodDetail);
       } catch (error) {
-          console.log("Error fetching menu data:", error.message);
+        console.log('Error fetching menu data:', error.message);
       }
-  }
+    }
  
      useEffect(() => {
          fetchFood();
@@ -39,11 +40,26 @@ export default function MenuHome() {
       itemPrice: Yup.number().required('Item Price is required'),
     });
     
+    const handleAddFood = async (values, { resetForm }) => {
+      try {
+        const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hdm9keWFwaXVtYW50aGlAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMTIyMzM0NCIsImNvZGUiOiI2NGIxMTdhM2YwNzY5YjlkMTJlYzVmNzAiLCJleHBpcmUiOjE2ODk2MDMzMzJ9.dZzQ3yMxAqhZRvhahczXsh54uvxY8wIQ7s3FrLDtm64'; 
+        await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/addFood', values, {
+          headers: {
+            'token': authToken
+          }
+        });
+        await fetchFood();
 
-    const handleAddFood = (values) => {
-      console.log(values);
+        console.log('value:', values);
+        alert("Successfully Added New Food Item")
+        resetForm();
+        
+      } catch (error) {
+        console.log('Error:', error);
+      }
       setShowAddItemModal(false);
     };
+  
 
 
     return (
@@ -67,9 +83,9 @@ export default function MenuHome() {
                   <Form>
                     <label className="add-menu-item-form-label">Item Category</label>
                     <Field as="select" id="add-menu-item-form-input" name="itemCategory" style={{ width: '10rem' }}>
-                      <option value="Vege">Vege</option>
-                      <option value="Stew">Stew</option>
-                      <option value="Meat">Meat</option>
+                      <option value="vege">Vege</option>
+                      <option value="stew">Stew</option>
+                      <option value="meat">Meat</option>
                     </Field>
                     <ErrorMessage name="itemCategory" component="div" className="error-message" />
                     <br />
