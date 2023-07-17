@@ -40,6 +40,7 @@
     font-weight: 600;
     color: rgb(49, 20, 20);
     height: 3rem;
+    margin-right: 0.4rem;
 }
 
 .header-item-add-button:hover{
@@ -150,6 +151,34 @@
     transform: rotateY(60deg) translateZ(-200px); 
     animation: modal-anim 0.5s ease-in-out forwards; 
   }
+
+  .delete-confirm{
+    height: 14vh;
+    width: 35vw;
+    margin-left: 15%;
+    border: 2px solid rgb(116, 23, 11);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #faf9f4;
+  }
+
+  .delete-confirm-btn{
+      border: 1px solid rgb(116, 23, 11);
+      background-color: #ffecec;
+      padding: 0.3rem;
+      border-radius: 4px;
+      margin-left: 0.2rem;
+      cursor: pointer;
+  }
+
+  .delete-confirm-btn:focus{
+    color: white;
+    background-color:  rgb(116, 23, 11);
+  }
+
   @keyframes modal-anim {
     0% {
       transform: rotateY(60deg) translateZ(-200px);

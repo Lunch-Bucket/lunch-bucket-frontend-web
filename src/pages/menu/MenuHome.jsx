@@ -18,6 +18,7 @@ export default function MenuHome() {
       localStorage.setItem('auth', encryptedValue);
  
      const [showAddItemModal, setShowAddItemModal] = useState(false);
+     const [showDeleteItemModal, setShowDeleteItemModal] = useState(false);
      const [foodItem, setfoodItem] = useState([]);
 
      let selectedFoodItems = []
@@ -68,6 +69,10 @@ export default function MenuHome() {
       }
       setShowAddItemModal(false);
     };
+
+    function handleDeleteFood(){
+      
+    }
   
 
 
@@ -76,8 +81,9 @@ export default function MenuHome() {
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
               <h1 className="menu-title-text">{strings.menu}</h1>  
               <div >
-                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C', marginRight:'1rem'}} onClick={()=>{}}>Apply Today's Meal</button>
+                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{}}>Apply Today's Meal</button>
                 <button className="header-item-add-button" onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
+                <button className="header-item-add-button" style={{backgroundColor:'rgb(185, 2, 2)', color: 'white'}} onClick={()=>{setShowDeleteItemModal(true)}}>Delete Item</button>
               </div>
             </div>
             <hr/>
@@ -112,9 +118,15 @@ export default function MenuHome() {
                     <button className="header-item-add-button" type="submit" style={{float:'right'}}>Add Food Item</button>
                   </Form>
                 </Formik>
-
-                 
               </div>} 
+
+              {showDeleteItemModal &&  <div class="modal-content delete-confirm">
+                  <h4>Are you sure, you want to delete the selected items ?</h4>
+                  <div>
+                    <button class="delete-confirm-btn" onClick={()=>{setShowDeleteItemModal(false)}}>Cancel</button>
+                    <button class="delete-confirm-btn" onClick={handleDeleteFood}>Confirm</button>
+                  </div>
+              </div>}
           
             <div className="menu-detail-content">
                 <div className="menu-detail-list">
