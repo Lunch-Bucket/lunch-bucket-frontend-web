@@ -41,8 +41,13 @@ export default function OrderHome_Dinner()
         console.log('checked orders Dinner: ', checkedOrders)
     }
 
-    function handleOrderDispatch(){
+    function handleOrderStatus(orderStatus){
+        if(orderStatus == 'noted'){
+            
+        }
+        else{
 
+        }
     }
 
   
@@ -64,7 +69,10 @@ export default function OrderHome_Dinner()
                         <div className="sales-content-amount">Rs. 4100</div>
                     </div>
                 </div>
-                <button className="action-bar-btn" onClick={handleOrderDispatch}>Dispatched</button>
+                <div>
+                    <button className="action-bar-btn" onClick={()=>handleOrderStatus('noted')}>Noted</button>
+                    <button className="action-bar-btn" onClick={()=>handleOrderStatus('dispatched')}>Dispatched</button>
+                </div>
             </div>
             <hr/> 
                 <div>

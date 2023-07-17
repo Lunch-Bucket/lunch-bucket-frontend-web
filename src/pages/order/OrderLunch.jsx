@@ -9,7 +9,6 @@ import { getOrderData } from "../../services/orderService";
 export default function OrderHome()
 {
     const [orderList, setOrderList] = useState([]);
-    const [notedOrder, setNotedOrder] = useState(false);
     const [currOrder, setCurrOrder] = useState("")
     let  checkedOrders = []
     const [searchTerm, setSearchTerm] = useState('');
@@ -30,18 +29,19 @@ export default function OrderHome()
         fetchOrderData();
     }, []);
 
-    function NotedOrder(value){
-        setNotedOrder(true);
-        setCurrOrder(value);
-    }
 
     function OrderItemChecked(value){
         checkedOrders.push(value)
         console.log('checked orders Lunch: ', checkedOrders)
     }
 
-    function handleOrderDispatch(){
+    function handleOrderStatus(orderStatus){
+        if(orderStatus == 'noted'){
+            
+        }
+        else{
 
+        }
     }
 
   
@@ -63,7 +63,10 @@ export default function OrderHome()
                         <div className="sales-content-amount">Rs. 4100</div>
                     </div>
                 </div>
-                <button className="action-bar-btn" onClick={handleOrderDispatch}>Dispatched</button>
+                <div>
+                    <button className="action-bar-btn" onClick={()=>handleOrderStatus('noted')}>Noted</button>
+                    <button className="action-bar-btn" onClick={()=>handleOrderStatus('dispatched')}>Dispatched</button>
+                </div>
             </div>
             <hr/> 
                 <div>
@@ -78,13 +81,10 @@ export default function OrderHome()
                                     </label>   
                                 </td>
 
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: notedOrder && (currOrder== (data.order_id)) ? '#F8E76C': '#fcfadc'}}>
+                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: '#fcfadc'}}>
                                     Order ID: {data.order_id}  <span style={{marginLeft:'2rem'}}></span> User ID: {data.customer_id}
                                     <br/> Address: University of Moratuwa
                                     <br/> Special Notes: {data.comment}
-                                </td>
-                                <td>
-                                  <button className="order-page-data-row-noted-btn" onClick={()=>NotedOrder(data.order_id)}>Noted</button>
                                 </td>
                             </tr>
 
