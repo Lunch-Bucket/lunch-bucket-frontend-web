@@ -4,6 +4,8 @@ import "./MenuStyles.css";
 import {FaTrashAlt} from "react-icons/fa";
 import strings from '../../common/strings/strings'
 import {getFoodItem } from "../../services/menuService";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 export default function MenuHome() {
  
@@ -31,6 +33,17 @@ export default function MenuHome() {
       console.log('checked food items: ', selectedFoodItems)
   }
 
+    const validationSchema = Yup.object().shape({
+      itemCategory: Yup.string().required('Item Category is required'),
+      itemType: Yup.string().required('Item Type is required'),
+      itemPrice: Yup.number().required('Item Price is required'),
+    });
+    
+
+    const handleAddFood = (values) => {
+      console.log(values);
+      setShowAddItemModal(false);
+    };
 
 
     return (
@@ -46,24 +59,36 @@ export default function MenuHome() {
 
             {showAddItemModal &&  <div class="modal-content">
                 <span class="close" onClick={()=>{setShowAddItemModal(false)}}>Close</span><br/>
-                <form>
-                  <label className="add-menu-item-form-label">Item Category</label>
-                  <select type="text" id="add-menu-item-form-input" style={{width:'10rem'}} >
-                    <option>Vege</option>
-                    <option>Stew</option>
-                    <option>Meat</option>
-                  </select>
-                  <br/>
+                <Formik 
+                  initialValues={{ itemCategory: '', itemType: '', descriptionNutrition: '', descriptionGoods: '', itemPrice: '' }}
+                  validationSchema={validationSchema}
+                  onSubmit={handleAddFood}
+                >
+                  <Form>
+                    <label className="add-menu-item-form-label">Item Category</label>
+                    <Field as="select" id="add-menu-item-form-input" name="itemCategory" style={{ width: '10rem' }}>
+                      <option value="Vege">Vege</option>
+                      <option value="Stew">Stew</option>
+                      <option value="Meat">Meat</option>
+                    </Field>
+                    <ErrorMessage name="itemCategory" component="div" className="error-message" />
+                    <br />
                     <label className="add-menu-item-form-label">Item Type</label>
-                    <input type="text" id="add-menu-item-form-input"/><br/>
+                    <Field type="text" id="add-menu-item-form-input" name="itemType" />
+                    <ErrorMessage name="itemType" component="div" className="error-message" /><br />
                     <label className="add-menu-item-form-label">Description Nutrition</label>
-                    <input type="text" id="add-menu-item-form-input"/><br/>
+                    <Field type="text" id="add-menu-item-form-input" name="descriptionNutrition" /><br />
                     <label className="add-menu-item-form-label">Description Goods</label>
-                    <input type="text" id="add-menu-item-form-input"/><br/>
+                    <Field type="text" id="add-menu-item-form-input" name="descriptionGoods" /><br />
                     <label className="add-menu-item-form-label">Item Price</label>
-                    <input type="number" id="add-menu-item-form-input"/>
-                </form>
-                  <button className="header-item-add-button" style={{float:'right'}} onClick={()=>{setShowAddItemModal(false)}}>Add Food Item</button>
+                    <Field type="number" id="add-menu-item-form-input" name="itemPrice" />
+                    <ErrorMessage name="itemPrice" component="div" className="error-message" />
+                    <br />
+                    <button className="header-item-add-button" type="submit" style={{float:'right'}}>Add Food Item</button>
+                  </Form>
+                </Formik>
+
+                 
               </div>} 
           
             <div className="menu-detail-content">

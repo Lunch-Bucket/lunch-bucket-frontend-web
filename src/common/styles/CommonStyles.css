@@ -172,3 +172,10 @@
     text-decoration: none;
     cursor: pointer;
   }
+
+
+  .error-message{
+    font-size: 14px;
+    margin-left: 15rem;
+    color: rgb(185, 2, 2);
+  }
