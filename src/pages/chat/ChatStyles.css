@@ -44,12 +44,13 @@
 .chat-reply-input{
     height: 2.5rem;
     border: 2px solid rgb(189, 188, 187);
-    border-radius: 8px;
+    border-radius: 4px 0px 0px 4px;
     width: 20vw;
 }
 
 .chat-reply-send-btn{
     background-color:  #ffed87;
+    border-radius: 0px 4px 4px 0px;
 }
 
 .chat-reply-send-btn:hover{
