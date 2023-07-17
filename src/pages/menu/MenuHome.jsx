@@ -7,11 +7,18 @@ import {getFoodItem } from "../../services/menuService";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from "axios";
+import CryptoJS, {AES} from 'crypto-js';
 
 export default function MenuHome() {
+
+      const originalValue = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hdm9keWFwaXVtYW50aGlAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMTIyMzM0NCIsImNvZGUiOiI2NGIxMTdhM2YwNzY5YjlkMTJlYzVmNzAiLCJleHBpcmUiOjE2ODk2MDMzMzJ9.dZzQ3yMxAqhZRvhahczXsh54uvxY8wIQ7s3FrLDtm64';
+      const encryptedValue = AES.encrypt(originalValue, 'secret-token').toString();
+
+      localStorage.setItem('auth', encryptedValue);
  
      const [showAddItemModal, setShowAddItemModal] = useState(false);
      const [foodItem, setfoodItem] = useState([]);
+
      let selectedFoodItems = []
 
 
@@ -42,10 +49,11 @@ export default function MenuHome() {
     
     const handleAddFood = async (values, { resetForm }) => {
       try {
-        const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hdm9keWFwaXVtYW50aGlAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMTIyMzM0NCIsImNvZGUiOiI2NGIxMTdhM2YwNzY5YjlkMTJlYzVmNzAiLCJleHBpcmUiOjE2ODk2MDMzMzJ9.dZzQ3yMxAqhZRvhahczXsh54uvxY8wIQ7s3FrLDtm64'; 
-        await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/addFood', values, {
+        const encryptedValueString = localStorage.getItem('auth');
+        const decryptedValue = AES.decrypt(encryptedValueString, 'your-secret-key').toString(CryptoJS.enc.Utf8);
+        await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/getFood', values, {
           headers: {
-            'token': authToken
+            'token': decryptedValue
           }
         });
         await fetchFood();
