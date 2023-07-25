@@ -81,7 +81,8 @@ export default function MenuHome() {
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
               <h1 className="menu-title-text">{strings.menu}</h1>  
               <div >
-                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{}} disabled={selectedFoodItems.length === 0}>Apply Today's Meal</button>
+                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{}} disabled={selectedFoodItems.length === 0}>Apply Lunch Meal</button>
+                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{}} disabled={selectedFoodItems.length === 0}>Apply Dinner Meal</button>
                 <button className="header-item-add-button" onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
                 <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} disabled={selectedFoodItems.length === 0} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button>
               </div>

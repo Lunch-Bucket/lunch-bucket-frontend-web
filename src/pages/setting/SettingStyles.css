@@ -1,0 +1,34 @@
+.setting-container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.setting-card{
+    height: 350px;
+    width: 350px;
+    border-radius: 5px;
+    background-color: #fffbc9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.setting-card:hover{
+    height: 370px;
+    width: 370px;
+}
+
+.setting-card-input-count{
+    height: 3rem;
+    width: 6rem;
+    border-radius: 4px;
+    border: 2px solid rgb(255, 230, 0);
+    margin-right: 1rem;
+}
+
+button{
+    cursor: pointer;
+}

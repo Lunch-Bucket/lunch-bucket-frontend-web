@@ -4,7 +4,8 @@ import AdminRoutes from './AdminRoutes';
 import Feedback from '../pages/feedback/Feedback';
 import User from '../pages/user/User';
 import MenuHome from '../pages/menu/MenuHome';
-import AddMenu from '../pages/menu/AddMenu';
+import SpecialMenuHome from '../pages/menu/SpecialMenuHome';
+import SettingHome from '../pages/setting/SettingHome';
 import OrderLunch from '../pages/order/OrderLunch';
 import OrderDinner from '../pages/order/OrderDinner';
 import AddWinner from '../pages/winner/AddWinner';
@@ -46,8 +47,8 @@ const router = createBrowserRouter([
                 element: <MenuHome/>
             },
             {
-                path: 'addMenu',
-                element: <AddMenu/>
+                path: 'specialMenu',
+                element: <SpecialMenuHome/>
             },
             {
                 path: 'winner',
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
             {
                 path: 'promotion',
                 element: <Promotion/>
+            },
+            {
+                path: 'setting',
+                element: <SettingHome/>,
             },
             {
                 path: 'chat',

@@ -179,9 +179,9 @@ hr {
 }
 
 .add-menu-item-form-label{
-    width: 25rem;
+    min-width: 15rem;
     font-size: 14px;
-    padding: 1.6rem;
+    padding: max(6rem);
 }
 
 #add-menu-item-form-input{

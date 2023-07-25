@@ -92,9 +92,6 @@ export default function OrderHome_Dinner()
                                     <br/> Address: University of Moratuwa
                                     <br/> Special Notes: {data.comment}
                                 </td>
-                                <td>
-                                  <button className="order-page-data-row-noted-btn" onClick={()=>NotedOrder(data.order_id)}>Noted</button>
-                                </td>
                             </tr>
 
                             <tr>  
