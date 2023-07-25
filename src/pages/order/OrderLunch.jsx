@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import "../../common/styles/CommonStyles.css";
 import "./OrderStyles.css";
 import strings from "../../common/strings/strings";
-import { BsFillChatFill } from "react-icons/bs";
 import SearchBar from "../../components/SearchBar";
 import { getOrderData } from "../../services/orderService";
 

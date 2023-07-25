@@ -189,3 +189,20 @@ hr {
     margin-top: 1rem;
     height: 2rem;
 }
+
+.special-menu-detail-content{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.special-menu-card{
+    height: 16rem;
+    width: 28%;
+    border-radius: 0px 6px 6px 6px;
+    background-color: #fffdef;
+    margin: 1rem;
+    border: 2px solid black;
+}

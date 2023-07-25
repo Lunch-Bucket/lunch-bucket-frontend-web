@@ -3,36 +3,28 @@ import "../../common/styles/CommonStyles.css";
 import "./MenuStyles.css";
 import {FaTrashAlt} from "react-icons/fa";
 import strings from '../../common/strings/strings'
-import {getFoodItem } from "../../services/menuService";
-
-import CryptoJS, {AES} from 'crypto-js';
-import {baseUrl} from '../../controllers/baseUrl'
+import { getSpecialMenu } from "../../services/menuService";
 
 export default function SpecialMenuHome() {
-
-      const originalValue = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hdm9keWFwaXVtYW50aGlAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMTIyMzM0NCIsImNvZGUiOiI2NGIxMTdhM2YwNzY5YjlkMTJlYzVmNzAiLCJleHBpcmUiOjE2ODk2MDMzMzJ9.dZzQ3yMxAqhZRvhahczXsh54uvxY8wIQ7s3FrLDtm64';
-      const encryptedValue = AES.encrypt(originalValue, 'secret-token').toString();
-
-      localStorage.setItem('auth', encryptedValue);
  
      const [showDeleteItemModal, setShowDeleteItemModal] = useState(false);
-     const [foodItem, setfoodItem] = useState([]);
+     const [specialFoodItem, setSpecialFoodItem] = useState([]);
 
      let selectedFoodItems = []
 
 
-     async function fetchFood() {
+     async function fetchSpecialFood() {
       try {
-        const foodDetail = await getFoodItem([]);
-        setfoodItem(foodDetail);
-        console.log('user data in menu page', foodDetail);
+        const foodDetail = await getSpecialMenu([]);
+        setSpecialFoodItem(foodDetail);
+        console.log('special food detail', foodDetail);
       } catch (error) {
         console.log('Error fetching menu data:', error.message);
       }
     }
  
      useEffect(() => {
-         fetchFood();
+         fetchSpecialFood();
      }, []);
    
      function FoodItemChecked(value){
@@ -68,24 +60,24 @@ export default function SpecialMenuHome() {
                   </div>
               </div>}
           
-            <div className="menu-detail-content">
-                <div className="menu-detail-list">
-                <div className="menu-detail-list-title">Vegetables</div> 
+            <div className="special-menu-detail-content">
+
+                <div className="special-menu-card">
+                    <label class="checkbox-container">
+                        <input type="checkbox" className="item-checkbox"  onClick={()=>{FoodItemChecked()}}/>
+                        <span className="item-checkbox-checkmark"></span>
+                    </label>   
+                    <div >
+                        <h5 style={{textAlign:'center'}}>Fried Rice</h5> 
                         <ul>
-                          {foodItem.map((item,id)=>( 
-                            <>
-                            {item.category == 'vege' && <li className="menu-detail-list-item">
-                              <label class="checkbox-container">
-                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked(item.food_id)}}/>
-                                  <span className="item-checkbox-checkmark"></span>
-                              </label>   
-                              < div className="menu-detail-list-item-name">{item.type}</div>
-                            </li>}
-                            </>))}
+                            <li className="menu-detail-list-item">vegetable fried rice</li>
+                            <li className="menu-detail-list-item">vegetable fried rice</li>
                         </ul>
+                    </div>
                 </div>
-    
+           
             </div>
+       
 
         </div>
     );

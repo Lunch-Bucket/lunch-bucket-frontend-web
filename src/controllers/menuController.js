@@ -11,6 +11,16 @@ export async function getFood() {
     }
 }
 
+export async function getSpecialFood() {
+    try {
+        const response = await axios.get(`${baseUrl}getSpecialMeal`);
+        console.log('special menu',response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export async function setMenu() {
     try {
         const response = await axios.get('https://78skmyfnj5.execute-api.ap-south-1.amazonaws.com/dev/getFood');
