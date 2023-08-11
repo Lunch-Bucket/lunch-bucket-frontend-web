@@ -1,3 +1,8 @@
+.chat-main-sub-container::-webkit-scrollbar{
+    display: none;
+  }
+
+
 .chat-page-data-row-data{
     min-width: 10rem;
     background-color: rgb(194, 83, 83);
@@ -26,6 +31,16 @@
     margin-left: 3rem;
 }
 
+.chat-main-sub-container{
+    position: absolute;
+    overflow-y: scroll;
+    height: 63vh;
+    width: 70vw;
+    background-color: #fff9e3;
+    display: flex;
+    flex-direction: column;
+}
+
 .chat-card{
     padding: 0.4rem;
     border-radius: 4px;
@@ -35,10 +50,20 @@
     width: calc(80% / 3)
 }
 
+.single-chat-card{
+    margin: 1rem;
+    padding: 0.7rem;
+    border-radius: 4px;
+    background-color: #f8eba3;
+    width: 50%;
+}
+
 .chat-reply-content{
+    position: absolute;
     display: flex;
-    margin-left: 40%;
+    margin-left: 26%;
     width: 50vw;
+    top: 86vh;
 }
 
 .chat-reply-input{

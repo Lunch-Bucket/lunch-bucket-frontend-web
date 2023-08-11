@@ -5,7 +5,7 @@ import strings from '../../common/strings/strings'
 
 export default function Chat() {
 
-  const [chatType, setChatType] = useState("suggestion")
+  const [chatType, setChatType] = useState("live")
   const [currUser, setCurrUser] = useState("")
   const [chat, setChat] = useState([
     {
@@ -92,8 +92,8 @@ export default function Chat() {
         <div className="header-title-bar">
           <h1 className="header-title-bar-text">{strings.chat}</h1>
           <div>
-            <button className="action-bar-btn" onClick={()=>{setChatType('suggestion')}} style={{backgroundColor: chatType== 'suggestion'? '#FFEF9C' :''}}>Suggestions</button>
-            <button className="action-bar-btn" onClick={()=>{setChatType('live')}}>Live Chat</button>
+            <button className="action-bar-btn" onClick={()=>{setChatType('suggestion')}} >Suggestions</button>
+            <button className="action-bar-btn" onClick={()=>{setChatType('live')}} style={{backgroundColor: chatType== 'live'? '#FFEF9C' :''}}>Live Chat</button>
           </div>
         </div>
 
@@ -107,19 +107,19 @@ export default function Chat() {
         
         {chatType == 'singleChat' &&  
         <div className="chat-main-container">
-         {chat.map((chat, id)=>( <>
-         {currUser == (chat.userID) &&<div style={{display:'flex', flexDirection:'column'}}>
-         <div className="chat-card" style={{width:'auto'}}>
-                {chat.regarding}
-           </div>
-           <div className="chat-reply-content">
+          <div className="chat-main-sub-container">
+            {chat.map((chat, id)=>( <>
+              {currUser === (chat.userID) &&
+              <div className="single-chat-card">
+                      {chat.regarding}
+                </div>
+              }
+              </>))}
+          </div>  
+          <div className="chat-reply-content">
               <input type="text" className="chat-reply-input" />
               <button className="action-bar-btn chat-reply-send-btn">Send Reply</button>
-           </div>
-           </div>}
-       
-           </>))}
-           
+          </div> 
         </div>}
 
 
