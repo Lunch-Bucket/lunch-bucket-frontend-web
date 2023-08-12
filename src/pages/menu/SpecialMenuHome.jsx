@@ -62,19 +62,21 @@ export default function SpecialMenuHome() {
           
             <div className="special-menu-detail-content">
 
+              {specialFoodItem?.map((item,id)=>(
                 <div className="special-menu-card">
-                    <label class="checkbox-container">
-                        <input type="checkbox" className="item-checkbox"  onClick={()=>{FoodItemChecked()}}/>
-                        <span className="item-checkbox-checkmark"></span>
-                    </label>   
-                    <div >
-                        <h5 style={{textAlign:'center'}}>Fried Rice</h5> 
-                        <ul>
-                            <li className="menu-detail-list-item">vegetable fried rice</li>
-                            <li className="menu-detail-list-item">vegetable fried rice</li>
-                        </ul>
-                    </div>
+                  <label class="checkbox-container">
+                      <input type="checkbox" className="item-checkbox"  onClick={()=>{FoodItemChecked()}}/>
+                      <span className="item-checkbox-checkmark"></span>
+                  </label>   
+                  <div >
+                      <h5 style={{textAlign:'center'}}>Fried Rice</h5> 
+                      <ul>
+                          <li className="menu-detail-list-item">{item.type}</li>
+                          <li className="menu-detail-list-item">vegetable fried rice</li>
+                      </ul>
+                  </div>
                 </div>
+              ))}  
            
             </div>
        
