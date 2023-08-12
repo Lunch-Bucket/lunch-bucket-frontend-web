@@ -40,6 +40,10 @@ export default function Login() {
         
     // };
 
+        const validationSchema = Yup.object({
+            username: Yup.string().required('Username is required'),
+            password: Yup.string().required('Password is required'),
+        });
         const [projectCode, setProjectCode] = useState('64a7aec4932166ca272cd176AVT60UVT4300');
       
         const handleLogin = async (values) => {
@@ -49,7 +53,6 @@ export default function Login() {
                 password: values.password,
                 project_code: projectCode,
               });
-        
         
               const authToken = response.data.data.token;
               console.log('Authentication Token:', authToken);
@@ -67,7 +70,7 @@ export default function Login() {
                     <div className="login-form-container-left">
                         <Formik
                             initialValues={{ email: '', password: '' }}
-                            // validationSchema={validationSchema}
+                            validationSchema={validationSchema}
                             onSubmit={handleLogin}
                         >
                             <Form>
