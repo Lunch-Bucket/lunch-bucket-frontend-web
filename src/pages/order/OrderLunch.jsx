@@ -80,20 +80,22 @@ export default function OrderHome()
                                     </label>   
                                 </td>
 
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: '#fcfadc'}}>
-                                    Order ID: {data.order_id}  <span style={{marginLeft:'2rem'}}></span> User ID: {data.customer_id}
+                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type == 'non_vegi'? '#fcfadc':'#ECFFC8'}}>
+                                    Order ID: {data.order_id}  <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>Customer Code: {data.customer_code}</span> 
                                     <br/> Address: University of Moratuwa
                                     <br/> Special Notes: {data.comment}
+                                    <br/> Packet Count: {data.packet_amount} | Rs.  {data.price}
                                 </td>
                             </tr>
 
                             <tr>  
                                 <td style={{fontSize:'14px'}}>
                                     <ul style={{listStyle:'square'}}>
-                                        <li>{data.vege1}</li>
-                                        <li>{data.vege2}</li>
-                                        <li>{data.stew}</li>
-                                        <li>{data.meat}</li>
+                                        <li>{data.items.rice}</li>
+                                        <li>{data.items.vege1}</li>
+                                        <li>{data.items.vege2}</li>
+                                        <li>{data.items.stew}</li>
+                                        <li>{data.items.meat}</li>
                                     </ul>
                                 </td>
                             </tr>

@@ -87,8 +87,8 @@ export default function OrderHome_Dinner()
                                     </label>   
                                 </td>
 
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: notedOrder && (currOrder== (data.order_id)) ? '#F8E76C': '#fcfadc'}}>
-                                    Order ID: {data.order_id}  <span style={{marginLeft:'2rem'}}></span> User ID: {data.customer_id}
+                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type === 'non_vegi'? '#fcfadc':'#ECFFC8'}}>
+                                    Order ID: {data.order_id}  <span style={{marginLeft:'2rem'}}></span> Customer Code: {data.customer_code}
                                     <br/> Address: University of Moratuwa
                                     <br/> Special Notes: {data.comment}
                                 </td>
