@@ -11,35 +11,11 @@ import axios from 'axios';
 
 export default function Login() {
 
-    // localStorage.setItem('loginStatus', 'false');
 
-
-    // const userName = "admin";
-    // const Pwd = "admin@123";
-
-
-    // const validationSchema = Yup.object({
-    //     username: Yup.string().required('Username is required'),
-    //     password: Yup.string().required('Password is required'),
-    // });
-
-    // const handleSubmit = (values) => {
-    //     const { username, password } = values;
-    //     if((username === userName) && (password === Pwd)){
-    //         localStorage.setItem('loginStatus', 'true');
-    //         console.log("login success!");
-    //         window.location.replace(PATHS.orderLunch); 
-    //     }
-    //     else{
-    //         localStorage.setItem('loginStatus', 'false');
-    //         window.location.reload();
-    //         alert("You have entered wrong credentials!")
-    //     }
-    //     console.log(values);
-        
-        
-    // };
-
+        const validationSchema = Yup.object({
+            username: Yup.string().required('Username is required'),
+            password: Yup.string().required('Password is required'),
+        });
         const [projectCode, setProjectCode] = useState('64a7aec4932166ca272cd176AVT60UVT4300');
       
         const handleLogin = async (values) => {
@@ -49,7 +25,6 @@ export default function Login() {
                 password: values.password,
                 project_code: projectCode,
               });
-        
         
               const authToken = response.data.data.token;
               console.log('Authentication Token:', authToken);
@@ -67,7 +42,7 @@ export default function Login() {
                     <div className="login-form-container-left">
                         <Formik
                             initialValues={{ email: '', password: '' }}
-                            // validationSchema={validationSchema}
+                            validationSchema={validationSchema}
                             onSubmit={handleLogin}
                         >
                             <Form>
