@@ -1,6 +1,5 @@
 import React from "react";
 import "./Sidebar.css";
-import "@fontsource/poppins";
 import {Link, NavLink} from "react-router-dom";
 import PATHS from "../../common/paths/paths";
 import logo from '../../resources/images/LunchBucketLogo.png'
