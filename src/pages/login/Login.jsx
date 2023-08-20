@@ -1,18 +1,16 @@
 import React, {useState} from "react";
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import './Login.css';
 import '../../common/styles/CommonStyles.css';
 import LoginImg from '../../resources/images/loginVector.png'
 import PATHS from "../../common/paths/paths";
 import axios from 'axios';
-
+import { useNavigate } from "react-router-dom";
 
 
 export default function Login() {
 
 
-      
+  const navigate = useNavigate();
   const [projectCode, setProjectCode] = useState('64a7aec4932166ca272cd176AVT60UVT4300');
 
   const [email, setEmail] = useState('');
@@ -47,6 +45,8 @@ const handleLogin = async (event) => {
 
         const authToken = response.data.data.token;
         localStorage.setItem('authToken', authToken);
+        const tokenGeneratedTime = Date.now(); 
+        localStorage.setItem("tokenGeneratedTime", tokenGeneratedTime.toString());
         window.location.replace(PATHS.orderLunch); 
       } catch (error) {
         console.error('Login Error:', error);

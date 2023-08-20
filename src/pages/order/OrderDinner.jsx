@@ -2,11 +2,11 @@ import React, {useState, useEffect} from "react";
 import "../../common/styles/CommonStyles.css";
 import "./OrderStyles.css";
 import strings from "../../common/strings/strings";
-import { BsFillChatFill } from "react-icons/bs";
 import SearchBar from "../../components/SearchBar";
 import { getOrderData } from "../../services/orderService";
+import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 
-export default function OrderHome_Dinner()
+function OrderHome_Dinner()
 {
     const [orderList, setOrderList] = useState([]);
     let  checkedOrders = []
@@ -100,3 +100,5 @@ export default function OrderHome_Dinner()
         </div>
     );
 }
+
+export default withTokenExpirationCheck(OrderHome_Dinner);

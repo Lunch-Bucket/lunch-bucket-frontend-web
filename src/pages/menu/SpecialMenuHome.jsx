@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../../common/styles/CommonStyles.css";
 import "./MenuStyles.css";
-import {FaTrashAlt} from "react-icons/fa";
 import strings from '../../common/strings/strings'
 import { getSpecialMenu } from "../../services/menuService";
+import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 
-export default function SpecialMenuHome() {
+function SpecialMenuHome() {
  
      const [showDeleteItemModal, setShowDeleteItemModal] = useState(false);
      const [specialFoodItem, setSpecialFoodItem] = useState([]);
@@ -84,3 +84,4 @@ export default function SpecialMenuHome() {
         </div>
     );
 }
+export default withTokenExpirationCheck(SpecialMenuHome);

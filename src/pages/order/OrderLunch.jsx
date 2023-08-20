@@ -2,14 +2,13 @@ import React, {useState, useEffect} from "react";
 import "../../common/styles/CommonStyles.css";
 import "./OrderStyles.css";
 import strings from "../../common/strings/strings";
-import SearchBar from "../../components/SearchBar";
 import { getOrderData } from "../../services/orderService";
+import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 
-export default function OrderHome()
+function OrderHome()
 {
     const [orderList, setOrderList] = useState([]);
     const [checkedOrders, setCheckedOrders] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
     const [orderStatus, setOrderStatus] = useState("pending")
     let totalSales = 0;
 
@@ -43,12 +42,6 @@ export default function OrderHome()
         alert('Marked as Returned!')
         setCheckedOrders([]);
     }
-
-    // function orderComponentRenderFunc(orderStatus){
-    //     if (condition) {
-            
-    //     }
-    // }
 
   
  
@@ -222,3 +215,5 @@ export default function OrderHome()
         </div>
     );
 }
+
+export default withTokenExpirationCheck(OrderHome);

@@ -1,9 +1,10 @@
 import React,{ useState } from "react";
 import './ChatStyles.css';
 import '../../common/styles/CommonStyles.css';
-import strings from '../../common/strings/strings'
+import strings from '../../common/strings/strings';
+import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 
-export default function Chat() {
+function Chat() {
 
   const [chatType, setChatType] = useState("live")
   const [currUser, setCurrUser] = useState("")
@@ -133,3 +134,5 @@ export default function Chat() {
         </div>
     )
 }
+
+export default withTokenExpirationCheck(Chat);

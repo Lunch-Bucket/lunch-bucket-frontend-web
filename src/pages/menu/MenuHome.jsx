@@ -3,13 +3,9 @@ import "../../common/styles/CommonStyles.css";
 import "./MenuStyles.css";
 import strings from '../../common/strings/strings'
 import {getFoodItem } from "../../services/menuService";
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import axios from "axios";
-import CryptoJS, {AES} from 'crypto-js';
-import {baseUrl} from '../../controllers/baseUrl'
+import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 
-export default function MenuHome() {
+function MenuHome() {
  
      const [showAddItemModal, setShowAddItemModal] = useState(false);
      const [showDeleteItemModal, setShowDeleteItemModal] = useState(false);
@@ -79,10 +75,8 @@ export default function MenuHome() {
         }
       }
       setErrors(newErrors);
-  
-      // If no errors, proceed with adding food
+
       if (Object.keys(newErrors).length === 0) {
-        // Perform adding food logic
         console.log('Food added successfully');
       }
     };
@@ -242,3 +236,5 @@ export default function MenuHome() {
         </div>
     );
 }
+
+export default withTokenExpirationCheck(MenuHome);

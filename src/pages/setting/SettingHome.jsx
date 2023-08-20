@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../../common/styles/CommonStyles.css";
 import "./SettingStyles.css";
-import strings from '../../common/strings/strings'
+import strings from '../../common/strings/strings';
+import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 
 
-export default function SettingHome() {
+function SettingHome() {
 
     const [showmealCount, setShowMealCount] = useState(false)
     const count = 100;
@@ -36,3 +37,5 @@ export default function SettingHome() {
         </div>
     );
 }
+
+export default withTokenExpirationCheck(SettingHome);

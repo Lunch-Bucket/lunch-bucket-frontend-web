@@ -4,10 +4,11 @@ import "../../common/styles/CommonStyles.css"
 import strings from '../../common/strings/strings';
 import SearchBar from "../../components/SearchBar";
 import { getUserData } from "../../services/userService";
+import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 
 
 
-export default function User() {
+function User() {
 
     const [user, setUser] = useState([]);
     const [level, setLevel] = useState('');
@@ -75,3 +76,5 @@ export default function User() {
         </div>
     );
 }
+
+export default withTokenExpirationCheck(User);
