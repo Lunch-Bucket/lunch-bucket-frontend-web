@@ -15,8 +15,8 @@ function MenuHome() {
      const [formData, setFormData] = useState({
       itemCategory: '',
       itemType: '',
-      descriptionNutrition: '',
-      descriptionGoods: '',
+      // descriptionNutrition: '',
+      // descriptionGoods: '',
       itemPrice: '',
     });
 
