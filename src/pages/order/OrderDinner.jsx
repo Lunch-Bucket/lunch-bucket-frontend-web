@@ -9,11 +9,7 @@ import { getOrderData } from "../../services/orderService";
 export default function OrderHome_Dinner()
 {
     const [orderList, setOrderList] = useState([]);
-    const [notedOrder, setNotedOrder] = useState(false);
-    const [currOrder, setCurrOrder] = useState("")
     let  checkedOrders = []
-
-
 
     async function fetchOrderData() {
         try {
@@ -30,24 +26,13 @@ export default function OrderHome_Dinner()
         fetchOrderData();
     }, []);
 
-    function NotedOrder(value){
-        setNotedOrder(true);
-        setCurrOrder(value);
-    }
-  
-    
     function OrderItemChecked(value){
         checkedOrders.push(value)
         console.log('checked orders Dinner: ', checkedOrders)
     }
 
-    function handleOrderStatus(orderStatus){
-        if(orderStatus == 'noted'){
-            
-        }
-        else{
-
-        }
+    function handleOrderStatus(){
+        console.log('These orders will be added to Returned Order List: ', checkedOrders)
     }
 
   
@@ -70,8 +55,7 @@ export default function OrderHome_Dinner()
                     </div>
                 </div>
                 <div>
-                    <button className="action-bar-btn" onClick={()=>handleOrderStatus('noted')}>Noted</button>
-                    <button className="action-bar-btn" onClick={()=>handleOrderStatus('dispatched')}>Dispatched</button>
+                    <button className="action-bar-btn" style={{color:'#7E0A0A'}}  onClick={handleOrderStatus}>Returned</button>
                 </div>
             </div>
             <hr/> 
@@ -81,15 +65,18 @@ export default function OrderHome_Dinner()
                         {orderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
                                 <td>
-                                    <label class="checkbox-container">
-                                        <input type="checkbox" className="item-checkbox" value={data.order_id} onClick={()=>{OrderItemChecked(data.order_id)}}/>
+                                <label class="checkbox-container" key={data.order_id}>
+                                        <input type="checkbox" className="item-checkbox" 
+                                        value={data.order_id} 
+                                        checked={checkedOrders.includes(data.order_id)}
+                                        onChange={()=>{OrderItemChecked(data.order_id)}}/>
                                         <span className="item-checkbox-checkmark"></span>
-                                    </label>   
+                                    </label>  
                                 </td>
 
                                 <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type === 'non_vegi'? '#fcfadc':'#ECFFC8'}}>
                                     Order ID: {data.order_id}  <span style={{marginLeft:'2rem'}}></span> Customer Code: {data.customer_code}
-                                    <br/> Address: University of Moratuwa
+                                    {/* <br/> Address: University of Moratuwa */}
                                     <br/> Special Notes: {data.comment}
                                 </td>
                             </tr>
