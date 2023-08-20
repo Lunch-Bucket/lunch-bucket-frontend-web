@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../common/styles/CommonStyles.css";
 import "./MenuStyles.css";
-import {FaTrashAlt} from "react-icons/fa";
 import strings from '../../common/strings/strings'
 import {getFoodItem } from "../../services/menuService";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -11,24 +10,26 @@ import CryptoJS, {AES} from 'crypto-js';
 import {baseUrl} from '../../controllers/baseUrl'
 
 export default function MenuHome() {
-
-      const originalValue = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hdm9keWFwaXVtYW50aGlAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMTIyMzM0NCIsImNvZGUiOiI2NGIxMTdhM2YwNzY5YjlkMTJlYzVmNzAiLCJleHBpcmUiOjE2ODk2MDMzMzJ9.dZzQ3yMxAqhZRvhahczXsh54uvxY8wIQ7s3FrLDtm64';
-      const encryptedValue = AES.encrypt(originalValue, 'secret-token').toString();
-
-      localStorage.setItem('auth', encryptedValue);
  
      const [showAddItemModal, setShowAddItemModal] = useState(false);
      const [showDeleteItemModal, setShowDeleteItemModal] = useState(false);
      const [foodItem, setfoodItem] = useState([]);
 
      let selectedFoodItems = []
+     const [formData, setFormData] = useState({
+      itemCategory: '',
+      itemType: '',
+      descriptionNutrition: '',
+      descriptionGoods: '',
+      itemPrice: '',
+    });
 
 
      async function fetchFood() {
       try {
         const foodDetail = await getFoodItem([]);
         setfoodItem(foodDetail);
-        console.log('user data in menu page', foodDetail);
+        console.log('food data in menu page', foodDetail);
       } catch (error) {
         console.log('Error fetching menu data:', error.message);
       }
@@ -43,32 +44,57 @@ export default function MenuHome() {
       console.log('checked food items: ', selectedFoodItems)
   }
 
-    const validationSchema = Yup.object().shape({
-      itemCategory: Yup.string().required('Item Category is required'),
-      itemType: Yup.string().required('Item Type is required'),
-      itemPrice: Yup.number().required('Item Price is required'),
-    });
     
-    const handleAddFood = async (values, { resetForm }) => {
-      try {
-        const encryptedValueString = localStorage.getItem('auth');
-        const decryptedValue = AES.decrypt(encryptedValueString, 'secret-token').toString(CryptoJS.enc.Utf8);
-        await axios.post(`${baseUrl}addFood`, values, {
-          headers: {
-            'token': decryptedValue
-          }
-        });
-        await fetchFood();
+    // const handleAddFood = async (values, { resetForm }) => {
+    //   try {
+    //     const encryptedValueString = localStorage.getItem('auth');
+    //     const decryptedValue = AES.decrypt(encryptedValueString, 'secret-token').toString(CryptoJS.enc.Utf8);
+    //     await axios.post(`${baseUrl}addFood`, values, {
+    //       headers: {
+    //         'token': decryptedValue
+    //       }
+    //     });
+    //     await fetchFood();
 
-        console.log('value:', values);
-        alert("Successfully Added New Food Item")
-        resetForm();
+    //     console.log('value:', values);
+    //     alert("Successfully Added New Food Item")
+    //     resetForm();
         
-      } catch (error) {
-        console.log('Error:', error);
+    //   } catch (error) {
+    //     console.log('Error:', error);
+    //   }
+    //   setShowAddItemModal(false);
+    // };
+
+    const [errors, setErrors] = useState({});
+
+    const handleAddFood = (event) => {
+      event.preventDefault();
+  
+      // Perform validation
+      let newErrors = {};
+      for (const field in formData) {
+        if (!formData[field]) {
+          newErrors[field] = `${field} is required`;
+        }
       }
-      setShowAddItemModal(false);
+      setErrors(newErrors);
+  
+      // If no errors, proceed with adding food
+      if (Object.keys(newErrors).length === 0) {
+        // Perform adding food logic
+        console.log('Food added successfully');
+      }
     };
+  
+    const handleChange = (event) => {
+      const { name, value } = event.target;
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    };
+  
 
     function handleDeleteFood(){
       
@@ -91,34 +117,66 @@ export default function MenuHome() {
 
             {showAddItemModal &&  <div class="modal-content">
                 <span class="close" onClick={()=>{setShowAddItemModal(false)}}>Close</span><br/>
-                <Formik 
-                  initialValues={{ itemCategory: '', itemType: '', descriptionNutrition: '', descriptionGoods: '', itemPrice: '' }}
-                  validationSchema={validationSchema}
-                  onSubmit={handleAddFood}
-                >
-                  <Form>
-                    <label className="add-menu-item-form-label">Item Category</label>
-                    <Field as="select" id="add-menu-item-form-input" name="itemCategory" style={{ width: '10rem' }}>
-                      <option value="vege">Vege</option>
-                      <option value="stew">Stew</option>
-                      <option value="meat">Meat</option>
-                    </Field>
-                    <ErrorMessage name="itemCategory" component="div" className="error-message" />
-                    <br />
-                    <label className="add-menu-item-form-label">Item Type</label>
-                    <Field type="text" id="add-menu-item-form-input" name="itemType" />
-                    <ErrorMessage name="itemType" component="div" className="error-message" /><br />
-                    <label className="add-menu-item-form-label">Description Nutrition</label>
-                    <Field type="text" id="add-menu-item-form-input" name="descriptionNutrition" /><br />
-                    <label className="add-menu-item-form-label">Description Goods</label>
-                    <Field type="text" id="add-menu-item-form-input" name="descriptionGoods" /><br />
-                    <label className="add-menu-item-form-label">Item Price</label>
-                    <Field type="number" id="add-menu-item-form-input" name="itemPrice" />
-                    <ErrorMessage name="itemPrice" component="div" className="error-message" />
-                    <br />
-                    <button className="header-item-add-button" type="submit" style={{float:'right'}}>Add Food Item</button>
-                  </Form>
-                </Formik>
+                <form onSubmit={handleAddFood}>
+      <label className="add-menu-item-form-label">Item Category</label>
+      <select
+        id="add-menu-item-form-input"
+        name="itemCategory"
+        style={{ width: '10rem' }}
+        value={formData.itemCategory}
+        onChange={handleChange}
+      >
+        <option value="">Select an option</option>
+        <option value="vege">Vege</option>
+        <option value="stew">Stew</option>
+        <option value="meat">Meat</option>
+      </select>
+      {errors.itemCategory && <div className="error-message">{errors.itemCategory}</div>}
+      <br />
+      <label className="add-menu-item-form-label">Item Type</label>
+      <input
+        type="text"
+        id="add-menu-item-form-input"
+        name="itemType"
+        value={formData.itemType}
+        onChange={handleChange}
+      />
+      {errors.itemType && <div className="error-message">{errors.itemType}</div>}
+      <br />
+      <label className="add-menu-item-form-label">Description Nutrition</label>
+      <input
+        type="text"
+        id="add-menu-item-form-input"
+        name="descriptionNutrition"
+        value={formData.descriptionNutrition}
+        onChange={handleChange}
+      />
+      {errors.descriptionNutrition && <div className="error-message">{errors.descriptionNutrition}</div>}
+      <br />
+      <label className="add-menu-item-form-label">Description Goods</label>
+      <input
+        type="text"
+        id="add-menu-item-form-input"
+        name="descriptionGoods"
+        value={formData.descriptionGoods}
+        onChange={handleChange}
+      />
+       {errors.descriptionGoods && <div className="error-message">{errors.descriptionGoods}</div>}
+      <br />
+      <label className="add-menu-item-form-label">Item Price</label>
+      <input
+        type="number"
+        id="add-menu-item-form-input"
+        name="itemPrice"
+        value={formData.itemPrice}
+        onChange={handleChange}
+      />
+      {errors.itemPrice && <div className="error-message">{errors.itemPrice}</div>}
+      <br />
+      <button className="header-item-add-button" type="submit" style={{ float: 'right' }}>
+        Add Food Item
+      </button>
+    </form>
               </div>} 
 
               {showDeleteItemModal &&  <div class="modal-content delete-confirm">
