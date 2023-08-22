@@ -200,7 +200,7 @@ hr {
 }
 
 .special-menu-card{
-    height: 16rem;
+    height: auto;
     width: 28%;
     border-radius: 0px 6px 6px 6px;
     background-color: #fffdef;
