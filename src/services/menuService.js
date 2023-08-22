@@ -1,4 +1,4 @@
-import { getFood, getSpecialFood} from "../controllers/menuController";
+import { getFood, getSpecialFood, setMenu} from "../controllers/menuController";
 
 export async function getFoodItem() {
     try {
@@ -16,5 +16,15 @@ export async function getSpecialMenu() {
         return await result.data.data;
     } catch (error) {
         console.log("error:", error.message);
+    }
+}
+
+
+export async function addFoodItem(formData) {
+    try {
+        const response = await setMenu(formData);
+        return response;
+    } catch (error) {
+        throw error;
     }
 }

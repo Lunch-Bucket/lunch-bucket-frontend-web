@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../common/styles/CommonStyles.css";
 import "./MenuStyles.css";
 import strings from '../../common/strings/strings'
-import {getFoodItem } from "../../services/menuService";
+import {getFoodItem, addFoodItem } from "../../services/menuService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 
 function MenuHome() {
@@ -13,11 +13,13 @@ function MenuHome() {
 
      let selectedFoodItems = []
      const [formData, setFormData] = useState({
-      itemCategory: '',
-      itemType: '',
-      // descriptionNutrition: '',
-      // descriptionGoods: '',
-      itemPrice: '',
+      type: '',
+      cateogory: '',
+      nutrition: '',
+      goods: '',
+      price: '',
+      url: '',
+      vegetarian: '',
     });
 
 
@@ -64,23 +66,20 @@ function MenuHome() {
 
     const [errors, setErrors] = useState({});
 
-    const handleAddFood = (event) => {
+    const handleAddFood = async (event) => {
       event.preventDefault();
-  
-      // Perform validation
-      let newErrors = {};
-      for (const field in formData) {
-        if (!formData[field]) {
-          newErrors[field] = `${field} is required`;
-        }
-      }
-      setErrors(newErrors);
+      
+      try {
+          const response = await addFoodItem(formData); 
+          console.log('Response from addFoodItem:', response);
+          setShowAddItemModal(false);
 
-      if (Object.keys(newErrors).length === 0) {
-        console.log('Food added successfully');
+          // Do something with the response if neededb
+      } catch (error) {
+          console.log('Error:', error);
       }
     };
-  
+
     const handleChange = (event) => {
       const { name, value } = event.target;
       setFormData((prevData) => ({
@@ -112,65 +111,65 @@ function MenuHome() {
             {showAddItemModal &&  <div class="modal-content">
                 <span class="close" onClick={()=>{setShowAddItemModal(false)}}>Close</span><br/>
                 <form onSubmit={handleAddFood}>
-      <label className="add-menu-item-form-label">Item Category</label>
-      <select
-        id="add-menu-item-form-input"
-        name="itemCategory"
-        style={{ width: '10rem' }}
-        value={formData.itemCategory}
-        onChange={handleChange}
-      >
-        <option value="">Select an option</option>
-        <option value="vege">Vege</option>
-        <option value="stew">Stew</option>
-        <option value="meat">Meat</option>
-      </select>
-      {errors.itemCategory && <div className="error-message">{errors.itemCategory}</div>}
-      <br />
-      <label className="add-menu-item-form-label">Item Type</label>
-      <input
-        type="text"
-        id="add-menu-item-form-input"
-        name="itemType"
-        value={formData.itemType}
-        onChange={handleChange}
-      />
-      {errors.itemType && <div className="error-message">{errors.itemType}</div>}
-      <br />
-      <label className="add-menu-item-form-label">Description Nutrition</label>
-      <input
-        type="text"
-        id="add-menu-item-form-input"
-        name="descriptionNutrition"
-        value={formData.descriptionNutrition}
-        onChange={handleChange}
-      />
-      {errors.descriptionNutrition && <div className="error-message">{errors.descriptionNutrition}</div>}
-      <br />
-      <label className="add-menu-item-form-label">Description Goods</label>
-      <input
-        type="text"
-        id="add-menu-item-form-input"
-        name="descriptionGoods"
-        value={formData.descriptionGoods}
-        onChange={handleChange}
-      />
-       {errors.descriptionGoods && <div className="error-message">{errors.descriptionGoods}</div>}
-      <br />
-      <label className="add-menu-item-form-label">Item Price</label>
-      <input
-        type="number"
-        id="add-menu-item-form-input"
-        name="itemPrice"
-        value={formData.itemPrice}
-        onChange={handleChange}
-      />
-      {errors.itemPrice && <div className="error-message">{errors.itemPrice}</div>}
-      <br />
-      <button className="header-item-add-button" type="submit" style={{ float: 'right' }}>
-        Add Food Item
-      </button>
-    </form>
+                      <label className="add-menu-item-form-label">Item Category</label>
+                      <select
+                        id="add-menu-item-form-input"
+                        name="category"
+                        style={{ width: '10rem' }}
+                        value={formData.cateogory}
+                        onChange={handleChange}
+                      >
+                        <option value="">Select an option</option>
+                        <option value="vege">Vege</option>
+                        <option value="stew">Stew</option>
+                        <option value="meat">Meat</option>
+                      </select>
+                      {errors.itemCategory && <div className="error-message">{errors.itemCategory}</div>}
+                      <br />
+                      <label className="add-menu-item-form-label">Item Type</label>
+                      <input
+                        type="text"
+                        id="add-menu-item-form-input"
+                        name="type"
+                        value={formData.type}
+                        onChange={handleChange}
+                      />
+                      {errors.itemType && <div className="error-message">{errors.itemType}</div>}
+                      <br />
+                      <label className="add-menu-item-form-label">Description Nutrition</label>
+                      <input
+                        type="text"
+                        id="add-menu-item-form-input"
+                        name="nutrition"
+                        value={formData.nutrition}
+                        onChange={handleChange}
+                      />
+                      {errors.descriptionNutrition && <div className="error-message">{errors.descriptionNutrition}</div>}
+                      <br />
+                      <label className="add-menu-item-form-label">Description Goods</label>
+                      <input
+                        type="text"
+                        id="add-menu-item-form-input"
+                        name="goods"
+                        value={formData.goods}
+                        onChange={handleChange}
+                      />
+                      {errors.descriptionGoods && <div className="error-message">{errors.descriptionGoods}</div>}
+                      <br />
+                      <label className="add-menu-item-form-label">Item Price</label>
+                      <input
+                        type="number"
+                        id="add-menu-item-form-input"
+                        name="price"
+                        value={formData.price}
+                        onChange={handleChange}
+                      />
+                      {errors.itemPrice && <div className="error-message">{errors.itemPrice}</div>}
+                      <br />
+                      <button className="header-item-add-button" type="submit" style={{ float: 'right' }}>
+                        Add Food Item
+                      </button>
+                  </form>
               </div>} 
 
               {showDeleteItemModal &&  <div class="modal-content delete-confirm">
