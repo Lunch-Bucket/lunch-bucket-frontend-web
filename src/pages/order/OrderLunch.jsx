@@ -81,13 +81,13 @@ function OrderHome()
                         {orderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
                                 <td>
-                                    <lable class="checkbox-container" key={data.order_id}>
+                                    <label class="checkbox-container" key={data.order_id}>
                                         <input type="checkbox" className="item-checkbox" 
                                         value={data.order_id} 
                                         checked={checkedOrders.includes(data.order_id)}
-                                        onChange={()=>{OrderItemChecked(data.order_id)}}/>
+                                        onClick={()=>{OrderItemChecked(data.order_id)}}/>
                                         <span className="item-checkbox-checkmark"></span>
-                                    </lable>   
+                                    </label>   
                                 </td>
 
                                 <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type == 'non_vegi'? '#fcfadc':'#ECFFC8'}}>
