@@ -2,16 +2,14 @@ import React, { useState, useEffect } from "react";
 import "../../common/styles/CommonStyles.css";
 import "./MenuStyles.css";
 import strings from '../../common/strings/strings'
-import { getSpecialMenu } from "../../services/menuService";
+import { getSpecialMenu, setSpecialMeal } from "../../services/menuService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 
 function SpecialMenuHome() {
  
      const [showDeleteItemModal, setShowDeleteItemModal] = useState(false);
      const [specialFoodItem, setSpecialFoodItem] = useState([]);
-
      let selectedFoodItems = []
-
 
      async function fetchSpecialFood() {
       try {
@@ -27,10 +25,23 @@ function SpecialMenuHome() {
          fetchSpecialFood();
      }, []);
    
-     function FoodItemChecked(value){
-      selectedFoodItems.push(value)
-      console.log('checked food items: ', selectedFoodItems)
-  }
+  
+  const toggleFoodItem = (item_id) => {
+    selectedFoodItems.push(item_id)
+    console.log('checked special food items: ', selectedFoodItems)
+};
+
+const handleAddSpecialMeal = async () => {
+    try {
+      const payload = {
+        special: selectedFoodItems // Assuming selectedFoodItems is an array of IDs
+    };
+        const response = await setSpecialMeal(payload);
+        console.log('Response from setSpecialMeal:', response);
+    } catch (error) {
+        console.log('Error:', error);
+    }
+};
 
 
     function handleDeleteFood(){
@@ -44,8 +55,8 @@ function SpecialMenuHome() {
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
               <h1 className="menu-title-text">{strings.specialMenu}</h1>  
               <div>
-                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{}} disabled={selectedFoodItems.length === 0}>Apply Lunch Meal</button>
-                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{}} disabled={selectedFoodItems.length === 0}>Apply Dinner Meal</button>
+                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={handleAddSpecialMeal}>Apply Lunch Meal</button>
+                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={handleAddSpecialMeal}>Apply Dinner Meal</button>
                 <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} disabled={selectedFoodItems.length === 0} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button>
               </div>
             </div>
@@ -63,9 +74,11 @@ function SpecialMenuHome() {
             <div className="special-menu-detail-content">
 
               {specialFoodItem?.map((item,id)=>(
-                <div className="special-menu-card">
+                <div className="special-menu-card" key={id}>
                   <label class="checkbox-container">
-                      <input type="checkbox" className="item-checkbox"  onClick={()=>{FoodItemChecked()}}/>
+                      <input type="checkbox" className="item-checkbox"  
+                       checked={item.selected}
+                       onChange={() => toggleFoodItem(item.id)}/>
                       <span className="item-checkbox-checkmark"></span>
                   </label>   
                   <div >
