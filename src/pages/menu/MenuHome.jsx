@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../common/styles/CommonStyles.css";
 import "./MenuStyles.css";
 import strings from '../../common/strings/strings'
-import {getFoodItem, addFoodItem } from "../../services/menuService";
+import {getFoodItem, addFoodItem, deleteFoodItem } from "../../services/menuService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 
 function MenuHome() {
@@ -10,6 +10,7 @@ function MenuHome() {
      const [showAddItemModal, setShowAddItemModal] = useState(false);
      const [showDeleteItemModal, setShowDeleteItemModal] = useState(false);
      const [foodItem, setfoodItem] = useState([]);
+     const [foodList, setFoodList] = useState([]);
 
      let selectedFoodItems = []
      const [formData, setFormData] = useState({
@@ -42,27 +43,6 @@ function MenuHome() {
       console.log('checked food items: ', selectedFoodItems)
   }
 
-    
-    // const handleAddFood = async (values, { resetForm }) => {
-    //   try {
-    //     const encryptedValueString = localStorage.getItem('auth');
-    //     const decryptedValue = AES.decrypt(encryptedValueString, 'secret-token').toString(CryptoJS.enc.Utf8);
-    //     await axios.post(`${baseUrl}addFood`, values, {
-    //       headers: {
-    //         'token': decryptedValue
-    //       }
-    //     });
-    //     await fetchFood();
-
-    //     console.log('value:', values);
-    //     alert("Successfully Added New Food Item")
-    //     resetForm();
-        
-    //   } catch (error) {
-    //     console.log('Error:', error);
-    //   }
-    //   setShowAddItemModal(false);
-    // };
 
     const [errors, setErrors] = useState({});
 
@@ -74,7 +54,6 @@ function MenuHome() {
           console.log('Response from addFoodItem:', response);
           setShowAddItemModal(false);
 
-          // Do something with the response if neededb
       } catch (error) {
           console.log('Error:', error);
       }
@@ -89,9 +68,24 @@ function MenuHome() {
     };
   
 
-    function handleDeleteFood(){
-      
-    }
+    const handleDeleteFood = async () => {
+      const selectedFoodItems = foodList.filter(foodItem => foodItem.selected);
+      // if (selectedFoodItems.length === 0) {
+      //     return;
+      // }
+  
+      const selectedFoodIds = selectedFoodItems.map(foodItem => foodItem.food_id);
+      setShowDeleteItemModal(false)
+  
+      try {
+          await deleteFoodItem(selectedFoodIds);
+          setFoodList(prevFoodList => {
+              return prevFoodList.filter(foodItem => !foodItem.selected);
+          });
+      } catch (error) {
+          console.log('Error:', error);
+      }
+  };
   
 
 
@@ -103,7 +97,7 @@ function MenuHome() {
                 <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{}} disabled={selectedFoodItems.length === 0}>Apply Lunch Meal</button>
                 <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{}} disabled={selectedFoodItems.length === 0}>Apply Dinner Meal</button>
                 <button className="header-item-add-button" onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
-                <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} disabled={selectedFoodItems.length === 0} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button>
+                <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button>
               </div>
             </div>
             <hr/>
