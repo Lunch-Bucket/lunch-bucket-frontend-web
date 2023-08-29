@@ -28,10 +28,21 @@ export async function getSpecialFood() {
 }
 
 
-export async function setMenu(formData) {
+export async function addFood(formData) {
     try {
         const token = localStorage.getItem('authToken');
         const response = await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/addFood',formData,{headers: {'token': `${token}`}});
+        console.log('lunch menu', response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function addSpecialFood(formData) {
+    try {
+        const token = localStorage.getItem('authToken');
+        const response = await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/addSpecialMeal',formData,{headers: {'token': `${token}`}});
         console.log('lunch menu', response.data);
         return response.data;
     } catch (error) {

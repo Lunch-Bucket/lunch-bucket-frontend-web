@@ -1,4 +1,4 @@
-import { getFood, getSpecialFood, setMenu, setSpecialMeal as controllerSetSpecialMeal } from "../controllers/menuController";
+import { getFood, getSpecialFood, addFood, addSpecialFood, setSpecialMeal as controllerSetSpecialMeal } from "../controllers/menuController";
 import axios from "axios";
 
 export async function getFoodItem() {
@@ -23,12 +23,23 @@ export async function getSpecialMenu() {
 
 export async function addFoodItem(formData) {
     try {
-        const response = await setMenu(formData);
+        const response = await addFood(formData);
         return response;
     } catch (error) {
         throw error;
     }
 }
+
+
+export async function addSpecialFoodItem(formData) {
+    try {
+        const response = await addSpecialFood(formData);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
 
 
 
