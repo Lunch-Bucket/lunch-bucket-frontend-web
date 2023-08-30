@@ -196,10 +196,12 @@ const handleChange = (event) => {
                       <span className="item-checkbox-checkmark"></span>
                   </label>   
                   <div >
-                      <h5 style={{textAlign:'center'}}>Fried Rice</h5> 
+                      <h5 style={{textAlign:'center'}}>{item.category}</h5> 
+                      <h6 style={{textAlign:'center'}}>{item.type}</h6>
                       <ul>
-                          <li className="menu-detail-list-item">{item.type}</li>
-                          <li className="menu-detail-list-item">vegetable fried rice</li>
+                      {/* {item.items.map((data, index) => ( */}
+                          <li style={{listStyle:'none'}}>{item.items}</li>
+                      {/* ))} */}
                       </ul>
                   </div>
                 </div>
