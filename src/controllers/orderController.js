@@ -15,7 +15,7 @@ export async function getOrders(meal) {
         const token = localStorage.getItem('authToken');
         if (token) {
         // setAuthToken(token);
-        const response = await axios.get(`${baseUrl}getOrderByMeal/${meal}`,{headers:{'token':`${token}`}});
+        const response = await axios.get(`${baseUrl}getPendingOrderByMeal/${meal}`,{headers:{'token':`${token}`}});
         console.log('orders', response.data);
         return response.data;
         }
