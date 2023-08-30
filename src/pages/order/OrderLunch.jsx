@@ -101,11 +101,9 @@ function OrderHome()
                             <tr>  
                                 <td style={{fontSize:'14px'}}>
                                     <ul style={{listStyle:'square'}}>
-                                        <li>{data.items.rice}</li>
-                                        <li>{data.items.vege1}</li>
-                                        <li>{data.items.vege2}</li>
-                                        <li>{data.items.stew}</li>
-                                        <li>{data.items.meat}</li>
+                                        {data.items.map((food, index) => (
+                                            <li key={index}>{food}</li>
+                                        ))}
                                     </ul>
                                 </td>
                             </tr>
@@ -149,11 +147,9 @@ function OrderHome()
                             <tr>  
                                 <td style={{fontSize:'14px'}}>
                                     <ul style={{listStyle:'square'}}>
-                                        <li>{data.items.rice}</li>
-                                        <li>{data.items.vege1}</li>
-                                        <li>{data.items.vege2}</li>
-                                        <li>{data.items.stew}</li>
-                                        <li>{data.items.meat}</li>
+                                        {data.items.map((food, index) => (
+                                            <li key={index}>{food}</li>
+                                        ))}
                                     </ul>
                                 </td>
                             </tr>
@@ -196,11 +192,9 @@ function OrderHome()
                             <tr>  
                                 <td style={{fontSize:'14px'}}>
                                     <ul style={{listStyle:'square'}}>
-                                        <li>{data.items.rice}</li>
-                                        <li>{data.items.vege1}</li>
-                                        <li>{data.items.vege2}</li>
-                                        <li>{data.items.stew}</li>
-                                        <li>{data.items.meat}</li>
+                                        {data.items.map((food, index) => (
+                                            <li key={index}>{food}</li>
+                                        ))}
                                     </ul>
                                 </td>
                             </tr>
