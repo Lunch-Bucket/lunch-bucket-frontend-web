@@ -90,7 +90,7 @@ function OrderHome()
                                     </label>   
                                 </td>
 
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type == 'non_vegi'? '#fcfadc':'#ECFFC8'}}>
+                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type == 'vegi'? '#ECFFC8':'#fcfadc'}}>
                                     Order ID: {data.order_id}  <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>Customer Code: {data.customer_code}</span> 
                                     {/* <br/> Address: University of Moratuwa */}
                                     <br/> Special Notes: {data.comment}
@@ -136,7 +136,7 @@ function OrderHome()
                         {orderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
 
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type == 'non_vegi'? '#F7DDA8':'#ECFFC8'}}>
+                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type == 'vegi'? '#ECFFC8':'#fcfadc'}}>
                                     Order ID: {data.order_id}  <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>Customer Code: {data.customer_code}</span> 
                                     {/* <br/> Address: University of Moratuwa */}
                                     <br/> Special Notes: {data.comment}
