@@ -64,7 +64,8 @@ function OrderHome_Dinner()
                     </div>
                 </div>
                 <div>
-                    <button className="action-bar-btn" style={{color:'#7E0A0A'}}  onClick={handleOrderStatus}>Confirm Submission</button>
+                    <button className="action-bar-btn-confirm"  onClick={handleOrderStatus}>Confirm</button>
+                    <button className="action-bar-btn-cancel"  onClick={handleOrderStatus}>Reject</button>
                 </div>
             </div>
             <hr/> 
@@ -84,7 +85,7 @@ function OrderHome_Dinner()
                                 </td>
 
                                 <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type == 'vegi'? '#ECFFC8':'#fcfadc'}}>
-                                    Order ID: {data.order_id}  <span style={{marginLeft:'2rem'}}></span> Customer Code: {data.customer_code}
+                                    Order ID: {data.order_id}  <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: (data.threat) === true? 'red': '#004d00'}}>Customer Code: {data.customer_code}</span> 
                                     {/* <br/> Address: University of Moratuwa */}
                                     <br/> Special Notes: {data.comment}
                                 </td>
@@ -127,7 +128,7 @@ function OrderHome_Dinner()
                         {orderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
                                 <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type == 'vegi'? '#ECFFC8':'#fcfadc'}}>
-                                    Order ID: {data.order_id}  <span style={{marginLeft:'2rem'}}></span> Customer Code: {data.customer_code}
+                                    Order ID: {data.order_id}  <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: (data.threat) === true? 'red': '#004d00'}}>Customer Code: {data.customer_code}</span> 
                                     {/* <br/> Address: University of Moratuwa */}
                                     <br/> Special Notes: {data.comment}
                                 </td>
@@ -171,7 +172,7 @@ function OrderHome_Dinner()
                             <tr className="order-page-table-row" key={id}>
 
                                 <td className="order-page-data-row-description" key={id} style={{backgroundColor: '#E53B3B'}}>
-                                    Order ID: {data.order_id}  <span style={{marginLeft:'2rem'}}></span> Customer Code: {data.customer_code}
+                                    Order ID: {data.order_id}  <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: (data.threat) === true? 'red': '#004d00'}}>Customer Code: {data.customer_code}</span> 
                                     {/* <br/> Address: University of Moratuwa */}
                                     <br/> Special Notes: {data.comment}
                                 </td>
