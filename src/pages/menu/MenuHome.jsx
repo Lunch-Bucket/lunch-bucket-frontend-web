@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../common/styles/CommonStyles.css";
 import "./MenuStyles.css";
 import strings from '../../common/strings/strings'
-import {getFoodItem, addFoodItem, deleteFoodItem } from "../../services/menuService";
+import {getFoodItem, addFoodItem,setMealLunch, setMealDinner, deleteFoodItem } from "../../services/menuService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 
 function MenuHome() {
@@ -12,16 +12,23 @@ function MenuHome() {
      const [foodItem, setfoodItem] = useState([]);
      const [foodList, setFoodList] = useState([]);
 
-     let selectedFoodItems = []
+    //  let selectedFoodItems = []
      const [formData, setFormData] = useState({
       type: '',
-      cateogory: '',
+      category: '',
       nutrition: '',
       goods: '',
       price: '',
       url: '',
       vegetarian: '',
     });
+
+    const selectedFoodItems = {
+      meat: [],
+      stew: [],
+      vege: []
+  };
+  
 
 
      async function fetchFood() {
@@ -37,12 +44,53 @@ function MenuHome() {
      useEffect(() => {
          fetchFood();
      }, []);
-   
-     function FoodItemChecked(value){
-      selectedFoodItems.push(value)
-      console.log('checked food items: ', selectedFoodItems)
+
+     function FoodItemChecked(category, item_id) {
+      const newItem = { number: selectedFoodItems[category].length + 1, id: item_id };
+      selectedFoodItems[category].push(newItem);
+  
+      console.log('checked food items: ', selectedFoodItems);
   }
 
+  // set meal function
+    const handleSetMealLunch = async () => {
+
+      try {
+        const payload = {
+          "meat": [...selectedFoodItems.meat],
+          "stew": [...selectedFoodItems.stew],
+          "vege": [...selectedFoodItems.vege]
+        };
+
+      const response = await setMealLunch(payload);
+      console.log('Response from set Meal Lunch:', response);
+      selectedFoodItems.meat = [];
+      selectedFoodItems.stew = [];
+      selectedFoodItems.vege = [];
+ 
+      } catch (error) {
+          console.log('Error:', error);
+      }
+    };
+
+    const handleSetMealDinner = async () => {
+      try {
+        const payload = {
+          "meat": [...selectedFoodItems.meat],
+          "stew": [...selectedFoodItems.stew],
+          "vege": [...selectedFoodItems.vege]
+        };
+
+      const response = await setMealDinner(payload);
+      console.log('Response from set Meal Dinner:', response);
+      selectedFoodItems.meat = [];
+      selectedFoodItems.stew = [];
+      selectedFoodItems.vege = [];
+ 
+      } catch (error) {
+          console.log('Error:', error);
+      }
+    };
 
     const [errors, setErrors] = useState({});
 
@@ -94,8 +142,8 @@ function MenuHome() {
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
               <h1 className="menu-title-text">{strings.menu}</h1>  
               <div >
-                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{}} disabled={selectedFoodItems.length === 0}>Apply Lunch Meal</button>
-                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{}} disabled={selectedFoodItems.length === 0}>Apply Dinner Meal</button>
+                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}}  onClick={handleSetMealLunch}>Apply Lunch Meal</button>
+                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}}  onClick={handleSetMealDinner}>Apply Dinner Meal</button>
                 <button className="header-item-add-button" onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
                 <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button>
               </div>
@@ -110,7 +158,7 @@ function MenuHome() {
                         id="add-menu-item-form-input"
                         name="category"
                         style={{ width: '10rem' }}
-                        value={formData.cateogory}
+                        value={formData.category}
                         onChange={handleChange}
                       >
                         <option value="">Select an option</option>
@@ -182,7 +230,7 @@ function MenuHome() {
                             <>
                             {item.category == 'vege' && <li className="menu-detail-list-item">
                               <label class="checkbox-container">
-                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked(item.food_id)}}/>
+                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('vege', item.id)}}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               < div className="menu-detail-list-item-name">{item.type}</div>
@@ -198,7 +246,7 @@ function MenuHome() {
                             <>
                             {item.category == 'meat' && <li className="menu-detail-list-item">
                               <label class="checkbox-container">
-                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked(item.food_id)}}/>
+                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('meat', item.id)}}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               <div className="menu-detail-list-item-name">{item.type}</div>
@@ -214,7 +262,7 @@ function MenuHome() {
                             <>
                             {item.category == 'stew' && <li className="menu-detail-list-item">
                               <label class="checkbox-container">
-                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked(item.food_id)}}/>
+                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('stew', item.id)}}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               <div className="menu-detail-list-item-name">{item.type}</div>

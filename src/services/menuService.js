@@ -1,6 +1,8 @@
-import { getFood, getSpecialFood, addFood, addSpecialFood, setSpecialMeal as controllerSetSpecialMeal } from "../controllers/menuController";
+import { getFood, getSpecialFood, addFood, addSpecialFood, setMealLunch as controllerSetMealLunch, setMealDinner as controllerSetMealDinner,setSpecialMealLunch as controllerSetSpecialMealLunch, setSpecialMealDinner as controllerSetSpecialMealDinner  } from "../controllers/menuController";
 import axios from "axios";
 
+
+// get food
 export async function getFoodItem() {
     try {
         const result = await getFood();
@@ -21,6 +23,8 @@ export async function getSpecialMenu() {
 }
 
 
+
+// add food
 export async function addFoodItem(formData) {
     try {
         const response = await addFood(formData);
@@ -40,12 +44,19 @@ export async function addSpecialFoodItem(formData) {
     }
 }
 
-
-
-
-export async function setSpecialMeal(food_ids) {
+// set meal
+export async function setMealLunch(food_ids) {
     try {
-        const response = await controllerSetSpecialMeal(food_ids);
+        const response = await controllerSetMealLunch(food_ids);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function setMealDinner(food_ids) {
+    try {
+        const response = await controllerSetMealDinner(food_ids);
         return response;
     } catch (error) {
         throw error;
@@ -53,6 +64,29 @@ export async function setSpecialMeal(food_ids) {
 }
 
 
+
+// set special meal
+export async function setSpecialMealLunch(food_ids) {
+    try {
+        const response = await controllerSetSpecialMealLunch(food_ids);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function setSpecialMealDinner(food_ids) {
+    try {
+        const response = await controllerSetSpecialMealDinner(food_ids);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+
+// delete food
 export const deleteFoodItem = async (foodId) => {
     try {
         const token = localStorage.getItem('authToken');

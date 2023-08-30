@@ -1,6 +1,8 @@
 import axios from "axios";
 import { baseUrl } from "./baseUrl";
 
+
+// get food
 export async function getFood() {
     try {
         const token = localStorage.getItem('authToken');
@@ -28,6 +30,7 @@ export async function getSpecialFood() {
 }
 
 
+// add food
 export async function addFood(formData) {
     try {
         const token = localStorage.getItem('authToken');
@@ -50,7 +53,33 @@ export async function addSpecialFood(formData) {
     }
 }
 
-export async function setSpecialMeal(food_ids) {
+// set meal
+export async function setMealLunch(food_ids) {
+    try {
+        const token = localStorage.getItem('authToken');
+        const response = await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/lunch/setMenu',food_ids,{headers: {'token': `${token}`}});
+        console.log('lunch menu', response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function setMealDinner(food_ids) {
+    try {
+        const token = localStorage.getItem('authToken');
+        const response = await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/dinner/setMenu',food_ids,{headers: {'token': `${token}`}});
+        console.log('dinner menu', response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+// set special meal
+export async function setSpecialMealLunch(food_ids) {
     try {
         const token = localStorage.getItem('authToken');
         const response = await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/lunch/setSpecialMenu',food_ids,{headers: {'token': `${token}`}});
@@ -60,3 +89,15 @@ export async function setSpecialMeal(food_ids) {
         console.log(error);
     }
 }
+
+export async function setSpecialMealDinner(food_ids) {
+    try {
+        const token = localStorage.getItem('authToken');
+        const response = await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/dinner/setSpecialMenu',food_ids,{headers: {'token': `${token}`}});
+        console.log('lunch special menu', response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+

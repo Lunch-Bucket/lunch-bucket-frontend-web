@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../common/styles/CommonStyles.css";
 import "./MenuStyles.css";
 import strings from '../../common/strings/strings'
-import { getSpecialMenu, setSpecialMeal, addSpecialFoodItem } from "../../services/menuService";
+import { getSpecialMenu, setSpecialMealLunch, addSpecialFoodItem } from "../../services/menuService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 
 function SpecialMenuHome() {
@@ -43,16 +43,30 @@ function SpecialMenuHome() {
 
 const [errors, setErrors] = useState({});
 
-const handleAddSpecialMeal = async () => {
+
+// set special meal function
+const handleSetSpecialMealLunch = async () => {
     try {
       const payload = {
-        special: selectedFoodItems // Assuming selectedFoodItems is an array of IDs
+        special: selectedFoodItems 
     };
-        const response = await setSpecialMeal(payload);
+        const response = await setSpecialMealLunch(payload);
         console.log('Response from setSpecialMeal:', response);
     } catch (error) {
         console.log('Error:', error);
     }
+};
+
+const handleSetSpecialMealDinner = async () => {
+  try {
+    const payload = {
+      special: selectedFoodItems
+  };
+      const response = await setSpecialMealLunch(payload);
+      console.log('Response from setSpecialMeal:', response);
+  } catch (error) {
+      console.log('Error:', error);
+  }
 };
 
 const handleAddSpecialFood = async (event) => {
@@ -88,10 +102,10 @@ const handleChange = (event) => {
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
               <h1 className="menu-title-text">{strings.specialMenu}</h1>  
               <div>
-                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={handleAddSpecialMeal}>Apply Lunch Meal</button>
-                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={handleAddSpecialMeal}>Apply Dinner Meal</button>
+                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={handleSetSpecialMealLunch}>Apply Lunch Meal</button>
+                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={handleSetSpecialMealDinner}>Apply Dinner Meal</button>
                 <button className="header-item-add-button" onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
-                <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} disabled={selectedFoodItems.length === 0} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button>
+                <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button>
               </div>
             </div>
             <hr/>
