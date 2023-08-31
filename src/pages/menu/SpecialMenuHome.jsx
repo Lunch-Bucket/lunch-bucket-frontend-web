@@ -4,6 +4,7 @@ import "./MenuStyles.css";
 import strings from '../../common/strings/strings'
 import { getSpecialMenu, setSpecialMealLunch, addSpecialFoodItem } from "../../services/menuService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
+import foodImg from '../../resources/images/cheesepasta.jpg';
 
 function SpecialMenuHome() {
  
@@ -189,19 +190,19 @@ const handleChange = (event) => {
 
               {specialFoodItem?.map((item,id)=>(
                 <div className="special-menu-card" key={id}>
+                  <div></div>
                   <label class="checkbox-container">
                       <input type="checkbox" className="item-checkbox"  
                        checked={item.selected}
                        onChange={() => toggleFoodItem(item.id)}/>
                       <span className="item-checkbox-checkmark"></span>
                   </label>   
-                  <div >
-                      <h5 style={{textAlign:'center'}}>{item.category}</h5> 
-                      <h6 style={{textAlign:'center'}}>{item.type}</h6>
-                      <ul>
-                      {/* {item.items.map((data, index) => ( */}
-                          <li style={{listStyle:'none'}}>{item.items}</li>
-                      {/* ))} */}
+                  <div>
+                     <h3 className="special-menu-card-item-text" style={{textAlign:'center'}}>{item.category}</h3> 
+                     <center><img src={foodImg} alt="food item" style={{height:'10rem', width:'10rem', objectFit:'contain'}} /></center>
+                      <h4 className="special-menu-card-item-text" style={{fontSize:'15px'}}>{item.type} <br/> Rs. {item.price}</h4>
+                      <ul style={{listStyle:'none', textAlign:'left', fontSize:'13px'}}>
+                          <li className="special-menu-card-item-text">{item.items}</li>
                       </ul>
                   </div>
                 </div>

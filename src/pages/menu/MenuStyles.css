@@ -206,4 +206,12 @@ hr {
     background-color: #fffdef;
     margin: 1rem;
     border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.special-menu-card-item-text{
+    text-align: center;
+    padding: 0.3rem;
+    font-size: 14px;
 }
