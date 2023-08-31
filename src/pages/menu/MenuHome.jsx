@@ -4,6 +4,7 @@ import "./MenuStyles.css";
 import strings from '../../common/strings/strings'
 import {getFoodItem, addFoodItem,setMealLunch, setMealDinner, deleteFoodItem } from "../../services/menuService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
+import foodImg from '../../resources/images/cheesepasta.jpg';
 
 function MenuHome() {
  
@@ -228,13 +229,19 @@ function MenuHome() {
                         <ul>
                           {foodItem.map((item,id)=>( 
                             <>
-                            {item.category == 'vege' && <li className="menu-detail-list-item">
+                            {item.category === 'vege' && <>
+                            <li className="menu-detail-list-item">
                               <label class="checkbox-container">
                                   <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('vege', item.id)}}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               < div className="menu-detail-list-item-name">{item.type}</div>
-                            </li>}
+                            </li>
+                            <div style={{display:'inline-flex', alignItems:'center'}}>
+                              <img src={foodImg} alt="food item" style={{height:'7rem', width:'7rem', objectFit:'contain'}} />
+                              <h4 style={{paddingLeft:'0.5rem'}}>Rs. {item.price}</h4>
+                            </div>
+                            </>}
                             </>))}
                         </ul>
                 </div>
@@ -244,29 +251,41 @@ function MenuHome() {
                         <ul>
                           {foodItem.map((item,id)=>( 
                             <>
-                            {item.category == 'meat' && <li className="menu-detail-list-item">
+                            {item.category === 'meat' && <>
+                            <li className="menu-detail-list-item">
                               <label class="checkbox-container">
                                   <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('meat', item.id)}}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               <div className="menu-detail-list-item-name">{item.type}</div>
-                            </li>}
+                            </li>
+                            <div style={{display:'inline-flex', alignItems:'center'}}>
+                              <img src={foodImg} alt="food item" style={{height:'7rem', width:'7rem', objectFit:'contain'}} />
+                              <h4 style={{paddingLeft:'0.5rem'}}>Rs. {item.price}</h4>
+                            </div>
+                            </>}
                             </>))}
                         </ul>
                 </div>
 
-                <div className="menu-detail-list">
+                <div className="menu-detail-list" style={{borderRight:'none'}}>
                 <div className="menu-detail-list-title">Stew</div> 
                         <ul>
                           {foodItem.map((item,id)=>( 
                             <>
-                            {item.category == 'stew' && <li className="menu-detail-list-item">
+                            {item.category == 'stew' && <>
+                            <li className="menu-detail-list-item">
                               <label class="checkbox-container">
                                   <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('stew', item.id)}}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               <div className="menu-detail-list-item-name">{item.type}</div>
-                            </li>}
+                            </li>
+                            <div style={{display:'inline-flex', alignItems:'center'}}>
+                              <img src={foodImg} alt="food item" style={{height:'7rem', width:'7rem', objectFit:'contain'}} />
+                              <h4 style={{paddingLeft:'0.5rem'}}>Rs. {item.price}</h4>
+                            </div>
+                            </>}
                             </>))}
                         </ul>
                 </div>
