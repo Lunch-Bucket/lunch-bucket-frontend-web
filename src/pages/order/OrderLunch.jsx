@@ -64,11 +64,6 @@ function OrderHome()
                 <div style={{display:'inline-flex'}}>
                     <div>Total Order Count</div>
                     <div style={{marginLeft:'2rem', fontWeight:'600'}}>{orderList.length}</div>
-     
-                    <div className="order-total-sales-content">
-                        <div className="sales-content-label">Total Sales</div>
-                        <div className="sales-content-amount">Rs. {totalSales}</div>
-                    </div>
                 </div>
                 <div>
                     <button className="action-bar-btn-confirm"  onClick={handleOrderStatus}>Confirm</button>
@@ -91,7 +86,7 @@ function OrderHome()
                                     </label>   
                                 </td>
 
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type == 'vegi'? '#ECFFC8':'#fcfadc'}}>
+                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type === 'vegi'? '#ECFFC8':'#fcfadc'}}>
                                     Order ID: {data.order_id}  <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: (data.threat) === true? 'red': '#004d00'}}>Customer Code: {data.customer_code}</span> 
                                     {/* <br/> Address: University of Moratuwa */}
                                     <br/> Special Notes: {data.comment}
@@ -137,7 +132,7 @@ function OrderHome()
                         {orderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
 
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type == 'vegi'? '#ECFFC8':'#fcfadc'}}>
+                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type === 'vegi'? '#ECFFC8':'#fcfadc'}}>
                                     Order ID: {data.order_id}  <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: (data.threat) === true? 'red': '#004d00'}}>Customer Code: {data.customer_code}</span> 
                                     {/* <br/> Address: University of Moratuwa */}
                                     <br/> Special Notes: {data.comment}

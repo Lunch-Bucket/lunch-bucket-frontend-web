@@ -157,11 +157,7 @@ function OrderHome_Dinner()
                 <div style={{display:'inline-flex'}}>
                     <div>Total Order Count</div>
                     <div style={{marginLeft:'2rem', fontWeight:'600'}}>{orderList.length}</div>
-     
-                    <div className="order-total-sales-content">
-                        <div className="sales-content-label">Total Sales</div>
-                        <div className="sales-content-amount">Rs. 4100</div>
-                    </div>
+    
                 </div>
             </div>
             <hr/> 
