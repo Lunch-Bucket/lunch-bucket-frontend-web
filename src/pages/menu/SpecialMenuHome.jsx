@@ -15,11 +15,10 @@ function SpecialMenuHome() {
      const [formData, setFormData] = useState({
       type: '',
       category: '',
-      item1: '',
-      item2: '',
-      item3: '',
-      item4: '',
-      item5: '',
+      items: [],
+      price:'',
+      url:'',
+      vegetarian:''
     });
 
      async function fetchSpecialFood() {
@@ -70,6 +69,8 @@ const handleSetSpecialMealDinner = async () => {
   }
 };
 
+
+// Add Special Food Function
 const handleAddSpecialFood = async (event) => {
   event.preventDefault();
   
@@ -111,20 +112,10 @@ const handleChange = (event) => {
             </div>
             <hr/>
 
-            {showAddItemModal &&  <div class="modal-content">
+            {showAddItemModal &&  <div class="modal-content" style={{width:'auto'}}>
                 <span class="close" onClick={()=>{setShowAddItemModal(false)}}>Close</span><br/>
                 <form onSubmit={handleAddSpecialFood}>
-                      
-                      <label className="add-menu-item-form-label">Item Type</label>
-                      <input
-                        type="text"
-                        id="add-menu-item-form-input"
-                        name="type"
-                        value={formData.type}
-                        onChange={handleChange}
-                      />
-                      {errors.itemType && <div className="error-message">{errors.itemType}</div>}
-                      <br />
+                <div className="add-menu-item-field"> 
                       <label className="add-menu-item-form-label">Category</label>
                       <input
                         type="text"
@@ -132,47 +123,71 @@ const handleChange = (event) => {
                         name="category"
                         value={formData.category}
                         onChange={handleChange}
+                        required
                       />
-                      {errors.category && <div className="error-message">{errors.category}</div>}
-                      <br />
-                      <label className="add-menu-item-form-label">Item 1</label>
+                </div>
+                  <div className="add-menu-item-field"> 
+                      <label className="add-menu-item-form-label">Item Type</label>
                       <input
                         type="text"
                         id="add-menu-item-form-input"
-                        name="item1"
-                        value={formData.item1}
+                        name="type"
+                        value={formData.type}
                         onChange={handleChange}
+                        required
                       />
-                       <br />
-                      <label className="add-menu-item-form-label">Item 2</label>
+                    </div>
+                    <div className="add-menu-item-field"> 
+                      <label className="add-menu-item-form-label">Sub Items</label>
                       <input
                         type="text"
                         id="add-menu-item-form-input"
-                        name="item2"
-                        value={formData.item2}
+                        name="items"
+                        value={formData.items}
                         onChange={handleChange}
+                        required
                       />
-                      <br />
-                      <label className="add-menu-item-form-label">Item 3</label>
+                    </div>
+                    <div className="add-menu-item-field"> 
+                      <label className="add-menu-item-form-label">Price (Rs.)</label>
+                      <input
+                        type="number"
+                        id="add-menu-item-form-input"
+                        name="price"
+                        value={formData.price}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div className="add-menu-item-field"> 
+                      <label className="add-menu-item-form-label">Image url</label>
                       <input
                         type="text"
                         id="add-menu-item-form-input"
-                        name="item3"
-                        value={formData.item3}
+                        name="url"
+                        value={formData.url}
                         onChange={handleChange}
+                        placeholder="Paste your image url here..."
+                        required
                       />
-                      <br />
-                      <label className="add-menu-item-form-label">Item 4</label>
-                      <input
-                        type="text"
-                        id="add-menu-item-form-input"
-                        name="item4"
-                        value={formData.item4}
-                        onChange={handleChange}
-                      />
+                    </div>
+                    <div className="add-menu-item-field">
+                        <label className="add-menu-item-form-label">Item State</label>
+                        <select
+                          id="add-menu-item-form-input"
+                          name="vegetarian"
+                          style={{ width: '10rem' }}
+                          value={formData.vegetarian}
+                          onChange={handleChange}
+                        >
+                          <option value="true">Vege Item</option>
+                          <option value="false">Non-Vege Item</option>
+                        </select>
+                    </div>
+                    
                       <br />
                       <button className="header-item-add-button" type="submit" style={{ float: 'right' }}>
-                        Add Special Food Item
+                        Add Item
                       </button>
                   </form>
               </div>} 
