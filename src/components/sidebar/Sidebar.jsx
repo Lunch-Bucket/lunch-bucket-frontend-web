@@ -25,8 +25,8 @@ const Sidebar = () => {
           {isLoggedIn && <div className="side-bar-page-list">
                 <p className="side-bar-page-list-item" ><NavLink to={PATHS.orderLunch}>Lunch Orders</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.orderDinner}>Dinner Orders</NavLink></p>
-                <p className="side-bar-page-list-item"><NavLink to={PATHS.menu}>Menu</NavLink></p>
-                <p className="side-bar-page-list-item"><NavLink to={PATHS.specialMenu}>Special Menu</NavLink></p>
+                <p className="side-bar-page-list-item"><NavLink to={PATHS.menu}>Food List</NavLink></p>
+                <p className="side-bar-page-list-item"><NavLink to={PATHS.specialMenu}>Special Foods</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.user}>Users</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.chat}>Chats</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.setting}>Settings</NavLink></p>

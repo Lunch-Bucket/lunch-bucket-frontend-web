@@ -3,8 +3,8 @@ const STRINGS = {
     // Header Titles
     login: 'Login',
     order: 'Orders',
-    menu: 'Menu',
-    specialMenu: 'Special Menu',
+    menu: 'Food List',
+    specialMenu: 'Special Food List',
     user: 'Users',
     feedback: 'Feedbacks',
     winner: 'Daily Winner',
