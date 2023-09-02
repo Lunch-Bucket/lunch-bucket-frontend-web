@@ -95,6 +95,8 @@ function MenuHome() {
 
     const [errors, setErrors] = useState({});
 
+
+    // Add Food Item Function
     const handleAddFood = async (event) => {
       event.preventDefault();
       
@@ -151,9 +153,10 @@ function MenuHome() {
             </div>
             <hr/>
 
-            {showAddItemModal &&  <div class="modal-content">
+            {showAddItemModal &&  <div class="modal-content" style={{width:'auto'}}>
                 <span class="close" onClick={()=>{setShowAddItemModal(false)}}>Close</span><br/>
                 <form onSubmit={handleAddFood}>
+                  <div className="add-menu-item-field">
                       <label className="add-menu-item-form-label">Item Category</label>
                       <select
                         id="add-menu-item-form-input"
@@ -162,13 +165,12 @@ function MenuHome() {
                         value={formData.category}
                         onChange={handleChange}
                       >
-                        <option value="">Select an option</option>
-                        <option value="vege">Vege</option>
+                        <option defaultValue="vege">Vege</option>
                         <option value="stew">Stew</option>
                         <option value="meat">Meat</option>
                       </select>
-                      {errors.itemCategory && <div className="error-message">{errors.itemCategory}</div>}
-                      <br />
+                    </div>
+                    <div className="add-menu-item-field">
                       <label className="add-menu-item-form-label">Item Type</label>
                       <input
                         type="text"
@@ -176,9 +178,23 @@ function MenuHome() {
                         name="type"
                         value={formData.type}
                         onChange={handleChange}
+                        required
                       />
-                      {errors.itemType && <div className="error-message">{errors.itemType}</div>}
-                      <br />
+                    </div>
+                      <div className="add-menu-item-field">
+                        <label className="add-menu-item-form-label">Item State</label>
+                        <select
+                          id="add-menu-item-form-input"
+                          name="vegetarian"
+                          style={{ width: '10rem' }}
+                          value={formData.vegetarian}
+                          onChange={handleChange}
+                        >
+                          <option value="true">Vege Item</option>
+                          <option value="false">Non-Vege Item</option>
+                        </select>
+                    </div>
+                    <div className="add-menu-item-field">
                       <label className="add-menu-item-form-label">Description Nutrition</label>
                       <input
                         type="text"
@@ -187,27 +203,41 @@ function MenuHome() {
                         value={formData.nutrition}
                         onChange={handleChange}
                       />
-                      {errors.descriptionNutrition && <div className="error-message">{errors.descriptionNutrition}</div>}
-                      <br />
+                    </div>
+                    <div className="add-menu-item-field">
                       <label className="add-menu-item-form-label">Description Goods</label>
                       <input
-                        type="text"
+                        type="textarea"
                         id="add-menu-item-form-input"
                         name="goods"
                         value={formData.goods}
                         onChange={handleChange}
                       />
-                      {errors.descriptionGoods && <div className="error-message">{errors.descriptionGoods}</div>}
-                      <br />
-                      <label className="add-menu-item-form-label">Item Price</label>
+                    </div>
+                    <div className="add-menu-item-field">  
+                      <label className="add-menu-item-form-label">Item Price (Rs.)</label>
                       <input
+                        style={{width:'10rem'}}
                         type="number"
                         id="add-menu-item-form-input"
                         name="price"
                         value={formData.price}
                         onChange={handleChange}
+                        required
                       />
-                      {errors.itemPrice && <div className="error-message">{errors.itemPrice}</div>}
+                    </div>
+                    <div className="add-menu-item-field">  
+                      <label className="add-menu-item-form-label">Image Url</label>
+                      <input
+                        placeholder="Paste your image url here..."
+                        type="text"
+                        id="add-menu-item-form-input"
+                        name="url"
+                        value={formData.url}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
                       <br />
                       <button className="header-item-add-button" type="submit" style={{ float: 'right' }}>
                         Add Food Item
@@ -237,8 +267,8 @@ function MenuHome() {
                               </label>   
                               < div className="menu-detail-list-item-name">{item.type}</div>
                             </li>
-                            <div style={{display:'inline-flex', alignItems:'center'}}>
-                              <img src={foodImg} alt="food item" style={{height:'7rem', width:'7rem', objectFit:'contain'}} />
+                            <div style={{display:'inline-flex', alignItems:'center',borderBottom:'2px solid #DADADA'}}>
+                              <img src={item.url} alt="food item" style={{height:'7rem', width:'7rem', objectFit:'contain'}} />
                               <h4 style={{paddingLeft:'0.5rem'}}>Rs. {item.price}</h4>
                             </div>
                             </>}
@@ -259,8 +289,8 @@ function MenuHome() {
                               </label>   
                               <div className="menu-detail-list-item-name">{item.type}</div>
                             </li>
-                            <div style={{display:'inline-flex', alignItems:'center'}}>
-                              <img src={foodImg} alt="food item" style={{height:'7rem', width:'7rem', objectFit:'contain'}} />
+                            <div style={{display:'inline-flex', alignItems:'center',borderBottom:'2px solid #DADADA'}}>
+                              <img src={item.url} alt="food item" style={{height:'7rem', width:'7rem', objectFit:'contain'}} />
                               <h4 style={{paddingLeft:'0.5rem'}}>Rs. {item.price}</h4>
                             </div>
                             </>}
@@ -281,8 +311,8 @@ function MenuHome() {
                               </label>   
                               <div className="menu-detail-list-item-name">{item.type}</div>
                             </li>
-                            <div style={{display:'inline-flex', alignItems:'center'}}>
-                              <img src={foodImg} alt="food item" style={{height:'7rem', width:'7rem', objectFit:'contain'}} />
+                            <div style={{display:'inline-flex', alignItems:'center',borderBottom:'2px solid #DADADA'}}>
+                              <img src={item.url} alt="food item" style={{height:'7rem', width:'7rem', objectFit:'contain'}} />
                               <h4 style={{paddingLeft:'0.5rem'}}>Rs. {item.price}</h4>
                             </div>
                             </>}
