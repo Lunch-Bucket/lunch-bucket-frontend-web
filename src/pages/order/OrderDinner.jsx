@@ -9,8 +9,9 @@ import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpira
 function OrderHome_Dinner()
 {
     const [orderList, setOrderList] = useState([]);
+    const [checkedOrders, setCheckedOrders] = useState([]);
+    const [selectAll, setSelectAll] = useState(false); 
     const [orderStatus, setOrderStatus] = useState("pending")
-    let  checkedOrders = []
 
     async function fetchOrderData() {
         try {
@@ -27,14 +28,30 @@ function OrderHome_Dinner()
         fetchOrderData();
     }, []);
 
-    function OrderItemChecked(value){
-        checkedOrders.push(value)
-        console.log('checked orders Dinner: ', checkedOrders)
-    }
+    const OrderItemChecked = (orderId) => {
+        if (checkedOrders.includes(orderId)) {
+          setCheckedOrders(checkedOrders.filter((id) => id !== orderId)); // Deselect
+        } else {
+          setCheckedOrders([...checkedOrders, orderId]); // Select
+        }
+      };
 
     function handleOrderStatus(){
         console.log('These orders will be added to Returned Order List: ', checkedOrders)
     }
+
+     // Function to handle select all
+  const handleSelectAll = () => {
+    if (selectAll) {
+      setCheckedOrders([]); // Deselect all
+    } else {
+      // Select all by extracting order IDs from the order list
+      const allOrderIds = orderList.map((order) => order.order_id);
+      setCheckedOrders(allOrderIds);
+    }
+
+    setSelectAll(!selectAll); // Toggle the select all state
+  };
 
   
  
@@ -58,12 +75,11 @@ function OrderHome_Dinner()
                     <div>Total Order Count</div>
                     <div style={{marginLeft:'2rem', fontWeight:'600'}}>{orderList.length}</div>
      
-                    <div className="order-total-sales-content">
-                        <div className="sales-content-label">Total Sales</div>
-                        <div className="sales-content-amount">Rs. 4100</div>
-                    </div>
                 </div>
                 <div>
+                    <button style={{marginRight:'0.3rem', backgroundColor:'transparent'}}  onClick={handleSelectAll}>
+                        {selectAll ? "Deselect All" : "Select All"}
+                    </button>
                     <button className="action-bar-btn-confirm"  onClick={handleOrderStatus}>Confirm</button>
                     <button className="action-bar-btn-cancel"  onClick={handleOrderStatus}>Reject</button>
                 </div>

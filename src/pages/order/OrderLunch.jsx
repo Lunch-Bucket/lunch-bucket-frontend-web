@@ -10,6 +10,7 @@ function OrderHome()
     const [orderList, setOrderList] = useState([]);
     const [checkedOrders, setCheckedOrders] = useState([]);
     const [orderStatus, setOrderStatus] = useState("pending")
+    const [selectAll, setSelectAll] = useState(false); 
     let totalSales = 0;
 
     async function fetchOrderData() {
@@ -29,19 +30,32 @@ function OrderHome()
     }, []);
 
 
-    function OrderItemChecked(value) {
-        if (checkedOrders.includes(value)) {
-          setCheckedOrders(checkedOrders.filter(id => id !== value));
+    const OrderItemChecked = (orderId) => {
+        if (checkedOrders.includes(orderId)) {
+          setCheckedOrders(checkedOrders.filter((id) => id !== orderId)); // Deselect
         } else {
-          setCheckedOrders([...checkedOrders, value]);
+          setCheckedOrders([...checkedOrders, orderId]); // Select
         }
-      }
+      };
     
     function handleOrderStatus(){
         console.log('These orders will be added to the Returned Order List: ', checkedOrders)
         alert('Marked as Returned!')
         setCheckedOrders([]);
     }
+
+    // Function to handle select all
+  const handleSelectAll = () => {
+    if (selectAll) {
+      setCheckedOrders([]); 
+    } else {
+      const allOrderIds = orderList.map((order) => order.order_id);
+      setCheckedOrders(allOrderIds);
+    }
+
+    setSelectAll(!selectAll);
+  };
+
 
   
  
@@ -66,6 +80,9 @@ function OrderHome()
                     <div style={{marginLeft:'2rem', fontWeight:'600'}}>{orderList.length}</div>
                 </div>
                 <div>
+                    <button style={{marginRight:'0.3rem', backgroundColor:'transparent'}}  onClick={handleSelectAll}>
+                        {selectAll ? "Deselect All" : "Select All"}
+                    </button>
                     <button className="action-bar-btn-confirm"  onClick={handleOrderStatus}>Confirm</button>
                     <button className="action-bar-btn-cancel"  onClick={handleOrderStatus}>Reject</button>
                 </div>
