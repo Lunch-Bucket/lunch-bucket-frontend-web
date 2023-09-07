@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../../common/styles/CommonStyles.css";
 import "./MenuStyles.css";
+import "../../components/PopupStyles.css";
 import strings from '../../common/strings/strings'
 import {getFoodItem, addFoodItem,setMealLunch, setMealDinner, deleteFoodItem } from "../../services/menuService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
-import foodImg from '../../resources/images/cheesepasta.jpg';
+import Popup from "../../components/Popup";
 
 function MenuHome() {
  
@@ -12,6 +13,16 @@ function MenuHome() {
      const [showDeleteItemModal, setShowDeleteItemModal] = useState(false);
      const [foodItem, setfoodItem] = useState([]);
      const [foodList, setFoodList] = useState([]);
+     const [showPopup, setShowPopup] = useState(false);
+     const [popupType, setPopupType] = useState('');
+     const [popupMessage, setPopupMessage] = useState('');
+   
+     const openPopup = (type, message) => {
+       setPopupType(type);
+       setPopupMessage(message);
+       setShowPopup(true);
+     };
+   
 
     //  let selectedFoodItems = []
      const [formData, setFormData] = useState({
@@ -68,9 +79,11 @@ function MenuHome() {
       selectedFoodItems.meat = [];
       selectedFoodItems.stew = [];
       selectedFoodItems.vege = [];
+      openPopup('success', 'You have successfully added to Lunch Meal');
  
       } catch (error) {
           console.log('Error:', error);
+          openPopup('error', 'Error Occured! Please retry.')
       }
     };
 
@@ -322,6 +335,9 @@ function MenuHome() {
 
     
             </div>
+            {showPopup && (
+              <Popup type={popupType} message={popupMessage} onClose={() => setShowPopup(false)} />
+            )}
 
         </div>
     );

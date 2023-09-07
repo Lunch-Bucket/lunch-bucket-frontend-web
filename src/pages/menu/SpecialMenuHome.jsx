@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../../common/styles/CommonStyles.css";
 import "./MenuStyles.css";
+import "../../components/PopupStyles.css";
 import strings from '../../common/strings/strings'
 import { getSpecialMenu, setSpecialMealLunch, addSpecialFoodItem } from "../../services/menuService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
-import foodImg from '../../resources/images/cheesepasta.jpg';
+import Popup from "../../components/Popup";
 
 function SpecialMenuHome() {
  
@@ -20,6 +21,16 @@ function SpecialMenuHome() {
       url:'',
       vegetarian:''
     });
+    const [showPopup, setShowPopup] = useState(false);
+    const [popupType, setPopupType] = useState('');
+    const [popupMessage, setPopupMessage] = useState('');
+  
+    const openPopup = (type, message) => {
+      setPopupType(type);
+      setPopupMessage(message);
+      setShowPopup(true);
+    };
+  
 
      async function fetchSpecialFood() {
       try {
@@ -52,8 +63,10 @@ const handleSetSpecialMealLunch = async () => {
     };
         const response = await setSpecialMealLunch(payload);
         console.log('Response from setSpecialMeal:', response);
+        openPopup('success', 'You have successfully added the selected special foods to Lunch Meal');
     } catch (error) {
         console.log('Error:', error);
+        openPopup('error', 'Error Occured! Please retry.')
     }
 };
 
@@ -224,7 +237,9 @@ const handleChange = (event) => {
               ))}  
            
             </div>
-       
+            {showPopup && (
+              <Popup type={popupType} message={popupMessage} onClose={() => setShowPopup(false)} />
+            )}
 
         </div>
     );
