@@ -1,4 +1,4 @@
-.single-chat-container::-webkit-scrollbar{
+.chat-scroll-content::-webkit-scrollbar{
     display: none;
   }
 
@@ -22,18 +22,16 @@
 
 
 .single-chat-container{
-    height: 76%;
+    height: 84%;
     width: 74%;
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 58%;
     transform: translate(-50%, -50%);
     background-color: #fffaf0;
-    overflow-y: scroll;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-
     box-shadow:
       0 5px 15px rgba(0, 0, 0, 0.3), /* Bottom shadow */
       0 0 5px rgba(0, 0, 0, 0.1); /* Top shadow */
@@ -45,6 +43,14 @@
     margin:1rem;
     cursor: pointer;
     width: 30%;
+}
+
+.chat-scroll-content{
+    position:absolute;
+    overflow-y:scroll;
+    height:70%;
+    width:100%;
+    margin-top: 3.5rem;
 }
 
 .chatUser{
@@ -100,7 +106,7 @@
     position: fixed;
     margin-left: 26%;
     width: 50vw;
-    top: 60vh;
+    top: 85%;
 }
 
 .chat-reply-input{

@@ -13,3 +13,15 @@ export async function getChats() {
         console.log(error);
     }
 }
+
+// Admin Message
+export async function setAdminMsg(reply) {
+    try {
+        const token = localStorage.getItem('authToken');
+        const response = await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/addAdminReply',reply,{headers: {'token': `${token}`}});
+        console.log('admin reply', response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
