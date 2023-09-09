@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from "react";
+import React,{ useState, useEffect, useRef } from "react";
 import './ChatStyles.css';
 import '../../common/styles/CommonStyles.css';
 import strings from '../../common/strings/strings';
@@ -68,6 +68,18 @@ function Chat() {
   };
   
 
+  const chatContentRef = useRef(null);
+
+  useEffect(() => {
+    const scrollToBottom = () => {
+      if (chatContentRef.current) {
+        chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+      }
+    };
+
+    scrollToBottom();
+  }, [chat.messages, showSingleChat]);
+
 
     return (
       <div className="container">
@@ -84,10 +96,10 @@ function Chat() {
                 {(showSingleChat && (singleChat.id === currChat)) &&
                 <div className="single-chat-container">
                    <div style={{display:'flex', justifyContent:'space-between'}}>
-                      <h4 style={{marginLeft:'1rem', color:'grey', borderBottom:'1px solid grey'}}>{singleChat.customer_id}</h4>
+                      <h4 style={{marginLeft:'1rem', color:'grey', borderBottom:'1px solid grey'}}>Customer: {singleChat.customer_id}</h4>
                       <button className="chat-popup-close-btn" onClick={()=>setShowSingleChat(false)}>close</button>
                     </div> 
-                    <div className="chat-scroll-content">
+                    <div className="chat-scroll-content" ref={chatContentRef}>
                       {singleChat.messages.map((msg,index)=>(
                         <div className={msg.sender === 'user' ? 'chatUser' : 'chatAdmin'}>{msg.message}</div>       
                       ))}
