@@ -54,6 +54,12 @@ const handleLogin = async (event) => {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleLogin(event);
+    }
+  };
+
     return (
         <>
             <div className="full-container" >
@@ -81,11 +87,12 @@ const handleLogin = async (event) => {
                                 className="login-form-input-field"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                onKeyPress={handleKeyPress}
                             />
                             {errors.password && <div className="error-message">{errors.password}</div>}
                         </div>
                         <br />
-                            <button type="submit" className="login-submit-button">Submit</button>
+                            {/* <button type="submit" className="login-submit-button">Login</button> */}
                         </div>
                         </form>
                     </div>
