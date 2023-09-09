@@ -227,7 +227,11 @@ const handleChange = (event) => {
                   </label>   
                   <div>
                      <h3 className="special-menu-card-item-text" style={{textAlign:'center'}}>{item.category}</h3> 
-                     <center><img src={item.url} alt="food item" style={{height:'10rem', width:'10rem', objectFit:'contain'}} /></center>
+                      <center> 
+                        <div className="food-item-img-container" style={{height:'8rem', width:'8rem'}}>
+                          <img src={item.url} alt="food item" className="food-item-img"/>
+                        </div>
+                      </center>
                       <h4 className="special-menu-card-item-text" style={{fontSize:'15px'}}>{item.type} <br/> Rs. {item.price}</h4>
                       <ul style={{listStyle:'none', textAlign:'left', fontSize:'13px'}}>
                           <li className="special-menu-card-item-text">{item.items}</li>

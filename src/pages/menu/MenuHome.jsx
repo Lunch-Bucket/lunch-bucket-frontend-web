@@ -281,7 +281,9 @@ function MenuHome() {
                               < div className="menu-detail-list-item-name">{item.type}</div>
                             </li>
                             <div style={{display:'inline-flex', alignItems:'center',borderBottom:'2px solid #DADADA'}}>
-                              <img src={item.url} alt="food item" style={{height:'7rem', width:'7rem', objectFit:'contain'}} />
+                              <div className="food-item-img-container">
+                                <img src={item.url} alt="food item" className="food-item-img" />
+                              </div>
                               <h4 style={{paddingLeft:'0.5rem'}}>Rs. {item.price}</h4>
                             </div>
                             </>}
@@ -303,7 +305,9 @@ function MenuHome() {
                               <div className="menu-detail-list-item-name">{item.type}</div>
                             </li>
                             <div style={{display:'inline-flex', alignItems:'center',borderBottom:'2px solid #DADADA'}}>
-                              <img src={item.url} alt="food item" style={{height:'7rem', width:'7rem', objectFit:'contain'}} />
+                              <div className="food-item-img-container">
+                                <img src={item.url} alt="food item" className="food-item-img"/>
+                              </div>
                               <h4 style={{paddingLeft:'0.5rem'}}>Rs. {item.price}</h4>
                             </div>
                             </>}
@@ -325,7 +329,9 @@ function MenuHome() {
                               <div className="menu-detail-list-item-name">{item.type}</div>
                             </li>
                             <div style={{display:'inline-flex', alignItems:'center',borderBottom:'2px solid #DADADA'}}>
-                              <img src={item.url} alt="food item" style={{height:'7rem', width:'7rem', objectFit:'contain'}} />
+                              <div className="food-item-img-container">
+                                <img src={item.url} alt="food item" className="food-item-img" />
+                              </div>
                               <h4 style={{paddingLeft:'0.5rem'}}>Rs. {item.price}</h4>
                             </div>
                             </>}
