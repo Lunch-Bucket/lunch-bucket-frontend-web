@@ -9,7 +9,24 @@ export const setAuthToken = (token) => {
     }
   };
 
-export async function getOrders(meal) {
+export async function getConfirmedOrders(meal) {
+    try {
+
+        const token = localStorage.getItem('authToken');
+        if (token) {
+        // setAuthToken(token);
+        const response = await axios.get(`${baseUrl}getOrderByMeal/${meal}`,{headers:{'token':`${token}`}});
+        console.log('orders', response.data);
+        return response.data;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+
+export async function getPendingOrders(meal) {
     try {
 
         const token = localStorage.getItem('authToken');
@@ -22,4 +39,4 @@ export async function getOrders(meal) {
     } catch (error) {
         console.log(error);
     }
-}
+  }

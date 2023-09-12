@@ -2,12 +2,13 @@ import React, {useState, useEffect} from "react";
 import "../../common/styles/CommonStyles.css";
 import "./OrderStyles.css";
 import strings from "../../common/strings/strings";
-import { getOrderData } from "../../services/orderService";
+import { getPendingOrderData, getConfirmedOrderData } from "../../services/orderService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 
 function OrderHome()
 {
-    const [orderList, setOrderList] = useState([]);
+    const [confirmedOrderList, setConfirmedOrderList] = useState([]);
+    const [pendingOrderList, setPendingOrderList] = useState([]);
     const [checkedOrders, setCheckedOrders] = useState([]);
     const [orderStatus, setOrderStatus] = useState("pending")
     const [selectAll, setSelectAll] = useState(false); 
@@ -15,13 +16,16 @@ function OrderHome()
 
     async function fetchOrderData() {
         try {
-            const orderData  = await getOrderData('Lunch');
-            setOrderList(orderData);
-            console.log('user data in user page', orderList);
-            totalSales = orderList.reduce((total, order) => total + order.order_price, 0);
+            const confirmedOrderData  = await getConfirmedOrderData('Lunch');
+            const pendingOrderData  = await getPendingOrderData('Lunch'); 
+            setConfirmedOrderList(confirmedOrderData);
+            setPendingOrderList(pendingOrderData);
+            console.log('confirmed order data in order', confirmedOrderList);
+            console.log('pending order data in order', pendingOrderList);
+            totalSales = confirmedOrderList.reduce((total, order) => total + order.order_price, 0);
 
         } catch (error) {
-            console.log("Error fetching user data:", error.message);
+            console.log("Error fetching order data:", error.message);
         }
     }
 
@@ -45,11 +49,11 @@ function OrderHome()
     }
 
     // Function to handle select all
-  const handleSelectAll = () => {
+  const handleSelectAll = (orderStatus) => {
     if (selectAll) {
       setCheckedOrders([]); 
     } else {
-      const allOrderIds = orderList.map((order) => order.order_id);
+      const allOrderIds = orderStatus.map((order) => order.order_id);
       setCheckedOrders(allOrderIds);
     }
 
@@ -66,7 +70,7 @@ function OrderHome()
               <div>
                 <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{setOrderStatus('pending')}}>Pending Orders</button>
                 <button className="header-item-add-button" style={{backgroundColor:'#84B35A'}} onClick={()=>{setOrderStatus('confirmed')}}>Confirmed Orders</button>
-                <button className="header-item-add-button" style={{backgroundColor:'#7E0A0A', color:'white'}} onClick={()=>{setOrderStatus('rejected')}}>Rejected Orders</button>
+                {/* <button className="header-item-add-button" style={{backgroundColor:'#7E0A0A', color:'white'}} onClick={()=>{setOrderStatus('rejected')}}>Rejected Orders</button> */}
               </div>
               {/* <SearchBar/> */}
             </div>
@@ -77,21 +81,21 @@ function OrderHome()
             <div className="action-bar">
                 <div style={{display:'inline-flex'}}>
                     <div>Total Order Count</div>
-                    <div style={{marginLeft:'2rem', fontWeight:'600'}}>{orderList.length}</div>
+                    <div style={{marginLeft:'2rem', fontWeight:'600'}}>{pendingOrderList.length}</div>
                 </div>
                 <div>
-                    <button style={{marginRight:'0.3rem', backgroundColor:'transparent'}}  onClick={handleSelectAll}>
+                    <button style={{marginRight:'0.3rem', backgroundColor:'transparent'}}  onClick={()=>handleSelectAll('pendingOrderList')}>
                         {selectAll ? "Deselect All" : "Select All"}
                     </button>
                     <button className="action-bar-btn-confirm"  onClick={handleOrderStatus}>Confirm</button>
-                    <button className="action-bar-btn-cancel"  onClick={handleOrderStatus}>Reject</button>
+                    {/* <button className="action-bar-btn-cancel"  onClick={handleOrderStatus}>Reject</button> */}
                 </div>
             </div>
             <hr/> 
                 <div>
                     <table className="detail-table">  
                         <tbody>
-                        {orderList.map((data, id) => (<>
+                        {pendingOrderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
                                 <td>
                                     <label class="checkbox-container" key={data.order_id}>
@@ -134,7 +138,7 @@ function OrderHome()
             <div className="action-bar">
                 <div style={{display:'inline-flex'}}>
                     <div>Total Order Count</div>
-                    <div style={{marginLeft:'2rem', fontWeight:'600'}}>{orderList.length}</div>
+                    <div style={{marginLeft:'2rem', fontWeight:'600'}}>{confirmedOrderList.length}</div>
      
                     <div className="order-total-sales-content">
                         <div className="sales-content-label">Total Sales</div>
@@ -146,7 +150,7 @@ function OrderHome()
                 <div>
                     <table className="detail-table">  
                         <tbody>
-                        {orderList.map((data, id) => (<>
+                        {confirmedOrderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
 
                                 <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type === 'vegi'? '#ECFFC8':'#fcfadc'}}>
@@ -180,7 +184,7 @@ function OrderHome()
             <div className="action-bar">
                 <div style={{display:'inline-flex'}}>
                     <div>Total Order Count</div>
-                    <div style={{marginLeft:'2rem', fontWeight:'600'}}>{orderList.length}</div>
+                    <div style={{marginLeft:'2rem', fontWeight:'600'}}>{confirmedOrderList.length}</div>
      
                     <div className="order-total-sales-content">
                         <div className="sales-content-label">Total Sales</div>
@@ -192,7 +196,7 @@ function OrderHome()
                 <div>
                     <table className="detail-table">  
                         <tbody>
-                        {orderList.map((data, id) => (<>
+                        {confirmedOrderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
                                 <td className="order-page-data-row-description" key={id} style={{backgroundColor: '#E53B3B'}}>
                                     Order ID: {data.order_id}  <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: (data.threat) === true? 'red': '#004d00'}}>Customer Code: {data.customer_code}</span> 
