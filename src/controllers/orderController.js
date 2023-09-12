@@ -40,3 +40,18 @@ export async function getPendingOrders(meal) {
         console.log(error);
     }
   }
+
+
+
+  export async function confirmOrders(confirmOrderList) {
+    try {
+        const token = localStorage.getItem('authToken');
+        const response = await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/adminConfirm',
+        confirmOrderList,
+        {headers: {'token': `${token}`}});
+        console.log('confirm orders in controller', response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import "../../common/styles/CommonStyles.css";
 import "./OrderStyles.css";
 import strings from "../../common/strings/strings";
-import { getPendingOrderData, getConfirmedOrderData } from "../../services/orderService";
+import { getPendingOrderData, getConfirmedOrderData, confirmOrderData } from "../../services/orderService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 
 function OrderHome()
@@ -13,6 +13,7 @@ function OrderHome()
     const [orderStatus, setOrderStatus] = useState("pending")
     const [selectAll, setSelectAll] = useState(false); 
     let totalSales = 0;
+    let sample= []
 
     async function fetchOrderData() {
         try {
@@ -42,18 +43,32 @@ function OrderHome()
         }
       };
     
-    function handleOrderStatus(){
-        console.log('These orders will be added to the Returned Order List: ', checkedOrders)
-        alert('Marked as Returned!')
-        setCheckedOrders([]);
+    const handleOrderStatus = async (orderStatus) =>{
+        if (orderStatus === 'confirm'){
+            try {
+                const payload = {
+                  "confirmOrders": checkedOrders,
+                  "rejectOrders" : [],
+                };
+        
+              const response = await confirmOrderData(payload);
+              console.log('confirm orders component', response);
+              alert('Marked as Confirmed!');
+              setCheckedOrders([]);
+              window.location.reload();
+              } catch (error) {
+                  console.log('Error:', error);
+              }
+        }
+  
     }
 
     // Function to handle select all
-  const handleSelectAll = (orderStatus) => {
+  const handleSelectAll = () => {
     if (selectAll) {
       setCheckedOrders([]); 
     } else {
-      const allOrderIds = orderStatus.map((order) => order.order_id);
+      const allOrderIds = pendingOrderList.map((order) => order.order_id);
       setCheckedOrders(allOrderIds);
     }
 
@@ -84,10 +99,10 @@ function OrderHome()
                     <div style={{marginLeft:'2rem', fontWeight:'600'}}>{pendingOrderList.length}</div>
                 </div>
                 <div>
-                    <button style={{marginRight:'0.3rem', backgroundColor:'transparent'}}  onClick={()=>handleSelectAll('pendingOrderList')}>
+                    <button style={{marginRight:'0.3rem', backgroundColor:'transparent'}}  onClick={handleSelectAll}>
                         {selectAll ? "Deselect All" : "Select All"}
                     </button>
-                    <button className="action-bar-btn-confirm"  onClick={handleOrderStatus}>Confirm</button>
+                    <button className="action-bar-btn-confirm"  onClick={()=>handleOrderStatus('confirm')}>Confirm</button>
                     {/* <button className="action-bar-btn-cancel"  onClick={handleOrderStatus}>Reject</button> */}
                 </div>
             </div>
@@ -98,17 +113,21 @@ function OrderHome()
                         {pendingOrderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
                                 <td>
-                                    <label class="checkbox-container" key={data.order_id}>
+                                    <label class="checkbox-container" key={data.id}>
                                         <input type="checkbox" className="item-checkbox" 
-                                        value={data.order_id} 
-                                        checked={checkedOrders.includes(data.order_id)}
-                                        onClick={()=>{OrderItemChecked(data.order_id)}}/>
+                                        value={data.id} 
+                                        checked={checkedOrders.includes(data.id)}
+                                        onClick={()=>{OrderItemChecked(data.id)}}/>
                                         <span className="item-checkbox-checkmark"></span>
                                     </label>   
                                 </td>
 
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type === 'vegi'? '#ECFFC8':'#fcfadc'}}>
-                                    Order ID: {data.order_id}  <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: (data.threat) === true? 'red': '#004d00'}}>Customer Code: {data.customer_code}</span> 
+                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FBEDED':'#FFFFF5'}}>
+                                    Order ID: {data.order_id} 
+                                    <div>
+                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>Customer Code: {data.customer_code}</span> 
+                                        <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
+                                    </div>
                                     {/* <br/> Address: University of Moratuwa */}
                                     <br/> Special Notes: {data.comment}
                                     <br/> Packet Count: {data.packet_amount} | Rs.  {data.price}
@@ -153,8 +172,12 @@ function OrderHome()
                         {confirmedOrderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
 
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type === 'vegi'? '#ECFFC8':'#fcfadc'}}>
-                                    Order ID: {data.order_id}  <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: (data.threat) === true? 'red': '#004d00'}}>Customer Code: {data.customer_code}</span> 
+                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FBEDED':'#FFFFF5'}}>
+                                    Order ID: {data.order_id} 
+                                    <div>
+                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>Customer Code: {data.customer_code}</span> 
+                                        <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
+                                    </div>
                                     {/* <br/> Address: University of Moratuwa */}
                                     <br/> Special Notes: {data.comment}
                                     <br/> Packet Count: {data.packet_amount} | Rs.  {data.price}
