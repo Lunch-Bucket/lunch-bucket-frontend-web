@@ -11,7 +11,7 @@ export default function Login() {
 
 
   const navigate = useNavigate();
-  const [projectCode, setProjectCode] = useState('64a7aec4932166ca272cd176AVT60UVT4300');
+  const [projectCode, setProjectCode] = useState('64fef5352733ffb579bdc92dAVT60UVT8600');
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -37,7 +37,7 @@ const handleLogin = async (event) => {
 
        if (Object.keys(newErrors).length === 0) {
       try {
-        const response = await axios.post('https://fmrlw0xn6h.execute-api.ap-south-1.amazonaws.com/dev/userLogin', {
+        const response = await axios.post('https://fw2svr60sl.execute-api.ap-south-1.amazonaws.com/beta/userLogin', {
           email: email,
           password: password,
           project_code: projectCode, 
