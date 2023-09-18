@@ -4,6 +4,7 @@ import "./OrderStyles.css";
 import strings from "../../common/strings/strings";
 import { getPendingOrderData, getConfirmedOrderData, confirmOrderData } from "../../services/orderService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 function OrderHome()
 {
@@ -12,14 +13,15 @@ function OrderHome()
     const [checkedOrders, setCheckedOrders] = useState([]);
     const [orderStatus, setOrderStatus] = useState("pending")
     const [selectAll, setSelectAll] = useState(false); 
+    const [loading, setLoading] = useState(true);
     let totalSales = 0;
-    let sample= []
 
     async function fetchOrderData() {
         try {
             const confirmedOrderData  = await getConfirmedOrderData('Lunch');
             const pendingOrderData  = await getPendingOrderData('Lunch'); 
             setConfirmedOrderList(confirmedOrderData);
+            setLoading(false);
             setPendingOrderList(pendingOrderData);
             console.log('confirmed order data in order', confirmedOrderList);
             console.log('pending order data in order', pendingOrderList);
@@ -52,13 +54,33 @@ function OrderHome()
                 };
         
               const response = await confirmOrderData(payload);
+              setLoading(false);
               console.log('confirm orders component', response);
               alert('Marked as Confirmed!');
               setCheckedOrders([]);
               window.location.reload();
               } catch (error) {
                   console.log('Error:', error);
+                  setLoading(false);
               }
+        }
+        else{
+            try {
+                const payload = {
+                  "confirmOrders": [],
+                  "rejectOrders" : checkedOrders,
+                };
+        
+              const response = await confirmOrderData(payload);
+              console.log('rejected orders component', response);
+              setLoading(false);
+              alert('Marked as Rejected!');
+              setCheckedOrders([]);
+              window.location.reload();
+              } catch (error) {
+                  console.log('Error:', error);
+              }
+
         }
   
     }
@@ -95,7 +117,7 @@ function OrderHome()
             {orderStatus === 'pending' &&<>
             <div className="action-bar">
                 <div style={{display:'inline-flex'}}>
-                    <div>Total Order Count</div>
+                    <div>Total Pending Order Count</div>
                     <div style={{marginLeft:'2rem', fontWeight:'600'}}>{pendingOrderList.length}</div>
                 </div>
                 <div>
@@ -103,7 +125,7 @@ function OrderHome()
                         {selectAll ? "Deselect All" : "Select All"}
                     </button>
                     <button className="action-bar-btn-confirm"  onClick={()=>handleOrderStatus('confirm')}>Confirm</button>
-                    {/* <button className="action-bar-btn-cancel"  onClick={handleOrderStatus}>Reject</button> */}
+                    <button className="action-bar-btn-cancel"  onClick={()=>handleOrderStatus('reject')}>Reject</button>
                 </div>
             </div>
             <hr/> 
@@ -129,18 +151,29 @@ function OrderHome()
                                         <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
                                     </div>
                                     {/* <br/> Address: University of Moratuwa */}
-                                    <br/> Special Notes: {data.comment}
+                                    <br/> Note: {data.comment}
                                     <br/> Packet Count: {data.packet_amount} | Rs.  {data.price}
+                                    <br/>
+                                    {data.portion === true && <span> Portion: {data.packet_amount}<br/> </span>}
+                                    {data.order_type === "special" && <span style={{fontSize:'16px', fontStyle:'italic', fontWeight:'700', color:'#BD178D'}}> Special</span>}
                                 </td>
                             </tr>
 
                             <tr>  
                                 <td style={{fontSize:'14px'}}>
+                                    { data.order_type != "special" &&
                                     <ul style={{listStyle:'square'}}>
                                         {data.items.map((food, index) => (
                                             <li key={index}>{food}</li>
                                         ))}
                                     </ul>
+                                    }
+                                    { data.order_type === "special" &&
+                                    <ul style={{listStyle:'square'}}>
+                                        <li>{data.category}</li>
+                                        <li>{data.type}</li>
+                                    </ul>
+                                    }
                                 </td>
                             </tr>
                         </>
@@ -156,7 +189,7 @@ function OrderHome()
             {orderStatus === 'confirmed' &&<>
             <div className="action-bar">
                 <div style={{display:'inline-flex'}}>
-                    <div>Total Order Count</div>
+                    <div>Total Confirmed Order Count</div>
                     <div style={{marginLeft:'2rem', fontWeight:'600'}}>{confirmedOrderList.length}</div>
      
                     <div className="order-total-sales-content">
@@ -166,39 +199,50 @@ function OrderHome()
                 </div>
             </div>
             <hr/> 
-                <div>
+            {loading ? <LoadingIndicator/> :<div>
                     <table className="detail-table">  
-                        <tbody>
+                       <tbody>
                         {confirmedOrderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
-
                                 <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FBEDED':'#FFFFF5'}}>
-                                    Order ID: {data.order_id} 
-                                    <div>
-                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>Customer Code: {data.customer_code}</span> 
-                                        <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
-                                    </div>
-                                    {/* <br/> Address: University of Moratuwa */}
-                                    <br/> Special Notes: {data.comment}
-                                    <br/> Packet Count: {data.packet_amount} | Rs.  {data.price}
-                                </td>
+                                        Order ID: {data.order_id} 
+                                        <div>
+                                            <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>Customer Code: {data.customer_code}</span> 
+                                            <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
+                                        </div>
+                                        {/* <br/> Address: University of Moratuwa */}
+                                    <br/> Note: {data.comment}
+                                        <br/> Packet Count: {data.packet_amount} | Rs.  {data.price}
+                                        <br/>
+                                        {data.portion === true && <span> Portion: {data.packet_amount}<br/> </span>}
+                                        {data.order_type === "special" && <span style={{fontSize:'16px', fontStyle:'italic', fontWeight:'700', color:'#BD178D'}}> Special</span>}
+                                    </td>
                             </tr>
 
                             <tr>  
-                                <td style={{fontSize:'14px'}}>
+                            <td style={{fontSize:'14px'}}>
+                                    { data.order_type != "special" &&
                                     <ul style={{listStyle:'square'}}>
                                         {data.items.map((food, index) => (
                                             <li key={index}>{food}</li>
                                         ))}
                                     </ul>
+                                    }
+                                    { data.order_type === "special" &&
+                                    <ul style={{listStyle:'square'}}>
+                                        <li>{data.category}</li>
+                                        <li>{data.type}</li>
+                                    </ul>
+                                    }
                                 </td>
                             </tr>
                         </>
                         ))}
                         </tbody>
+                    
                     </table>
                     
-                </div>
+                </div>}
                 </>    
             }
 
