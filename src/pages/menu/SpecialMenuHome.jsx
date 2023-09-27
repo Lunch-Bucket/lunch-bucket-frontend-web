@@ -6,6 +6,8 @@ import strings from '../../common/strings/strings'
 import { getSpecialMenu, setSpecialMealLunch, addSpecialFoodItem } from "../../services/menuService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import Popup from "../../components/Popup";
+import { storage } from '../../firebase';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
 function SpecialMenuHome() {
  
@@ -18,7 +20,7 @@ function SpecialMenuHome() {
       category: '',
       items: [],
       price:'',
-      url:'',
+      url:null,
       vegetarian:''
     });
     const [showPopup, setShowPopup] = useState(false);
@@ -88,12 +90,53 @@ const handleAddSpecialFood = async (event) => {
   event.preventDefault();
   
   try {
+    if (formData.imageFile) {
+      const imageUrl = await uploadImage(formData.imageFile);
+      setFormData((prevData) => ({
+        ...prevData,
+        url:imageUrl, 
+      }));
+    }
       const response = await addSpecialFoodItem(formData); 
       console.log('Response from addSpecialFoodItem:', response);
       setShowAddItemModal(false);
 
   } catch (error) {
       console.log('Error:', error);
+  }
+};
+
+const handleImageUpload = async (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    try {
+      const imageUrl = await uploadImage(file);
+      setFormData((prevData) => ({
+        ...prevData,
+        url:imageUrl, 
+      }));
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+  }
+};
+
+
+const uploadImage = async (imageFile) => {
+  try {
+    // Generate a unique filename 
+    const timestamp = new Date().getTime();
+    const imageName = `image_${timestamp}`;
+    const storageRef = ref(storage, `images/${imageName}`);
+    const uploadTask = uploadBytesResumable(storageRef, imageFile);
+
+    const snapshot = await uploadTask;
+    const downloadURL = await getDownloadURL(snapshot.ref);
+
+    return downloadURL;
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    throw error;
   }
 };
 
@@ -173,15 +216,12 @@ const handleChange = (event) => {
                       />
                     </div>
                     <div className="add-menu-item-field"> 
-                      <label className="add-menu-item-form-label">Image url</label>
+                      <label className="add-menu-item-form-label">Image</label>
                       <input
-                        type="text"
-                        id="add-menu-item-form-input"
-                        name="url"
-                        value={formData.url}
-                        onChange={handleChange}
-                        placeholder="Paste your image url here..."
-                        required
+                           type="file"
+                           accept="image/*"
+                           onChange={handleImageUpload}
+                          required
                       />
                     </div>
                     <div className="add-menu-item-field">

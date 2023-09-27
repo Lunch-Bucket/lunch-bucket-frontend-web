@@ -285,7 +285,7 @@ function MenuHome() {
                       />
                     </div>
                     <div className="add-menu-item-field">  
-                      <label className="add-menu-item-form-label">Image Url</label>
+                      <label className="add-menu-item-form-label">Image</label>
                       <input
                          type="file"
                          accept="image/*"
