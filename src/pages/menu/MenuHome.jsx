@@ -6,6 +6,9 @@ import strings from '../../common/strings/strings'
 import {getFoodItem, addFoodItem,setMealLunch, setMealDinner, deleteFoodItem } from "../../services/menuService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import Popup from "../../components/Popup";
+import { storage } from '../../firebase';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+ 
 
 function MenuHome() {
  
@@ -31,7 +34,7 @@ function MenuHome() {
       nutrition: '',
       goods: '',
       price: '',
-      url: '',
+      url: null,
       vegetarian: '',
     });
 
@@ -114,6 +117,13 @@ function MenuHome() {
       event.preventDefault();
       
       try {
+        if (formData.imageFile) {
+          const imageUrl = await uploadImage(formData.imageFile);
+          setFormData((prevData) => ({
+            ...prevData,
+            url:imageUrl, 
+          }));
+        }
           const response = await addFoodItem(formData); 
           console.log('Response from addFoodItem:', response);
           setShowAddItemModal(false);
@@ -122,6 +132,41 @@ function MenuHome() {
           console.log('Error:', error);
       }
     };
+
+    const handleImageUpload = async (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        try {
+          const imageUrl = await uploadImage(file);
+          setFormData((prevData) => ({
+            ...prevData,
+            url:imageUrl, 
+          }));
+        } catch (error) {
+          console.error('Error uploading image:', error);
+        }
+      }
+    };
+    
+
+    const uploadImage = async (imageFile) => {
+      try {
+        // Generate a unique filename 
+        const timestamp = new Date().getTime();
+        const imageName = `image_${timestamp}`;
+        const storageRef = ref(storage, `images/${imageName}`);
+        const uploadTask = uploadBytesResumable(storageRef, imageFile);
+
+        const snapshot = await uploadTask;
+        const downloadURL = await getDownloadURL(snapshot.ref);
+    
+        return downloadURL;
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        throw error;
+      }
+    };
+    
 
     const handleChange = (event) => {
       const { name, value } = event.target;
@@ -242,12 +287,9 @@ function MenuHome() {
                     <div className="add-menu-item-field">  
                       <label className="add-menu-item-form-label">Image Url</label>
                       <input
-                        placeholder="Paste your image url here..."
-                        type="text"
-                        id="add-menu-item-form-input"
-                        name="url"
-                        value={formData.url}
-                        onChange={handleChange}
+                         type="file"
+                         accept="image/*"
+                         onChange={handleImageUpload}
                         required
                       />
                     </div>
@@ -275,7 +317,8 @@ function MenuHome() {
                             {item.category === 'vege' && <>
                             <li className="menu-detail-list-item">
                               <label class="checkbox-container">
-                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('vege', item.id)}}/>
+                                  <input type="checkbox" className="item-checkbox" 
+                                  onClick={()=>{FoodItemChecked('vege', item.id)}}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               < div className="menu-detail-list-item-name">{item.type}</div>
