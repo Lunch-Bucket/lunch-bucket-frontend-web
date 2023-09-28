@@ -14,7 +14,8 @@ function OrderHome_Dinner()
     const [checkedOrders, setCheckedOrders] = useState([]);
     const [selectAll, setSelectAll] = useState(false); 
     const [orderStatus, setOrderStatus] = useState("pending");
-    const [loading, setLoading] = useState(true);
+    const [pendingOrderLoading, setPendingOrderLoading] = useState(true);
+    const [confirmOrderLoading, setConfirmOrderLoading] = useState(true);
     let totalSales = 0;
 
     async function fetchOrderData() {
@@ -22,8 +23,9 @@ function OrderHome_Dinner()
             const confirmedOrderData  = await getConfirmedOrderData('Dinner');
             const pendingOrderData  = await getPendingOrderData('Dinner'); 
             setConfirmedOrderList(confirmedOrderData);
+            setConfirmOrderLoading(false);
             setPendingOrderList(pendingOrderData);
-            setLoading(false);
+            setPendingOrderLoading(false);
             console.log('confirmed order data in order', confirmedOrderList);
             console.log('pending order data in order', pendingOrderList);
             totalSales = confirmedOrderList.reduce((total, order) => total + order.order_price, 0);
@@ -44,8 +46,54 @@ function OrderHome_Dinner()
         }
       };
 
-    function handleOrderStatus(){
-        console.log('These orders will be added to Returned Order List: ', checkedOrders)
+      const handleOrderStatus = async (orderStatus) =>{
+        if (orderStatus === 'confirm'){
+            if(checkedOrders.length > 0){
+                try {
+                    const payload = {
+                      "confirmOrders": checkedOrders,
+                      "rejectOrders" : [],
+                    };
+            
+                  const response = await confirmOrderData(payload);
+                //   setLoading(false);
+                  console.log('confirm orders component', response);
+                  alert('Marked as Confirmed!');
+                  setCheckedOrders([]);
+                  window.location.reload();
+                  } catch (error) {
+                      console.log('Error:', error);
+                      setConfirmOrderLoading(false);
+                  }
+            }
+            else{
+                alert('Please select orders to confirm!');
+            }
+           
+        }
+        else{
+            if(checkedOrders.length > 0){
+                try {
+                    const payload = {
+                    "confirmOrders": [],
+                    "rejectOrders" : checkedOrders,
+                    };
+            
+                const response = await confirmOrderData(payload);
+                console.log('rejected orders component', response);
+                //   setLoading(false);
+                alert('Marked as Rejected!');
+                setCheckedOrders([]);
+                window.location.reload();
+                } catch (error) {
+                    console.log('Error:', error);
+                }
+            }else{
+                alert('Please select atleat one order to reject!');
+            }
+
+        }
+  
     }
 
      // Function to handle select all
@@ -92,7 +140,7 @@ function OrderHome_Dinner()
             </div>
             <hr/> 
             {/* Pending Order List */}
-            {loading ? <LoadingIndicator/> :
+            {pendingOrderLoading ? <LoadingIndicator/> :
                 <div>
                     <table className="detail-table">  
                         <tbody>
@@ -151,7 +199,7 @@ function OrderHome_Dinner()
                 </div>
             </div>
             <hr/> 
-            {loading ? <LoadingIndicator/> :
+            {confirmOrderLoading ? <LoadingIndicator/> :
                 <div>
                     <table className="detail-table">  
                         <tbody>

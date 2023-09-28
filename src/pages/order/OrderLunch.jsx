@@ -49,39 +49,49 @@ function OrderHome()
     
     const handleOrderStatus = async (orderStatus) =>{
         if (orderStatus === 'confirm'){
-            try {
-                const payload = {
-                  "confirmOrders": checkedOrders,
-                  "rejectOrders" : [],
-                };
-        
-              const response = await confirmOrderData(payload);
-            //   setLoading(false);
-              console.log('confirm orders component', response);
-              alert('Marked as Confirmed!');
-              setCheckedOrders([]);
-              window.location.reload();
-              } catch (error) {
-                  console.log('Error:', error);
-                  setConfirmOrderLoading(false);
-              }
+            if(checkedOrders.length > 0){
+                try {
+                    const payload = {
+                      "confirmOrders": checkedOrders,
+                      "rejectOrders" : [],
+                    };
+            
+                  const response = await confirmOrderData(payload);
+                //   setLoading(false);
+                  console.log('confirm orders component', response);
+                  alert('Marked as Confirmed!');
+                  setCheckedOrders([]);
+                  window.location.reload();
+                  } catch (error) {
+                      console.log('Error:', error);
+                      setConfirmOrderLoading(false);
+                  }
+            }
+            else{
+                alert('Please select orders to confirm!');
+            }
+           
         }
         else{
-            try {
-                const payload = {
-                  "confirmOrders": [],
-                  "rejectOrders" : checkedOrders,
-                };
-        
-              const response = await confirmOrderData(payload);
-              console.log('rejected orders component', response);
-            //   setLoading(false);
-              alert('Marked as Rejected!');
-              setCheckedOrders([]);
-              window.location.reload();
-              } catch (error) {
-                  console.log('Error:', error);
-              }
+            if(checkedOrders.length > 0){
+                try {
+                    const payload = {
+                    "confirmOrders": [],
+                    "rejectOrders" : checkedOrders,
+                    };
+            
+                const response = await confirmOrderData(payload);
+                console.log('rejected orders component', response);
+                //   setLoading(false);
+                alert('Marked as Rejected!');
+                setCheckedOrders([]);
+                window.location.reload();
+                } catch (error) {
+                    console.log('Error:', error);
+                }
+            }else{
+                alert('Please select atleat one order to reject!');
+            }
 
         }
   
