@@ -13,7 +13,8 @@ function OrderHome()
     const [checkedOrders, setCheckedOrders] = useState([]);
     const [orderStatus, setOrderStatus] = useState("pending")
     const [selectAll, setSelectAll] = useState(false); 
-    const [loading, setLoading] = useState(true);
+    const [pendingOrderLoading, setPendingOrderLoading] = useState(true);
+    const [confirmOrderLoading, setConfirmOrderLoading] = useState(true);
     let totalSales = 0;
 
     async function fetchOrderData() {
@@ -21,8 +22,9 @@ function OrderHome()
             const confirmedOrderData  = await getConfirmedOrderData('Lunch');
             const pendingOrderData  = await getPendingOrderData('Lunch'); 
             setConfirmedOrderList(confirmedOrderData);
-            setLoading(false);
+            setConfirmOrderLoading(false);
             setPendingOrderList(pendingOrderData);
+            setPendingOrderLoading(false);
             console.log('confirmed order data in order', confirmedOrderList);
             console.log('pending order data in order', pendingOrderList);
             totalSales = confirmedOrderList.reduce((total, order) => total + order.order_price, 0);
@@ -54,14 +56,14 @@ function OrderHome()
                 };
         
               const response = await confirmOrderData(payload);
-              setLoading(false);
+            //   setLoading(false);
               console.log('confirm orders component', response);
               alert('Marked as Confirmed!');
               setCheckedOrders([]);
               window.location.reload();
               } catch (error) {
                   console.log('Error:', error);
-                  setLoading(false);
+                  setConfirmOrderLoading(false);
               }
         }
         else{
@@ -73,7 +75,7 @@ function OrderHome()
         
               const response = await confirmOrderData(payload);
               console.log('rejected orders component', response);
-              setLoading(false);
+            //   setLoading(false);
               alert('Marked as Rejected!');
               setCheckedOrders([]);
               window.location.reload();
@@ -129,6 +131,7 @@ function OrderHome()
                 </div>
             </div>
             <hr/> 
+            {pendingOrderLoading ? <LoadingIndicator/> :
                 <div>
                     <table className="detail-table">  
                         <tbody>
@@ -181,7 +184,7 @@ function OrderHome()
                         </tbody>
                     </table>
                     
-                </div>
+                </div>}
                 </>    
             }
 
@@ -199,7 +202,7 @@ function OrderHome()
                 </div>
             </div>
             <hr/> 
-            {loading ? <LoadingIndicator/> :<div>
+            {confirmOrderLoading ? <LoadingIndicator/> :<div>
                     <table className="detail-table">  
                        <tbody>
                         {confirmedOrderList.map((data, id) => (<>

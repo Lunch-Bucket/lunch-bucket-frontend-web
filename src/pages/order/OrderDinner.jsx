@@ -3,8 +3,9 @@ import "../../common/styles/CommonStyles.css";
 import "./OrderStyles.css";
 import strings from "../../common/strings/strings";
 import SearchBar from "../../components/SearchBar";
-import { getPendingOrderData, getConfirmedOrderData } from "../../services/orderService";
+import { getPendingOrderData, getConfirmedOrderData, confirmOrderData } from "../../services/orderService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 function OrderHome_Dinner()
 {
@@ -13,6 +14,7 @@ function OrderHome_Dinner()
     const [checkedOrders, setCheckedOrders] = useState([]);
     const [selectAll, setSelectAll] = useState(false); 
     const [orderStatus, setOrderStatus] = useState("pending");
+    const [loading, setLoading] = useState(true);
     let totalSales = 0;
 
     async function fetchOrderData() {
@@ -21,6 +23,7 @@ function OrderHome_Dinner()
             const pendingOrderData  = await getPendingOrderData('Dinner'); 
             setConfirmedOrderList(confirmedOrderData);
             setPendingOrderList(pendingOrderData);
+            setLoading(false);
             console.log('confirmed order data in order', confirmedOrderList);
             console.log('pending order data in order', pendingOrderList);
             totalSales = confirmedOrderList.reduce((total, order) => total + order.order_price, 0);
@@ -29,16 +32,15 @@ function OrderHome_Dinner()
             console.log("Error fetching order data:", error.message);
         }
     }
-
     useEffect(() => {
         fetchOrderData();
     }, []);
 
     const OrderItemChecked = (orderId) => {
         if (checkedOrders.includes(orderId)) {
-          setCheckedOrders(checkedOrders.filter((id) => id !== orderId)); // Deselect
+          setCheckedOrders(checkedOrders.filter((id) => id !== orderId)); 
         } else {
-          setCheckedOrders([...checkedOrders, orderId]); // Select
+          setCheckedOrders([...checkedOrders, orderId]); 
         }
       };
 
@@ -47,7 +49,7 @@ function OrderHome_Dinner()
     }
 
      // Function to handle select all
-     const handleSelectAll = (orderStatus) => {
+     const handleSelectAll = () => {
         if (selectAll) {
           setCheckedOrders([]); 
         } else {
@@ -81,34 +83,40 @@ function OrderHome_Dinner()
      
                 </div>
                 <div>
-                    <button style={{marginRight:'0.3rem', backgroundColor:'transparent'}}  onClick={()=>handleSelectAll('pendingOrderList')}>
+                    <button style={{marginRight:'0.3rem', backgroundColor:'transparent'}}  onClick={handleSelectAll}>
                         {selectAll ? "Deselect All" : "Select All"}
                     </button>
-                    <button className="action-bar-btn-confirm"  onClick={handleOrderStatus}>Confirm</button>
-                    {/* <button className="action-bar-btn-cancel"  onClick={handleOrderStatus}>Reject</button> */}
+                    <button className="action-bar-btn-confirm"  onClick={()=>handleOrderStatus('confirm')}>Confirm</button>
+                    <button className="action-bar-btn-cancel"  onClick={()=>handleOrderStatus('reject')}>Reject</button>
                 </div>
             </div>
             <hr/> 
             {/* Pending Order List */}
+            {loading ? <LoadingIndicator/> :
                 <div>
                     <table className="detail-table">  
                         <tbody>
                         {pendingOrderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
                                 <td>
-                                <label class="checkbox-container" key={data.order_id}>
+                                <label class="checkbox-container" key={data.id}>
                                         <input type="checkbox" className="item-checkbox" 
-                                        value={data.order_id} 
-                                        checked={checkedOrders.includes(data.order_id)}
-                                        onChange={()=>{OrderItemChecked(data.order_id)}}/>
+                                        value={data.id} 
+                                        checked={checkedOrders.includes(data.id)}
+                                        onChange={()=>{OrderItemChecked(data.id)}}/>
                                         <span className="item-checkbox-checkmark"></span>
                                     </label>  
                                 </td>
 
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type == 'vegi'? '#ECFFC8':'#fcfadc'}}>
-                                    Order ID: {data.order_id}  <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: (data.threat) === true? 'red': '#004d00'}}>Customer Code: {data.customer_code}</span> 
+                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FBEDED':'#FFFFF5'}}>
+                                    Order ID: {data.order_id} 
+                                    <div>
+                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>Customer Code: {data.customer_code}</span> 
+                                        <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
+                                    </div>
                                     {/* <br/> Address: University of Moratuwa */}
                                     <br/> Special Notes: {data.comment}
+                                    <br/> Packet Count: {data.packet_amount} | Rs.  {data.price}
                                 </td>
                             </tr>
 
@@ -125,7 +133,7 @@ function OrderHome_Dinner()
                         ))}
                         </tbody>
                     </table>
-                </div>
+                </div>}
                 </>}
 
                 
@@ -143,15 +151,21 @@ function OrderHome_Dinner()
                 </div>
             </div>
             <hr/> 
+            {loading ? <LoadingIndicator/> :
                 <div>
                     <table className="detail-table">  
                         <tbody>
                         {confirmedOrderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.order_type == 'vegi'? '#ECFFC8':'#fcfadc'}}>
-                                    Order ID: {data.order_id}  <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: (data.threat) === true? 'red': '#004d00'}}>Customer Code: {data.customer_code}</span> 
+                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FBEDED':'#FFFFF5'}}>
+                                    Order ID: {data.order_id} 
+                                    <div>
+                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>Customer Code: {data.customer_code}</span> 
+                                        <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
+                                    </div>
                                     {/* <br/> Address: University of Moratuwa */}
                                     <br/> Special Notes: {data.comment}
+                                    <br/> Packet Count: {data.packet_amount} | Rs.  {data.price}
                                 </td>
                             </tr>
 
@@ -168,7 +182,7 @@ function OrderHome_Dinner()
                         ))}
                         </tbody>
                     </table>
-                </div>
+                </div>}
                 </>}
 
                 

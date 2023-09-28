@@ -8,6 +8,7 @@ import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpira
 import Popup from "../../components/Popup";
 import { storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 function SpecialMenuHome() {
  
@@ -19,13 +20,14 @@ function SpecialMenuHome() {
       type: '',
       category: '',
       items: [],
-      price:'',
+      price:0,
       url:null,
       vegetarian:''
     });
     const [showPopup, setShowPopup] = useState(false);
     const [popupType, setPopupType] = useState('');
     const [popupMessage, setPopupMessage] = useState('');
+    const [loading, setLoading] = useState(true);
   
     const openPopup = (type, message) => {
       setPopupType(type);
@@ -38,6 +40,7 @@ function SpecialMenuHome() {
       try {
         const foodDetail = await getSpecialMenu([]);
         setSpecialFoodItem(foodDetail);
+        setLoading(false);
         console.log('special food detail', foodDetail);
       } catch (error) {
         console.log('Error fetching menu data:', error.message);
@@ -253,7 +256,7 @@ const handleChange = (event) => {
                     <button class="delete-confirm-btn" onClick={handleDeleteFood}>Confirm</button>
                   </div>
               </div>}
-          
+              {loading ? <LoadingIndicator/> :
             <div className="special-menu-detail-content">
 
               {specialFoodItem?.map((item,id)=>(
@@ -280,7 +283,7 @@ const handleChange = (event) => {
                 </div>
               ))}  
            
-            </div>
+            </div>}
             {showPopup && (
               <Popup type={popupType} message={popupMessage} onClose={() => setShowPopup(false)} />
             )}

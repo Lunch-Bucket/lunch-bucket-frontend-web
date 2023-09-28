@@ -8,6 +8,7 @@ import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpira
 import Popup from "../../components/Popup";
 import { storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import LoadingIndicator from "../../components/LoadingIndicator";
  
 
 function MenuHome() {
@@ -19,6 +20,7 @@ function MenuHome() {
      const [showPopup, setShowPopup] = useState(false);
      const [popupType, setPopupType] = useState('');
      const [popupMessage, setPopupMessage] = useState('');
+     const [loading, setLoading] = useState(true);
    
      const openPopup = (type, message) => {
        setPopupType(type);
@@ -33,7 +35,7 @@ function MenuHome() {
       category: '',
       nutrition: '',
       goods: '',
-      price: '',
+      price: 0,
       url: null,
       vegetarian: '',
     });
@@ -50,6 +52,7 @@ function MenuHome() {
       try {
         const foodDetail = await getFoodItem([]);
         setfoodItem(foodDetail);
+        setLoading(false);
         console.log('food data in menu page', foodDetail);
       } catch (error) {
         console.log('Error fetching menu data:', error.message);
@@ -307,7 +310,7 @@ function MenuHome() {
                     <button class="delete-confirm-btn" onClick={handleDeleteFood}>Confirm</button>
                   </div>
               </div>}
-          
+              {loading ? <LoadingIndicator/> :
             <div className="menu-detail-content">
                 <div className="menu-detail-list">
                 <div className="menu-detail-list-title">Vegetables</div> 
@@ -383,7 +386,7 @@ function MenuHome() {
                 </div>
 
     
-            </div>
+            </div>}
             {showPopup && (
               <Popup type={popupType} message={popupMessage} onClose={() => setShowPopup(false)} />
             )}
