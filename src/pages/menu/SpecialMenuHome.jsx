@@ -3,7 +3,7 @@ import "../../common/styles/CommonStyles.css";
 import "./MenuStyles.css";
 import "../../components/PopupStyles.css";
 import strings from '../../common/strings/strings'
-import { getSpecialMenu, setSpecialMealLunch, addSpecialFoodItem } from "../../services/menuService";
+import { getSpecialMenu, setSpecialMealLunch, setSpecialMealDinner, addSpecialFoodItem } from "../../services/menuService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import Popup from "../../components/Popup";
 import { storage } from '../../firebase';
@@ -28,6 +28,7 @@ function SpecialMenuHome() {
     const [popupType, setPopupType] = useState('');
     const [popupMessage, setPopupMessage] = useState('');
     const [loading, setLoading] = useState(true);
+    const [applyMealLoading, setApplyMealLoading] = useState(false);
   
     const openPopup = (type, message) => {
       setPopupType(type);
@@ -62,29 +63,42 @@ const [errors, setErrors] = useState({});
 
 // set special meal function
 const handleSetSpecialMealLunch = async () => {
+  if(selectedFoodItems.length > 0){
+    setApplyMealLoading(true);
     try {
       const payload = {
         special: selectedFoodItems 
     };
         const response = await setSpecialMealLunch(payload);
         console.log('Response from setSpecialMeal:', response);
+        setApplyMealLoading(false);
         openPopup('success', 'You have successfully added the selected special foods to Lunch Meal');
     } catch (error) {
         console.log('Error:', error);
         openPopup('error', 'Error Occured! Please retry.')
     }
+  }else{
+    alert('Please select atleat one food item to proceed!');
+  }
 };
 
 const handleSetSpecialMealDinner = async () => {
+  if(selectedFoodItems.length > 0){
+    setApplyMealLoading(true);
   try {
     const payload = {
       special: selectedFoodItems
   };
-      const response = await setSpecialMealLunch(payload);
+      const response = await setSpecialMealDinner(payload);
       console.log('Response from setSpecialMeal:', response);
+      setApplyMealLoading(false);
+      openPopup('success', 'You have successfully added the selected special foods to Dinner Meal');
   } catch (error) {
       console.log('Error:', error);
   }
+}else{
+  alert('Please select atleat one food item to proceed!');
+}
 };
 
 
@@ -256,7 +270,9 @@ const handleChange = (event) => {
                     <button class="delete-confirm-btn" onClick={handleDeleteFood}>Confirm</button>
                   </div>
               </div>}
-              {loading ? <LoadingIndicator/> :
+              {applyMealLoading ? <LoadingIndicator showText="Applying to the Special Meal"/> :
+              <div>
+              {loading ? <LoadingIndicator showText="Loading Special Foods"/> :
             <div className="special-menu-detail-content">
 
               {specialFoodItem?.map((item,id)=>(
@@ -287,6 +303,7 @@ const handleChange = (event) => {
             {showPopup && (
               <Popup type={popupType} message={popupMessage} onClose={() => setShowPopup(false)} />
             )}
+            </div>}
 
         </div>
     );
