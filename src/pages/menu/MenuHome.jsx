@@ -21,6 +21,7 @@ function MenuHome() {
      const [popupType, setPopupType] = useState('');
      const [popupMessage, setPopupMessage] = useState('');
      const [loading, setLoading] = useState(true);
+     const [applyMealLoading, setApplyMealLoading] = useState(false);
    
      const openPopup = (type, message) => {
        setPopupType(type);
@@ -40,11 +41,17 @@ function MenuHome() {
       vegetarian: '',
     });
 
-    const selectedFoodItems = {
+    const [selectedFoodItems, setSelectedFoodItems] = useState({
       meat: [],
       stew: [],
       vege: []
-  };
+    });
+    
+  //   const selectedFoodItems = {
+  //   meat: [],
+  //   stew: [],
+  //   vege: []
+  // };
   
 
 
@@ -64,51 +71,68 @@ function MenuHome() {
      }, []);
 
      function FoodItemChecked(category, item_id) {
-      const newItem = { number: selectedFoodItems[category].length + 1, id: item_id };
-      selectedFoodItems[category].push(newItem);
-  
-      console.log('checked food items: ', selectedFoodItems);
-  }
+      if((selectedFoodItems[category].indexOf(`${item_id}`))== -1){
+        const newItem = { number: selectedFoodItems[category].length + 1, id: item_id };
+        selectedFoodItems[category].push(newItem);
+        console.log('checked food items: ', (selectedFoodItems[category].indexOf(`${item_id}`)));
+      }else{
+        selectedFoodItems[category].splice(selectedFoodItems[category].indexOf(`${item_id}`),1)
+      }
+     
+    }
+    
 
   // set meal function
     const handleSetMealLunch = async () => {
+      if((selectedFoodItems['vege'].length + selectedFoodItems['meat'].length + selectedFoodItems['stew'].length) >= 4){
+        setApplyMealLoading(true);
+        try {
+          const payload = {
+            "meat": [...selectedFoodItems.meat],
+            "stew": [...selectedFoodItems.stew],
+            "vege": [...selectedFoodItems.vege]
+          };
 
-      try {
-        const payload = {
-          "meat": [...selectedFoodItems.meat],
-          "stew": [...selectedFoodItems.stew],
-          "vege": [...selectedFoodItems.vege]
-        };
-
-      const response = await setMealLunch(payload);
-      console.log('Response from set Meal Lunch:', response);
-      selectedFoodItems.meat = [];
-      selectedFoodItems.stew = [];
-      selectedFoodItems.vege = [];
-      openPopup('success', 'You have successfully added to Lunch Meal');
- 
-      } catch (error) {
-          console.log('Error:', error);
-          openPopup('error', 'Error Occured! Please retry.')
+        const response = await setMealLunch(payload);
+        console.log('Response from set Meal Lunch:', response);
+        setApplyMealLoading(false);
+        openPopup('success', 'You have successfully added to Lunch Meal');
+        selectedFoodItems.vege =[]
+        selectedFoodItems.meat =[]
+        selectedFoodItems.stew =[]
+  
+        } catch (error) {
+            console.log('Error:', error);
+            openPopup('error', 'Error Occured! Please retry.')
+        }
+      }else{
+        alert('Please select atleat four food items to proceed!');
       }
     };
 
     const handleSetMealDinner = async () => {
-      try {
-        const payload = {
-          "meat": [...selectedFoodItems.meat],
-          "stew": [...selectedFoodItems.stew],
-          "vege": [...selectedFoodItems.vege]
-        };
+      if((selectedFoodItems['vege'].length + selectedFoodItems['meat'].length + selectedFoodItems['stew'].length) >= 4){
+        setApplyMealLoading(true);
+        try {
+          const payload = {
+            "meat": [...selectedFoodItems.meat],
+            "stew": [...selectedFoodItems.stew],
+            "vege": [...selectedFoodItems.vege]
+          };
 
-      const response = await setMealDinner(payload);
-      console.log('Response from set Meal Dinner:', response);
-      selectedFoodItems.meat = [];
-      selectedFoodItems.stew = [];
-      selectedFoodItems.vege = [];
- 
-      } catch (error) {
-          console.log('Error:', error);
+        const response = await setMealDinner(payload);
+        console.log('Response from set Meal Dinner:', response);
+        setApplyMealLoading(false);
+        openPopup('success', 'You have successfully added to Dinner Meal');
+        selectedFoodItems.vege =[]
+        selectedFoodItems.meat =[]
+        selectedFoodItems.stew =[]
+  
+        } catch (error) {
+            console.log('Error:', error);
+        }
+      }else{
+        alert('Please select atleat four food items to proceed!');
       }
     };
 
@@ -310,7 +334,9 @@ function MenuHome() {
                     <button class="delete-confirm-btn" onClick={handleDeleteFood}>Confirm</button>
                   </div>
               </div>}
-              {loading ? <LoadingIndicator/> :
+              {applyMealLoading ? <LoadingIndicator showText="Applying to the Meal"/> :
+              <div>
+              {loading ? <LoadingIndicator showText="Loading"/> :
             <div className="menu-detail-content">
                 <div className="menu-detail-list">
                 <div className="menu-detail-list-title">Vegetables</div> 
@@ -384,13 +410,13 @@ function MenuHome() {
                             </>))}
                         </ul>
                 </div>
-
     
             </div>}
+            
             {showPopup && (
               <Popup type={popupType} message={popupMessage} onClose={() => setShowPopup(false)} />
             )}
-
+            </div>}
         </div>
     );
 }
