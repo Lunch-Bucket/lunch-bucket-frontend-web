@@ -30,13 +30,12 @@ function MenuHome() {
      };
    
 
-    //  let selectedFoodItems = []
      const [formData, setFormData] = useState({
       type: '',
       category: '',
       nutrition: '',
       goods: '',
-      price: 0,
+      price: 20,
       url: null,
       vegetarian: '',
     });
@@ -47,6 +46,16 @@ function MenuHome() {
       vege: []
     });
     
+    
+  //   const selectedFoodItems = {
+  //   meat: [],
+  //   stew: [],
+  //   vege: []
+  // };
+  
+
+
+
   //   const selectedFoodItems = {
   //   meat: [],
   //   stew: [],
@@ -60,7 +69,7 @@ function MenuHome() {
         const foodDetail = await getFoodItem([]);
         setfoodItem(foodDetail);
         setLoading(false);
-        console.log('food data in menu page', foodDetail);
+        // console.log('food data in menu page', foodDetail);
       } catch (error) {
         console.log('Error fetching menu data:', error.message);
       }
@@ -70,17 +79,17 @@ function MenuHome() {
          fetchFood();
      }, []);
 
-     function FoodItemChecked(category, item_id) {
-      if((selectedFoodItems[category].indexOf(`${item_id}`))== -1){
-        const newItem = { number: selectedFoodItems[category].length + 1, id: item_id };
-        selectedFoodItems[category].push(newItem);
-        console.log('checked food items: ', (selectedFoodItems[category].indexOf(`${item_id}`)));
-      }else{
-        selectedFoodItems[category].splice(selectedFoodItems[category].indexOf(`${item_id}`),1)
-      }
-     
-    }
-    
+
+    const FoodItemChecked = (category,item_id) => {
+      const selectedIndex = selectedFoodItems[category].indexOf(item_id);  
+        if (selectedIndex !== -1) {
+          selectedFoodItems[category].splice(selectedIndex, 1);
+        } else {
+          selectedFoodItems[category].push(item_id);
+        }
+    console.log('checked  food items: ', selectedFoodItems)
+};
+
 
   // set meal function
     const handleSetMealLunch = async () => {
@@ -229,7 +238,7 @@ function MenuHome() {
         <div className="full-container">
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
               <h1 className="menu-title-text">{strings.menu}</h1>  
-              <div >
+              <div>
                 <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}}  onClick={handleSetMealLunch}>Apply Lunch Meal</button>
                 <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}}  onClick={handleSetMealDinner}>Apply Dinner Meal</button>
                 <button className="header-item-add-button" onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
@@ -256,7 +265,7 @@ function MenuHome() {
                       </select>
                     </div>
                     <div className="add-menu-item-field">
-                      <label className="add-menu-item-form-label">Item Type</label>
+                      <label className="add-menu-item-form-label">Item Name</label>
                       <input
                         type="text"
                         id="add-menu-item-form-input"
@@ -267,7 +276,7 @@ function MenuHome() {
                       />
                     </div>
                       <div className="add-menu-item-field">
-                        <label className="add-menu-item-form-label">Item State</label>
+                        <label className="add-menu-item-form-label">Vege or Non-vege</label>
                         <select
                           id="add-menu-item-form-input"
                           name="vegetarian"
@@ -280,9 +289,10 @@ function MenuHome() {
                         </select>
                     </div>
                     <div className="add-menu-item-field">
-                      <label className="add-menu-item-form-label">Description Nutrition</label>
+                      <label className="add-menu-item-form-label">Nutritions</label>
                       <input
                         type="text"
+                        placeholder="Ex: Protein, Energy"
                         id="add-menu-item-form-input"
                         name="nutrition"
                         value={formData.nutrition}
@@ -290,9 +300,10 @@ function MenuHome() {
                       />
                     </div>
                     <div className="add-menu-item-field">
-                      <label className="add-menu-item-form-label">Description Goods</label>
+                      <label className="add-menu-item-form-label">Ingrediants</label>
                       <input
                         type="textarea"
+                        placeholder="Ex: Spicy, Chopped Chicken, Cheese"
                         id="add-menu-item-form-input"
                         name="goods"
                         value={formData.goods}
