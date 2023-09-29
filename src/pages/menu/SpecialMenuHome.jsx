@@ -20,7 +20,7 @@ function SpecialMenuHome() {
       type: '',
       category: '',
       items: [],
-      price:0,
+      price:100,
       url:null,
       vegetarian:''
     });
@@ -53,8 +53,13 @@ function SpecialMenuHome() {
      }, []);
    
   
-  const toggleFoodItem = (item_id) => {
-    selectedFoodItems.push(item_id)
+     const toggleFoodItem = (item_id) => {
+      const selectedIndex = selectedFoodItems.indexOf(item_id);  
+        if (selectedIndex !== -1) {
+          selectedFoodItems.splice(selectedIndex, 1);
+        } else {
+          selectedFoodItems.push(item_id);
+        }
     console.log('checked special food items: ', selectedFoodItems)
 };
 
@@ -192,6 +197,7 @@ const handleChange = (event) => {
                       <label className="add-menu-item-form-label">Category</label>
                       <input
                         type="text"
+                        placeholder="Ex: Fried Rice/ Noodles / Pasta / Kottu"
                         id="add-menu-item-form-input"
                         name="category"
                         value={formData.category}
@@ -200,9 +206,10 @@ const handleChange = (event) => {
                       />
                 </div>
                   <div className="add-menu-item-field"> 
-                      <label className="add-menu-item-form-label">Item Type</label>
+                      <label className="add-menu-item-form-label">Item Name</label>
                       <input
                         type="text"
+                        placeholder="Ex: Sea Food Fried Rice"
                         id="add-menu-item-form-input"
                         name="type"
                         value={formData.type}
@@ -211,9 +218,10 @@ const handleChange = (event) => {
                       />
                     </div>
                     <div className="add-menu-item-field"> 
-                      <label className="add-menu-item-form-label">Sub Items</label>
+                      <label className="add-menu-item-form-label">Includes</label>
                       <input
                         type="text"
+                        placeholder="Ex: Chilli Paste, Sause, Chopsy"
                         id="add-menu-item-form-input"
                         name="items"
                         value={formData.items}
@@ -232,17 +240,8 @@ const handleChange = (event) => {
                         required
                       />
                     </div>
-                    <div className="add-menu-item-field"> 
-                      <label className="add-menu-item-form-label">Image</label>
-                      <input
-                           type="file"
-                           accept="image/*"
-                           onChange={handleImageUpload}
-                          required
-                      />
-                    </div>
                     <div className="add-menu-item-field">
-                        <label className="add-menu-item-form-label">Item State</label>
+                        <label className="add-menu-item-form-label">Vege or Non-vege</label>
                         <select
                           id="add-menu-item-form-input"
                           name="vegetarian"
@@ -253,6 +252,15 @@ const handleChange = (event) => {
                           <option value="true">Vege Item</option>
                           <option value="false">Non-Vege Item</option>
                         </select>
+                    </div>
+                    <div className="add-menu-item-field"> 
+                      <label className="add-menu-item-form-label">Image</label>
+                      <input
+                           type="file"
+                           accept="image/*"
+                           onChange={handleImageUpload}
+                          required
+                      />
                     </div>
                     
                       <br />
