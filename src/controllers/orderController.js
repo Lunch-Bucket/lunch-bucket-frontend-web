@@ -12,7 +12,7 @@ export const setAuthToken = (token) => {
 export async function getConfirmedOrders(meal) {
     try {
 
-        const token = localStorage.getItem('authToken');
+        const token = localStorage.getItem('lb_auth_token');
         if (token) {
         // setAuthToken(token);
         const response = await axios.get(`${baseUrl}getOrderByMeal/${meal}`,{headers:{'token':`${token}`}});
@@ -29,7 +29,7 @@ export async function getConfirmedOrders(meal) {
 export async function getPendingOrders(meal) {
     try {
 
-        const token = localStorage.getItem('authToken');
+        const token = localStorage.getItem('lb_auth_token');
         if (token) {
         // setAuthToken(token);
         const response = await axios.get(`${baseUrl}getPendingOrderByMeal/${meal}`,{headers:{'token':`${token}`}});
@@ -45,7 +45,7 @@ export async function getPendingOrders(meal) {
 
   export async function confirmOrders(confirmOrderList) {
     try {
-        const token = localStorage.getItem('authToken');
+        const token = localStorage.getItem('lb_auth_token');
         const response = await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/adminConfirm',
         confirmOrderList,
         {headers: {'token': `${token}`}});
