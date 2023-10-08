@@ -22,6 +22,7 @@ function MenuHome() {
      const [popupMessage, setPopupMessage] = useState('');
      const [loading, setLoading] = useState(true);
      const [applyMealLoading, setApplyMealLoading] = useState(false);
+     let delayMilliseconds = 5000;
    
      const openPopup = (type, message) => {
        setPopupType(type);
@@ -32,7 +33,7 @@ function MenuHome() {
 
      const [formData, setFormData] = useState({
       type: '',
-      category: '',
+      category: 'vege',
       nutrition: '',
       goods: '',
       price: 20,
@@ -160,6 +161,9 @@ const FoodItemChecked = (category, item_id) => {
     // Add Food Item Function
     const handleAddFood = async (event) => {
       event.preventDefault();
+      await new Promise((resolve) => {
+        setTimeout(resolve, delayMilliseconds);
+      });
       
       try {
         if (formData.imageFile) {
@@ -172,6 +176,7 @@ const FoodItemChecked = (category, item_id) => {
           const response = await addFoodItem(formData); 
           console.log('Response from addFoodItem:', response);
           setShowAddItemModal(false);
+          fetchFood();
 
       } catch (error) {
           console.log('Error:', error);
@@ -265,7 +270,7 @@ const FoodItemChecked = (category, item_id) => {
                         value={formData.category}
                         onChange={handleChange}
                       >
-                        <option defaultValue="vege">Vege</option>
+                        <option value="vege">Vege</option>
                         <option value="stew">Stew</option>
                         <option value="meat">Meat</option>
                       </select>
