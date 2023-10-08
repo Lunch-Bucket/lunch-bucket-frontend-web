@@ -40,28 +40,11 @@ function MenuHome() {
       vegetarian: '',
     });
 
-    const [selectedFoodItems, setSelectedFoodItems] = useState({
+    const selectedFoodItems = {
       meat: [],
       stew: [],
       vege: []
-    });
-    
-    
-  //   const selectedFoodItems = {
-  //   meat: [],
-  //   stew: [],
-  //   vege: []
-  // };
-  
-
-
-
-  //   const selectedFoodItems = {
-  //   meat: [],
-  //   stew: [],
-  //   vege: []
-  // };
-  
+    };
 
 
      async function fetchFood() {
@@ -69,25 +52,33 @@ function MenuHome() {
         const foodDetail = await getFoodItem([]);
         setfoodItem(foodDetail);
         setLoading(false);
-        // console.log('food data in menu page', foodDetail);
       } catch (error) {
         console.log('Error fetching menu data:', error.message);
       }
     }
+
  
      useEffect(() => {
          fetchFood();
      }, []);
 
 
-    const FoodItemChecked = (category,item_id) => {
-      const selectedIndex = selectedFoodItems[category].indexOf(item_id);  
-        if (selectedIndex !== -1) {
-          selectedFoodItems[category].splice(selectedIndex, 1);
-        } else {
-          selectedFoodItems[category].push(item_id);
-        }
-    console.log('checked  food items: ', selectedFoodItems)
+
+const FoodItemChecked = (category, item_id) => {
+  const categoryItems = [...selectedFoodItems[category]]; // Create a copy
+  console.log("category items only", category, categoryItems);
+
+  const selectedIndex = categoryItems.indexOf(item_id);
+  if (selectedIndex !== -1) {
+    categoryItems.splice(selectedIndex, 1);
+  } else {
+    categoryItems.push(item_id);
+  }
+
+  // Update the selectedFoodItems object
+  selectedFoodItems[category] = categoryItems;
+
+  console.log('checked food items: ', selectedFoodItems);
 };
 
 
@@ -97,10 +88,20 @@ function MenuHome() {
         setApplyMealLoading(true);
         try {
           const payload = {
-            "meat": [...selectedFoodItems.meat],
-            "stew": [...selectedFoodItems.stew],
-            "vege": [...selectedFoodItems.vege]
+            "meat": selectedFoodItems.meat.map(item => {
+              const quantity = selectedFoodItems.meat.filter(i => i === item).length;
+              return { "number": quantity, "id": item };
+            }),
+            "stew": selectedFoodItems.stew.map(item => {
+              const quantity = selectedFoodItems.stew.filter(i => i === item).length;
+              return { "number": quantity, "id": item };
+            }),
+            "vege": selectedFoodItems.vege.map(item => {
+              const quantity = selectedFoodItems.vege.filter(i => i === item).length;
+              return { "number": quantity, "id": item };
+            })
           };
+          
 
         const response = await setMealLunch(payload);
         console.log('Response from set Meal Lunch:', response);
@@ -124,9 +125,18 @@ function MenuHome() {
         setApplyMealLoading(true);
         try {
           const payload = {
-            "meat": [...selectedFoodItems.meat],
-            "stew": [...selectedFoodItems.stew],
-            "vege": [...selectedFoodItems.vege]
+            "meat": selectedFoodItems.meat.map(item => {
+              const quantity = selectedFoodItems.meat.filter(i => i === item).length;
+              return { "number": quantity, "id": item };
+            }),
+            "stew": selectedFoodItems.stew.map(item => {
+              const quantity = selectedFoodItems.stew.filter(i => i === item).length;
+              return { "number": quantity, "id": item };
+            }),
+            "vege": selectedFoodItems.vege.map(item => {
+              const quantity = selectedFoodItems.vege.filter(i => i === item).length;
+              return { "number": quantity, "id": item };
+            })
           };
 
         const response = await setMealDinner(payload);
@@ -145,7 +155,6 @@ function MenuHome() {
       }
     };
 
-    const [errors, setErrors] = useState({});
 
 
     // Add Food Item Function
@@ -215,9 +224,6 @@ function MenuHome() {
 
     const handleDeleteFood = async () => {
       const selectedFoodItems = foodList.filter(foodItem => foodItem.selected);
-      // if (selectedFoodItems.length === 0) {
-      //     return;
-      // }
   
       const selectedFoodIds = selectedFoodItems.map(foodItem => foodItem.food_id);
       setShowDeleteItemModal(false)
@@ -300,10 +306,10 @@ function MenuHome() {
                       />
                     </div>
                     <div className="add-menu-item-field">
-                      <label className="add-menu-item-form-label">Ingrediants</label>
+                      <label className="add-menu-item-form-label">Ingredients</label>
                       <input
                         type="textarea"
-                        placeholder="Ex: Spicy, Chopped Chicken, Cheese"
+                        placeholder="Ex: Onion, Chopped Chicken, Cheese"
                         id="add-menu-item-form-input"
                         name="goods"
                         value={formData.goods}

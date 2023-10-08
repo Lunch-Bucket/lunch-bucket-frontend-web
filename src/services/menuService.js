@@ -1,4 +1,4 @@
-import { getFood, getSpecialFood, addFood, addSpecialFood, setMealLunch as controllerSetMealLunch, setMealDinner as controllerSetMealDinner,setSpecialMealLunch as controllerSetSpecialMealLunch, setSpecialMealDinner as controllerSetSpecialMealDinner  } from "../controllers/menuController";
+import { getFood, getSpecialFood, addFood, addSpecialFood, setMealLunch as controllerSetMealLunch, setMealDinner as controllerSetMealDinner,setSpecialMealLunch as controllerSetSpecialMealLunch, setSpecialMealDinner as controllerSetSpecialMealDinner , getLunchMenu as controllerGetLunchMenu, getDinnerMenu as controllerGetDinnerMenu } from "../controllers/menuController";
 import axios from "axios";
 
 
@@ -100,5 +100,23 @@ export const deleteFoodItem = async (foodId) => {
     }
 };
 
+// get food by customer
+export async function getLunchMenu() {
+    try {
+        const result = await controllerGetLunchMenu();
+        return await result.data;
+    } catch (error) {
+        console.log("error:", error.message);
+    }
+}
+
+export async function getDinnerMenu() {
+    try {
+        const result = await controllerGetDinnerMenu();
+        return await result.data;
+    } catch (error) {
+        console.log("error:", error.message);
+    }
+}
 
 
