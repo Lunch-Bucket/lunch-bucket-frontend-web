@@ -63,7 +63,6 @@ function SpecialMenuHome() {
     console.log('checked special food items: ', selectedFoodItems)
 };
 
-const [errors, setErrors] = useState({});
 
 
 // set special meal function
@@ -75,7 +74,7 @@ const handleSetSpecialMealLunch = async () => {
         special: selectedFoodItems 
     };
         const response = await setSpecialMealLunch(payload);
-        console.log('Response from setSpecialMeal:', response);
+        // console.log('Response from setSpecialMeal:', response);
         setApplyMealLoading(false);
         openPopup('success', 'You have successfully added the selected special foods to Lunch Meal');
     } catch (error) {
@@ -90,20 +89,20 @@ const handleSetSpecialMealLunch = async () => {
 const handleSetSpecialMealDinner = async () => {
   if(selectedFoodItems.length > 0){
     setApplyMealLoading(true);
-  try {
-    const payload = {
-      special: selectedFoodItems
-  };
-      const response = await setSpecialMealDinner(payload);
-      console.log('Response from setSpecialMeal:', response);
-      setApplyMealLoading(false);
-      openPopup('success', 'You have successfully added the selected special foods to Dinner Meal');
-  } catch (error) {
-      console.log('Error:', error);
+    try {
+      const payload = {
+        special: selectedFoodItems 
+    };
+        const response = await setSpecialMealDinner(payload);
+        setApplyMealLoading(false);
+        openPopup('success', 'You have successfully added the selected special foods to Dinner Meal');
+    } catch (error) {
+        console.log('Error:', error);
+        openPopup('error', 'Error Occured! Please retry.')
+    }
+  }else{
+    alert('Please select atleat one food item to proceed!');
   }
-}else{
-  alert('Please select atleat one food item to proceed!');
-}
 };
 
 
