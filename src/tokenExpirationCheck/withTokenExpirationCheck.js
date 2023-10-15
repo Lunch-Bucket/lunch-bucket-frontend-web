@@ -5,7 +5,7 @@ function withTokenExpirationCheck(WrappedComponent) {
   return function TokenExpirationCheck(props) {
 
     useEffect(() => {
-      const authToken = localStorage.getItem("authToken");
+      const authToken = localStorage.getItem("lb_auth_token");
       const tokenGeneratedTime = parseInt(localStorage.getItem("tokenGeneratedTime"), 10);
 
       if (!authToken || isNaN(tokenGeneratedTime)) {
