@@ -3,16 +3,60 @@ import "../../common/styles/CommonStyles.css";
 import "./SettingStyles.css";
 import strings from '../../common/strings/strings';
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
+import { getLunchMenu, getDinnerMenu } from "../../services/menuService";
 
 
 function SettingHome() {
 
     const [showmealCount, setShowMealCount] = useState(false)
-    const count = 100;
+    // Lunch
+    const [meatMenuLunch, setMeatMenuLunch] = useState([]);
+    const [vegeMenuLunch, setVegeMenuLunch] = useState([]);
+    const [stewMenuLunch, setStewMenuLunch] = useState([]);
+    const [specialMenuLunch, setSpecialMenuLunch] = useState([]);
+    const [riceMenuLunch, setRiceMenuLunch] = useState([]);
+   
+    // Dinner
+    const [meatMenuDinner, setMeatMenuDinner] = useState([]);
+    const [vegeMenuDinner, setVegeMenuDinner] = useState([]);
+    const [stewMenuDinner, setStewMenuDinner] = useState([]);
+    const [specialMenuDinner, setSpecialMenuDinner] = useState([]);
+    const [riceMenuDinner, setRiceMenuDinner] = useState([]);
+
+    let count = 100;
+
 
     function handleDailyMealCount(){
             setShowMealCount(false);
     }
+
+    async function fetchMenu() {
+        try {
+            const menuListLunch = await getLunchMenu([]);
+            const menuListDinner = await getDinnerMenu([]);
+            setVegeMenuLunch(menuListLunch.data.vege_menu_lunch);
+            setMeatMenuLunch(menuListLunch.data.meat_menu_lunch);
+            setStewMenuLunch(menuListLunch.data.stew_menu_lunch);
+            setRiceMenuLunch(menuListLunch.data.rice_menu_lunch);
+            setSpecialMenuLunch(menuListLunch.data.special_menu_lunch);
+
+            setVegeMenuDinner(menuListLunch.data.vege_menu_lunch);
+            setMeatMenuDinner(menuListLunch.data.meat_menu_lunch);
+            setStewMenuDinner(menuListLunch.data.stew_menu_lunch);
+            setRiceMenuDinner(menuListLunch.data.rice_menu_lunch);
+            setSpecialMenuDinner(menuListLunch.data.special_menu_lunch);
+  
+
+        } catch (error) {
+          console.log('Error fetching menu data:', error.message);
+        }
+      }
+   
+       useEffect(() => {
+           fetchMenu();
+       }, []);
+
+       
 
     return (
         <div className="full-container">
@@ -34,7 +78,82 @@ function SettingHome() {
                     }
                 </div>
             </div>
-        </div>
+            <div style={{display:'flex'}}>
+                <div>
+                    <h2>Lunch</h2>
+                    {riceMenuLunch.map((item,id)=>(
+                        <ul>
+                            <li>{item.type}</li>
+                        </ul>
+                    ))}
+                    <hr/>
+                    {vegeMenuLunch.map((item,id)=>(
+                        <ul>
+                            <li>{item.type}</li>
+                        </ul>
+                    ))}
+                    <hr/>
+                    {meatMenuLunch.map((item,id)=>(
+                        <ul>
+                            <li>{item.type}</li>
+                        </ul>
+                    ))}
+                    <hr/>
+                    {stewMenuLunch.map((item,id)=>(
+                        <ul>
+                            <li>{item.type}</li>
+                        </ul>
+                    ))}
+                    <hr/>
+                    {specialMenuLunch.map((item,id)=>(
+                        <ul>
+                            {item.category.map((data,id)=>(
+                                <li>{data.type}</li>
+                            ))}
+                            
+                        </ul>
+                    ))}
+                    <hr/>
+                </div>
+
+                <div>
+                    <h2>Dinner</h2>
+                    {riceMenuDinner.map((item,id)=>(
+                        <ul>
+                            <li>{item.type}</li>
+                        </ul>
+                    ))}
+                    <hr/>
+                    {vegeMenuDinner.map((item,id)=>(
+                        <ul>
+                            <li>{item.type}</li>
+                        </ul>
+                    ))}
+                    <hr/>
+                    {meatMenuDinner.map((item,id)=>(
+                        <ul>
+                            <li>{item.type}</li>
+                        </ul>
+                    ))}
+                    <hr/>
+                    {stewMenuLunch.map((item,id)=>(
+                        <ul>
+                            <li>{item.type}</li>
+                        </ul>
+                    ))}
+                    <hr/>
+                    {specialMenuDinner.map((item,id)=>(
+                        <ul>
+                            <li>{item.type}</li>
+                        </ul>
+                    ))}
+                    <hr/>
+                </div>
+            </div>
+            </div>
+
+
+      
     );
 }
 
