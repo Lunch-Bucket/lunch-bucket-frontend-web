@@ -40,11 +40,11 @@ function SettingHome() {
             setRiceMenuLunch(menuListLunch.data.rice_menu_lunch);
             setSpecialMenuLunch(menuListLunch.data.special_menu_lunch);
 
-            setVegeMenuDinner(menuListLunch.data.vege_menu_lunch);
-            setMeatMenuDinner(menuListLunch.data.meat_menu_lunch);
-            setStewMenuDinner(menuListLunch.data.stew_menu_lunch);
-            setRiceMenuDinner(menuListLunch.data.rice_menu_lunch);
-            setSpecialMenuDinner(menuListLunch.data.special_menu_lunch);
+            setVegeMenuDinner(menuListDinner.data.vege_menu_dinner);
+            setMeatMenuDinner(menuListDinner.data.meat_menu_dinner);
+            setStewMenuDinner(menuListDinner.data.stew_menu_dinner);
+            setRiceMenuDinner(menuListDinner.data.rice_menu_dinner);
+            setSpecialMenuDinner(menuListDinner.data.special_menu_dinner);
   
 
         } catch (error) {
@@ -78,7 +78,7 @@ function SettingHome() {
                     }
                 </div>
             </div>
-            <div style={{display:'flex'}}>
+            <div style={{display:'flex', justifyContent:'space-around'}}>
                 <div>
                     <h2>Lunch</h2>
                     {riceMenuLunch.map((item,id)=>(
@@ -136,16 +136,19 @@ function SettingHome() {
                         </ul>
                     ))}
                     <hr/>
-                    {stewMenuLunch.map((item,id)=>(
+                    {stewMenuDinner.map((item,id)=>(
                         <ul>
                             <li>{item.type}</li>
                         </ul>
                     ))}
                     <hr/>
                     {specialMenuDinner.map((item,id)=>(
-                        <ul>
-                            <li>{item.type}</li>
-                        </ul>
+                         <ul>
+                         {item.category.map((data,id)=>(
+                             <li>{data.type}</li>
+                         ))}
+                         
+                     </ul>
                     ))}
                     <hr/>
                 </div>
