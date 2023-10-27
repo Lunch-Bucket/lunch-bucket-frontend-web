@@ -16,12 +16,12 @@ function MenuHome() {
      const [showAddItemModal, setShowAddItemModal] = useState(false);
      const [showDeleteItemModal, setShowDeleteItemModal] = useState(false);
      const [foodItem, setfoodItem] = useState([]);
-     const [foodList, setFoodList] = useState([]);
      const [showPopup, setShowPopup] = useState(false);
      const [popupType, setPopupType] = useState('');
      const [popupMessage, setPopupMessage] = useState('');
      const [loading, setLoading] = useState(true);
      const [applyMealLoading, setApplyMealLoading] = useState(false);
+     const [selectedForDelete, setSelectedForDelete] = useState([]);
      let delayMilliseconds = 5000;
    
      const openPopup = (type, message) => {
@@ -65,21 +65,19 @@ function MenuHome() {
 
 
 
-const FoodItemChecked = (category, item_id) => {
-  const categoryItems = [...selectedFoodItems[category]]; // Create a copy
-  console.log("category items only", category, categoryItems);
+function FoodItemChecked (category, id, item_id_for_delete ) {
+  const categoryItems = [...selectedFoodItems[category]]; 
 
-  const selectedIndex = categoryItems.indexOf(item_id);
+  const selectedIndex = categoryItems.indexOf(id);
   if (selectedIndex !== -1) {
     categoryItems.splice(selectedIndex, 1);
   } else {
-    categoryItems.push(item_id);
+    categoryItems.push(id);
+    // setSelectedForDelete(item_id_for_delete);
   }
-
-  // Update the selectedFoodItems object
   selectedFoodItems[category] = categoryItems;
-
   console.log('checked food items: ', selectedFoodItems);
+  // console.log('checked food items for delete: ', selectedForDelete);
 };
 
 
@@ -108,9 +106,7 @@ const FoodItemChecked = (category, item_id) => {
         console.log('Response from set Meal Lunch:', response);
         setApplyMealLoading(false);
         openPopup('success', 'You have successfully added to Lunch Meal');
-        selectedFoodItems.vege =[]
-        selectedFoodItems.meat =[]
-        selectedFoodItems.stew =[]
+        fetchFood();
   
         } catch (error) {
             console.log('Error:', error);
@@ -138,18 +134,17 @@ const FoodItemChecked = (category, item_id) => {
               const quantity = selectedFoodItems.vege.filter(i => i === item).length;
               return { "number": quantity, "id": item };
             })
-          };
+          };      
 
         const response = await setMealDinner(payload);
         console.log('Response from set Meal Dinner:', response);
         setApplyMealLoading(false);
         openPopup('success', 'You have successfully added to Dinner Meal');
-        selectedFoodItems.vege =[]
-        selectedFoodItems.meat =[]
-        selectedFoodItems.stew =[]
+        fetchFood();
   
         } catch (error) {
             console.log('Error:', error);
+            openPopup('error', 'Error Occured! Please retry.')
         }
       }else{
         alert('Please select atleat four food items to proceed!');
@@ -219,25 +214,30 @@ const FoodItemChecked = (category, item_id) => {
     
 
     const handleChange = (event) => {
-      const { name, value } = event.target;
+      const { name, value , type} = event.target;
+
+      const parseValue = (value, type) => {
+        if (type === 'number') {
+          return parseFloat(value);
+        }
+        return value;
+      };
+
       setFormData((prevData) => ({
         ...prevData,
-        [name]: value,
+        [name]: parseValue(value, type),
       }));
     };
   
 
     const handleDeleteFood = async () => {
-      const selectedFoodItems = foodList.filter(foodItem => foodItem.selected);
-  
-      const selectedFoodIds = selectedFoodItems.map(foodItem => foodItem.food_id);
+      console.log("selected for delete", selectedForDelete)
       setShowDeleteItemModal(false)
   
       try {
-          await deleteFoodItem(selectedFoodIds);
-          setFoodList(prevFoodList => {
-              return prevFoodList.filter(foodItem => !foodItem.selected);
-          });
+          const response = await deleteFoodItem(selectedForDelete);
+          console.log('Response from delete item:', response);
+          fetchFood();
       } catch (error) {
           console.log('Error:', error);
       }
@@ -369,7 +369,7 @@ const FoodItemChecked = (category, item_id) => {
                             <li className="menu-detail-list-item">
                               <label class="checkbox-container">
                                   <input type="checkbox" className="item-checkbox" 
-                                  onClick={()=>{FoodItemChecked('vege', item.id)}}/>
+                                  onClick={()=>{FoodItemChecked('vege', item.id, item.food_id)}}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               < div className="menu-detail-list-item-name">{item.type}</div>
@@ -393,7 +393,7 @@ const FoodItemChecked = (category, item_id) => {
                             {item.category === 'meat' && <>
                             <li className="menu-detail-list-item">
                               <label class="checkbox-container">
-                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('meat', item.id)}}/>
+                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('meat', item.id, item.food_id)}}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               <div className="menu-detail-list-item-name">{item.type}</div>
@@ -417,7 +417,7 @@ const FoodItemChecked = (category, item_id) => {
                             {item.category == 'stew' && <>
                             <li className="menu-detail-list-item">
                               <label class="checkbox-container">
-                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('stew', item.id)}}/>
+                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('stew', item.id, item.food_id)}}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               <div className="menu-detail-list-item-name">{item.type}</div>

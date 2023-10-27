@@ -3,7 +3,7 @@ import "../../common/styles/CommonStyles.css";
 import "./MenuStyles.css";
 import "../../components/PopupStyles.css";
 import strings from '../../common/strings/strings'
-import { getSpecialMenu, setSpecialMealLunch, setSpecialMealDinner, addSpecialFoodItem } from "../../services/menuService";
+import { getSpecialMenu, setSpecialMealLunch, setSpecialMealDinner, addSpecialFoodItem, deleteFoodItem } from "../../services/menuService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import Popup from "../../components/Popup";
 import { storage } from '../../firebase';
@@ -29,6 +29,8 @@ function SpecialMenuHome() {
     const [popupMessage, setPopupMessage] = useState('');
     const [loading, setLoading] = useState(true);
     const [applyMealLoading, setApplyMealLoading] = useState(false);
+    const [selectedForDelete, setSelectedForDelete] = useState([]);
+    let delayMilliseconds = 4000;
   
     const openPopup = (type, message) => {
       setPopupType(type);
@@ -53,14 +55,16 @@ function SpecialMenuHome() {
      }, []);
    
   
-     const toggleFoodItem = (item_id) => {
+     const toggleFoodItem = (item_id , item_id_for_delete) => {
       const selectedIndex = selectedFoodItems.indexOf(item_id);  
         if (selectedIndex !== -1) {
           selectedFoodItems.splice(selectedIndex, 1);
         } else {
           selectedFoodItems.push(item_id);
+          // setSelectedForDelete(item_id_for_delete);
         }
     console.log('checked special food items: ', selectedFoodItems)
+    console.log('checked food items for delete: ', selectedForDelete);
 };
 
 
@@ -95,7 +99,7 @@ const handleSetSpecialMealDinner = async () => {
     };
         const response = await setSpecialMealDinner(payload);
         setApplyMealLoading(false);
-        openPopup('success', 'You have successfully added the selected special foods to Dinner Meal');
+        openPopup('success', 'You have successfully added the selected special foods to Lunch Meal');
     } catch (error) {
         console.log('Error:', error);
         openPopup('error', 'Error Occured! Please retry.')
@@ -109,6 +113,10 @@ const handleSetSpecialMealDinner = async () => {
 // Add Special Food Function
 const handleAddSpecialFood = async (event) => {
   event.preventDefault();
+
+  await new Promise((resolve) => {
+    setTimeout(resolve, delayMilliseconds);
+  });
   
   try {
     if (formData.imageFile) {
@@ -121,6 +129,7 @@ const handleAddSpecialFood = async (event) => {
       const response = await addSpecialFoodItem(formData); 
       console.log('Response from addSpecialFoodItem:', response);
       setShowAddItemModal(false);
+      fetchSpecialFood();
 
   } catch (error) {
       console.log('Error:', error);
@@ -151,6 +160,11 @@ const uploadImage = async (imageFile) => {
     const storageRef = ref(storage, `images/${imageName}`);
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
+    uploadTask.on('state_changed', (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log(`Upload is ${progress}% done`);
+    });
+
     const snapshot = await uploadTask;
     const downloadURL = await getDownloadURL(snapshot.ref);
 
@@ -162,18 +176,35 @@ const uploadImage = async (imageFile) => {
 };
 
 const handleChange = (event) => {
-  const { name, value } = event.target;
+  const { name, value, type } = event.target;
+  const parseValue = (value, type) => {
+    if (type === 'number') {
+      return parseFloat(value);
+    }
+    return value;
+  };
+
   setFormData((prevData) => ({
     ...prevData,
-    [name]: value,
+      [name]: parseValue(value, type),
   }));
 };
 
 
-    function handleDeleteFood(){
-      
-    }
-  
+
+const handleDeleteFood = async () => {
+  console.log("selected for delete", selectedForDelete)
+  setShowDeleteItemModal(false)
+
+  try {
+      const response = await deleteFoodItem(selectedForDelete);
+      console.log('Response from delete item:', response);
+      fetchSpecialFood();
+  } catch (error) {
+      console.log('Error:', error);
+  }
+};
+
 
 
     return (
@@ -271,7 +302,7 @@ const handleChange = (event) => {
 
 
               {showDeleteItemModal &&  <div class="modal-content delete-confirm">
-                  <h4>Are you sure, you want to delete the selected items ?</h4>
+                  <h4>Are you sure, you want to update the selected items ?</h4>
                   <div>
                     <button class="delete-confirm-btn" onClick={()=>{setShowDeleteItemModal(false)}}>Cancel</button>
                     <button class="delete-confirm-btn" onClick={handleDeleteFood}>Confirm</button>
@@ -288,7 +319,7 @@ const handleChange = (event) => {
                   <label class="checkbox-container">
                       <input type="checkbox" className="item-checkbox"  
                        checked={item.selected}
-                       onChange={() => toggleFoodItem(item.id)}/>
+                       onChange={() => toggleFoodItem(item.id, item.item_id)}/>
                       <span className="item-checkbox-checkmark"></span>
                   </label>   
                   <div>
