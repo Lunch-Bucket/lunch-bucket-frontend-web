@@ -7,7 +7,7 @@ const Popup = ({ type, message, onClose }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
-      window.location.reload(); 
+      // window.location.reload(); 
     }, 7000); 
 
     return () => {

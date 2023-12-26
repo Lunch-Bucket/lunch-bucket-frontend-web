@@ -4,38 +4,24 @@ import '../../common/styles/CommonStyles.css';
 import LoginImg from '../../resources/images/loginVector.png'
 import PATHS from "../../common/paths/paths";
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 
 
 export default function Login() {
 
-
-  const navigate = useNavigate();
-  const [projectCode, setProjectCode] = useState('64fef5352733ffb579bdc92dAVT60UVT8600');
+  const projectCode = '64fef5352733ffb579bdc92dAVT60UVT8600';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: '', password: '' });
-
-  const validationSchema = {
-    email: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i,
-  };
 
 
 const handleLogin = async (event) => {
     event.preventDefault();
 
     let newErrors = {};
-    // if (!validationSchema.email.test(email)) {
-    //   newErrors.email = 'Invalid email';
-    // }
-    // if (!validationSchema.password.test(password)) {
-    //   newErrors.password = 'Invalid password';
-    // }
     setErrors(newErrors);
 
-       if (Object.keys(newErrors).length === 0) {
+    if (Object.keys(newErrors).length === 0) {
       try {
         const response = await axios.post('https://fw2svr60sl.execute-api.ap-south-1.amazonaws.com/beta/userLogin', {
           email: email,
@@ -44,11 +30,13 @@ const handleLogin = async (event) => {
         });
 
         const authToken = response.data.data.token;
-        localStorage.setItem('authToken', authToken);
+        localStorage.setItem('lb_auth_token', authToken);
+        localStorage.setItem('loginStatus', true);
         const tokenGeneratedTime = Date.now(); 
         localStorage.setItem("tokenGeneratedTime", tokenGeneratedTime.toString());
         window.location.replace(PATHS.orderLunch); 
       } catch (error) {
+        alert("Please check the Username and Password again")
         console.error('Login Error:', error);
       }
     }

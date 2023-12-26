@@ -8,7 +8,7 @@ export async function getFood() {
         const token = localStorage.getItem('lb_auth_token');
         if (token) {
             const response = await axios.get(`${baseUrl}getFood`,{headers:{'token':`${token}`}});
-            console.log('lunch menu',response.data);
+            console.log('menu list',response.data);
             return response.data;
         }
     } catch (error) {
@@ -94,7 +94,7 @@ export async function setSpecialMealDinner(food_ids) {
     try {
         const token = localStorage.getItem('lb_auth_token');
         const response = await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/dinner/setSpecialMenu',food_ids,{headers: {'token': `${token}`}});
-        console.log('lunch special menu', response.data);
+        console.log('dinner special menu', response.data);
         return response.data;
     } catch (error) {
         console.log(error);

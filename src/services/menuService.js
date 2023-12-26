@@ -89,9 +89,8 @@ export async function setSpecialMealDinner(food_ids) {
 // delete food
 export const deleteFoodItem = async (foodId) => {
     try {
-        const token = localStorage.getItem('authToken');
-        const response = await axios.delete(
-            `https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/deleteFood/${foodId}`,
+        const token = localStorage.getItem('lb_auth_token');
+        const response = await axios.delete(`https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/deleteFood/${foodId}`,
             { headers: { 'token': `${token}` } }
         );
         return response.data;

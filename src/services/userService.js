@@ -1,4 +1,4 @@
-import { getUsers } from "../controllers/userController";
+import { getUsers, setThreat } from "../controllers/userController";
 
 export async function getUserData() {
     try {
@@ -12,5 +12,14 @@ export async function getUserData() {
         
     } catch (error) {
         console.log("error:", error.message);
+    }
+}
+
+export async function userThreatHandle(user_ids) {
+    try {
+        const response = await setThreat(user_ids);
+        return response;
+    } catch (error) {
+        throw error;
     }
 }

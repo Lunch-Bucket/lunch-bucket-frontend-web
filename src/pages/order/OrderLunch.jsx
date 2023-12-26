@@ -100,13 +100,14 @@ function OrderHome()
     // Function to handle select all
   const handleSelectAll = () => {
     if (selectAll) {
-      setCheckedOrders([]); 
+      setCheckedOrders([]);
+      setSelectAll(false) 
     } else {
       const allOrderIds = pendingOrderList.map((order) => order.order_id);
       setCheckedOrders(allOrderIds);
+      setSelectAll(true)
+      console.log("select all",checkedOrders)
     }
-
-    setSelectAll(!selectAll);
   };
 
 

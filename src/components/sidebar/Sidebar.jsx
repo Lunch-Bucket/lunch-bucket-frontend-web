@@ -11,7 +11,7 @@ const Sidebar = () => {
       });
   
     const isLoggedIn = localStorage.getItem('loginStatus') === 'true';
-    console.log("local storage value",isLoggedIn); 
+    console.log("local storage value for login",isLoggedIn); 
     
     return (
         <div className="sidebar-container">
