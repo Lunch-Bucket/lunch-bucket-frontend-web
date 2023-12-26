@@ -15,7 +15,8 @@ function Chat() {
     chat_id: '',
     message: '',
   });
-
+  const [adminViewState, setAdminViewState] = useState(false);
+ 
 
 
   async function fetchChats() {
@@ -33,11 +34,22 @@ function Chat() {
 
   function showSingleChatFunc(chatID)
   {
-        setShowSingleChat(true);
-        setCurrChat(chatID);
+    handleAdminViewStatus(chatID);
+    setShowSingleChat(true);
+    setCurrChat(chatID);
   }
 
-  
+  const handleAdminViewStatus = async (chat_id) => {
+
+    try {
+      const response = await setAdminViewStatus(chat_id);
+      console.log('Response from admin status:', response);
+      fetchChats();
+    } catch (error) {
+        console.log('Error:', error);
+    }
+  };
+
   // Add Admin Reply Function
   const handleAddReply = async (event) => {
     event.preventDefault();
@@ -93,7 +105,7 @@ function Chat() {
             {chat.map((singleChat, index) => (
               <>
                 <div className="chat-main-container-chat-item" onClick={()=>showSingleChatFunc(singleChat.id)}>Chat ID: {singleChat.id}
-                   {singleChat.view_admin_state != 'true' && <LiveButton/>}
+                   {singleChat.view_admin_state === true && <LiveButton/>}
                 </div>
                 {(showSingleChat && (singleChat.id === currChat)) &&
                 <div className="single-chat-container">

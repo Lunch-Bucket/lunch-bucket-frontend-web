@@ -1,4 +1,4 @@
-import { getChats, setAdminMsg } from "../controllers/chatController";
+import { getChats, setAdminMsg, setAdminViewState } from "../controllers/chatController";
 
 export async function getChatData() {
     try {
@@ -14,6 +14,15 @@ export async function getChatData() {
 export async function addAdminReply(replyMsg) {
     try {
         const response = await setAdminMsg(replyMsg);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function setAdminViewStatus(chatID) {
+    try {
+        const response = await setAdminViewState(chatID);
         return response;
     } catch (error) {
         throw error;
