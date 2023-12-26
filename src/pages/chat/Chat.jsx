@@ -3,7 +3,8 @@ import './ChatStyles.css';
 import '../../common/styles/CommonStyles.css';
 import strings from '../../common/strings/strings';
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
-import {getChatData, addAdminReply} from '../../services/chatService'
+import {getChatData, addAdminReply, setAdminViewStatus} from '../../services/chatService';
+import LiveButton from "../../components/LiveButton";
 
 function Chat() {
 
@@ -32,11 +33,11 @@ function Chat() {
 
   function showSingleChatFunc(chatID)
   {
-    setShowSingleChat(true);
-    setCurrChat(chatID);
+        setShowSingleChat(true);
+        setCurrChat(chatID);
   }
 
-
+  
   // Add Admin Reply Function
   const handleAddReply = async (event) => {
     event.preventDefault();
@@ -89,10 +90,11 @@ function Chat() {
 
 
         <div className="chat-main-container">
-      
             {chat.map((singleChat, index) => (
               <>
-                <div className="chat-main-container-chat-item" style={{backgroundColor: singleChat.view_admin_state === false ? '#fff7d1':'#fcea93'}} onClick={()=>showSingleChatFunc(singleChat.id)}>Chat ID: {singleChat.id}</div>
+                <div className="chat-main-container-chat-item" onClick={()=>showSingleChatFunc(singleChat.id)}>Chat ID: {singleChat.id}
+                   {singleChat.view_admin_state != 'true' && <LiveButton/>}
+                </div>
                 {(showSingleChat && (singleChat.id === currChat)) &&
                 <div className="single-chat-container">
                    <div style={{display:'flex', justifyContent:'space-between'}}>
