@@ -96,17 +96,18 @@ function OrderHome_Dinner()
   
     }
 
-     // Function to handle select all
-     const handleSelectAll = () => {
+    const handleSelectAll = () => {
         if (selectAll) {
-          setCheckedOrders([]); 
+        setCheckedOrders([]);
+        setSelectAll(false) 
         } else {
-          const allOrderIds = orderStatus.map((order) => order.order_id);
-          setCheckedOrders(allOrderIds);
+        const allOrderIds = pendingOrderList.map((order) => order.order_id);
+        console.log("checked order 1: ",allOrderIds )
+        setCheckedOrders(allOrderIds);
+        setSelectAll(true)
+        console.log("checked order", checkedOrders)
         }
-    
-        setSelectAll(!selectAll);
-      };
+    };
   
  
     return(
@@ -169,12 +170,20 @@ function OrderHome_Dinner()
                             </tr>
 
                             <tr>  
-                                <td style={{fontSize:'14px'}}>
-                                <ul style={{listStyle:'square'}}>
-                                    {data.items.map((food, index) => (
-                                        <li key={index}>{food}</li>
-                                    ))}
-                                </ul>
+                            <td style={{fontSize:'14px'}}>
+                                    { data.order_type != "special" &&
+                                    <ul style={{listStyle:'square'}}>
+                                        {data.items.map((food, index) => (
+                                            <li key={index}>{food}</li>
+                                        ))}
+                                    </ul>
+                                    }
+                                    { data.order_type === "special" &&
+                                    <ul style={{listStyle:'square'}}>
+                                        <li>{data.category}</li>
+                                        <li>{data.type}</li>
+                                    </ul>
+                                    }
                                 </td>
                             </tr>
                         </>
