@@ -202,9 +202,9 @@ function OrderHome_Dinner()
                                 </td>
 
                                 <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FBEDED':'#FFFFF5'}}>
-                                    Order ID: {data.order_id} 
+                                    Customer Code: {data.customer_code}
                                     <div>
-                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>Customer Code: {data.customer_code}</span> 
+                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>Order Code: {data.order_code} </span> 
                                         <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
                                     </div>
                                     {/* <br/> Address: University of Moratuwa */}
@@ -246,8 +246,8 @@ function OrderHome_Dinner()
                     <div style={{marginLeft:'2rem', fontWeight:'600'}}>{confirmedOrderList.length}</div>
      
                     <div className="order-total-sales-content">
-                        <div className="sales-content-label">Total Sales</div>
-                        <div className="sales-content-amount">Rs. 4100</div>
+                        {/* <div className="sales-content-label">Total Sales</div>
+                        <div className="sales-content-amount">Rs. 4100</div> */}
                     </div>
                 </div>
             </div>
@@ -259,9 +259,9 @@ function OrderHome_Dinner()
                         {confirmedOrderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
                                 <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FBEDED':'#FFFFF5'}}>
-                                    Order ID: {data.order_id} 
+                                    Customer Code: {data.customer_code}
                                     <div>
-                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>Customer Code: {data.customer_code}</span> 
+                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}> Order Code: {data.order_code}</span> 
                                         <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
                                     </div>
                                     {/* <br/> Address: University of Moratuwa */}
