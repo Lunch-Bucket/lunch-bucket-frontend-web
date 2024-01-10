@@ -181,6 +181,9 @@ const handleChange = (event) => {
     if (type === 'number') {
       return parseFloat(value);
     }
+    if (name === 'items') {
+      return value.split(',').map(item => item.trim());
+    }
     return value;
   };
 
@@ -254,7 +257,7 @@ const handleDeleteFood = async () => {
                         placeholder="Ex: Chilli Paste, Sause, Chopsy"
                         id="add-menu-item-form-input"
                         name="items"
-                        value={formData.items}
+                        value={formData.items.join(', ')}
                         onChange={handleChange}
                         required
                       />
@@ -329,9 +332,9 @@ const handleDeleteFood = async () => {
                           <img src={item.url} alt="food item" className="food-item-img"/>
                         </div>
                       </center>
-                      <h4 className="special-menu-card-item-text" style={{fontSize:'15px'}}>{item.type} <br/> Rs. {item.price}</h4>
-                      <ul style={{listStyle:'none', textAlign:'left', fontSize:'13px'}}>
-                          <li className="special-menu-card-item-text">{item.items}</li>
+                      <h4 className="special-menu-card-item-text" style={{fontSize:'15px', textAlign:'center'}}>{item.type} <br/> <span style={{fontSize:'17px', color:'#591212'}}> Rs. {item.price} </span></h4>
+                      <ul style={{listStyle:'square', fontSize:'13px'}}>
+                         {item.items.map((sub_item,id)=>( <li className="special-menu-card-item-text">{sub_item}</li>))}
                       </ul>
                   </div>
                 </div>
