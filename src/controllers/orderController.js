@@ -1,5 +1,5 @@
 import axios from "axios";
-import { baseUrl } from "./baseUrl";
+import { baseUrl , expertUrl } from "./baseUrl";
 
 export const setAuthToken = (token) => {
     if (token) {
@@ -46,7 +46,7 @@ export async function getPendingOrders(meal) {
   export async function confirmOrders(confirmOrderList) {
     try {
         const token = localStorage.getItem('lb_auth_token');
-        const response = await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/adminConfirm',
+        const response = await axios.post(`${baseUrl}adminConfirm`,
         confirmOrderList,
         {headers: {'token': `${token}`}});
         console.log('confirm orders in controller', response.data);
@@ -54,4 +54,20 @@ export async function getPendingOrders(meal) {
     } catch (error) {
         console.log(error);
     }
+}
+
+export async function getReport(meal) {
+    try {
+
+        const token = localStorage.getItem('lb_auth_token');
+        if (token) {
+        // setAuthToken(token);
+        const response = await axios.get(`${expertUrl}${meal}`,{headers:{'token':`${token}`}});
+        console.log('orders', response.data);
+        return response.data;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
 }

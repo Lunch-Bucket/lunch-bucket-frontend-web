@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import "../../common/styles/CommonStyles.css";
 import "./OrderStyles.css";
 import strings from "../../common/strings/strings";
-import { getPendingOrderData, getConfirmedOrderData, confirmOrderData } from "../../services/orderService";
+import { getPendingOrderData, getConfirmedOrderData, confirmOrderData ,generateReport} from "../../services/orderService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import LoadingIndicator from "../../components/LoadingIndicator";
 
@@ -20,10 +20,16 @@ function OrderHome()
     async function fetchOrderData() {
         try {
             const confirmedOrderData  = await getConfirmedOrderData('Lunch');
-            const pendingOrderData  = await getPendingOrderData('Lunch'); 
+            const pendingOrderData  = await getPendingOrderData('Lunch');
+            let pendingOrderData_ =  []
+            for (const element of pendingOrderData) {
+                console.log(element);
+                element.selected = false
+                pendingOrderData_.push(element)
+              }
             setConfirmedOrderList(confirmedOrderData);
             setConfirmOrderLoading(false);
-            setPendingOrderList(pendingOrderData);
+            setPendingOrderList(pendingOrderData_);
             setPendingOrderLoading(false);
             console.log('confirmed order data in order', confirmedOrderList);
             console.log('pending order data in order', pendingOrderList);
@@ -39,13 +45,37 @@ function OrderHome()
     }, []);
 
 
-    const OrderItemChecked = (orderId) => {
+    const OrderItemChecked = async (orderId) => {
         if (checkedOrders.includes(orderId)) {
           setCheckedOrders(checkedOrders.filter((id) => id !== orderId)); // Deselect
+          let pendingOrderData_ =  []
+            for (const element of pendingOrderList) {
+                console.log(element);
+                if(element.id === orderId){
+                    element.selected = false
+                }
+                pendingOrderData_.push(element)
+              }
+          setPendingOrderList(pendingOrderData_);
         } else {
           setCheckedOrders([...checkedOrders, orderId]); // Select
+          let pendingOrderData_ =  []
+            for (const element of pendingOrderList) {
+                console.log(element);
+                if(element.id === orderId){
+                    element.selected = true
+                }
+                pendingOrderData_.push(element)
+              }
+          setPendingOrderList(pendingOrderData_);
+          console.log("select all",checkedOrders)
         }
       };
+    
+    const setPending = () => {
+        let pending = pendingOrderList
+        setPendingOrderList(pending)
+    }
     
     const handleOrderStatus = async (orderStatus) =>{
         if (orderStatus === 'confirm'){
@@ -101,16 +131,34 @@ function OrderHome()
   const handleSelectAll = () => {
     if (selectAll) {
       setCheckedOrders([]);
-      setSelectAll(false) 
+      setSelectAll(false)
+      let pendingOrderData_ =  []
+        for (const element of pendingOrderList) {
+            console.log(element);
+            element.selected = false
+            pendingOrderData_.push(element)
+        }
+    setPendingOrderList(pendingOrderData_) 
     } else {
       const allOrderIds = pendingOrderList.map((order) => order.order_id);
-      setCheckedOrders(allOrderIds);
+      console.log("all_order_ids",allOrderIds)
+      setCheckedOrders(allOrderIds)
       setSelectAll(true)
+      let pendingOrderData_ =  []
+        for (const element of pendingOrderList) {
+            console.log(element);
+            element.selected = true
+            pendingOrderData_.push(element)
+        }
+    setPendingOrderList(pendingOrderData_)
       console.log("select all",checkedOrders)
     }
   };
 
-
+  const generateReport_ = async () => {
+    alert("Please wait a while, Your report is generating")
+    const pendingOrderData  = await generateReport('Dinner'); 
+  }
   
  
     return(
@@ -120,6 +168,7 @@ function OrderHome()
               <div>
                 <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{setOrderStatus('pending')}}>Pending Orders</button>
                 <button className="header-item-add-button" style={{backgroundColor:'#84B35A'}} onClick={()=>{setOrderStatus('confirmed')}}>Confirmed Orders</button>
+                <button className="header-item-add-button" style={{backgroundColor:'#FFEF6C'}} onClick={()=>{generateReport_()}}>Generate Report</button>
                 {/* <button className="header-item-add-button" style={{backgroundColor:'#7E0A0A', color:'white'}} onClick={()=>{setOrderStatus('rejected')}}>Rejected Orders</button> */}
               </div>
               {/* <SearchBar/> */}
@@ -152,8 +201,11 @@ function OrderHome()
                                     <label class="checkbox-container" key={data.id}>
                                         <input type="checkbox" className="item-checkbox" 
                                         value={data.id} 
-                                        checked={checkedOrders.includes(data.id)}
-                                        onClick={()=>{OrderItemChecked(data.id)}}/>
+                                        checked={data.selected}
+                                        onClick={async ()=>{
+                                            OrderItemChecked(data.id)
+                                        }
+                                            }/>
                                         <span className="item-checkbox-checkmark"></span>
                                     </label>   
                                 </td>

@@ -181,6 +181,7 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
     const handleImageUpload = async (event) => {
       const file = event.target.files[0];
       if (file) {
+        alert("please wait for uploading image")
         try {
           const imageUrl = await uploadImage(file);
           setFormData((prevData) => ({
@@ -204,7 +205,7 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
 
         const snapshot = await uploadTask;
         const downloadURL = await getDownloadURL(snapshot.ref);
-    
+        alert("Image was uploaded.Now you can add the food")
         return downloadURL;
       } catch (error) {
         console.error('Error uploading image:', error);

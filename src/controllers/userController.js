@@ -18,7 +18,7 @@ export async function getUsers() {
 export async function setThreat(user_ids) {
     try {
         const token = localStorage.getItem('lb_auth_token');
-        const response = await axios.post('https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/addToThread/',user_ids,{headers: {'token': `${token}`}});
+        const response = await axios.post(`${baseUrl}addToThread/`,user_ids,{headers: {'token': `${token}`}});
         console.log('users in threat - controller', response.data);
         return response.data;
     } catch (error) {

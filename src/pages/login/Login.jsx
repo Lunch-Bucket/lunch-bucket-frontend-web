@@ -4,11 +4,9 @@ import '../../common/styles/CommonStyles.css';
 import LoginImg from '../../resources/images/loginVector.png'
 import PATHS from "../../common/paths/paths";
 import axios from 'axios';
-
+import { projectCode } from "../../controllers/baseUrl";
 
 export default function Login() {
-
-  const projectCode = '64fef5352733ffb579bdc92dAVT60UVT8600';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
