@@ -38,7 +38,7 @@ function MenuHome() {
       goods: '',
       price: 20,
       url: null,
-      vegetarian: '',
+      vegetarian: true,
     });
 
     const selectedFoodItems = {
@@ -220,9 +220,10 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
       const parseValue = (value, type) => {
         if (type === 'number') {
           return parseFloat(value);
-        }
-        return value;
+        } 
+          return value;
       };
+
 
       setFormData((prevData) => ({
         ...prevData,
@@ -268,6 +269,7 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
                         id="add-menu-item-form-input"
                         name="category"
                         style={{ width: '10rem' }}
+                        defaultValue="vege"
                         value={formData.category}
                         onChange={handleChange}
                       >
@@ -293,11 +295,12 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
                           id="add-menu-item-form-input"
                           name="vegetarian"
                           style={{ width: '10rem' }}
+                          defaultValue={true}
                           value={formData.vegetarian}
                           onChange={handleChange}
                         >
-                          <option value="true">Vege Item</option>
-                          <option value="false">Non-Vege Item</option>
+                          <option value={true}>Vege Item</option>
+                          <option value={false}>Non-Vege Item</option>
                         </select>
                     </div>
                     <div className="add-menu-item-field">
