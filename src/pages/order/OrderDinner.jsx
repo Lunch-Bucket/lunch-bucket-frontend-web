@@ -202,14 +202,15 @@ function OrderHome_Dinner()
                                 </td>
 
                                 <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FBEDED':'#FFFFF5'}}>
-                                    Customer Code: {data.customer_code}
                                     <div>
-                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>Order Code: {data.order_code} </span> 
+                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>  Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code} </span> 
+                                        {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
                                         <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
                                     </div>
                                     {/* <br/> Address: University of Moratuwa */}
-                                    <br/> Special Notes: {data.comment}
-                                    <br/> Packet Count: {data.packet_amount} | Rs.  {data.price}
+                                    Packet Count: {data.packet_amount} 
+                                    <br/> 
+                                    {data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span>}
                                 </td>
                             </tr>
 
@@ -259,14 +260,15 @@ function OrderHome_Dinner()
                         {confirmedOrderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
                                 <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FBEDED':'#FFFFF5'}}>
-                                    Customer Code: {data.customer_code}
                                     <div>
-                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}> Order Code: {data.order_code}</span> 
+                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>  Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code} </span> 
+                                        {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
                                         <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
                                     </div>
                                     {/* <br/> Address: University of Moratuwa */}
-                                    <br/> Special Notes: {data.comment}
-                                    <br/> Packet Count: {data.packet_amount} | Rs.  {data.price}
+                                    Packet Count: {data.packet_amount} 
+                                    <br/>
+                                    {data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span>}
                                 </td>
                             </tr>
 
