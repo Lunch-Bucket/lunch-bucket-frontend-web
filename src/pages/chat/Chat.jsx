@@ -60,12 +60,12 @@ function Chat() {
       fetchChats();
       console.log("reply", adminReply)
           // Clear the reply input
-    setAdminReply((prevData) => ({
-      ...prevData,
-      reply: '', // Clear the message field
-    }));
-
-
+          setAdminReply((prevData) => ({
+            ...prevData,
+            message: '',
+            reply: '',
+          }));
+  
     } catch (error) {
         console.log('Error:', error);
     }
@@ -73,8 +73,7 @@ function Chat() {
 
   const handleChange = (event) => {
     const { value } = event.target;
-    setAdminReply((prevData) => ({
-      ...prevData,
+    setAdminReply(() => ({
       chat_id: currChat,
       message : value,
     }));
@@ -120,7 +119,8 @@ function Chat() {
                     </div>
                     <form className="chat-reply-content" onSubmit={handleAddReply}>
                         <input type="text" className="chat-reply-input" 
-                        name="reply" value={adminReply.reply} 
+                        name="reply" 
+                        value={adminReply.reply} 
                         onChange={handleChange} />
                         <button className="action-bar-btn chat-reply-send-btn" type="submit">Send Reply</button>
                     </form> 
