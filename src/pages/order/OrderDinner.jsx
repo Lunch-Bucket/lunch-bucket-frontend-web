@@ -44,9 +44,9 @@ function OrderHome_Dinner()
         fetchOrderData();
     }, []);
 
-    const OrderItemChecked = (orderId) => {
+    const OrderItemChecked = async (orderId) => {
         if (checkedOrders.includes(orderId)) {
-          setCheckedOrders(checkedOrders.filter((id) => id !== orderId)); 
+          setCheckedOrders(checkedOrders.filter((id) => id !== orderId)); // Deselect
           let pendingOrderData_ =  []
             for (const element of pendingOrderList) {
                 console.log(element);
@@ -57,7 +57,7 @@ function OrderHome_Dinner()
               }
           setPendingOrderList(pendingOrderData_);
         } else {
-          setCheckedOrders([...checkedOrders, orderId]);
+          setCheckedOrders([...checkedOrders, orderId]); // Select
           let pendingOrderData_ =  []
             for (const element of pendingOrderList) {
                 console.log(element);
@@ -66,14 +66,12 @@ function OrderHome_Dinner()
                 }
                 pendingOrderData_.push(element)
               }
-          setPendingOrderList(pendingOrderData_); 
+          setPendingOrderList(pendingOrderData_);
+          console.log("select all",checkedOrders)
         }
       };
+    
 
-      const generateReport_ = async () => {
-        alert("Please wait a while, Your report is generating")
-        const pendingOrderData  = await generateReport('Dinner'); 
-      }
 
       const handleOrderStatus = async (orderStatus) =>{
         if (orderStatus === 'confirm'){
@@ -125,32 +123,40 @@ function OrderHome_Dinner()
   
     }
 
+    // Function to handle select all
     const handleSelectAll = () => {
         if (selectAll) {
-        setCheckedOrders([]);
-        setSelectAll(false)
-        let pendingOrderData_ =  []
-        for (const element of pendingOrderList) {
-            console.log(element);
-            element.selected = false
-            pendingOrderData_.push(element)
-        }
-    setPendingOrderList(pendingOrderData_) 
+          setCheckedOrders([]);
+          setSelectAll(false)
+          let pendingOrderData_ =  []
+            for (const element of pendingOrderList) {
+                console.log(element);
+                element.selected = false
+                pendingOrderData_.push(element)
+            }
+        setPendingOrderList(pendingOrderData_) 
         } else {
-        const allOrderIds = pendingOrderList.map((order) => order.order_id);
-        console.log("checked order 1: ",allOrderIds )
-        setCheckedOrders(allOrderIds);
-        setSelectAll(true)
-        let pendingOrderData_ =  []
-        for (const element of pendingOrderList) {
-            console.log(element);
-            element.selected = true
-            pendingOrderData_.push(element)
+          const allOrderIds = pendingOrderList.map((order) => order.id);
+          setCheckedOrders(allOrderIds)
+          setSelectAll(true)
+          let pendingOrderData_ =  []
+            for (const element of pendingOrderList) {
+                console.log(element);
+                element.selected = true
+                pendingOrderData_.push(element)
+            }
+          setPendingOrderList(pendingOrderData_)
         }
-    setPendingOrderList(pendingOrderData_) 
-        console.log("checked order", checkedOrders)
-        }
-    };
+      };
+    
+      useEffect(() => {
+        console.log("select all ", checkedOrders);
+      }, [checkedOrders]);
+    
+      const generateReport_ = async () => {
+        alert("Please wait a while, Your report is generating")
+        const pendingOrderData  = await generateReport('Dinner'); 
+      }
   
  
     return(
@@ -210,7 +216,7 @@ function OrderHome_Dinner()
                                     {/* <br/> Address: University of Moratuwa */}
                                     Packet Count: {data.packet_amount} 
                                     <br/> 
-                                    {data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span>}
+                                    {!data.order_type === "special" && data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span>}
                                 </td>
                             </tr>
 
@@ -268,17 +274,25 @@ function OrderHome_Dinner()
                                     {/* <br/> Address: University of Moratuwa */}
                                     Packet Count: {data.packet_amount} 
                                     <br/>
-                                    {data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span>}
+                                    {!data.order_type === "special" && data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span>}
                                 </td>
                             </tr>
 
                             <tr>  
-                                <td style={{fontSize:'14px'}}>
-                                <ul style={{listStyle:'square'}}>
-                                    {data.items.map((food, index) => (
-                                        <li key={index}>{food}</li>
-                                    ))}
-                                </ul>
+                            <td style={{fontSize:'14px'}}>
+                                    { data.order_type != "special" &&
+                                    <ul style={{listStyle:'square'}}>
+                                        {data.items.map((food, index) => (
+                                            <li key={index}>{food}</li>
+                                        ))}
+                                    </ul>
+                                    }
+                                    { data.order_type === "special" &&
+                                    <ul style={{listStyle:'square'}}>
+                                        <li>{data.category}</li>
+                                        <li>{data.type}</li>
+                                    </ul>
+                                    }
                                 </td>
                             </tr>
                         </>

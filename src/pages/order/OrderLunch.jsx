@@ -140,8 +140,7 @@ function OrderHome()
         }
     setPendingOrderList(pendingOrderData_) 
     } else {
-      const allOrderIds = pendingOrderList.map((order) => order.order_id);
-      console.log("all_order_ids",allOrderIds)
+      const allOrderIds = pendingOrderList.map((order) => order.id);
       setCheckedOrders(allOrderIds)
       setSelectAll(true)
       let pendingOrderData_ =  []
@@ -150,14 +149,17 @@ function OrderHome()
             element.selected = true
             pendingOrderData_.push(element)
         }
-    setPendingOrderList(pendingOrderData_)
-      console.log("select all",checkedOrders)
+      setPendingOrderList(pendingOrderData_)
     }
   };
 
+  useEffect(() => {
+    console.log("select all ", checkedOrders);
+  }, [checkedOrders]);
+
   const generateReport_ = async () => {
     alert("Please wait a while, Your report is generating")
-    const pendingOrderData  = await generateReport('Dinner'); 
+    const pendingOrderData  = await generateReport('Lunch'); 
   }
   
  
@@ -219,7 +221,7 @@ function OrderHome()
                                     {/* <br/> Address: University of Moratuwa */}
                                     Packet Count: {data.packet_amount} 
                                     <br/> 
-                                    {data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span>}
+                                    {!data.order_type === "special" && data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span>}
                                     {/* <br/>
                                     {data.portion === true && <span> Portion: {data.packet_amount}<br/> </span>} */}
                                 </td>
@@ -279,7 +281,7 @@ function OrderHome()
                                         {/* <br/> Address: University of Moratuwa */}
                                         Packet Count: {data.packet_amount} 
                                         <br/>
-                                       {data.comment != '' && <span style={{fontWeight:'400'}}> Note: {data.comment}</span> }
+                                       {!data.order_type === "special" && data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span> }
                                         {/* {data.portion === true && <span> Portion: {data.packet_amount}<br/> </span>} */}
                                     </td>
                             </tr>
