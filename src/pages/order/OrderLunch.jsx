@@ -180,12 +180,29 @@ function OrderHome()
             {/* Pending Order List */}
             {orderStatus === 'pending' &&<>
             <div className="action-bar">
-                <div style={{display:'inline-flex'}}>
-                    <div>Total Pending Order Count</div>
-                    <div style={{marginLeft:'2rem', fontWeight:'600'}}>{pendingOrderList.length}</div>
+            <div style={{display:'flex'}}>
+                    <div>Total Order Count:</div>
+                    <div style={{marginLeft:'1rem'}}>{pendingOrderList.length}</div>
+
+                    <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Time</div>
+                    <select style={{marginLeft:'1rem'}}
+                    defaultValue='all'>
+                        <option value='all'>ALL</option>
+                        <option value='slot_1'>11.30 AM</option>
+                        <option value='slot_2'>12.30 PM</option>
+                        <option value='slot_3'>02.00 AM</option>
+                    </select>
+
+                    <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Place</div>
+                    <select style={{marginLeft:'1rem'}}
+                    defaultValue='all'>
+                        <option value='all'>ALL</option>
+                        <option value='front'>FRONT</option>
+                        <option value='back'>BACK</option>
+                    </select>
                 </div>
                 <div>
-                    <button style={{marginRight:'0.3rem', backgroundColor:'transparent'}}  onClick={handleSelectAll}>
+                    <button style={{marginRight:'0.3rem', backgroundColor:'transparent', border:'none'}}  onClick={handleSelectAll}>
                         {selectAll ? "Deselect All" : "Select All"}
                     </button>
                     <button className="action-bar-btn-confirm"  onClick={()=>handleOrderStatus('confirm')}>Confirm</button>
@@ -256,14 +273,26 @@ function OrderHome()
             {/* Confirmed Order List */}
             {orderStatus === 'confirmed' &&<>
             <div className="action-bar">
-                <div style={{display:'inline-flex'}}>
-                    <div>Total Confirmed Order Count</div>
-                    <div style={{marginLeft:'2rem', fontWeight:'600'}}>{confirmedOrderList.length}</div>
-     
-                    <div className="order-total-sales-content">
-                        {/* <div className="sales-content-label">Total Sales</div>
-                        <div className="sales-content-amount">Rs. 4100</div> */}
-                    </div>
+            <div style={{display:'flex'}}>
+                    <div>Total Confirmed Order Count:</div>
+                    <div style={{marginLeft:'1rem'}}>{confirmedOrderList.length}</div>
+
+                    <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Time</div>
+                    <select style={{marginLeft:'1rem'}}
+                    defaultValue='all'>
+                        <option value='all'>ALL</option>
+                        <option value='slot_1'>11.30 AM</option>
+                        <option value='slot_2'>12.30 PM</option>
+                        <option value='slot_3'>02.00 AM</option>
+                    </select>
+
+                    <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Place</div>
+                    <select style={{marginLeft:'1rem'}}
+                    defaultValue='all'>
+                        <option value='all'>ALL</option>
+                        <option value='front'>FRONT</option>
+                        <option value='back'>BACK</option>
+                    </select>
                 </div>
             </div>
             <hr/> 
