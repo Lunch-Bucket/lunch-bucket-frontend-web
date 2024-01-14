@@ -29,7 +29,7 @@
   border-bottom: solid grey .1rem;
 }
 
-.header-item-add-button{
+.header-item-add-button, #header-item-add-button{
     padding: 0.4rem;
     background-color: #FFE662;
     border-radius: 8px;
@@ -47,9 +47,9 @@
     background-color: #ecd24d;
 }
 
-.header-item-add-button:focus{
+.header-item-add-button:focus, #header-item-add-button:focus{
     border-color: rgb(114, 33, 8);
-    border-width: 0.25rem;
+    border-width: 0.2rem;
 }
 
 .action-bar{

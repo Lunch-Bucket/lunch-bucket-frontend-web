@@ -15,6 +15,7 @@ function OrderHome()
     const [selectAll, setSelectAll] = useState(false); 
     const [pendingOrderLoading, setPendingOrderLoading] = useState(true);
     const [confirmOrderLoading, setConfirmOrderLoading] = useState(true);
+    const [confirmFuncLoading, setConfirmFuncLoading] = useState(false);
     let totalSales = 0;
 
     async function fetchOrderData() {
@@ -79,6 +80,7 @@ function OrderHome()
     
     const handleOrderStatus = async (orderStatus) =>{
         if (orderStatus === 'confirm'){
+            setConfirmFuncLoading(true);
             if(checkedOrders.length > 0){
                 try {
                     const payload = {
@@ -87,14 +89,14 @@ function OrderHome()
                     };
             
                   const response = await confirmOrderData(payload);
-                //   setLoading(false);
+                  setConfirmFuncLoading(false);
                   console.log('confirm orders component', response);
                   alert('Marked as Confirmed!');
                   setCheckedOrders([]);
                   window.location.reload();
                   } catch (error) {
                       console.log('Error:', error);
-                      setConfirmOrderLoading(false);
+                      setConfirmFuncLoading(false);
                   }
             }
             else{
@@ -182,7 +184,7 @@ function OrderHome()
             <div className="action-bar">
             <div style={{display:'flex'}}>
                     <div>Total Order Count:</div>
-                    <div style={{marginLeft:'1rem'}}>{pendingOrderList.length}</div>
+                    <div style={{marginLeft:'0.1rem'}}>{pendingOrderList.length}</div>
 
                     <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Time</div>
                     <select style={{marginLeft:'1rem'}}
@@ -210,6 +212,7 @@ function OrderHome()
                 </div>
             </div>
             <hr/> 
+            {confirmFuncLoading && <LoadingIndicator/>}
             {pendingOrderLoading ? <LoadingIndicator/> :
                 <div>
                     <table className="detail-table">  
@@ -275,7 +278,7 @@ function OrderHome()
             <div className="action-bar">
             <div style={{display:'flex'}}>
                     <div>Total Confirmed Order Count:</div>
-                    <div style={{marginLeft:'1rem'}}>{confirmedOrderList.length}</div>
+                    <div style={{marginLeft:'0.1rem'}}>{confirmedOrderList.length}</div>
 
                     <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Time</div>
                     <select style={{marginLeft:'1rem'}}

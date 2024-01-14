@@ -16,6 +16,7 @@ function OrderHome_Dinner()
     const [orderStatus, setOrderStatus] = useState("pending");
     const [pendingOrderLoading, setPendingOrderLoading] = useState(true);
     const [confirmOrderLoading, setConfirmOrderLoading] = useState(true);
+    const [confirmFuncLoading, setConfirmFuncLoading] = useState(false);
     let totalSales = 0;
 
     async function fetchOrderData() {
@@ -75,6 +76,7 @@ function OrderHome_Dinner()
 
       const handleOrderStatus = async (orderStatus) =>{
         if (orderStatus === 'confirm'){
+            setConfirmFuncLoading(true);
             if(checkedOrders.length > 0){
                 try {
                     const payload = {
@@ -83,7 +85,7 @@ function OrderHome_Dinner()
                     };
             
                   const response = await confirmOrderData(payload);
-                //   setLoading(false);
+                  setConfirmFuncLoading(false);
                   console.log('confirm orders component', response);
                   alert('Marked as Confirmed!');
                   setCheckedOrders([]);
@@ -178,7 +180,7 @@ function OrderHome_Dinner()
             <div className="action-bar">
                 <div style={{display:'flex'}}>
                     <div>Total Order Count:</div>
-                    <div style={{marginLeft:'1rem'}}>{pendingOrderList.length}</div>
+                    <div style={{marginLeft:'0.1rem'}}>{pendingOrderList.length}</div>
 
                     <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Time</div>
                     <select style={{marginLeft:'1rem'}}
@@ -205,6 +207,7 @@ function OrderHome_Dinner()
                 </div>
             </div>
             <hr/> 
+            {confirmFuncLoading && <LoadingIndicator/>}
             {/* Pending Order List */}
             {pendingOrderLoading ? <LoadingIndicator/> :
                 <div>
@@ -265,7 +268,7 @@ function OrderHome_Dinner()
             <div className="action-bar">
             <div style={{display:'flex'}}>
                     <div>Total Confirmed Order Count:</div>
-                    <div style={{marginLeft:'1rem'}}>{confirmedOrderList.length}</div>
+                    <div style={{marginLeft:'0.1rem'}}>{confirmedOrderList.length}</div>
 
                     <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Time</div>
                     <select style={{marginLeft:'1rem'}}
