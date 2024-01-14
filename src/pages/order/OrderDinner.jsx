@@ -17,33 +17,49 @@ function OrderHome_Dinner()
     const [pendingOrderLoading, setPendingOrderLoading] = useState(true);
     const [confirmOrderLoading, setConfirmOrderLoading] = useState(true);
     const [confirmFuncLoading, setConfirmFuncLoading] = useState(false);
+    const [selectedTimeFilter, setSelectedTimeFilter] = useState('all');
     let totalSales = 0;
 
     async function fetchOrderData() {
         try {
             const confirmedOrderData  = await getConfirmedOrderData('Dinner');
             const pendingOrderData  = await getPendingOrderData('Dinner');
+            const filteredConfirmedOrders = filterOrdersByTime(confirmedOrderData, selectedTimeFilter);
+            const filteredPendingOrders = filterOrdersByTime(pendingOrderData, selectedTimeFilter);
+
             let pendingOrderData_ =  []
-            for (const element of pendingOrderData) {
+            for (const element of filteredPendingOrders) {
                 console.log(element);
                 element.selected = false
                 pendingOrderData_.push(element)
               }
-            setConfirmedOrderList(confirmedOrderData);
+            setConfirmedOrderList(filteredConfirmedOrders);
             setConfirmOrderLoading(false);
             setPendingOrderList(pendingOrderData_);
             setPendingOrderLoading(false);
-            console.log('confirmed order data in order', confirmedOrderList);
-            console.log('pending order data in order', pendingOrderList);
-            totalSales = confirmedOrderList.reduce((total, order) => total + order.order_price, 0);
+            // totalSales = confirmedOrderList.reduce((total, order) => total + order.order_price, 0);
 
         } catch (error) {
             console.log("Error fetching order data:", error.message);
         }
     }
+
+    const filterOrdersByTime = (orders, timeFilter) => {
+        if (timeFilter === 'all') {
+          return orders;
+        }
+    
+        return orders.filter((order) => order.delivery_time === timeFilter);
+      };
+    
+      const handleTimeFilterChange = (event) => {
+        setSelectedTimeFilter(event.target.value);
+      };
+
+      
     useEffect(() => {
         fetchOrderData();
-    }, []);
+    }, [selectedTimeFilter]);
 
     const OrderItemChecked = async (orderId) => {
         if (checkedOrders.includes(orderId)) {
@@ -184,10 +200,12 @@ function OrderHome_Dinner()
 
                     <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Time</div>
                     <select style={{marginLeft:'1rem'}}
-                    defaultValue='all'>
+                    id="timeFilter"
+                    value={selectedTimeFilter}
+                    onChange={handleTimeFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='slot_1'>07.00 AM</option>
-                        <option value='slot_2'>08.00 PM</option>
+                        <option value='7:00 PM'>07.00 AM</option>
+                        <option value='8:00 PM'>08.00 PM</option>
                     </select>
 
                     <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Place</div>
@@ -272,10 +290,12 @@ function OrderHome_Dinner()
 
                     <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Time</div>
                     <select style={{marginLeft:'1rem'}}
-                    defaultValue='all'>
-                        <option value='all'>ALL</option>
-                        <option value='slot_1'>07.00 AM</option>
-                        <option value='slot_2'>08.00 PM</option>
+                    id="timeFilter"
+                    value={selectedTimeFilter}
+                    onChange={handleTimeFilterChange}>
+                            <option value='all'>ALL</option>
+                        <option value='7:00 PM'>07.00 AM</option>
+                        <option value='8:00 PM'>08.00 PM</option>
                     </select>
 
                     <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Place</div>
