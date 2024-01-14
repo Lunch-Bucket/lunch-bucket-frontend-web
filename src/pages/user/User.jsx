@@ -12,10 +12,10 @@ import Popup from "../../components/Popup";
 function User() {
 
     const [user, setUser] = useState([]);
-    const [level, setLevel] = useState('');
     const [showPopup, setShowPopup] = useState(false);
     const [popupType, setPopupType] = useState('');
     const [popupMessage, setPopupMessage] = useState('');
+    const [selectedUserLevelFilter, setSelectedUserLevelFilter] = useState('all');
 
     const openPopup = (type, message) => {
         setPopupType(type);
@@ -26,17 +26,34 @@ function User() {
     async function fetchUserData() {
         try {
             const userData  = await getUserData([]);
-            setUser(userData);
-            setLevel(userData.level)
+            const filteredUsers = filterByUserLevel(userData, selectedUserLevelFilter);
+            setUser(filteredUsers);
 
         } catch (error) {
             console.log("Error fetching user data:", error.message);
         }
     }
 
+    const filterByUserLevel = (userData, userLevelFilter) => {
+        switch(userLevelFilter){
+            case 'all':
+                return userData;
+            case 'true':
+                return userData.filter((user) => user.threat_state === true);
+            case 'false':
+                return userData.filter((user) => user.threat_state === false);
+        }
+       
+      };
+    
+      const handleUserLevelFilterChange = (event) => {
+        setSelectedUserLevelFilter(event.target.value);
+      };
+
+
     useEffect(() => {
         fetchUserData();
-    }, []);
+    }, [selectedUserLevelFilter]);
 
 
     const addToThreatFunc = async (user_id) =>{
@@ -68,12 +85,14 @@ function User() {
             <div className="title-search-content">
               <h1 className="menu-title-text">{strings.user}</h1> 
               <div style={{display:'inline-flex'}}>
-              <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Level</div>
+              <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By User Level</div>
                     <select style={{marginLeft:'1rem'}}
-                    defaultValue='all'>
+                    id="userLevelFilter"
+                    value={selectedUserLevelFilter}
+                    onChange={handleUserLevelFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='slot_1'>Normal </option>
-                        <option value='slot_3'>Threat </option>
+                        <option value='true'>Threat </option>
+                        <option value='false'>Not-Threat </option>
                     </select>
                 </div>
               <SearchBar/>
