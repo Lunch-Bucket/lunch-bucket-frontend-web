@@ -22,30 +22,25 @@
     font-size: 13px;
     text-align: left;
     line-height: 2rem;
-    min-width: 25%;
+    min-width: 17%;
+    text-align: center;
 }
 
 .user-page-data-row-data-level-btn{
-    background-color: #269703;
+    background-color: white;
+    border-color: #269703;
     padding: 0.4rem;
     margin-left: 0.4rem;
-    border: none;
-    color: white;
     cursor: pointer;
 }
 
 .level-down{
-    background-color: #e4a2a2;
-    color: black;
-    border: 2px solid rgb(172, 13, 13);
+    border-color:rgb(172, 13, 13);
 }
 
-.level-down:focus{
-    background-color: #b90202;
-    color: white;
+.user-page-data-row-data-level-btn:focus{
+    border-width: 4px;
 }
 
-.user-page-data-row-data-threat-btn:hover{
-    background-color: #b32c14;
-}
+
 

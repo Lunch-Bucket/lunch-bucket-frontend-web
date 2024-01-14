@@ -15,11 +15,22 @@ export async function getUsers() {
 }
 
 
-export async function setThreat(user_ids) {
+export async function addToThreat(user_id) {
     try {
         const token = localStorage.getItem('lb_auth_token');
-        const response = await axios.post(`${baseUrl}addToThread/`,user_ids,{headers: {'token': `${token}`}});
+        const response = await axios.get(`https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/addToThread/${user_id}`,{headers: {'token': `${token}`}});
         console.log('users in threat - controller', response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function removeFromThreat(user_id) {
+    try {
+        const token = localStorage.getItem('lb_auth_token');
+        const response = await axios.get(`https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/removeFromThread/${user_id}`,{headers: {'token': `${token}`}});
+        console.log('users in remove threat - controller', response.data);
         return response.data;
     } catch (error) {
         console.log(error);
