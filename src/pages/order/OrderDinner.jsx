@@ -17,6 +17,8 @@ function OrderHome_Dinner()
     const [pendingOrderLoading, setPendingOrderLoading] = useState(true);
     const [confirmOrderLoading, setConfirmOrderLoading] = useState(true);
     const [confirmFuncLoading, setConfirmFuncLoading] = useState(false);
+
+    const [selectedPlaceFilter, setSelectedPlaceFilter] = useState('all');
     const [selectedTimeFilter, setSelectedTimeFilter] = useState('all');
     let totalSales = 0;
 
@@ -24,8 +26,8 @@ function OrderHome_Dinner()
         try {
             const confirmedOrderData  = await getConfirmedOrderData('Dinner');
             const pendingOrderData  = await getPendingOrderData('Dinner');
-            const filteredConfirmedOrders = filterOrdersByTime(confirmedOrderData, selectedTimeFilter);
-            const filteredPendingOrders = filterOrdersByTime(pendingOrderData, selectedTimeFilter);
+            const filteredConfirmedOrders = filterOrders(confirmedOrderData, selectedTimeFilter, selectedPlaceFilter);
+            const filteredPendingOrders = filterOrders(pendingOrderData, selectedTimeFilter, selectedPlaceFilter);
 
             let pendingOrderData_ =  []
             for (const element of filteredPendingOrders) {
@@ -44,22 +46,27 @@ function OrderHome_Dinner()
         }
     }
 
-    const filterOrdersByTime = (orders, timeFilter) => {
-        if (timeFilter === 'all') {
-          return orders;
-        }
+    const filterOrders = (orders, timeFilter, placeFilter) => {
+        return orders.filter((order) => {
+          const timeCondition = timeFilter === 'all' || order.delivery_time === timeFilter;
+          const placeCondition = placeFilter === 'all' || order.delivery_place === placeFilter;
     
-        return orders.filter((order) => order.delivery_time === timeFilter);
+          return timeCondition && placeCondition;
+        });
       };
     
       const handleTimeFilterChange = (event) => {
         setSelectedTimeFilter(event.target.value);
       };
 
+      const handlePlaceFilterChange = (event) => {
+        setSelectedPlaceFilter(event.target.value);
+      };
+
       
     useEffect(() => {
         fetchOrderData();
-    }, [selectedTimeFilter]);
+    }, [selectedTimeFilter,selectedPlaceFilter]);
 
     const OrderItemChecked = async (orderId) => {
         if (checkedOrders.includes(orderId)) {
@@ -204,16 +211,18 @@ function OrderHome_Dinner()
                     value={selectedTimeFilter}
                     onChange={handleTimeFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='7:00 PM'>07.00 AM</option>
+                        <option value='7:00 PM'>07.00 PM</option>
                         <option value='8:00 PM'>08.00 PM</option>
                     </select>
 
                     <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Place</div>
                     <select style={{marginLeft:'1rem'}}
-                    defaultValue='all'>
+                    id="placeFilter"
+                    value={selectedPlaceFilter}
+                    onChange={handlePlaceFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='front'>FRONT</option>
-                        <option value='back'>BACK</option>
+                        <option value='Front gate'>FRONT</option>
+                        <option value='Back gate'>BACK</option>
                     </select>
                 </div>
                 <div>
