@@ -28,7 +28,7 @@
     top: 50%;
     left: 58%;
     transform: translate(-50%, -50%);
-    background-color: #fffaf0;
+    background-color: #f8f6f2;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -39,12 +39,13 @@
 
 .chat-main-container-chat-item{
     display: flex;
-    width: 28%;
-    padding: 0.3rem;
+    width: auto;
+    font-weight: 600;
+    padding: 0.6rem;
     border-radius: 4px;
-    margin:1rem;
+    margin:2rem;
     cursor: pointer;
-    background-color: #f3e190;
+    background-color: #fcefb8;
 
 }
 
@@ -101,7 +102,7 @@
     margin: 1rem;
     padding: 0.7rem;
     border-radius: 4px;
-    background-color: #f8eba3;
+    background-color: #f7ebac;
     width: 50%;
 }
 

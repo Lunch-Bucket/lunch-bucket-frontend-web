@@ -5,6 +5,7 @@ import strings from '../../common/strings/strings';
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import {getChatData, addAdminReply, setAdminViewStatus} from '../../services/chatService';
 import LiveButton from "../../components/LiveButton";
+import SearchBar from "../../components/SearchBar";
 
 function Chat() {
 
@@ -15,10 +16,7 @@ function Chat() {
     chat_id: '',
     message: '',
   });
-  const [adminViewState, setAdminViewState] = useState(false);
- 
-
-
+  
   async function fetchChats() {
     try {
       const chatList = await getChatData([]);
@@ -28,9 +26,7 @@ function Chat() {
       console.log('Error fetching chat data:', error.message);
     }
   }
-  useEffect(() => {
-    fetchChats();
-  }, []);
+ 
 
   function showSingleChatFunc(chatID)
   {
@@ -65,7 +61,7 @@ function Chat() {
             message: '',
             reply: '',
           }));
-  
+
     } catch (error) {
         console.log('Error:', error);
     }
@@ -82,34 +78,46 @@ function Chat() {
 
   const chatContentRef = useRef(null);
 
-  useEffect(() => {
-    const scrollToBottom = () => {
-      if (chatContentRef.current) {
-        chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
-      }
-    };
+  const scrollToBottom = () => {
+    if (chatContentRef.current) {
+      chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+    }
+  };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleChange(event);
+    }
+  };
+
+  useEffect(() => {
+    fetchChats();
+  }, []);
+
+  useEffect(() => {
     scrollToBottom();
-  }, [chat.messages, showSingleChat]);
+  }, [chat.messages,showSingleChat]);
+
 
 
     return (
       <div className="container">
         <div className="header-title-bar">
           <h1 className="header-title-bar-text">{strings.chat}</h1>
+          <SearchBar/>
         </div>
 
 
         <div className="chat-main-container">
             {chat.map((singleChat, index) => (
               <>
-                <div className="chat-main-container-chat-item" onClick={()=>showSingleChatFunc(singleChat.id)}>Chat ID: {singleChat.id}
+                <div className="chat-main-container-chat-item" onClick={()=>showSingleChatFunc(singleChat.id)}>{singleChat.code} 
                    {singleChat.view_admin_state === true && <LiveButton/>}
                 </div>
                 {(showSingleChat && (singleChat.id === currChat)) &&
                 <div className="single-chat-container">
                    <div style={{display:'flex', justifyContent:'space-between'}}>
-                      <h4 style={{marginLeft:'1rem', color:'grey', borderBottom:'1px solid grey'}}>Customer: {singleChat.customer_id}</h4>
+                      <h4 style={{marginLeft:'1rem'}}>{singleChat.code} | {singleChat.contact}</h4>
                       <button className="chat-popup-close-btn" onClick={()=>setShowSingleChat(false)}>close</button>
                     </div> 
                     <div className="chat-scroll-content" ref={chatContentRef}>
@@ -121,7 +129,8 @@ function Chat() {
                         <input type="text" className="chat-reply-input" 
                         name="reply" 
                         value={adminReply.reply} 
-                        onChange={handleChange} />
+                        onChange={handleChange} 
+                        onKeyPress={handleKeyPress}/>
                         <button className="action-bar-btn chat-reply-send-btn" type="submit">Send Reply</button>
                     </form> 
                 </div>
