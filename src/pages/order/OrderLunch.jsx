@@ -233,8 +233,8 @@ function OrderHome()
                        value={selectedTimeFilter}
                        onChange={handleTimeFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='11.00 AM'>11.00 AM</option>
-                        <option value='12.30 PM'>12.30 PM</option>
+                        <option value='11:30 AM'>11.30 AM</option>
+                        <option value='12:30 PM'>12.30 PM</option>
                         <option value='2.00 PM'>2.00 PM</option>
                     </select>
 
