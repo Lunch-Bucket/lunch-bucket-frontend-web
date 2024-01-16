@@ -86,3 +86,18 @@ export async function getOrdersReport(meal,place,time) {
     }
 
 }
+
+export async function informArrivalController(meal,place) {
+    try {
+
+        const token = localStorage.getItem('lb_auth_token');
+        if (token) {
+        const response = await axios.get(`https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/informArrival/${meal}/${place}`,{headers:{'token':`${token}`}});
+        console.log('arrival message-controller', response.data);
+        return response.data;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+}

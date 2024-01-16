@@ -3,7 +3,7 @@ import "../../common/styles/CommonStyles.css";
 import "./OrderStyles.css";
 import strings from "../../common/strings/strings";
 import SearchBar from "../../components/SearchBar";
-import { getPendingOrderData, getConfirmedOrderData, confirmOrderData , generateReport, generateOrdersPDF} from "../../services/orderService";
+import { getPendingOrderData, getConfirmedOrderData, confirmOrderData , generateReport, generateOrdersPDF, informArrival} from "../../services/orderService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import LoadingIndicator from "../../components/LoadingIndicator";
 
@@ -189,6 +189,12 @@ function OrderHome_Dinner()
     const orderForPDF  = await generateOrdersPDF('Dinner',selectedPlaceFilter,selectedTimeFilter);
     console.log("orderForPDF",orderForPDF) 
   }
+
+  const informArrival_ = async () => {
+    alert("Sending Arrival Notification...")
+    const arrvalNotifi  = await informArrival('Dinner',selectedPlaceFilter);
+    console.log("arrvalNotifi",arrvalNotifi) 
+    }
   
  
     return(
@@ -196,13 +202,13 @@ function OrderHome_Dinner()
             <div className="title-search-content">
                 <div>
                 <h1 className="menu-title-text">{strings.order}</h1> 
+                <button className="get-order-pdf-button inform-arrival"  onClick={()=>{informArrival_()}}>Inform Arrival</button>
                 <button className="get-order-pdf-button"  onClick={()=>{generateOrdersPDF_()}}>Get Orders PDF</button>
+                <button className="get-order-pdf-button generate-report" onClick={()=>{generateReport_()}}>Generate Report</button>
               </div>
               <div>
                 <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{setOrderStatus('pending')}}>Pending Orders</button>
                 <button className="header-item-add-button" style={{backgroundColor:'#84B35A'}} onClick={()=>{setOrderStatus('confirmed')}}>Confirmed Orders</button>
-                <button className="header-item-add-button" style={{backgroundColor:'#FFEF6C'}} onClick={()=>{generateReport_()}}>Generate Report</button>
-                {/* <button className="header-item-add-button" style={{backgroundColor:'#7E0A0A', color:'white'}} onClick={()=>{setOrderStatus('rejected')}}>Rejected Orders</button> */}
               </div>
             </div>
             <hr/>

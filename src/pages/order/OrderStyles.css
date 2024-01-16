@@ -122,8 +122,26 @@
 }
 
 .get-order-pdf-button{
-  background-color: #a53434;
+  background-color: #040f50;
   color: white;
   padding: 0.4rem;
+  border: none;
+  opacity: 0.9;
+}
+
+.inform-arrival{
+  background-color: #bb0202;
+  margin-right: 0.5rem;
+}
+
+.generate-report{
+  background-color: #FFE662;
+  margin-left: 0.5rem;
+  color: black;
+  font-weight:bold;
+}
+
+.get-order-pdf-button:hover{
+  opacity: 1;
 }
 

@@ -1,4 +1,4 @@
-import { getConfirmedOrders, getPendingOrders, confirmOrders , getReport, getOrdersReport} from "../controllers/orderController";
+import { getConfirmedOrders, getPendingOrders, confirmOrders , getReport, getOrdersReport, informArrivalController} from "../controllers/orderController";
 
 export async function getConfirmedOrderData(meal) {
     try {
@@ -51,6 +51,15 @@ export async function generateReport(meal) {
 export async function generateOrdersPDF(meal,place,time) {
     try {
         const result = await getOrdersReport(meal,place,time);
+        return result.data.data;
+    } catch (error) {
+        console.log("error:", error.message);
+    }
+}
+
+export async function informArrival(meal,place) {
+    try {
+        const result = await informArrivalController(meal,place);
         return result.data.data;
     } catch (error) {
         console.log("error:", error.message);
