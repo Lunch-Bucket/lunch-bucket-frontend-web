@@ -71,3 +71,18 @@ export async function getReport(meal) {
     }
 
 }
+
+export async function getOrdersReport(meal,place,time) {
+    try {
+
+        const token = localStorage.getItem('lb_auth_token');
+        if (token) {
+        const response = await axios.get(`${expertUrl}${meal}/${place}/${time}`,{headers:{'token':`${token}`}});
+        console.log('generate orders report', response.data);
+        return response.data;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+}

@@ -2,9 +2,10 @@ import React, {useState, useEffect} from "react";
 import "../../common/styles/CommonStyles.css";
 import "./OrderStyles.css";
 import strings from "../../common/strings/strings";
-import { getPendingOrderData, getConfirmedOrderData, confirmOrderData ,generateReport} from "../../services/orderService";
+import { getPendingOrderData, getConfirmedOrderData, confirmOrderData ,generateReport, generateOrdersPDF} from "../../services/orderService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import { useReactToPrint } from 'react-to-print';
 
 function OrderHome()
 {
@@ -20,7 +21,6 @@ function OrderHome()
     const [selectedPlaceFilter, setSelectedPlaceFilter] = useState('all');
     const [selectedTimeFilter, setSelectedTimeFilter] = useState('all');
 
-    let totalSales = 0;
 
     async function fetchOrderData() {
         try {
@@ -42,7 +42,6 @@ function OrderHome()
             setPendingOrderLoading(false);
             console.log('confirmed order data in order', confirmedOrderList);
             console.log('pending order data in order', pendingOrderList);
-            totalSales = confirmedOrderList.reduce((total, order) => total + order.order_price, 0);
 
         } catch (error) {
             console.log("Error fetching order data:", error.message);
@@ -190,12 +189,21 @@ function OrderHome()
     alert("Please wait a while, Your report is generating")
     const pendingOrderData  = await generateReport('Lunch'); 
   }
+
+  const generateOrdersPDF_ = async () => {
+    alert("Your order pdf is generating...")
+    const orderForPDF  = await generateOrdersPDF('Lunch',selectedPlaceFilter,selectedTimeFilter);
+    console.log("orderForPDF",orderForPDF) 
+  }
   
  
     return(
         <div className="full-container">
             <div className="title-search-content">
-              <h1 className="menu-title-text">{strings.order}</h1> 
+              <div>
+                <h1 className="menu-title-text">{strings.order}</h1> 
+                <button className="get-order-pdf-button"  onClick={()=>{generateOrdersPDF_()}}>Get Orders PDF</button>
+              </div>
               <div>
                 <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{setOrderStatus('pending')}}>Pending Orders</button>
                 <button className="header-item-add-button" style={{backgroundColor:'#84B35A'}} onClick={()=>{setOrderStatus('confirmed')}}>Confirmed Orders</button>
