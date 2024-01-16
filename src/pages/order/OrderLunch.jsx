@@ -16,19 +16,27 @@ function OrderHome()
     const [pendingOrderLoading, setPendingOrderLoading] = useState(true);
     const [confirmOrderLoading, setConfirmOrderLoading] = useState(true);
     const [confirmFuncLoading, setConfirmFuncLoading] = useState(false);
+
+    const [selectedPlaceFilter, setSelectedPlaceFilter] = useState('all');
+    const [selectedTimeFilter, setSelectedTimeFilter] = useState('all');
+
     let totalSales = 0;
 
     async function fetchOrderData() {
         try {
             const confirmedOrderData  = await getConfirmedOrderData('Lunch');
             const pendingOrderData  = await getPendingOrderData('Lunch');
+
+            const filteredConfirmedOrders = filterOrders(confirmedOrderData, selectedTimeFilter, selectedPlaceFilter);
+            const filteredPendingOrders = filterOrders(pendingOrderData, selectedTimeFilter, selectedPlaceFilter);
+
             let pendingOrderData_ =  []
-            for (const element of pendingOrderData) {
+            for (const element of filteredPendingOrders) {
                 console.log(element);
                 element.selected = false
                 pendingOrderData_.push(element)
               }
-            setConfirmedOrderList(confirmedOrderData);
+            setConfirmedOrderList(filteredConfirmedOrders);
             setConfirmOrderLoading(false);
             setPendingOrderList(pendingOrderData_);
             setPendingOrderLoading(false);
@@ -41,9 +49,28 @@ function OrderHome()
         }
     }
 
+    const filterOrders = (orders, timeFilter, placeFilter) => {
+        return orders.filter((order) => {
+          const timeCondition = timeFilter === 'all' || order.delivery_time === timeFilter;
+          const placeCondition = placeFilter === 'all' || order.delivery_place === placeFilter;
+    
+          return timeCondition && placeCondition;
+        });
+      };
+    
+      const handleTimeFilterChange = (event) => {
+        setSelectedTimeFilter(event.target.value);
+      };
+
+      const handlePlaceFilterChange = (event) => {
+        setSelectedPlaceFilter(event.target.value);
+      };
+
+
+
     useEffect(() => {
         fetchOrderData();
-    }, []);
+    }, [selectedTimeFilter,selectedPlaceFilter]);
 
 
     const OrderItemChecked = async (orderId) => {
@@ -188,19 +215,23 @@ function OrderHome()
 
                     <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Time</div>
                     <select style={{marginLeft:'1rem'}}
-                    defaultValue='all'>
+                       id="timeFilter"
+                       value={selectedTimeFilter}
+                       onChange={handleTimeFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='slot_1'>11.30 AM</option>
-                        <option value='slot_2'>12.30 PM</option>
-                        <option value='slot_3'>02.00 AM</option>
+                        <option value='11.00 AM'>11.00 AM</option>
+                        <option value='12.30 PM'>12.30 PM</option>
+                        <option value='2.00 PM'>2.00 PM</option>
                     </select>
 
                     <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Place</div>
                     <select style={{marginLeft:'1rem'}}
-                    defaultValue='all'>
+                    id="placeFilter"
+                    value={selectedPlaceFilter}
+                    onChange={handlePlaceFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='front'>FRONT</option>
-                        <option value='back'>BACK</option>
+                        <option value='Front gate'>FRONT</option>
+                        <option value='Back gate'>BACK</option>
                     </select>
                 </div>
                 <div>
@@ -282,19 +313,23 @@ function OrderHome()
 
                     <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Time</div>
                     <select style={{marginLeft:'1rem'}}
-                    defaultValue='all'>
+                       id="timeFilter"
+                       value={selectedTimeFilter}
+                       onChange={handleTimeFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='slot_1'>11.30 AM</option>
-                        <option value='slot_2'>12.30 PM</option>
-                        <option value='slot_3'>02.00 AM</option>
+                        <option value='11.00 AM'>11.00 AM</option>
+                        <option value='12.30 PM'>12.30 PM</option>
+                        <option value='2.00 PM'>2.00 PM</option>
                     </select>
 
                     <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Place</div>
                     <select style={{marginLeft:'1rem'}}
-                    defaultValue='all'>
+                    id="placeFilter"
+                    value={selectedPlaceFilter}
+                    onChange={handlePlaceFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='front'>FRONT</option>
-                        <option value='back'>BACK</option>
+                        <option value='Front gate'>FRONT</option>
+                        <option value='Back gate'>BACK</option>
                     </select>
                 </div>
             </div>
