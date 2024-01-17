@@ -83,6 +83,7 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
 
   // set meal function
     const handleSetMealLunch = async () => {
+      const buttonElement = document.getElementById('header-item-add-button');
       if((selectedFoodItems['vege'].length + selectedFoodItems['meat'].length + selectedFoodItems['stew'].length) >= 4){
         setApplyMealLoading(true);
         try {
@@ -107,17 +108,21 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
         setApplyMealLoading(false);
         openPopup('success', 'You have successfully added to Lunch Meal');
         fetchFood();
+        buttonElement.blur();
   
         } catch (error) {
             console.log('Error:', error);
             openPopup('error', 'Error Occured! Please retry.')
+            buttonElement.blur();
         }
       }else{
         alert('Please select atleat four food items to proceed!');
+        buttonElement.blur();
       }
     };
 
     const handleSetMealDinner = async () => {
+      const buttonElement = document.getElementById('header-item-add-button');
       if((selectedFoodItems['vege'].length + selectedFoodItems['meat'].length + selectedFoodItems['stew'].length) >= 4){
         setApplyMealLoading(true);
         try {
@@ -141,13 +146,16 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
         setApplyMealLoading(false);
         openPopup('success', 'You have successfully added to Dinner Meal');
         fetchFood();
+        buttonElement.blur();
   
         } catch (error) {
             console.log('Error:', error);
             openPopup('error', 'Error Occured! Please retry.')
+            buttonElement.blur();
         }
       }else{
         alert('Please select atleat four food items to proceed!');
+        buttonElement.blur();
       }
     };
 
@@ -155,6 +163,7 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
 
     // Add Food Item Function
     const handleAddFood = async (event) => {
+      const buttonElement = document.getElementById('header-item-add-button');
       event.preventDefault();
       await new Promise((resolve) => {
         setTimeout(resolve, delayMilliseconds);
@@ -172,9 +181,11 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
           console.log('Response from addFoodItem:', response);
           setShowAddItemModal(false);
           fetchFood();
+          buttonElement.blur();
 
       } catch (error) {
           console.log('Error:', error);
+          buttonElement.blur();
       }
     };
 
@@ -252,10 +263,10 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
               <h1 className="menu-title-text">{strings.menu}</h1>  
               <div>
-                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}}  onClick={handleSetMealLunch}>Apply Lunch Meal</button>
-                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}}  onClick={handleSetMealDinner}>Apply Dinner Meal</button>
-                <button className="header-item-add-button" onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
-                <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button>
+                <button id="header-item-add-button" style={{backgroundColor:'#FFEF9C'}}  onClick={handleSetMealLunch}>Apply Lunch Meal</button>
+                <button id="header-item-add-button" style={{backgroundColor:'#FFEF9C'}}  onClick={handleSetMealDinner}>Apply Dinner Meal</button>
+                <button id="header-item-add-button" style={{backgroundColor:'#FF9B00', border:'none'}}  onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
+                {/* <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button> */}
               </div>
             </div>
             <hr/>

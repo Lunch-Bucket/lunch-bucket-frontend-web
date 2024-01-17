@@ -34,17 +34,17 @@
     background-color: #FFE662;
     border-radius: 8px;
     border-width: 0.1rem;
-    cursor: pointer;
     text-align: center;
     font-size: 14px;
     font-weight: 600;
     color: rgb(34, 32, 32);
     height: 3rem;
     margin-right: 0.4rem;
+    opacity: 0.9;
 }
 
-.header-item-add-button:hover{
-    background-color: #ecd24d;
+.header-item-add-button:hover, #header-item-add-button:hover{
+    opacity: 1;
 }
 
 .header-item-add-button:focus, #header-item-add-button:focus{
@@ -95,6 +95,10 @@
   border-width: 0.25rem;
   border-color:#0c920c ;
 }
+.action-bar-btn-cancel:focus{
+  background-color: #fae8e8;
+}
+
 
 .action-bar-btn:focus {     
     background-color:#FFEF9C;    
