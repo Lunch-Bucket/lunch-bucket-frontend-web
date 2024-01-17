@@ -26,7 +26,9 @@ function OrderHome_Dinner()
         try {
             const confirmedOrderData  = await getConfirmedOrderData('Dinner');
             const pendingOrderData  = await getPendingOrderData('Dinner');
-            const filteredConfirmedOrders = filterOrders(confirmedOrderData, selectedTimeFilter, selectedPlaceFilter);
+            const filteredOrders = confirmedOrderData.filter(order => order.order_status == true);
+
+            const filteredConfirmedOrders = filterOrders(filteredOrders, selectedTimeFilter, selectedPlaceFilter);
             const filteredPendingOrders = filterOrders(pendingOrderData, selectedTimeFilter, selectedPlaceFilter);
 
             let pendingOrderData_ =  []
@@ -124,6 +126,7 @@ function OrderHome_Dinner()
            
         }
         else{
+            setConfirmFuncLoading(true);
             if(checkedOrders.length > 0){
                 try {
                     const payload = {
@@ -133,7 +136,7 @@ function OrderHome_Dinner()
             
                 const response = await confirmOrderData(payload);
                 console.log('rejected orders component', response);
-                //   setLoading(false);
+                setConfirmFuncLoading(false);
                 alert('Marked as Rejected!');
                 setCheckedOrders([]);
                 window.location.reload();
@@ -267,7 +270,7 @@ function OrderHome_Dinner()
                                     </label>  
                                 </td>
 
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FBEDED':'#FFFFF5'}}>
+                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FFB2B2':'#FFFFF5'}}>
                                     <div>
                                         <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>  Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code} </span> 
                                         {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
@@ -338,7 +341,7 @@ function OrderHome_Dinner()
                         <tbody>
                         {confirmedOrderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FBEDED':'#FFFFF5'}}>
+                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FFB2B2':'#FFFFF5'}}>
                                     <div>
                                         <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>  Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code} </span> 
                                         {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
