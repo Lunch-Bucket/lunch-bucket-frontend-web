@@ -198,12 +198,18 @@ hr {
 }
 
 .special-menu-detail-content{
+    text-align: center;
+}
+
+.special-menu-detail-content-sub-category{
+    margin-bottom: 3rem;
+    border-bottom: 1px solid rgb(173, 173, 173);
     width: 100%;
     height: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-}
+ }
 
 .special-menu-card{
     height: auto;
@@ -241,3 +247,9 @@ hr {
     width: auto;
     height: auto;
   }
+
+ #header-item-add-button-add-item{
+    border: none;
+ }
+
+ 

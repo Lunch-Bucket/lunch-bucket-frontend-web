@@ -30,7 +30,20 @@ function SpecialMenuHome() {
     const [loading, setLoading] = useState(true);
     const [applyMealLoading, setApplyMealLoading] = useState(false);
     const [selectedForDelete, setSelectedForDelete] = useState([]);
+
+    const [friedRiceItemList, setFriedRiceItemList] = useState([]);
+    const [biriyaniItemList, setBiriyaniItemList] = useState([]);
+    const [noodleItemList, setNoodleItemList] = useState([]);
+    const [pastaItemList, setPastaItemList] = useState([]);
+    const [saladItemList, setSaladItemList] = useState([]);
+    
     let delayMilliseconds = 4000;
+
+    let friedRiceCategory = []
+    let pastaCategory = []
+    let BiriyaniCategory = []
+    let NoodleCategory = []
+    let saladCategory = []
   
     const openPopup = (type, message) => {
       setPopupType(type);
@@ -43,6 +56,18 @@ function SpecialMenuHome() {
       try {
         const foodDetail = await getSpecialMenu([]);
         setSpecialFoodItem(foodDetail);
+        friedRiceCategory = foodDetail.filter(food => food.category === 'Fried Rice');
+        BiriyaniCategory = foodDetail.filter(food => food.category === 'Biriyani');
+        pastaCategory = foodDetail.filter(food => food.category == 'Pasta');
+        NoodleCategory = foodDetail.filter(food => food.category === 'Noodles');
+        saladCategory = foodDetail.filter(food => food.category === 'Salads');
+
+        setFriedRiceItemList(friedRiceCategory)
+        setBiriyaniItemList(BiriyaniCategory)
+        setNoodleItemList(NoodleCategory)
+        setPastaItemList(pastaCategory)
+        setSaladItemList(saladCategory)
+   
         setLoading(false);
         console.log('special food detail', foodDetail);
       } catch (error) {
@@ -53,6 +78,11 @@ function SpecialMenuHome() {
      useEffect(() => {
          fetchSpecialFood();
      }, []);
+
+     function print(){
+      console.log('pasta',pastaCategory)
+     }
+     
    
   
      const toggleFoodItem = (item_id , item_id_for_delete) => {
@@ -217,8 +247,8 @@ const handleDeleteFood = async () => {
               <div>
                 <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={handleSetSpecialMealLunch}>Apply Lunch Meal</button>
                 <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={handleSetSpecialMealDinner}>Apply Dinner Meal</button>
-                <button className="header-item-add-button" onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
-                <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button>
+                <button className="header-item-add-button" style={{backgroundColor:'#FF9B00', border:'none'}}  onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
+                {/* <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button> */}
               </div>
             </div>
             <hr/>
@@ -227,16 +257,21 @@ const handleDeleteFood = async () => {
                 <span class="close" onClick={()=>{setShowAddItemModal(false)}}>Close</span><br/>
                 <form onSubmit={handleAddSpecialFood}>
                 <div className="add-menu-item-field"> 
-                      <label className="add-menu-item-form-label">Category</label>
-                      <input
-                        type="text"
-                        placeholder="Ex: Fried Rice/ Noodles / Pasta / Kottu"
-                        id="add-menu-item-form-input"
-                        name="category"
-                        value={formData.category}
-                        onChange={handleChange}
-                        required
-                      />
+                <label className="add-menu-item-form-label">Item Category</label>
+                 <select
+                    id="add-menu-item-form-input"
+                    name="category"
+                    defaultValue="Fried Rice"
+                    value={formData.category}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="Fried Rice">Fried Rice</option>
+                    <option value="Noodles">Noodles</option>
+                    <option value="Pasta">Pasta</option>
+                    <option value="Biriyani">Biriyani</option>
+                    <option value="Salads">Salads</option>
+                  </select>
                 </div>
                   <div className="add-menu-item-field"> 
                       <label className="add-menu-item-form-label">Item Name</label>
@@ -315,8 +350,9 @@ const handleDeleteFood = async () => {
               <div>
               {loading ? <LoadingIndicator showText="Loading Special Foods"/> :
             <div className="special-menu-detail-content">
-
-              {specialFoodItem?.map((item,id)=>(
+              <h3>Fried Rice</h3>
+              <div className="special-menu-detail-content-sub-category">
+              {friedRiceItemList.map((item,id)=>(
                 <div className="special-menu-card" key={id}>
                   <div></div>
                   <label class="checkbox-container">
@@ -326,7 +362,6 @@ const handleDeleteFood = async () => {
                       <span className="item-checkbox-checkmark"></span>
                   </label>   
                   <div>
-                     <h3 className="special-menu-card-item-text" style={{textAlign:'center'}}>{item.category}</h3> 
                       <center> 
                         <div className="food-item-img-container" style={{height:'8rem', width:'8rem'}}>
                           <img src={item.url} alt="food item" className="food-item-img"/>
@@ -339,8 +374,112 @@ const handleDeleteFood = async () => {
                   </div>
                 </div>
               ))}  
+              </div>
+              <h3>Biriyani</h3>
+              <div className="special-menu-detail-content-sub-category">
+              {biriyaniItemList.map((item,id)=>(
+                <div className="special-menu-card" key={id}>
+                  <div></div>
+                  <label class="checkbox-container">
+                      <input type="checkbox" className="item-checkbox"  
+                       checked={item.selected}
+                       onChange={() => toggleFoodItem(item.id, item.item_id)}/>
+                      <span className="item-checkbox-checkmark"></span>
+                  </label>   
+                  <div>
+                      <center> 
+                        <div className="food-item-img-container" style={{height:'8rem', width:'8rem'}}>
+                          <img src={item.url} alt="food item" className="food-item-img"/>
+                        </div>
+                      </center>
+                      <h4 className="special-menu-card-item-text" style={{fontSize:'15px', textAlign:'center'}}>{item.type} <br/> <span style={{fontSize:'17px', color:'#591212'}}> Rs. {item.price} </span></h4>
+                      <ul style={{listStyle:'square', fontSize:'13px'}}>
+                         {item.items.map((sub_item,id)=>( <li className="special-menu-card-item-text">{sub_item}</li>))}
+                      </ul>
+                  </div>
+                </div>
+              ))}  
+              </div>
+              <h3>Noodles</h3>
+              <div className="special-menu-detail-content-sub-category">
+              {noodleItemList.map((item,id)=>(
+                <div className="special-menu-card" key={id}>
+                  <div></div>
+                  <label class="checkbox-container">
+                      <input type="checkbox" className="item-checkbox"  
+                       checked={item.selected}
+                       onChange={() => toggleFoodItem(item.id, item.item_id)}/>
+                      <span className="item-checkbox-checkmark"></span>
+                  </label>   
+                  <div>
+                      <center> 
+                        <div className="food-item-img-container" style={{height:'8rem', width:'8rem'}}>
+                          <img src={item.url} alt="food item" className="food-item-img"/>
+                        </div>
+                      </center>
+                      <h4 className="special-menu-card-item-text" style={{fontSize:'15px', textAlign:'center'}}>{item.type} <br/> <span style={{fontSize:'17px', color:'#591212'}}> Rs. {item.price} </span></h4>
+                      <ul style={{listStyle:'square', fontSize:'13px'}}>
+                         {item.items.map((sub_item,id)=>( <li className="special-menu-card-item-text">{sub_item}</li>))}
+                      </ul>
+                  </div>
+                </div>
+              ))}  
+              </div>
+
+              <h3>Pasta</h3>
+              <div className="special-menu-detail-content-sub-category">
+              {pastaItemList?.map((item,id)=>(
+                <div className="special-menu-card" key={id}>
+                  <div></div>
+                  <label class="checkbox-container">
+                      <input type="checkbox" className="item-checkbox"  
+                       checked={item.selected}
+                       onChange={() => toggleFoodItem(item.id, item.item_id)}/>
+                      <span className="item-checkbox-checkmark"></span>
+                  </label>   
+                  <div>
+                      <center> 
+                        <div className="food-item-img-container" style={{height:'8rem', width:'8rem'}}>
+                          <img src={item.url} alt="food item" className="food-item-img"/>
+                        </div>
+                      </center>
+                      <h4 className="special-menu-card-item-text" style={{fontSize:'15px', textAlign:'center'}}>{item.type} <br/> <span style={{fontSize:'17px', color:'#591212'}}> Rs. {item.price} </span></h4>
+                      <ul style={{listStyle:'square', fontSize:'13px'}}>
+                         {item.items.map((sub_item,id)=>( <li className="special-menu-card-item-text">{sub_item}</li>))}
+                      </ul>
+                  </div>
+                </div>
+              ))}  
+              </div>
+
+              <h3>Salads</h3>
+              <div className="special-menu-detail-content-sub-category">
+              {saladItemList.map((item,id)=>(
+                <div className="special-menu-card" key={id}>
+                  <label class="checkbox-container">
+                      <input type="checkbox" className="item-checkbox"  
+                       checked={item.selected}
+                       onChange={() => toggleFoodItem(item.id, item.item_id)}/>
+                      <span className="item-checkbox-checkmark"></span>
+                  </label>   
+                  <div>
+                      <center> 
+                        <div className="food-item-img-container" style={{height:'8rem', width:'8rem'}}>
+                          <img src={item.url} alt="food item" className="food-item-img"/>
+                        </div>
+                      </center>
+                      <h4 className="special-menu-card-item-text" style={{fontSize:'15px', textAlign:'center'}}>{item.type} <br/> <span style={{fontSize:'17px', color:'#591212'}}> Rs. {item.price} </span></h4>
+                      <ul style={{listStyle:'square', fontSize:'13px'}}>
+                         {item.items.map((sub_item,id)=>( <li className="special-menu-card-item-text">{sub_item}</li>))}
+                      </ul>
+                  </div>
+                </div>
+              ))}  
+              </div>
+
            
             </div>}
+            
             {showPopup && (
               <Popup type={popupType} message={popupMessage} onClose={() => setShowPopup(false)} />
             )}
