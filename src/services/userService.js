@@ -3,13 +3,7 @@ import { getUsers, addToThreat, removeFromThreat } from "../controllers/userCont
 export async function getUserData() {
     try {
         const result = await getUsers();
-        // return await result.data.data;
-
-        return await result.data.data.map((item) => ({
-            ...item,
-           level:'neutral'
-        }));
-        
+        return await result.data.data;
     } catch (error) {
         console.log("error:", error.message);
     }

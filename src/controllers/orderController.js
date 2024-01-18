@@ -11,12 +11,9 @@ export const setAuthToken = (token) => {
 
 export async function getConfirmedOrders(meal) {
     try {
-
         const token = localStorage.getItem('lb_auth_token');
         if (token) {
-        // setAuthToken(token);
         const response = await axios.get(`${baseUrl}getOrderByMeal/${meal}`,{headers:{'token':`${token}`}});
-        console.log('orders', response.data);
         return response.data;
         }
     } catch (error) {
@@ -31,9 +28,7 @@ export async function getPendingOrders(meal) {
 
         const token = localStorage.getItem('lb_auth_token');
         if (token) {
-        // setAuthToken(token);
         const response = await axios.get(`${baseUrl}getPendingOrderByMeal/${meal}`,{headers:{'token':`${token}`}});
-        console.log('orders', response.data);
         return response.data;
         }
     } catch (error) {
@@ -49,7 +44,6 @@ export async function getPendingOrders(meal) {
         const response = await axios.post(`${baseUrl}adminConfirm`,
         confirmOrderList,
         {headers: {'token': `${token}`}});
-        console.log('confirm orders in controller', response.data);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -61,9 +55,7 @@ export async function getReport(meal) {
 
         const token = localStorage.getItem('lb_auth_token');
         if (token) {
-        // setAuthToken(token);
         const response = await axios.get(`${expertUrl}${meal}`,{headers:{'token':`${token}`}});
-        console.log('orders', response.data);
         return response.data;
         }
     } catch (error) {
@@ -92,8 +84,7 @@ export async function informArrivalController(meal,place) {
 
         const token = localStorage.getItem('lb_auth_token');
         if (token) {
-        const response = await axios.get(`https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/informArrival/${meal}/${place}`,{headers:{'token':`${token}`}});
-        console.log('arrival message-controller', response.data);
+        const response = await axios.get(`${baseUrl}${meal}/${place}`,{headers:{'token':`${token}`}});
         return response.data;
         }
     } catch (error) {
