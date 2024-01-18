@@ -42,7 +42,7 @@ function SettingHome() {
     const [specialMenuDinner, setSpecialMenuDinner] = useState([]);
     const [riceMenuDinner, setRiceMenuDinner] = useState([]);
 
-    let count = 30;
+    const [navOnline,setNavOnline] = useState(true)
 
 
     async function fetchMenu() {
@@ -76,14 +76,29 @@ function SettingHome() {
           }
         }
         const data = packetCountGet.data || {}; 
+
+        useEffect(() => {
+            if(navigator.onLine){
+                setNavOnline(true);
+            }else{
+                setNavOnline(false);
+            }
+        }, [navigator.onLine]);
+
    
        useEffect(() => {
-           fetchMenu();
+        if(navOnline){
+            fetchMenu();
+        }
        }, []);
 
        useEffect(() => {
+        if(navOnline){
             fetchPacketCount();
+        }
         }, []);
+
+
 
         function handleSettingsCard(value){
             switch(value){
@@ -134,14 +149,15 @@ function SettingHome() {
 
        
 
-    return (
+    return (<>
         <div className="full-container">
+        {navOnline === false && <p style={{ color: 'red', textAlign: 'center' }}>Please Check Your Network Connection</p>}
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
               <h1 className="title-text">{strings.setting}</h1>    
             </div>
             <hr/>
             <div className="setting-container">
-                    <div className="setting-card" onClick={() => handleSettingsCard(1)}>
+                <div className="setting-card" onClick={() => handleSettingsCard(1)}>
                     <div style={{textAlign:'center'}}>
                         <h4>Edit Meal Count</h4><br />
                         <h5>Lunch: {data.packet_limit_lunch} </h5> 
@@ -156,6 +172,7 @@ function SettingHome() {
                     <h4>Notifications</h4>
                 </div>
             </div>
+            
             {showmealCount &&
                 <div className="setting-card-edit-count">
                     <select style={{padding:'0.6rem', fontSize:'17px'}}
@@ -253,7 +270,7 @@ function SettingHome() {
               <Popup type={popupType} message={popupMessage} onClose={() => setShowPopup(false)} />
             )}
             </div>
-
+            </>
 
       
     );

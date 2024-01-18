@@ -17,6 +17,7 @@ function withTokenExpirationCheck(WrappedComponent) {
       const tokenExpiryTime = tokenGeneratedTime + 3550000;
 
       if (currentTime >= tokenExpiryTime) {
+        localStorage.setItem('loginStatus', false);
         window.location.replace(PATHS.login); 
       }
     }, []);

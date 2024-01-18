@@ -23,6 +23,7 @@ function MenuHome() {
      const [applyMealLoading, setApplyMealLoading] = useState(false);
      const [selectedForDelete, setSelectedForDelete] = useState([]);
      let delayMilliseconds = 5000;
+     const [navOnline,setNavOnline] = useState(true)
    
      const openPopup = (type, message) => {
        setPopupType(type);
@@ -58,8 +59,17 @@ function MenuHome() {
       }
     }
 
+    useEffect(() => {
+      if(navigator.onLine){
+          setNavOnline(true);
+      }else{
+          setNavOnline(false);
+      }
+  }, [navigator.onLine]);
+
  
      useEffect(() => {
+      if(navOnline)
          fetchFood();
      }, []);
 
@@ -260,6 +270,7 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
 
     return (
         <div className="full-container">
+           {navOnline === false && <p style={{ color: 'red', textAlign: 'center' }}>Please Check Your Network Connection</p>}
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
               <h1 className="menu-title-text">{strings.menu}</h1>  
               <div>

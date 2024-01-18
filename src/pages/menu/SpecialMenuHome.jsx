@@ -38,6 +38,8 @@ function SpecialMenuHome() {
     const [saladItemList, setSaladItemList] = useState([]);
     
     let delayMilliseconds = 4000;
+    const [navOnline,setNavOnline] = useState(true)
+    
 
     let friedRiceCategory = []
     let pastaCategory = []
@@ -74,8 +76,17 @@ function SpecialMenuHome() {
         console.log('Error fetching menu data:', error.message);
       }
     }
+
+    useEffect(() => {
+      if(navigator.onLine){
+          setNavOnline(true);
+      }else{
+          setNavOnline(false);
+      }
+  }, [navigator.onLine]);
  
      useEffect(() => {
+      if(navOnline)
          fetchSpecialFood();
      }, []);
 
@@ -242,6 +253,7 @@ const handleDeleteFood = async () => {
 
     return (
         <div className="full-container">
+           {navOnline === false && <p style={{ color: 'red', textAlign: 'center' }}>Please Check Your Network Connection</p>}
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
               <h1 className="menu-title-text">{strings.specialMenu}</h1>  
               <div>

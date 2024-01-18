@@ -16,6 +16,9 @@ function Chat() {
     chat_id: '',
     message: '',
   });
+
+  const [navOnline,setNavOnline] = useState(true)
+
   
   async function fetchChats() {
     try {
@@ -91,20 +94,32 @@ function Chat() {
   };
 
   useEffect(() => {
-    fetchChats();
+    if(navigator.onLine){
+        setNavOnline(true);
+    }else{
+        setNavOnline(false);
+    }
+}, [navigator.onLine]);
+
+
+  useEffect(() => {
+    if(navOnline)
+      fetchChats();
   }, []);
 
   useEffect(() => {
-    scrollToBottom();
+    if(navOnline)
+      scrollToBottom();
   }, [chat.messages,showSingleChat]);
 
 
 
     return (
       <div className="container">
+           {navOnline === false && <p style={{ color: 'red', textAlign: 'center' }}>Please Check Your Network Connection</p>}
         <div className="header-title-bar">
           <h1 className="header-title-bar-text">{strings.chat}</h1>
-          <SearchBar/>
+          {/* <SearchBar/> */}
         </div>
 
 

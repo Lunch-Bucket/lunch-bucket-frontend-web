@@ -17,6 +17,8 @@ function User() {
     const [popupMessage, setPopupMessage] = useState('');
     const [selectedUserLevelFilter, setSelectedUserLevelFilter] = useState('all');
 
+    const [navOnline,setNavOnline] = useState(true)
+
     const openPopup = (type, message) => {
         setPopupType(type);
         setPopupMessage(message);
@@ -50,9 +52,18 @@ function User() {
         setSelectedUserLevelFilter(event.target.value);
       };
 
+      
+      useEffect(() => {
+        if(navigator.onLine){
+            setNavOnline(true);
+        }else{
+            setNavOnline(false);
+        }
+    }, [navigator.onLine]);
 
     useEffect(() => {
-        fetchUserData();
+        if(navOnline)
+            fetchUserData();
     }, [selectedUserLevelFilter]);
 
 
@@ -82,6 +93,7 @@ function User() {
 
     return (
         <div className="full-container">
+            {navOnline === false && <p style={{ color: 'red', textAlign: 'center' }}>Please Check Your Network Connection</p>}
             <div className="title-search-content">
               <h1 className="menu-title-text">{strings.user}</h1> 
               <div style={{display:'inline-flex'}}>
@@ -95,7 +107,7 @@ function User() {
                         <option value='false'>Not-Threat </option>
                     </select>
                 </div>
-              <SearchBar/>
+              {/* <SearchBar/> */}
             </div>
             <hr/>
             <div>
