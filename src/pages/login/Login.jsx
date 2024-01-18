@@ -1,16 +1,22 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import './Login.css';
 import '../../common/styles/CommonStyles.css';
 import LoginImg from '../../resources/images/loginVector.png'
 import PATHS from "../../common/paths/paths";
 import axios from 'axios';
 import { projectCode } from "../../controllers/baseUrl";
+import LoadingIndicator from "../../components/LoadingIndicator";
+
 
 export default function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: '', password: '' });
+
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+
 
 
 const handleLogin = async (event) => {
@@ -32,6 +38,7 @@ const handleLogin = async (event) => {
         localStorage.setItem('loginStatus', true);
         const tokenGeneratedTime = Date.now(); 
         localStorage.setItem("tokenGeneratedTime", tokenGeneratedTime.toString());
+        setLoginLoading(false);
         window.location.replace(PATHS.orderLunch); 
       } catch (error) {
         alert("Please check the Username and Password again")
@@ -41,14 +48,37 @@ const handleLogin = async (event) => {
   };
 
   const handleKeyPress = (event) => {
+    setLoginLoading(true);
     if (event.key === 'Enter') {
       handleLogin(event);
     }
   };
 
+  useEffect(() => {
+    if(localStorage.getItem("loginStatus")==='true')
+       setIsLogged(true);
+   }, []);
+
+ function handleLogout(){
+    const tokenGeneratedTime = parseInt(localStorage.getItem("tokenGeneratedTime"), 10);
+
+    const currentTime = Date.now() + 3550000;
+    const tokenExpiryTime = tokenGeneratedTime + 3550000;
+
+    if (currentTime >= tokenExpiryTime) {
+      localStorage.setItem('loginStatus', false);
+      window.location.replace(PATHS.login); 
+    }
+
+  }
+
     return (
         <>
-            <div className="full-container" >
+            {isLogged ? <div className="isLogged-content">
+            <div className="isLogged-content-notifi"> You Are Already Logged In! </div>
+            <button className="isLogged-content-logout-btn" onClick={handleLogout}> Logout </button>
+            </div>:
+            <div className="full-container">
                 <div className="login-form-container">
                     <div className="login-form-container-left">
                 <form onSubmit={handleLogin}>
@@ -78,7 +108,7 @@ const handleLogin = async (event) => {
                             {errors.password && <div className="error-message">{errors.password}</div>}
                         </div>
                         <br />
-                            {/* <button type="submit" className="login-submit-button">Login</button> */}
+                            <button type="submit" className="login-submit-button">Login</button>
                         </div>
                         </form>
                     </div>
@@ -86,7 +116,9 @@ const handleLogin = async (event) => {
                         <img src={LoginImg} alt="login vector" className="login-img" />
                     </div>
                 </div>
-            </div>
+                {loginLoading && <LoadingIndicator/>}
+            </div>}
         </>
     );
 }
+
