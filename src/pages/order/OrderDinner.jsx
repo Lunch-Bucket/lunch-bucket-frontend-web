@@ -6,6 +6,7 @@ import SearchBar from "../../components/SearchBar";
 import { getPendingOrderData, getConfirmedOrderData, confirmOrderData , generateReport, generateOrdersPDF, informArrival} from "../../services/orderService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import Popup from "../../components/Popup";
 
 function OrderHome_Dinner()
 {
@@ -20,7 +21,19 @@ function OrderHome_Dinner()
 
     const [selectedPlaceFilter, setSelectedPlaceFilter] = useState('all');
     const [selectedTimeFilter, setSelectedTimeFilter] = useState('all');
-    let totalSales = 0;
+   
+    const [navOnline,setNavOnline] = useState(true)
+
+    const [showPopup, setShowPopup] = useState(false);
+    const [popupType, setPopupType] = useState('');
+    const [popupMessage, setPopupMessage] = useState('');
+
+    const openPopup = (type, message) => {
+        setPopupType(type);
+        setPopupMessage(message);
+        setShowPopup(true);
+      };
+
 
     async function fetchOrderData() {
         try {
@@ -65,9 +78,18 @@ function OrderHome_Dinner()
         setSelectedPlaceFilter(event.target.value);
       };
 
+      useEffect(() => {
+        if(navigator.onLine){
+            setNavOnline(true);
+        }else{
+            setNavOnline(false);
+        }
+    }, [navigator.onLine]);
+
       
     useEffect(() => {
-        fetchOrderData();
+        if(navOnline)
+            fetchOrderData();
     }, [selectedTimeFilter,selectedPlaceFilter]);
 
     const OrderItemChecked = async (orderId) => {
@@ -101,18 +123,17 @@ function OrderHome_Dinner()
 
       const handleOrderStatus = async (orderStatus) =>{
         if (orderStatus === 'confirm'){
-            setConfirmFuncLoading(true);
             if(checkedOrders.length > 0){
                 try {
                     const payload = {
                       "confirmOrders": checkedOrders,
                       "rejectOrders" : [],
                     };
-            
+                  setConfirmFuncLoading(true);
                   const response = await confirmOrderData(payload);
                   setConfirmFuncLoading(false);
                   console.log('confirm orders component', response);
-                  alert('Marked as Confirmed!');
+                  openPopup('success', 'Mark As Confirmed');
                   setCheckedOrders([]);
                   window.location.reload();
                   } catch (error) {
@@ -121,30 +142,29 @@ function OrderHome_Dinner()
                   }
             }
             else{
-                alert('Please select orders to confirm!');
+                openPopup('error', 'Please select atleast 1 order to Confirm!');
             }
            
         }
         else{
-            setConfirmFuncLoading(true);
             if(checkedOrders.length > 0){
                 try {
                     const payload = {
                     "confirmOrders": [],
                     "rejectOrders" : checkedOrders,
                     };
-            
+                setConfirmFuncLoading(true);
                 const response = await confirmOrderData(payload);
                 console.log('rejected orders component', response);
                 setConfirmFuncLoading(false);
-                alert('Marked as Rejected!');
+                openPopup('error', 'Marked the orders as Rejected!');
                 setCheckedOrders([]);
                 window.location.reload();
                 } catch (error) {
                     console.log('Error:', error);
                 }
             }else{
-                alert('Please select atleat one order to reject!');
+                openPopup('error', 'Please select the order to Reject!');
             }
 
         }
@@ -202,6 +222,7 @@ function OrderHome_Dinner()
  
     return(
         <div className="full-container">
+             {navOnline === false && <p style={{ color: 'red', textAlign: 'center' }}>Please Check Your Network Connection</p>}
             <div className="title-search-content">
                 <div>
                 <h1 className="menu-title-text">{strings.order}</h1> 
@@ -270,9 +291,9 @@ function OrderHome_Dinner()
                                     </label>  
                                 </td>
 
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FFB2B2':'#FFFFF5'}}>
+                                <td className="order-page-data-row-description" key={id}>
                                     <div>
-                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>  Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code} </span> 
+                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>  Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code} </span> 
                                         {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
                                         <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
                                     </div>
@@ -341,9 +362,9 @@ function OrderHome_Dinner()
                         <tbody>
                         {confirmedOrderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
-                                <td className="order-page-data-row-description" key={id} style={{backgroundColor: data.threat === true? '#FFB2B2':'#FFFFF5'}}>
+                                <td className="order-page-data-row-description" key={id}>
                                     <div>
-                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px'}}>  Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code} </span> 
+                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>  Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code} </span> 
                                         {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
                                         <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
                                     </div>
@@ -417,6 +438,9 @@ function OrderHome_Dinner()
                     </table>
                 </div>
                 </>}
+                {showPopup && (
+              <Popup type={popupType} message={popupMessage} onClose={() => setShowPopup(false)} />
+            )}
 
         </div>
     );
