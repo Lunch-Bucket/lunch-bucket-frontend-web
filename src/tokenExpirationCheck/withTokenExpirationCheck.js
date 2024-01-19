@@ -16,10 +16,20 @@ function withTokenExpirationCheck(WrappedComponent) {
       const currentTime = Date.now();
       const tokenExpiryTime = tokenGeneratedTime + 3550000;
 
+      
+      const handleBeforeUnload = () => {
+        localStorage.setItem('loginStatus', false);
+      };
+
+      window.addEventListener("beforeunload", handleBeforeUnload);
+
       if (currentTime >= tokenExpiryTime) {
         localStorage.setItem('loginStatus', false);
         window.location.replace(PATHS.login); 
       }
+    return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
     }, []);
 
     return <WrappedComponent {...props} />;
