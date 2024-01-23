@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./Sidebar.css";
 import {Link, NavLink} from "react-router-dom";
 import PATHS from "../../common/paths/paths";
@@ -6,19 +6,14 @@ import logo from '../../resources/images/LunchBucketLogo.png'
 
 const Sidebar = () => {
 
-    window.addEventListener('beforeunload', () => {
-       isLoggedIn=false;
-      });
-  
-    const isLoggedIn = localStorage.getItem('loginStatus') === 'true';
-    console.log("local storage value for login",isLoggedIn); 
+    const isLoggedIn= localStorage.getItem('loginStatus') === 'true';
     
     return (
         <div className="sidebar-container">
             <div className="sidebar-logo-container">
                 <span className="sidebar-logo">
                     <Link to={PATHS.login}>
-                        <img src={logo} alt="logo" style={{height:'7rem', width:'7rem'}} />
+                        <img src={logo} alt="logo" className="sidebar-logo-img"/>
                     </Link>
                 </span>
             </div>

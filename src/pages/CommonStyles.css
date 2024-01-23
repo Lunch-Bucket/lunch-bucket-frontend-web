@@ -1,4 +1,4 @@
-.container{
+/* .container{
     height: 100%;
     width: 50%;
     margin: 3rem;
@@ -14,7 +14,7 @@
     border-bottom: solid grey .1rem;
 }
 
-.header-title-bar-text{
+/* .header-title-bar-text{
     padding-left: 20px;
 }
 
@@ -34,9 +34,9 @@
     font-weight: 600;
     color: rgb(49, 20, 20);
     margin: .5rem 1rem .5rem 0rem;
-}
+}  */
 
-
+/* 
 .header-add-button-text{
     font-weight: 700;
     font-size: 14px;
@@ -45,7 +45,7 @@
 
 .header-add-button:hover{
     background-color: #fcde48;
-}
+} */
 
 
 /* Form styles */
