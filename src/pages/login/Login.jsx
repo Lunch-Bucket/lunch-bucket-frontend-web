@@ -4,7 +4,7 @@ import '../../common/styles/CommonStyles.css';
 import LoginImg from '../../resources/images/loginVector.png'
 import PATHS from "../../common/paths/paths";
 import axios from 'axios';
-import { projectCode } from "../../controllers/baseUrl";
+import { projectCode, loginUrl } from "../../controllers/baseUrl";
 import LoadingIndicator from "../../components/LoadingIndicator";
 
 
@@ -17,6 +17,7 @@ export default function Login() {
   const [loginLoading, setLoginLoading] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
 
+  const [navOnline,setNavOnline] = useState(true)
 
 
 const handleLogin = async (event) => {
@@ -27,7 +28,7 @@ const handleLogin = async (event) => {
 
     if (Object.keys(newErrors).length === 0) {
       try {
-        const response = await axios.post('https://fw2svr60sl.execute-api.ap-south-1.amazonaws.com/beta/userLogin', {
+        const response = await axios.post(`${loginUrl}userLogin`, {
           email: email,
           password: password,
           project_code: projectCode, 
@@ -41,8 +42,12 @@ const handleLogin = async (event) => {
         setLoginLoading(false);
         window.location.replace(PATHS.orderLunch); 
       } catch (error) {
-        alert("Please check the Username and Password again")
-        console.error('Login Error:', error);
+        if(!navOnline){
+          alert("Please check Your Internet Connection")
+        }else{
+          alert("Please check the Username and Password again")
+          console.error('Login Error:', error);
+        }
       }
     }
   };
@@ -55,9 +60,17 @@ const handleLogin = async (event) => {
   };
 
   useEffect(() => {
-    if(localStorage.getItem("loginStatus")==='true')
+    if(localStorage.getItem('loginStatus')==='true')
        setIsLogged(true);
    }, []);
+
+   useEffect(() => {
+    if(navigator.onLine){
+        setNavOnline(true);
+    }else{
+        setNavOnline(false);
+    }
+}, [navigator.onLine]);
 
  function handleLogout(){
     const tokenGeneratedTime = parseInt(localStorage.getItem("tokenGeneratedTime"), 10);

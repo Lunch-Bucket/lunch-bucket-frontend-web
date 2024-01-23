@@ -1,6 +1,6 @@
 
 .login-form-container{
-    width: 70vw;
+    width: 90%;
     height: 70vh;
     margin-top: 20vh;
     border-radius: 8px;
@@ -73,4 +73,25 @@
     background-color: #640202;
     color: white;
     width: 6rem;
+}
+
+
+@media (max-width: 768px) {
+    .login-form-container{
+        width: 98%;
+    }
+    .login-img{
+        opacity: 0.3;
+    }
+    
+    .login-form-input-field{
+        width: 100%;
+    }
+
+    .login-form-container-left{
+        width: 90%;
+    }
+    .isLogged-content{
+        margin-top: 50%;
+    }
 }
