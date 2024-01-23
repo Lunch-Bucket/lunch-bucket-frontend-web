@@ -115,7 +115,7 @@ function Chat() {
 
 
     return (
-      <div className="container">
+      <div className="full-container">
            {navOnline === false && <p style={{ color: 'red', textAlign: 'center' }}>Please Check Your Network Connection</p>}
         <div className="header-title-bar">
           <h1 className="header-title-bar-text">{strings.chat}</h1>
