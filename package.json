@@ -1,6 +1,6 @@
 {
   "homepage": "lunch-bucket-frontend-web/",
-  "name": "lunch-bucket-frontend-web",
+  "name": "lunch-bucket",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

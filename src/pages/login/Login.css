@@ -81,7 +81,7 @@
         width: 98%;
     }
     .login-img{
-        opacity: 0.3;
+        display: none;
     }
     
     .login-form-input-field{
@@ -93,5 +93,13 @@
     }
     .isLogged-content{
         margin-top: 50%;
+    }
+    .login-form-container-left{
+        background-color: none;
+        background-image: url('../../resources/images/loginVector.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+       background-position-y: center;
+       opacity: 0.8;
     }
 }
