@@ -213,7 +213,7 @@ hr {
 
 .special-menu-card{
     height: auto;
-    width: 28%;
+    width: auto;
     border-radius: 0px 6px 6px 6px;
     background-color: #fcf9e3;
     margin: 1rem;

@@ -230,11 +230,13 @@ function OrderHome()
             <div className="title-search-content">
               <div>
                 <h1 className="menu-title-text">{strings.order}</h1> 
-                <button className="get-order-pdf-button inform-arrival"  onClick={()=>{informArrival_()}}>Inform Arrival</button>
-                <button className="get-order-pdf-button"  onClick={()=>{generateOrdersPDF_()}}>Get Orders PDF</button>
-                <button className="get-order-pdf-button generate-report" onClick={()=>{generateReport_()}}>Generate Report</button>
+                <div className="report-content">
+                    <button className="get-order-pdf-button inform-arrival"  onClick={()=>{informArrival_()}}>Inform Arrival</button>
+                    <button className="get-order-pdf-button"  onClick={()=>{generateOrdersPDF_()}}>Get Orders PDF</button>
+                    <button className="get-order-pdf-button generate-report" onClick={()=>{generateReport_()}}>Generate Report</button>
+                </div>
               </div>
-              <div>
+              <div className="order-button-content">
                 <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{setOrderStatus('pending')}}>Pending Orders</button>
                 <button className="header-item-add-button" style={{backgroundColor:'#84B35A'}} onClick={()=>{setOrderStatus('confirmed')}}>Confirmed Orders</button>
               </div>
@@ -245,32 +247,37 @@ function OrderHome()
             {/* Pending Order List */}
             {orderStatus === 'pending' &&<>
             <div className="action-bar">
-            <div style={{display:'flex'}}>
-                    <div>Total Order Count:</div>
-                    <div style={{marginLeft:'0.1rem'}}>{pendingOrderList.length}</div>
+            <div style={{display:'flex'}} className="filter-action-bar">
+                    <div>Total Order Count:
+                    <span style={{marginLeft:'0.1rem'}}>{pendingOrderList.length}</span>
+                    </div>
 
-                    <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Time</div>
-                    <select style={{marginLeft:'1rem'}}
-                       id="timeFilter"
-                       value={selectedTimeFilter}
-                       onChange={handleTimeFilterChange}>
-                        <option value='all'>ALL</option>
-                        <option value='11:30 AM'>11.30 AM</option>
-                        <option value='12:30 PM'>12.30 PM</option>
-                        <option value='2.00 PM'>2.00 PM</option>
-                    </select>
+                    <div className="filter-by">
+                        <div style={{paddingLeft:'1rem'}}>Filter By Time</div>
+                        <select style={{marginLeft:'1rem'}}
+                        id="timeFilter"
+                        value={selectedTimeFilter}
+                        onChange={handleTimeFilterChange}>
+                            <option value='all'>ALL</option>
+                            <option value='11:30 AM'>11:30 AM</option>
+                            <option value='12:30 PM'>12:30 PM</option>
+                            <option value='2.00 PM'>2:00 PM</option>
+                        </select>
+                    </div>
 
-                    <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Place</div>
-                    <select style={{marginLeft:'1rem'}}
-                    id="placeFilter"
-                    value={selectedPlaceFilter}
-                    onChange={handlePlaceFilterChange}>
-                        <option value='all'>ALL</option>
-                        <option value='Front gate'>FRONT</option>
-                        <option value='Back gate'>BACK</option>
-                    </select>
+                    <div className="filter-by">
+                        <div style={{paddingLeft:'1rem'}}>Filter By Place</div>
+                        <select style={{marginLeft:'1rem'}}
+                        id="placeFilter"
+                        value={selectedPlaceFilter}
+                        onChange={handlePlaceFilterChange}>
+                            <option value='all'>ALL</option>
+                            <option value='Front gate'>FRONT</option>
+                            <option value='Back gate'>BACK</option>
+                        </select>
+                    </div>
                 </div>
-                <div>
+                <div className="action-bar-btn-content">
                     <button style={{marginRight:'0.3rem', backgroundColor:'transparent', border:'none'}}  onClick={handleSelectAll}>
                         {selectAll ? "Deselect All" : "Select All"}
                     </button>
@@ -343,22 +350,25 @@ function OrderHome()
             {/* Confirmed Order List */}
             {orderStatus === 'confirmed' &&<>
             <div className="action-bar">
-            <div style={{display:'flex'}}>
-                    <div>Total Confirmed Order Count:</div>
-                    <div style={{marginLeft:'0.1rem'}}>{confirmedOrderList.length}</div>
+            <div style={{display:'flex'}} className="filter-action-bar">
+            <div>Total Order Count:
+                <span style={{marginLeft:'0.1rem'}}>{confirmedOrderList.length}</span>
+            </div>
 
-                    <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Time</div>
+                    <div className="filter-by">
+                    <div style={{paddingLeft:'1rem'}}>Filter By Time</div>
                     <select style={{marginLeft:'1rem'}}
                        id="timeFilter"
                        value={selectedTimeFilter}
                        onChange={handleTimeFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='11.00 AM'>11.00 AM</option>
-                        <option value='12.30 PM'>12.30 PM</option>
-                        <option value='2.00 PM'>2.00 PM</option>
+                        <option value='11.00 AM'>11:00 AM</option>
+                        <option value='12.30 PM'>12:30 PM</option>
+                        <option value='2.00 PM'>2:00 PM</option>
                     </select>
-
-                    <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Place</div>
+                    </div>
+                    <div className="filter-by">
+                    <div style={{paddingLeft:'1rem'}}>Filter By Place</div>
                     <select style={{marginLeft:'1rem'}}
                     id="placeFilter"
                     value={selectedPlaceFilter}
@@ -367,6 +377,7 @@ function OrderHome()
                         <option value='Front gate'>FRONT</option>
                         <option value='Back gate'>BACK</option>
                     </select>
+                    </div>
                 </div>
             </div>
             <hr/> 
@@ -376,7 +387,7 @@ function OrderHome()
                         {confirmedOrderList.map((data, id) => (<>
                             <tr className="order-page-table-row" key={id}>
                                 <td className="order-page-data-row-description" key={id}>  
-                                        <div>
+                                        <div className="order-page-data-row-mobile-res">
                                             <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>  Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code} </span> 
                                             {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
                                             <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>

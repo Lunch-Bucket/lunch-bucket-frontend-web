@@ -127,16 +127,15 @@
   padding: 0.4rem;
   border: none;
   opacity: 0.9;
+  margin: 0.2rem;
 }
 
 .inform-arrival{
   background-color: #bb0202;
-  margin-right: 0.5rem;
 }
 
 .generate-report{
   background-color: #FFE662;
-  margin-left: 0.5rem;
   color: black;
   font-weight:bold;
 }
@@ -145,3 +144,42 @@
   opacity: 1;
 }
 
+.filter-by{
+  display: flex;
+  font-weight:'bold';
+}
+
+
+@media (max-width: 768px) {
+  .report-content, .action-bar-btn-content{
+    margin: 1rem;
+
+  }
+  .filter-action-bar{
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .filter-by{
+    display: flex;
+    justify-content: flex-start;
+    margin:0.5rem;
+  }
+
+  .get-order-pdf-button{
+    padding: 0.2rem;
+  }
+
+  .order-button-content{
+    padding: 0.1rem;
+  }
+
+  .order-page-data-row-mobile-res{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .order-page-data-row-description{
+    margin-left: 1rem;
+  }
+}

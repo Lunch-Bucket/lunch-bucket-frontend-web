@@ -225,12 +225,14 @@ function OrderHome_Dinner()
              {navOnline === false && <p style={{ color: 'red', textAlign: 'center' }}>Please Check Your Network Connection</p>}
             <div className="title-search-content">
                 <div>
-                <h1 className="menu-title-text">{strings.order}</h1> 
-                <button className="get-order-pdf-button inform-arrival"  onClick={()=>{informArrival_()}}>Inform Arrival</button>
-                <button className="get-order-pdf-button"  onClick={()=>{generateOrdersPDF_()}}>Get Orders PDF</button>
-                <button className="get-order-pdf-button generate-report" onClick={()=>{generateReport_()}}>Generate Report</button>
+                <h1 className="menu-title-text">{strings.order}</h1>  
+                <div className="report-content">
+                    <button className="get-order-pdf-button inform-arrival"  onClick={()=>{informArrival_()}}>Inform Arrival</button>
+                    <button className="get-order-pdf-button"  onClick={()=>{generateOrdersPDF_()}}>Get Orders PDF</button>
+                    <button className="get-order-pdf-button generate-report" onClick={()=>{generateReport_()}}>Generate Report</button>
+                </div>
               </div>
-              <div>
+              <div className="order-button-content">
                 <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{setOrderStatus('pending')}}>Pending Orders</button>
                 <button className="header-item-add-button" style={{backgroundColor:'#84B35A'}} onClick={()=>{setOrderStatus('confirmed')}}>Confirmed Orders</button>
               </div>
@@ -240,21 +242,24 @@ function OrderHome_Dinner()
              {/* Pending Order List */}
              {orderStatus === 'pending' &&<>
             <div className="action-bar">
-                <div style={{display:'flex'}}>
-                    <div>Total Order Count:</div>
-                    <div style={{marginLeft:'0.1rem'}}>{pendingOrderList.length}</div>
+                <div style={{display:'flex'}} className="filter-action-bar">
+                    <div>Total Order Count:
+                    <span style={{marginLeft:'0.1rem'}}>{pendingOrderList.length}</span>
+                </div>
 
-                    <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Time</div>
+                <div className="filter-by">
+                    <div style={{paddingLeft:'1rem'}}>Filter By Time</div>
                     <select style={{marginLeft:'1rem'}}
                     id="timeFilter"
                     value={selectedTimeFilter}
                     onChange={handleTimeFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='7:00 PM'>07.00 PM</option>
-                        <option value='8:00 PM'>08.00 PM</option>
+                        <option value='7:30 PM'>07:30 PM</option>
+                        <option value='8:30 PM'>08:30 PM</option>
                     </select>
-
-                    <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Place</div>
+                </div>
+                <div className="filter-by">
+                <div style={{paddingLeft:'1rem'}}>Filter By Place</div>
                     <select style={{marginLeft:'1rem'}}
                     id="placeFilter"
                     value={selectedPlaceFilter}
@@ -264,7 +269,8 @@ function OrderHome_Dinner()
                         <option value='Back gate'>BACK</option>
                     </select>
                 </div>
-                <div>
+                </div>
+                <div className="action-bar-btn-content">
                     <button style={{marginRight:'0.3rem', backgroundColor:'transparent', border:'none'}}  onClick={handleSelectAll}>
                         {selectAll ? "Deselect All" : "Select All"}
                     </button>
@@ -331,22 +337,22 @@ function OrderHome_Dinner()
                 
              {/* Confirmed Order List */}
              {orderStatus === 'confirmed' &&<>
-            <div className="action-bar">
-            <div style={{display:'flex'}}>
-                    <div>Total Confirmed Order Count:</div>
-                    <div style={{marginLeft:'0.1rem'}}>{confirmedOrderList.length}</div>
+             <div className="action-bar">
+            <div style={{display:'flex'}} className="filter-action-bar">
+                    <div>Total Confirmed Order Count:
+                    <span style={{marginLeft:'0.1rem'}}>{confirmedOrderList.length}</span></div>
 
-                    <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Time</div>
+                    <div style={{paddingLeft:'1rem'}}>Filter By Time</div>
                     <select style={{marginLeft:'1rem'}}
                     id="timeFilter"
                     value={selectedTimeFilter}
                     onChange={handleTimeFilterChange}>
                             <option value='all'>ALL</option>
-                        <option value='7:00 PM'>07.00 AM</option>
-                        <option value='8:00 PM'>08.00 PM</option>
+                        <option value='7:00 PM'>07:00 AM</option>
+                        <option value='8:00 PM'>08:00 PM</option>
                     </select>
 
-                    <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By Place</div>
+                    <div style={{paddingLeft:'1rem'}}>Filter By Place</div>
                     <select style={{marginLeft:'1rem'}}
                     defaultValue='all'>
                         <option value='all'>ALL</option>
