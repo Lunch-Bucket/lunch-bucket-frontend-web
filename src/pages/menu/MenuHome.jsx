@@ -22,8 +22,9 @@ function MenuHome() {
      const [loading, setLoading] = useState(true);
      const [applyMealLoading, setApplyMealLoading] = useState(false);
      const [selectedForDelete, setSelectedForDelete] = useState([]);
-     let delayMilliseconds = 5000;
      const [navOnline,setNavOnline] = useState(true)
+     const [showProgress, setShowProgress] = useState(false);
+     const [progress, setProgress] = useState(0);
    
      const openPopup = (type, message) => {
        setPopupType(type);
@@ -174,11 +175,7 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
     // Add Food Item Function
     const handleAddFood = async (event) => {
       const buttonElement = document.getElementById('header-item-add-button');
-      event.preventDefault();
-      await new Promise((resolve) => {
-        setTimeout(resolve, delayMilliseconds);
-      });
-      
+      event.preventDefault(); 
       try {
         if (formData.imageFile) {
           const imageUrl = await uploadImage(formData.imageFile);
@@ -190,6 +187,7 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
           const response = await addFoodItem(formData); 
           console.log('Response from addFoodItem:', response);
           setShowAddItemModal(false);
+          setShowProgress(false);
           fetchFood();
           buttonElement.blur();
 
@@ -202,8 +200,8 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
     const handleImageUpload = async (event) => {
       const file = event.target.files[0];
       if (file) {
-        alert("please wait for uploading image")
         try {
+          setShowProgress(true);
           const imageUrl = await uploadImage(file);
           setFormData((prevData) => ({
             ...prevData,
@@ -223,10 +221,15 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
         const imageName = `image_${timestamp}`;
         const storageRef = ref(storage, `images/${imageName}`);
         const uploadTask = uploadBytesResumable(storageRef, imageFile);
-
+        uploadTask.on('state_changed', (snapshot) => {
+          const newProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 50;
+          setProgress(newProgress);
+          setProgress(newProgress+50);
+          console.log(`Upload is ${progress}% done`);
+        });
+    
         const snapshot = await uploadTask;
         const downloadURL = await getDownloadURL(snapshot.ref);
-        alert("Image was uploaded.Now you can add the food")
         return downloadURL;
       } catch (error) {
         console.error('Error uploading image:', error);
@@ -368,6 +371,11 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
                         required
                       />
                     </div>
+                    {showProgress &&<div>
+                    <progress value={progress} max={100}></progress>
+                      <div>{Math.round(progress)}% done</div>
+                    </div>}
+
                       <br />
                       <button className="header-item-add-button" type="submit" style={{ float: 'right' }}>
                         Add Food Item

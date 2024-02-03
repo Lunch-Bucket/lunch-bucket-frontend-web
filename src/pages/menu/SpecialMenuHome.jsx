@@ -22,7 +22,7 @@ function SpecialMenuHome() {
       items: [],
       price:100,
       url:null,
-      vegetarian:''
+      vegetarian: true,
     });
     const [showPopup, setShowPopup] = useState(false);
     const [popupType, setPopupType] = useState('');
@@ -36,8 +36,13 @@ function SpecialMenuHome() {
     const [noodleItemList, setNoodleItemList] = useState([]);
     const [pastaItemList, setPastaItemList] = useState([]);
     const [saladItemList, setSaladItemList] = useState([]);
+    const [veganItemList, setVeganItemList] = useState([]);
+
+    const categoryList = (['Fried Rice','Noodles','Pasta','Biriyani','Vegetarian'])
     
-    let delayMilliseconds = 4000;
+    const [showProgress, setShowProgress] = useState(false);
+    const [progress, setProgress] = useState(0);
+
     const [navOnline,setNavOnline] = useState(true)
     
 
@@ -46,6 +51,7 @@ function SpecialMenuHome() {
     let BiriyaniCategory = []
     let NoodleCategory = []
     let saladCategory = []
+    let veganCategory = []
   
     const openPopup = (type, message) => {
       setPopupType(type);
@@ -63,12 +69,14 @@ function SpecialMenuHome() {
         pastaCategory = foodDetail.filter(food => food.category == 'Pasta');
         NoodleCategory = foodDetail.filter(food => food.category === 'Noodles');
         saladCategory = foodDetail.filter(food => food.category === 'Salads');
+        veganCategory = foodDetail.filter(food => food.vegetarian === true);
 
         setFriedRiceItemList(friedRiceCategory)
         setBiriyaniItemList(BiriyaniCategory)
         setNoodleItemList(NoodleCategory)
         setPastaItemList(pastaCategory)
         setSaladItemList(saladCategory)
+        setVeganItemList(veganCategory)
    
         setLoading(false);
         console.log('special food detail', foodDetail);
@@ -90,11 +98,7 @@ function SpecialMenuHome() {
          fetchSpecialFood();
      }, []);
 
-     function print(){
-      console.log('pasta',pastaCategory)
-     }
-     
-   
+
   
      const toggleFoodItem = (item_id , item_id_for_delete) => {
       const selectedIndex = selectedFoodItems.indexOf(item_id);  
@@ -154,10 +158,6 @@ const handleSetSpecialMealDinner = async () => {
 // Add Special Food Function
 const handleAddSpecialFood = async (event) => {
   event.preventDefault();
-
-  await new Promise((resolve) => {
-    setTimeout(resolve, delayMilliseconds);
-  });
   
   try {
     if (formData.imageFile) {
@@ -169,6 +169,7 @@ const handleAddSpecialFood = async (event) => {
     }
       const response = await addSpecialFoodItem(formData); 
       console.log('Response from addSpecialFoodItem:', response);
+      setShowProgress(false);
       setShowAddItemModal(false);
       fetchSpecialFood();
 
@@ -181,6 +182,7 @@ const handleImageUpload = async (event) => {
   const file = event.target.files[0];
   if (file) {
     try {
+      setShowProgress(true);
       const imageUrl = await uploadImage(file);
       setFormData((prevData) => ({
         ...prevData,
@@ -200,15 +202,15 @@ const uploadImage = async (imageFile) => {
     const imageName = `image_${timestamp}`;
     const storageRef = ref(storage, `images/${imageName}`);
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
-
     uploadTask.on('state_changed', (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      const newProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 50;
+      setProgress(newProgress);
+      setProgress(newProgress+50);
       console.log(`Upload is ${progress}% done`);
     });
 
     const snapshot = await uploadTask;
     const downloadURL = await getDownloadURL(snapshot.ref);
-
     return downloadURL;
   } catch (error) {
     console.error('Error uploading image:', error);
@@ -278,11 +280,13 @@ const handleDeleteFood = async () => {
                     onChange={handleChange}
                     required
                   >
-                    <option value="Fried Rice">Fried Rice</option>
-                    <option value="Noodles">Noodles</option>
+                    {categoryList.map((item,id)=>(
+                      <option key={id} value={item}>{item}</option>
+                    ))}
+                    {/* <option value="Noodles">Noodles</option>
                     <option value="Pasta">Pasta</option>
                     <option value="Biriyani">Biriyani</option>
-                    <option value="Salads">Salads</option>
+                    <option value="Salads">Salads</option> */}
                   </select>
                 </div>
                   <div className="add-menu-item-field"> 
@@ -321,16 +325,17 @@ const handleDeleteFood = async () => {
                       />
                     </div>
                     <div className="add-menu-item-field">
-                        <label className="add-menu-item-form-label">Vege or Non-vege</label>
+                      <label className="add-menu-item-form-label">Vege or Non-vege</label>
                         <select
                           id="add-menu-item-form-input"
                           name="vegetarian"
                           style={{ width: '10rem' }}
+                          defaultValue={true}
                           value={formData.vegetarian}
                           onChange={handleChange}
                         >
-                          <option value="true">Vege Item</option>
-                          <option value="false">Non-Vege Item</option>
+                          <option value={true}>Vege Item</option>
+                          <option value={false}>Non-Vege Item</option>
                         </select>
                     </div>
                     <div className="add-menu-item-field"> 
@@ -342,7 +347,10 @@ const handleDeleteFood = async () => {
                           required
                       />
                     </div>
-                    
+                    {showProgress &&<div>
+                    <progress value={progress} max={100}></progress>
+                      <div>{Math.round(progress)}% done</div>
+                    </div>}
                       <br />
                       <button className="header-item-add-button" type="submit" style={{ float: 'right' }}>
                         Add Item
@@ -464,9 +472,9 @@ const handleDeleteFood = async () => {
               ))}  
               </div>
 
-              <h3>Salads</h3>
+              <h3>Pure Vegan</h3>
               <div className="special-menu-detail-content-sub-category">
-              {saladItemList.map((item,id)=>(
+              {veganItemList.map((item,id)=>(
                 <div className="special-menu-card" key={id}>
                   <label class="checkbox-container">
                       <input type="checkbox" className="item-checkbox"  

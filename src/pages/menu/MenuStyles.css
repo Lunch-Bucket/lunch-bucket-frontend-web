@@ -217,6 +217,7 @@ hr {
     border-radius: 0px 6px 6px 6px;
     background-color: #fcf9e3;
     margin: 1rem;
+    padding: 1.2rem;
     border: none;
     display: flex;
     flex-direction: column;
