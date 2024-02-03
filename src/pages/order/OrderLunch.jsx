@@ -23,6 +23,14 @@ function OrderHome()
 
     const [navOnline,setNavOnline] = useState(true)
 
+    const lunchTime_1 = '11:00 AM';
+    const lunchTime_2 = '12:30 PM';
+    const lunchTime_3 = '2:00 PM';
+
+    const place_1 = 'Front gate';
+    const place_2 = 'Back gate';
+
+
     const [showPopup, setShowPopup] = useState(false);
     const [popupType, setPopupType] = useState('');
     const [popupMessage, setPopupMessage] = useState('');
@@ -259,9 +267,9 @@ function OrderHome()
                         value={selectedTimeFilter}
                         onChange={handleTimeFilterChange}>
                             <option value='all'>ALL</option>
-                            <option value='11:30 AM'>11:30 AM</option>
-                            <option value='12:30 PM'>12:30 PM</option>
-                            <option value='2.00 PM'>2:00 PM</option>
+                            <option value={lunchTime_1}>{lunchTime_1}</option>
+                            <option value={lunchTime_2}>{lunchTime_2}</option>
+                            <option value={lunchTime_3}>{lunchTime_3}</option>
                         </select>
                     </div>
 
@@ -272,8 +280,8 @@ function OrderHome()
                         value={selectedPlaceFilter}
                         onChange={handlePlaceFilterChange}>
                             <option value='all'>ALL</option>
-                            <option value='Front gate'>FRONT</option>
-                            <option value='Back gate'>BACK</option>
+                            <option value={place_1}>{place_1}</option>
+                            <option value={place_2}>{place_2}</option>
                         </select>
                     </div>
                 </div>
@@ -362,9 +370,9 @@ function OrderHome()
                        value={selectedTimeFilter}
                        onChange={handleTimeFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='11.00 AM'>11:00 AM</option>
-                        <option value='12.30 PM'>12:30 PM</option>
-                        <option value='2.00 PM'>2:00 PM</option>
+                        <option value={lunchTime_1}>{lunchTime_1}</option>
+                        <option value={lunchTime_2}>{lunchTime_2}</option>
+                        <option value={lunchTime_3}>{lunchTime_3}</option>
                     </select>
                     </div>
                     <div className="filter-by">
@@ -374,8 +382,8 @@ function OrderHome()
                     value={selectedPlaceFilter}
                     onChange={handlePlaceFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='Front gate'>FRONT</option>
-                        <option value='Back gate'>BACK</option>
+                        <option value={place_1}>{place_1}</option>
+                        <option value={place_2}>{place_2}</option>
                     </select>
                     </div>
                 </div>

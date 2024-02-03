@@ -24,6 +24,12 @@ function OrderHome_Dinner()
    
     const [navOnline,setNavOnline] = useState(true)
 
+    const dinnerTime_1 = '7:30 PM';
+    const dinnerTime_2 = '8:30 PM';
+
+    const place_1 = 'Front gate';
+    const place_2 = 'Back gate';
+
     const [showPopup, setShowPopup] = useState(false);
     const [popupType, setPopupType] = useState('');
     const [popupMessage, setPopupMessage] = useState('');
@@ -254,8 +260,8 @@ function OrderHome_Dinner()
                     value={selectedTimeFilter}
                     onChange={handleTimeFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='7:30 PM'>07:30 PM</option>
-                        <option value='8:30 PM'>08:30 PM</option>
+                        <option value={dinnerTime_1}>{dinnerTime_1}</option>
+                        <option value={dinnerTime_2}>{dinnerTime_2}</option>
                     </select>
                 </div>
                 <div className="filter-by">
@@ -265,8 +271,8 @@ function OrderHome_Dinner()
                     value={selectedPlaceFilter}
                     onChange={handlePlaceFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value='Front gate'>FRONT</option>
-                        <option value='Back gate'>BACK</option>
+                        <option value={place_1}>{place_1}</option>
+                        <option value={place_2}>{place_2}</option>
                     </select>
                 </div>
                 </div>
@@ -348,16 +354,16 @@ function OrderHome_Dinner()
                     value={selectedTimeFilter}
                     onChange={handleTimeFilterChange}>
                             <option value='all'>ALL</option>
-                        <option value='7:00 PM'>07:00 AM</option>
-                        <option value='8:00 PM'>08:00 PM</option>
+                        <option value={dinnerTime_1}>{dinnerTime_1}</option>
+                        <option value={dinnerTime_2}>{dinnerTime_2}</option>
                     </select>
 
                     <div style={{paddingLeft:'1rem'}}>Filter By Place</div>
                     <select style={{marginLeft:'1rem'}}
                     defaultValue='all'>
                         <option value='all'>ALL</option>
-                        <option value='front'>FRONT</option>
-                        <option value='back'>BACK</option>
+                        <option value={place_1}>{place_1}</option>
+                        <option value={place_2}>{place_2}</option>
                     </select>
                 </div>
             </div>
