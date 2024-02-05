@@ -52,6 +52,12 @@ function Chat() {
   // Add Admin Reply Function
   const handleAddReply = async (event) => {
     event.preventDefault();
+    
+    if (adminReply.message.trim() === '') {
+      console.log('Empty message. Cannot proceed.');
+      return;
+    }
+  
 
     try {
       const response = await addAdminReply(adminReply);
