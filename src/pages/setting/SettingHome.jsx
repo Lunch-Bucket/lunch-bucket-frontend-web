@@ -13,7 +13,8 @@ function SettingHome() {
     const [showmealCount, setShowMealCount] = useState(false)
     const [showMenu, setShowMenu] = useState(false)
     const [showDashboard, setShowDashboard] = useState(false)
-    const [mealType, setMealType] = useState('lunch');
+    const [mealTime, setMealTime] = useState('lunch');
+    const [mealType, setMealType] = useState('normal');
     const [mealCount, setMealCount] = useState('');
     const [packetCountGet, setPacketCountGet] = useState({});
 
@@ -26,6 +27,12 @@ function SettingHome() {
         setPopupMessage(message);
         setShowPopup(true);
       };
+
+      const [formData, setFormData] = useState({
+        meal_type: '',
+        order_type: '',
+        id: '',
+      });
     
 
     // Lunch
@@ -67,14 +74,14 @@ function SettingHome() {
         }
       }
 
-      async function fetchPacketCount() {
-        try {
-            const packetCountDetail = await getMealCount({});
-            setPacketCountGet(packetCountDetail)
-        } catch (error) {
-            console.log('Error fetching packet count data:', error.message);
-          }
-        }
+    //   const fetchPacketCount = async () => {
+    //     try {
+    //         const packetCountDetail = await getMealCount(meal_type, order_type, id);
+    //         setPacketCountGet(packetCountDetail)
+    //     } catch (error) {
+    //         console.log('Error fetching packet count data:', error.message);
+    //       }
+    //     }
         const data = packetCountGet.data || {}; 
 
         useEffect(() => {
@@ -92,11 +99,11 @@ function SettingHome() {
         }
        }, []);
 
-       useEffect(() => {
-        if(navOnline){
-            fetchPacketCount();
-        }
-        }, []);
+    //    useEffect(() => {
+    //     if(navOnline){
+    //         fetchPacketCount();
+    //     }
+    //     }, []);
 
 
 
@@ -137,16 +144,17 @@ function SettingHome() {
                 console.error('Invalid meal count');
                 return;
               }
-              const response = await updateMealCount(mealType, count);
+              const response = await updateMealCount(mealTime, mealType, count);
               console.log('Meal count updated successfully', response);
               openPopup('success', 'You have successfully updated the Packet Limit ');
-              fetchPacketCount();
+            //   fetchPacketCount();
               setShowMealCount(false);
             } catch (error) {
               console.error('Error updating meal count:', error);
             }
           };
 
+    
        
 
     return (<>
@@ -160,8 +168,8 @@ function SettingHome() {
                 <div className="setting-card" onClick={() => handleSettingsCard(1)}>
                     <div style={{textAlign:'center'}}>
                         <h4>Edit Meal Count</h4><br />
-                        <h5>Lunch: {data.packet_limit_lunch} </h5> 
-                        <h5>Dinner: {data.packet_limit_dinner}</h5>
+                        {/* <h5>Lunch: {data.packet_limit_lunch} </h5> 
+                        <h5>Dinner: {data.packet_limit_dinner}</h5> */}
                         </div>
                     </div>
 
@@ -177,10 +185,18 @@ function SettingHome() {
                 <div className="setting-card-edit-count">
                     <select style={{padding:'0.6rem', fontSize:'17px'}}
                      value={mealType}
-                     onChange={(e) => setMealType(e.target.value)}
+                     onChange={(e) => setMealTime(e.target.value)}
                      defaultValue='lunch'>
                         <option value="lunch">Lunch</option>
                         <option value="dinner">Dinner</option>
+                    </select><br/>
+                    <select style={{padding:'0.6rem', fontSize:'17px'}}
+                     value={mealType}
+                     onChange={(e) => setMealType(e.target.value)}
+                     defaultValue='normal'>
+                        <option value="normal">Choice</option>
+                        <option value="special">Special</option>
+                        <option value="simplesuper">Simple & Super</option>
                     </select><br/>
                     <input type="number" className="setting-card-input-count"
                     value={mealCount}
