@@ -259,9 +259,9 @@ const handleDeleteFood = async () => {
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
               <h1 className="menu-title-text">{strings.specialMenu}</h1>  
               <div>
-                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={handleSetSpecialMealLunch}>Apply Lunch Meal</button>
-                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={handleSetSpecialMealDinner}>Apply Dinner Meal</button>
-                <button className="header-item-add-button" style={{backgroundColor:'#FF9B00', border:'none'}}  onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
+                <button className="header-item-add-button"  onClick={handleSetSpecialMealLunch}>Apply Lunch Meal</button>
+                <button className="header-item-add-button"  onClick={handleSetSpecialMealDinner}>Apply Dinner Meal</button>
+                <button className="header-item-add-button" style={{border: '2px solid var(--cancel-color)', backgroundColor:'transparent'}}  onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
                 {/* <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button> */}
               </div>
             </div>

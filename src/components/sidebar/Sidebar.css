@@ -1,3 +1,6 @@
+@import '../../common/styles/Colors.css';
+
+
 .sidebar-container::-webkit-scrollbar{
     display: none;
   }
@@ -67,10 +70,10 @@
 }
 
 .active{
-    background-color: #F0BB59;
-    color: #685904;
+    background-color: var(--button-color);
+    color: var(--black-color);
     border-radius: 10px;
-    box-shadow: 6px 7px 10px -6px rgb(255, 192, 20);
+    box-shadow: 6px 7px 10px -6px var(--button-color);
 }
 
 

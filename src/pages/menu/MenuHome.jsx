@@ -277,9 +277,9 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
               <h1 className="menu-title-text">{strings.menu}</h1>  
               <div>
-                <button id="header-item-add-button" style={{backgroundColor:'#FFEF9C'}}  onClick={handleSetMealLunch}>Apply Lunch Meal</button>
-                <button id="header-item-add-button" style={{backgroundColor:'#FFEF9C'}}  onClick={handleSetMealDinner}>Apply Dinner Meal</button>
-                <button id="header-item-add-button" style={{backgroundColor:'#FF9B00', border:'none'}}  onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
+                <button id="header-item-add-button"  onClick={handleSetMealLunch}>Apply Lunch Meal</button>
+                <button id="header-item-add-button"  onClick={handleSetMealDinner}>Apply Dinner Meal</button>
+                <button id="header-item-add-button" style={{border: '2px solid var(--cancel-color)', backgroundColor:'transparent'}}  onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
                 {/* <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button> */}
               </div>
             </div>

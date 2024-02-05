@@ -85,7 +85,7 @@
 .menu-detail-list-title{
     text-align: center;
     width: 100%;
-    background-color: #FFEF9C;
+    background-color: var(--button-color);
     border-radius: 2px;
 }
 

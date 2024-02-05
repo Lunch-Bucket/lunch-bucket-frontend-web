@@ -1,7 +1,9 @@
+@import '../styles/Colors.css';
+
 .full-container{
     width: 90%; 
     margin-left: 8vw;
-    background-color: rgba(255, 255, 255, 0.98);
+    background-color:  var(--primary-color);
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
@@ -32,7 +34,7 @@
 
 .header-item-add-button, #header-item-add-button{
     padding: 0.4rem;
-    background-color: #FFE662;
+    background-color:  var(--button-color);
     border-radius: 8px;
     border-width: 0.1rem;
     text-align: center;
@@ -60,7 +62,7 @@
 
 .action-bar-btn{
     border-radius: 5px;
-    background-color:#FFFFFF ;
+    background-color: var(--white-color); 
     border-style: none;
     font-family: Poppins;
     font-size: 15px;
@@ -75,14 +77,14 @@
   font-weight: 500;
   text-align: center;
   cursor: pointer;
-  background-color:#004d00 ;
+  background-color: var(--confirm-color) ;
   color:#FFFFFF ;
   margin-right: 0.5rem;
   padding: 0.4rem;
 }
 
 .action-bar-btn-cancel{
-  border: 2px solid #a30000;
+  border: 2px solid  var(--cancel-color);
   background-color: #fff;
   border-radius: 5px;
   font-weight: 500;
@@ -148,7 +150,7 @@
   }
 
   .checkbox-container input:checked ~ .item-checkbox-checkmark {
-    background-color: #FFE662;
+    background-color:  var(--button-color);;
   }
   
   .item-checkbox-checkmark:after {

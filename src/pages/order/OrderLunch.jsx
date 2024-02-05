@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import "../../common/styles/CommonStyles.css";
 import "./OrderStyles.css";
+import "../../common/styles/Colors.css";
 import strings from "../../common/strings/strings";
 import { getPendingOrderData, getConfirmedOrderData, confirmOrderData ,generateReport, generateOrdersPDF, informArrival} from "../../services/orderService";
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
@@ -245,8 +246,8 @@ function OrderHome()
                 </div>
               </div>
               <div className="order-button-content">
-                <button className="header-item-add-button" style={{backgroundColor:'#FFEF9C'}} onClick={()=>{setOrderStatus('pending')}}>Pending Orders</button>
-                <button className="header-item-add-button" style={{backgroundColor:'#84B35A'}} onClick={()=>{setOrderStatus('confirmed')}}>Confirmed Orders</button>
+                <button className="header-item-add-button" style={{backgroundColor:'var(--button-color)'}} onClick={()=>{setOrderStatus('pending')}}>Pending Orders</button>
+                <button className="header-item-add-button" style={{backgroundColor: 'var(--confirm-color)', color: 'var(--white-color)'}} onClick={()=>{setOrderStatus('confirmed')}}>Confirmed Orders</button>
               </div>
               {/* <SearchBar/> */}
             </div>

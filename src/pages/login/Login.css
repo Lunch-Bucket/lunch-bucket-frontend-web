@@ -1,3 +1,4 @@
+@import '../../common/styles/Colors.css';
 
 .login-form-container{
     width: 90%;
@@ -5,7 +6,7 @@
     margin-top: 20vh;
     border-radius: 8px;
     border: 2px solid grey;
-    background-color: #FFE662;
+    background-color: var(--button-color);
     display: flex;
 }
 
@@ -40,7 +41,7 @@
     border-radius: 6px;
     font-weight: 600;
     box-shadow: 1px 1px solid #e9c04e;
-    background-color: #FFE662;
+    background-color: var(--button-color);
     cursor: pointer;
 }
 

@@ -27,7 +27,7 @@
     top: 50%;
     left: 58%;
     transform: translate(-50%, -50%);
-    background-color: #f8f6f2;
+    background-color: #f8f6f0;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -73,7 +73,7 @@
     border-radius: 4px;
     width: auto;
     text-align: end;
-    color: #5c2c00;
+    color: rgb(15, 1, 37);
     font-weight: 600;
 }
 
@@ -114,7 +114,7 @@
 
 .chat-reply-input{
     height: 2.5rem;
-    border: 2px solid rgb(56, 3, 3);
+    border: 2px solid rgb(15, 1, 37);
     border-radius: 4px 0px 0px 4px;
     width: 24vw;
 }
