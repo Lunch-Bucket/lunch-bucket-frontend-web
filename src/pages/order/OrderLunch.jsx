@@ -100,6 +100,8 @@ function OrderHome()
     useEffect(() => {
         if(navOnline)
             fetchOrderData();
+            console.log("NODE_ENV:", process.env.NODE_ENV);
+
     }, [selectedTimeFilter,selectedPlaceFilter]);
 
 

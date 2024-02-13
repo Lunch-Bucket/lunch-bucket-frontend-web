@@ -1,5 +1,5 @@
 import axios from "axios";
-import { baseUrl } from "./baseUrl";
+import baseUrl from "./baseUrl";
 
 export async function getChats() {
     try {

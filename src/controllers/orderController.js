@@ -1,5 +1,7 @@
 import axios from "axios";
-import { baseUrl , expertUrl } from "./baseUrl";
+import { expertUrl } from "./baseUrl";
+import baseUrl from "./baseUrl";
+
 
 export const setAuthToken = (token) => {
     if (token) {
