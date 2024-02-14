@@ -231,6 +231,12 @@ const handleChange = (event) => {
     if (name === 'items') {
       return value.split(',').map(item => item.trim());
     }
+    if (value === 'false') {
+      return false;
+    }
+    if (value === 'true') {
+      return true;
+    }
     return value;
   };
 

@@ -124,7 +124,7 @@ function User() {
                     {user.map((dataList, id) => (
                         <tr className="user-page-table-row" >
                             <td className="user-page-data-row" style={{fontWeight:'bold'}}>{dataList.code}</td>
-                            <td className="user-page-data-row">0773459872</td>
+                            <td className="user-page-data-row">{dataList.contact_no}</td>
                             <td className="user-page-data-row" >{dataList.total_packets}</td>
                             <td className="user-page-data-row" >{dataList.balance_packets}</td>
                             <td className="user-page-data-row">{dataList.points.toFixed(2)}</td>
