@@ -7,10 +7,25 @@ import logo from '../../resources/images/LunchBucketLogo.png'
 const Sidebar = () => {
 
     const isLoggedIn= localStorage.getItem('loginStatus') === 'true';
+    const [nodeEnv, setNodeEnv] = useState(false);
+
+    function nodeConfig(){
+        if(process.env.NODE_ENV==='development'){
+            setNodeEnv(false);
+        }
+    }
+    
+    useEffect(() => {
+        nodeConfig();
+    }, []);
+
     
     return (
         <div className="sidebar-container">
             <div className="sidebar-logo-container">
+                {!nodeEnv &&
+                    <p style={{fontSize:'10px',color:'red'}}>DEVELOPMENT</p>
+                }
                 <span className="sidebar-logo">
                     <Link to={PATHS.login}>
                         <img src={logo} alt="logo" className="sidebar-logo-img"/>
