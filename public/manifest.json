@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Lunch Bucket",
+  "name": "Lunch Bucket Admin Web",
   "icons": [
     {
       "src": "lb_logo.png",

@@ -18,6 +18,9 @@ import Login from '../pages/login/Login';
 
 const router = createBrowserRouter([
     {
+        //Prod
+        // path: 'lunch-bucket-live', 
+        //Dev
         path: 'lunch-bucket-frontend-web',
         element: <AdminRoutes/>,
         children: [
