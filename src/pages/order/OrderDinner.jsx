@@ -210,13 +210,26 @@ function OrderHome_Dinner()
     
       const generateReport_ = async () => {
         alert("Please wait a while, Your report is generating")
-        const pendingOrderData  = await generateReport('Dinner'); 
+        const ordersForPDF  = await generateReport('Dinner'); 
+        console.log("ordersForPDF",ordersForPDF) 
       }
 
       
-  const generateOrdersPDF_ = async () => {
-    alert("Your order pdf is generating...")
-    const orderForPDF  = await generateOrdersPDF('Dinner',selectedPlaceFilter,selectedTimeFilter);
+  const packagingPDF_ = async () => {
+    alert("Orders Packaging pdf is generating...")
+    const placeMapping = {
+        "Front gate": "Front",
+        "Back gate": "Back"
+    };
+    const timeMapping = {
+        "7:00 PM": "7",
+        "8:00 PM": "8",
+    };
+
+    const modifiedPlace = placeMapping[selectedPlaceFilter] || selectedPlaceFilter;
+    const modifiedTime = timeMapping[selectedTimeFilter] || selectedTimeFilter;
+
+    const orderForPDF  = await generateOrdersPDF('Lunch',modifiedPlace,modifiedTime);
     console.log("orderForPDF",orderForPDF) 
   }
 
@@ -232,11 +245,11 @@ function OrderHome_Dinner()
              {navOnline === false && <p style={{ color: 'red', textAlign: 'center' }}>Please Check Your Network Connection</p>}
             <div className="title-search-content">
                 <div>
-                <h1 className="menu-title-text">{strings.order}</h1>  
+                <h1 className="menu-title-text">{strings.dinnerOrder}</h1>  
                 <div className="report-content">
-                    <button className="get-order-pdf-button inform-arrival"  onClick={()=>{informArrival_()}}>Inform Arrival</button>
-                    <button className="get-order-pdf-button"  onClick={()=>{generateOrdersPDF_()}}>Get Orders PDF</button>
-                    <button className="get-order-pdf-button generate-report" onClick={()=>{generateReport_()}}>Generate Report</button>
+                <button className="get-order-pdf-button generate-report" onClick={()=>{generateReport_()}}>1. Generate Report</button>
+                    <button className="get-order-pdf-button"  onClick={()=>{packagingPDF_()}}>2. Packaging</button>
+                    <button className="get-order-pdf-button inform-arrival"  onClick={()=>{informArrival_()}}>3. Inform Arrival</button>
                 </div>
               </div>
               <div className="order-button-content">

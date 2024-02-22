@@ -4,18 +4,15 @@
 
 .order-page-table-row{
     display: flex;
-    margin-top: 1rem;
-    border-bottom: 2px solid rgb(165, 164, 164);
 }
 
 .order-page-data-row-description{
   width: 100%;
   font-size: 14px;
-  font-weight: 600;
 }
 
 .get-order-pdf-button{
-  background-color: #040f50;
+  background-color: #F18913;
   color: white;
   padding: 0.4rem;
   border: none;
@@ -24,12 +21,12 @@
 }
 
 .inform-arrival{
-  background-color: #bb0202;
+  background-color: #00B208;
 }
 
 .generate-report{
-  background-color: #FFE662;
-  color: black;
+  background-color: #ffd500;
+  color: white;
   font-weight:bold;
 }
 

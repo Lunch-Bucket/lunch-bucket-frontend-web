@@ -100,8 +100,6 @@ function OrderHome()
     useEffect(() => {
         if(navOnline)
             fetchOrderData();
-            console.log("NODE_ENV:", process.env.NODE_ENV);
-
     }, [selectedTimeFilter,selectedPlaceFilter]);
 
 
@@ -219,13 +217,27 @@ function OrderHome()
 
   const generateReport_ = async () => {
     alert("Please wait a while, Your report is generating")
-    const pendingOrderData  = await generateReport('Lunch'); 
+    const ordersForPDF  = await generateReport('Lunch'); 
+    console.log("ordersForPDF",ordersForPDF) 
   }
 
-  const generateOrdersPDF_ = async () => {
-    alert("Your order pdf is generating...")
-    const orderForPDF  = await generateOrdersPDF('Lunch',selectedPlaceFilter,selectedTimeFilter);
-    console.log("orderForPDF",orderForPDF) 
+  const packagingPDF_ = async () => {
+    alert("Orders Packaging pdf is generating...")
+    const placeMapping = {
+        "Front gate": "Front",
+        "Back gate": "Back"
+    };
+    const timeMapping = {
+        "11:00 AM": "11",
+        "12:30 PM": "12",
+        "2:00 PM": "2"
+    };
+
+    const modifiedPlace = placeMapping[selectedPlaceFilter] || selectedPlaceFilter;
+    const modifiedTime = timeMapping[selectedTimeFilter] || selectedTimeFilter;
+
+    const orderForPDF  = await generateOrdersPDF('Lunch',modifiedPlace,modifiedTime);
+    console.log("packingOrdersPDF",orderForPDF) 
   }
 
   const informArrival_ = async () => {
@@ -240,11 +252,11 @@ function OrderHome()
             {navOnline === false && <p style={{ color: 'red', textAlign: 'center' }}>Please Check Your Network Connection</p>}
             <div className="title-search-content">
               <div>
-                <h1 className="menu-title-text">{strings.order}</h1> 
+                <h1 className="menu-title-text">{strings.lunchOrder}</h1> 
                 <div className="report-content">
-                    <button className="get-order-pdf-button inform-arrival"  onClick={()=>{informArrival_()}}>Inform Arrival</button>
-                    <button className="get-order-pdf-button"  onClick={()=>{generateOrdersPDF_()}}>Get Orders PDF</button>
-                    <button className="get-order-pdf-button generate-report" onClick={()=>{generateReport_()}}>Generate Report</button>
+                    <button className="get-order-pdf-button generate-report" onClick={()=>{generateReport_()}}>1. Generate Report</button>
+                    <button className="get-order-pdf-button"  onClick={()=>{packagingPDF_()}}>2. Packaging</button>
+                    <button className="get-order-pdf-button inform-arrival"  onClick={()=>{informArrival_()}}>3. Inform Arrival</button>
                 </div>
               </div>
               <div className="order-button-content">
@@ -296,7 +308,7 @@ function OrderHome()
                     <button className="action-bar-btn-cancel"  onClick={()=>handleOrderStatus('reject')}>Reject</button>
                 </div>
             </div>
-            <hr/> 
+          <hr/>
             {confirmFuncLoading && <LoadingIndicator/>}
             {pendingOrderLoading ? <LoadingIndicator/> :
                 <div>
@@ -317,23 +329,12 @@ function OrderHome()
                                     </label>   
                                 </td>
 
-                                <td className="order-page-data-row-description" key={id}>
-                                    <div>
-                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code} </span> 
+                                    <td className="order-page-data-row-description" key={id}>
+                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code}
+                                        <br/> Rs. {data.price} <br/>  Packet Count: {data.packet_amount} </span> 
                                         {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
                                         <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
-                                    </div>
-                                    {/* <br/> Address: University of Moratuwa */}
-                                    Packet Count: {data.packet_amount} 
-                                    <br/> 
-                                    {!data.order_type === "special" && data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span>}
-                                    {/* <br/>
-                                    {data.portion === true && <span> Portion: {data.packet_amount}<br/> </span>} */}
-                                </td>
-                            </tr>
-
-                            <tr>  
-                                <td style={{fontSize:'14px'}}>
+                                    <td>
                                     { data.order_type != "special" &&
                                     <ul style={{listStyle:'square'}}>
                                         {data.items.map((food, index) => (
@@ -348,7 +349,10 @@ function OrderHome()
                                     </ul>
                                     }
                                 </td>
+                                    {!data.order_type === "special" && data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span>}
+                                </td>
                             </tr>
+                            <hr/> 
                         </>
                         ))}
                         </tbody>
