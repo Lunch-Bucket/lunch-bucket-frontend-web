@@ -2,7 +2,8 @@ const STRINGS = {
     
     // Header Titles
     login: 'Login',
-    order: 'Orders',
+    lunchOrder: 'Lunch Orders',
+    dinnerOrder: 'Dinner Orders',
     menu: 'Food List',
     specialMenu: 'Special Food List',
     user: 'Users',

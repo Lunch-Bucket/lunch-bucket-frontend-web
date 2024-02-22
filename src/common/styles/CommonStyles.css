@@ -32,6 +32,10 @@
   border-bottom: solid grey .1rem;
 }
 
+.menu-title-text{
+  font-size: larger;
+}
+
 .header-item-add-button, #header-item-add-button{
     padding: 0.4rem;
     background-color:  var(--button-color);
