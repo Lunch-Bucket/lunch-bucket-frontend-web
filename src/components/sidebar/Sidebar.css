@@ -1,37 +1,125 @@
-.sidebar-styles{
+@import '../../common/styles/Colors.css';
+
+
+.sidebar-container::-webkit-scrollbar{
+    display: none;
+  }
+
+.sidebar-container{
     flex: 1;
     display: flex;
     flex-direction: column;
-    background-color: #FFE662;
-    min-height: 100vh;
-    width: 16vw;
+    background-color: #ffffffb3;
+    color:#000000;
+    height: 100vh;
+    width: 20%;
     position: fixed;
+    overflow-y: scroll;
+    border-right: 1px solid black;
+    box-shadow: 10px 10px 54px -6px rgb(224, 200, 134);
 }
 
-.top{
-    font-size: 1.3rem;
-    padding: 3rem 0 0 2rem;
+.sidebar-logo-img{
+    height: 5rem;
+    width: 5rem;
 }
 
-.logo a {
+.sidebar-logo-container{
+    font-size: 32px;
+    padding: 2rem 2rem 2rem 2rem;
+    height: 6%;
+    text-align: center;
+}
+
+.sidebar-logo a{
     text-decoration: none;
+    color:#630A10;
+    font-family: Poppins;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: center;
+    margin-left: 10px;
+    padding-top: 10px;
+    margin-bottom: 100px;
+
 }
 
-.title{
-    padding: 0 0 0 2rem;
+
+.side-bar-page-list{
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 32px;
+    color:#2B2B2B;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10vh;
 }
 
-.title a{
-    display: block;
+.side-bar-page-list-item a{
+    display: flex;
     text-decoration: none;
-    padding: 0.5rem 3rem 0.5rem 1rem;
-    border-radius: 10px;
-    width: 15vh;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    border-radius: 8px;
+    width: 8.5vw;
+    color: #2B2B2B;
+    text-overflow: clip;
 }
 
 .active{
-    background-color: #525252;
-    padding: 0.5rem 3rem 0.5rem 1rem;
-    color: white;
+    background-color: var(--button-color);
+    color: var(--black-color);
     border-radius: 10px;
+    box-shadow: 6px 7px 10px -6px var(--button-color);
 }
+
+
+@media (max-width: 768px) {
+    .sidebar-container{
+        display: flex;
+        height:auto;
+        width: 100%;
+        z-index: 800;
+        background-color: white;
+        border: none;
+    } 
+    .side-bar-page-list{
+        display: flex;
+        flex-direction: row;
+        line-height: 12px;
+        z-index: 1100;
+        padding: 0;
+    }
+
+    .sidebar-logo-container{
+       padding: 0.2rem;
+       display: flex;
+       justify-content: space-between;
+    }
+
+    .sidebar-logo-img{
+        height: 3rem;
+        width: 3rem;
+    }
+
+    .side-bar-page-list-item a{
+        display: block;
+        padding-left: 2px;
+        margin: 0.1rem;
+        font-weight: 700;
+        border-bottom: 2px black;
+        font-size: 10px;
+    }
+
+    .active{
+        background-color: transparent;
+        color: #2b0000;
+        border-radius: 0px;
+        box-shadow: none;
+    }
+    
+
+  }

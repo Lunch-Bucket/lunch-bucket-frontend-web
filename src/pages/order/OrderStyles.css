@@ -1,43 +1,75 @@
+.modal-menu-content::-webkit-scrollbar{
+    display: none;
+  }
 
-.order-modal{
-    position: absolute;
-    height: auto;
-    width: 80%;
-    z-index: 1000;
-    border-radius: 10px;
-    padding: 2%;
-    background-color: rgb(223, 205, 146);
-    box-shadow: .5 .5 grey;
-    top: 20%;
-    left: 10%;
-}
-
-.modal-header{
-    height: 5%;
-    width: 100%;
-}
-
-.modal-detail-content{
-    border-bottom: solid black .1rem;
-}
-
-.modal-menu-content{
-    margin-top: 10px;
-    height: auto;
+.order-page-table-row{
     display: flex;
-    overflow-x: scroll;
-    width: 100%;
 }
 
-.modal-menu-content-card{
-    margin-left: 5px;
-    flex-shrink: 0;
-    background-color: antiquewhite;
-    border-radius: 10px;
-    padding: 4%;
+.order-page-data-row-description{
+  width: 100%;
+  font-size: 14px;
 }
 
-.modal-header-chat{
-    float: right;
+.get-order-pdf-button{
+  background-color: #F18913;
+  color: white;
+  padding: 0.4rem;
+  border: none;
+  opacity: 0.9;
+  margin: 0.2rem;
 }
 
+.inform-arrival{
+  background-color: #00B208;
+}
+
+.generate-report{
+  background-color: #ffd500;
+  color: white;
+  font-weight:bold;
+}
+
+.get-order-pdf-button:hover{
+  opacity: 1;
+}
+
+.filter-by{
+  display: flex;
+  font-weight:'bold';
+}
+
+
+@media (max-width: 768px) {
+  .report-content, .action-bar-btn-content{
+    margin: 1rem;
+
+  }
+  .filter-action-bar{
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .filter-by{
+    display: flex;
+    justify-content: flex-start;
+    margin:0.5rem;
+  }
+
+  .get-order-pdf-button{
+    padding: 0.2rem;
+  }
+
+  .order-button-content{
+    padding: 0.1rem;
+  }
+
+  .order-page-data-row-mobile-res{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .order-page-data-row-description{
+    margin-left: 1rem;
+  }
+}

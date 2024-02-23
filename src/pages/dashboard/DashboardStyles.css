@@ -1,0 +1,11 @@
+.dashboard-sales-graph-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-sales-graph{
+    height: 60vh;
+    width: 70vw;
+    background-color: #f5e9e9;
+}

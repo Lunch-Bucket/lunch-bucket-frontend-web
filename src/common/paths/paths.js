@@ -1,8 +1,13 @@
+// Dev
 const initialPath = '/lunch-bucket-frontend-web/';
+// Prod
+// const initialPath = '/lunch-bucket-live/';
 
 const PATHS = {
-    order: initialPath + 'order',
+    orderLunch: initialPath + 'orderLunch',
+    orderDinner: initialPath + 'orderDinner',
     menu: initialPath + 'menu',
+    specialMenu: initialPath + 'specialMenu',
     addMenu: initialPath + 'addMenu',
     user: initialPath + 'user',
     feedback: initialPath + 'feedback',
@@ -11,8 +16,9 @@ const PATHS = {
     promotion: initialPath + 'promotion',
     addPromotion: initialPath + 'addPromotion',
     chat: initialPath + 'chat',
-    dashboard: initialPath + '',
-    login: '/login',
+    setting: initialPath + 'setting',
+    dashboard: initialPath + 'dashboard',
+    login:  initialPath,
     register: '/register',
     forgotPassword: '/forgot-password',
 }

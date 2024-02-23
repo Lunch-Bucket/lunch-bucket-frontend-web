@@ -1,0 +1,12 @@
+:root {
+    --primary-color: rgba(255, 255, 255, 0.98);
+    --sidebar-color: #ffffffb3;
+    --black-color: #000000;
+    --white-color: #FFFFFF;
+    --button-color: #FFE662;  
+    --success-color: #c2f0c2;
+    --error-color: #ffcccb;  
+    --cancel-color: #a30000;
+    --confirm-color: #0c920c;  
+  }
+  
