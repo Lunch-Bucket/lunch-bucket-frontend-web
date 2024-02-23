@@ -11,6 +11,8 @@ const Sidebar = () => {
     const tokenGeneratedTime = parseInt(localStorage.getItem("tokenGeneratedTime"), 10);
     const tokenExpiryTime = tokenGeneratedTime + 3550000;
     const [remainingTime, setRemainingTime] = useState(tokenExpiryTime - Date.now());
+    const loginState = localStorage.getItem('loginStatus');
+
     function nodeConfig(){
         if(process.env.NODE_ENV==='development'){
             setNodeEnv(false);
@@ -48,7 +50,7 @@ const Sidebar = () => {
     return (
         <div className="sidebar-container">
             <div className="sidebar-logo-container">
-            {remainingTime > 0 &&
+           {isLoggedIn && loginState === 'true' && remainingTime > 0 &&
                 <div className="countdown-timer">
                     <p style={{fontSize:'12px',color:'green'}}>Session ends in {formatTime(remainingTime)}</p>
                 </div>
