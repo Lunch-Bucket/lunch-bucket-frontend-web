@@ -444,7 +444,7 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
                 </div>
 
                 <div className="menu-detail-list" style={{borderRight:'none'}}>
-                <div className="menu-detail-list-title">Stew</div> 
+                <div className="menu-detail-list-title">Condiments</div> 
                         <ul>
                           {foodItem.map((item,id)=>( 
                             <>
