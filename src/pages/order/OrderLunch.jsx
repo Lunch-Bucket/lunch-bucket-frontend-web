@@ -26,10 +26,11 @@ function OrderHome()
 
     const lunchTime_1 = '11:00 AM';
     const lunchTime_2 = '12:30 PM';
-    const lunchTime_3 = '2:00 PM';
+    const lunchTime_3 = '1:00 PM';
+    const lunchTime_4 = '1:30 PM';
 
-    const place_1 = 'Front gate';
-    const place_2 = 'Back gate';
+    const place_1 = 'Back gate';
+    // const place_2 = 'Back gate';
 
 
     const [showPopup, setShowPopup] = useState(false);
@@ -224,13 +225,13 @@ function OrderHome()
   const packagingPDF_ = async () => {
     alert("Orders Packaging pdf is generating...")
     const placeMapping = {
-        "Front gate": "Front",
         "Back gate": "Back"
     };
     const timeMapping = {
         "11:00 AM": "11",
         "12:30 PM": "12",
-        "2:00 PM": "2"
+        "1:00 PM": "1",
+        "1:30 PM": "13"
     };
 
     const modifiedPlace = placeMapping[selectedPlaceFilter] || selectedPlaceFilter;
@@ -285,6 +286,7 @@ function OrderHome()
                             <option value={lunchTime_1}>{lunchTime_1}</option>
                             <option value={lunchTime_2}>{lunchTime_2}</option>
                             <option value={lunchTime_3}>{lunchTime_3}</option>
+                            <option value={lunchTime_4}>{lunchTime_4}</option>
                         </select>
                     </div>
 
@@ -296,7 +298,7 @@ function OrderHome()
                         onChange={handlePlaceFilterChange}>
                             <option value='all'>ALL</option>
                             <option value={place_1}>{place_1}</option>
-                            <option value={place_2}>{place_2}</option>
+                            {/* <option value={place_2}>{place_2}</option> */}
                         </select>
                     </div>
                 </div>
@@ -329,12 +331,12 @@ function OrderHome()
                                     </label>   
                                 </td>
 
-                                    <td className="order-page-data-row-description" key={id}>
-                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code}
-                                        <br/> Rs. {data.price} <br/>  Packet Count: {data.packet_amount} </span> 
-                                        {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
-                                        <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
-                                    <td>
+                            <td className="order-page-data-row-description" key={id}>
+                                <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code}
+                                <br/> Rs. {data.price} <br/>  Packet Count: {data.packet_amount} </span> 
+                                {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
+                                <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
+                                <td>
                                     { data.order_type != "special" &&
                                     <ul style={{listStyle:'square'}}>
                                         {data.items.map((food, index) => (
@@ -380,6 +382,7 @@ function OrderHome()
                         <option value={lunchTime_1}>{lunchTime_1}</option>
                         <option value={lunchTime_2}>{lunchTime_2}</option>
                         <option value={lunchTime_3}>{lunchTime_3}</option>
+                        <option value={lunchTime_4}>{lunchTime_4}</option>
                     </select>
                     </div>
                     <div className="filter-by">
@@ -390,7 +393,7 @@ function OrderHome()
                     onChange={handlePlaceFilterChange}>
                         <option value='all'>ALL</option>
                         <option value={place_1}>{place_1}</option>
-                        <option value={place_2}>{place_2}</option>
+                        {/* <option value={place_2}>{place_2}</option> */}
                     </select>
                     </div>
                 </div>
@@ -400,22 +403,7 @@ function OrderHome()
                     <table className="detail-table">  
                        <tbody>
                         {confirmedOrderList.map((data, id) => (<>
-                            <tr className="order-page-table-row" key={id}>
-                                <td className="order-page-data-row-description" key={id}>  
-                                        <div className="order-page-data-row-mobile-res">
-                                            <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>  Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code} </span> 
-                                            {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
-                                            <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
-                                        </div>
-                                        {/* <br/> Address: University of Moratuwa */}
-                                        Packet Count: {data.packet_amount} 
-                                        <br/>
-                                       {!data.order_type === "special" && data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span> }
-                                        {/* {data.portion === true && <span> Portion: {data.packet_amount}<br/> </span>} */}
-                                    </td>
-                            </tr>
-
-                            <tr>  
+                            <tr className="order-page-table-row" style={{display:'flex'}} key={id}>
                             <td style={{fontSize:'14px'}}>
                                     { data.order_type != "special" &&
                                     <ul style={{listStyle:'square'}}>
@@ -431,7 +419,15 @@ function OrderHome()
                                     </ul>
                                     }
                                 </td>
+                                <td className="order-page-data-row-description" key={id}>
+                                    <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code}
+                                    <br/> Rs. {data.price} <br/>  Packet Count: {data.packet_amount} </span> 
+                                    {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
+                                    <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
+                                </td>
+                                    
                             </tr>
+                            <hr/>
                         </>
                         ))}
                         </tbody>

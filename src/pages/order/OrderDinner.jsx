@@ -25,8 +25,14 @@ function OrderHome_Dinner()
    
     const [navOnline,setNavOnline] = useState(true)
 
+    const eveningTime_1 = '3:30 PM';
+    const eveningTime_2 = '4:30 PM';
+    const eveningTime_3 = '5:30 PM';
+
     const dinnerTime_1 = '7:30 PM';
     const dinnerTime_2 = '8:30 PM';
+    const dinnerTime_3 = '9:30 PM';
+    const dinnerTime_4 = '10:30 PM';
 
     const place_1 = 'Front gate';
     const place_2 = 'Back gate';
@@ -224,12 +230,14 @@ function OrderHome_Dinner()
     const timeMapping = {
         "7:00 PM": "7",
         "8:00 PM": "8",
+        "9:00 PM": "9",
+        "9:30 PM": "93",
     };
 
     const modifiedPlace = placeMapping[selectedPlaceFilter] || selectedPlaceFilter;
     const modifiedTime = timeMapping[selectedTimeFilter] || selectedTimeFilter;
 
-    const orderForPDF  = await generateOrdersPDF('Lunch',modifiedPlace,modifiedTime);
+    const orderForPDF  = await generateOrdersPDF('Dinner',modifiedPlace,modifiedTime);
     console.log("orderForPDF",orderForPDF) 
   }
 
@@ -239,6 +247,9 @@ function OrderHome_Dinner()
     console.log("arrvalNotifi",arrvalNotifi) 
     }
   
+    function filterAuthentics(){
+        
+    }
  
     return(
         <div className="full-container">
@@ -276,6 +287,8 @@ function OrderHome_Dinner()
                         <option value='all'>ALL</option>
                         <option value={dinnerTime_1}>{dinnerTime_1}</option>
                         <option value={dinnerTime_2}>{dinnerTime_2}</option>
+                        <option value={dinnerTime_3}>{dinnerTime_3}</option>
+                        <option value={dinnerTime_4}>{dinnerTime_4}</option>
                     </select>
                 </div>
                 <div className="filter-by">
@@ -288,6 +301,10 @@ function OrderHome_Dinner()
                         <option value={place_1}>{place_1}</option>
                         <option value={place_2}>{place_2}</option>
                     </select>
+                </div>
+                <div>
+                    <button className="get-order-pdf-button" style={{backgroundColor:'#FFA200', borderRadius:'4px',height:'2.2rem'}}  
+                    onClick={()=>{filterAuthentics()}}>Evening Authentics</button>
                 </div>
                 </div>
                 <div className="action-bar-btn-content">
@@ -318,20 +335,11 @@ function OrderHome_Dinner()
                                 </td>
 
                                 <td className="order-page-data-row-description" key={id}>
-                                    <div>
-                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>  Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code} </span> 
-                                        {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
-                                        <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
-                                    </div>
-                                    {/* <br/> Address: University of Moratuwa */}
-                                    Packet Count: {data.packet_amount} 
-                                    <br/> 
-                                    {!data.order_type === "special" && data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span>}
-                                </td>
-                            </tr>
-
-                            <tr>  
-                            <td style={{fontSize:'14px'}}>
+                                <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code}
+                                <br/> Rs. {data.price} <br/>  Packet Count: {data.packet_amount} </span> 
+                                {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
+                                <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
+                                <td style={{fontSize:'14px'}}>
                                     { data.order_type != "special" &&
                                     <ul style={{listStyle:'square'}}>
                                         {data.items.map((food, index) => (
@@ -346,7 +354,10 @@ function OrderHome_Dinner()
                                     </ul>
                                     }
                                 </td>
+                                    {!data.order_type === "special" && data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span>}
+                                </td>
                             </tr>
+                            <hr/>  
                         </>
                         ))}
                         </tbody>
@@ -370,11 +381,15 @@ function OrderHome_Dinner()
                             <option value='all'>ALL</option>
                         <option value={dinnerTime_1}>{dinnerTime_1}</option>
                         <option value={dinnerTime_2}>{dinnerTime_2}</option>
+                        <option value={dinnerTime_3}>{dinnerTime_3}</option>
+                        <option value={dinnerTime_4}>{dinnerTime_4}</option>
                     </select>
 
                     <div style={{paddingLeft:'1rem'}}>Filter By Place</div>
                     <select style={{marginLeft:'1rem'}}
-                    defaultValue='all'>
+                    defaultValue='all'
+                    value={selectedPlaceFilter}
+                    onChange={handlePlaceFilterChange}>
                         <option value='all'>ALL</option>
                         <option value={place_1}>{place_1}</option>
                         <option value={place_2}>{place_2}</option>
@@ -387,22 +402,8 @@ function OrderHome_Dinner()
                     <table className="detail-table">  
                         <tbody>
                         {confirmedOrderList.map((data, id) => (<>
-                            <tr className="order-page-table-row" key={id}>
-                                <td className="order-page-data-row-description" key={id}>
-                                    <div>
-                                        <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>  Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code} </span> 
-                                        {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
-                                        <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
-                                    </div>
-                                    {/* <br/> Address: University of Moratuwa */}
-                                    Packet Count: {data.packet_amount} 
-                                    <br/>
-                                    {!data.order_type === "special" && data.comment  && <span style={{fontWeight:'400'}}> Note: {data.comment}</span>}
-                                </td>
-                            </tr>
-
-                            <tr>  
-                            <td style={{fontSize:'14px'}}>
+                            <tr className="order-page-table-row" style={{display:'flex'}} key={id}>
+                            <td style={{fontSize:'14px',  width:'50%'}}>
                                     { data.order_type != "special" &&
                                     <ul style={{listStyle:'square'}}>
                                         {data.items.map((food, index) => (
@@ -417,7 +418,15 @@ function OrderHome_Dinner()
                                     </ul>
                                     }
                                 </td>
+                                <td className="order-page-data-row-description" key={id}>
+                                    <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code}
+                                    <br/> Rs. {data.price} <br/>  Packet Count: {data.packet_amount} </span> 
+                                    {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
+                                    <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
+                                </td>
+                                    
                             </tr>
+                            <hr/>
                         </>
                         ))}
                         </tbody>
