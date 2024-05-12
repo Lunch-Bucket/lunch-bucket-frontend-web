@@ -1,5 +1,5 @@
 // Dev
-const initialPath = '/lunch-bucket-frontend-web/';
+const initialPath = '/lunch-bucket-live/';
 // Prod
 // const initialPath = '/lunch-bucket-live/';
 

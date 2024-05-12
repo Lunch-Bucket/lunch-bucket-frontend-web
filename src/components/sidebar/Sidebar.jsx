@@ -55,9 +55,9 @@ const Sidebar = () => {
                     <p style={{fontSize:'12px',color:'green'}}>Session ends in {formatTime(remainingTime)}</p>
                 </div>
             }
-                {!nodeEnv &&
+                {/* {!nodeEnv &&
                     <p style={{fontSize:'10px',color:'red'}}>DEVELOPMENT</p>
-                }
+                } */}
                 <span className="sidebar-logo">
                     <Link to={PATHS.login}>
                         <img src={logo} alt="logo" className="sidebar-logo-img"/>
