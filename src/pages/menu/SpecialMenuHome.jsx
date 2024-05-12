@@ -33,13 +33,14 @@ function SpecialMenuHome() {
 
     const [friedRiceItemList, setFriedRiceItemList] = useState([]);
     const [biriyaniItemList, setBiriyaniItemList] = useState([]);
+    const [kottuItemList, setKottuItemList] = useState([]);
     const [noodleItemList, setNoodleItemList] = useState([]);
     const [pastaItemList, setPastaItemList] = useState([]);
     const [saladItemList, setSaladItemList] = useState([]);
     const [veganItemList, setVeganItemList] = useState([]);
     const [simpleItemList, setSimpleItemList] = useState([]);
 
-    const categoryList = (['Simple and Super','Fried Rice','Noodles','Pasta','Biriyani','Vegetarian'])
+    const categoryList = (['Simple and Super','Fried Rice','Noodles','Pasta','Biriyani','Kottu','Vegetarian'])
     
     const [showProgress, setShowProgress] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -50,6 +51,7 @@ function SpecialMenuHome() {
     let friedRiceCategory = []
     let pastaCategory = []
     let BiriyaniCategory = []
+    let KottuCategory = []
     let NoodleCategory = []
     let saladCategory = []
     let veganCategory = []
@@ -69,6 +71,7 @@ function SpecialMenuHome() {
         simpleCategory = foodDetail.filter(food => food.category.toLowerCase() === 'simple and super');
         friedRiceCategory = foodDetail.filter(food => food.category.toLowerCase() === 'fried rice');
         BiriyaniCategory = foodDetail.filter(food => food.category.toLowerCase() === 'biriyani');
+        KottuCategory = foodDetail.filter(food => food.category.toLowerCase() === 'kottu');
         pastaCategory = foodDetail.filter(food => food.category.toLowerCase() === 'pasta');
         NoodleCategory = foodDetail.filter(food => food.category.toLowerCase() === 'noodles');
         saladCategory = foodDetail.filter(food => food.category.toLowerCase() === 'salads');
@@ -77,6 +80,7 @@ function SpecialMenuHome() {
         setSimpleItemList(simpleCategory)
         setFriedRiceItemList(friedRiceCategory)
         setBiriyaniItemList(BiriyaniCategory)
+        setKottuItemList(KottuCategory)
         setNoodleItemList(NoodleCategory)
         setPastaItemList(pastaCategory)
         setSaladItemList(saladCategory)
@@ -435,6 +439,31 @@ const handleDeleteFood = async () => {
               <h3>Biriyani</h3>
               <div className="special-menu-detail-content-sub-category">
               {biriyaniItemList.map((item,id)=>(
+                <div className="special-menu-card" key={id}>
+                  <div></div>
+                  <label class="checkbox-container">
+                      <input type="checkbox" className="item-checkbox"  
+                       checked={item.selected}
+                       onChange={() => toggleFoodItem(item.id, item.item_id)}/>
+                      <span className="item-checkbox-checkmark"></span>
+                  </label>   
+                  <div>
+                      <center> 
+                        <div className="food-item-img-container" style={{height:'8rem', width:'8rem'}}>
+                          <img src={item.url} alt="food item" className="food-item-img"/>
+                        </div>
+                      </center>
+                      <h4 className="special-menu-card-item-text" style={{fontSize:'15px', textAlign:'center'}}>{item.type} <br/> <span style={{fontSize:'17px', color:'#591212'}}> Rs. {item.price} </span></h4>
+                      <ul style={{listStyle:'square', fontSize:'13px'}}>
+                         {item.items.map((sub_item,id)=>( <li className="special-menu-card-item-text">{sub_item}</li>))}
+                      </ul>
+                  </div>
+                </div>
+              ))}  
+              </div>
+              <h3>Kottu</h3>
+              <div className="special-menu-detail-content-sub-category">
+              {kottuItemList.map((item,id)=>(
                 <div className="special-menu-card" key={id}>
                   <div></div>
                   <label class="checkbox-container">

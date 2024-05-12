@@ -31,8 +31,8 @@ function OrderHome_Dinner()
 
     const dinnerTime_1 = '7:30 PM';
     const dinnerTime_2 = '8:30 PM';
-    const dinnerTime_3 = '9:30 PM';
-    const dinnerTime_4 = '10:30 PM';
+    const dinnerTime_3 = '9:00 PM';
+    const dinnerTime_4 = '9:30 PM';
 
     const place_1 = 'Front gate';
     const place_2 = 'Back gate';

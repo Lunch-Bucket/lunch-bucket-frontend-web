@@ -97,6 +97,9 @@ function User() {
             <div className="title-search-content">
               <h1 className="menu-title-text">{strings.user}</h1> 
               <div style={{display:'inline-flex'}}>
+              <div>Total Users:
+                    <span style={{marginLeft:'0.1rem'}}>{user.length}</span>
+                    </div>
               <div style={{marginLeft:'2rem', fontWeight:'bold'}}>Filter By User Level</div>
                     <select style={{marginLeft:'1rem'}}
                     id="userLevelFilter"
