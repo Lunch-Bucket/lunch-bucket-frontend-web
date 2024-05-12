@@ -1,11 +1,12 @@
+@import '../../common/styles/Colors.css';
 
 .login-form-container{
-    width: 70vw;
-    height: 65vh;
+    width: 90%;
+    height: 70vh;
     margin-top: 20vh;
     border-radius: 8px;
     border: 2px solid grey;
-    background-color: #FFE662;
+    background-color: var(--button-color);
     display: flex;
 }
 
@@ -22,7 +23,7 @@
     width: 30vw;
     height: 2.5rem;
     border: 2px solid rgb(165, 165, 165);
-    border-radius: 1rem;
+    border-radius: 4px;
     margin-top: 1rem;
 }
 
@@ -38,13 +39,68 @@
     float: right;
     padding: 0.8rem;
     border-radius: 6px;
-    border: none;
     font-weight: 600;
     box-shadow: 1px 1px solid #e9c04e;
-    background-color: #FFE662;
+    background-color: var(--button-color);
     cursor: pointer;
 }
 
-.login-submit-button:hover{
-    background-color: #f8ca4c;
+.login-submit-button:focus{
+    border: 2px solid rgb(156, 0, 0);
+}
+
+.isLogged-content{
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+}
+
+
+.isLogged-content-notifi{
+    margin: 1rem;
+    padding: 3rem;
+    text-align: center;
+    color: rgb(2, 94, 2);
+    font-weight: 600;
+    border: none;
+    background-color: #fff7e0;
+}
+
+.isLogged-content-logout-btn{
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    border-radius: 6px;
+    background-color: #640202;
+    color: white;
+    width: 6rem;
+}
+
+
+@media (max-width: 768px) {
+    .login-form-container{
+        width: 98%;
+    }
+    .login-img{
+        display: none;
+    }
+    
+    .login-form-input-field{
+        width: 100%;
+    }
+
+    .login-form-container-left{
+        width: 90%;
+    }
+    .isLogged-content{
+        margin-top: 50%;
+    }
+    .login-form-container-left{
+        background-color: none;
+        background-image: url('../../resources/images/loginVector.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+       background-position-y: center;
+       opacity: 0.8;
+    }
 }

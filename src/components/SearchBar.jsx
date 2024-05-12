@@ -14,6 +14,7 @@ const SearchBar = () => {
         type="text"
         placeholder="Search..."
         onChange= {handleChange}
+        className='search-bar-input'
       />
       <button type="button" className='search-bar-icon'><BsSearch/></button>
     </div>

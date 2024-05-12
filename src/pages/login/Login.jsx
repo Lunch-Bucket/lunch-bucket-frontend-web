@@ -1,57 +1,137 @@
-import React from "react";
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import React, {useState, useEffect} from "react";
 import './Login.css';
 import '../../common/styles/CommonStyles.css';
 import LoginImg from '../../resources/images/loginVector.png'
+import PATHS from "../../common/paths/paths";
+import axios from 'axios';
+import { projectCode, loginUrl } from "../../controllers/baseUrl";
+import LoadingIndicator from "../../components/LoadingIndicator";
+
 
 export default function Login() {
-    const initialValues = {
-        username: '',
-        password: '',
-    };
 
-    const validationSchema = Yup.object({
-        username: Yup.string().required('Username is required'),
-        password: Yup.string().required('Password is required'),
-    });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({ email: '', password: '' });
 
-    const handleSubmit = (values) => {
-        console.log(values);
-    };
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+
+  const [navOnline,setNavOnline] = useState(true)
+
+
+const handleLogin = async (event) => {
+    event.preventDefault();
+
+    let newErrors = {};
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      try {
+        const response = await axios.post(`${loginUrl}userLogin`, {
+          email: email,
+          password: password,
+          project_code: projectCode, 
+        });
+
+        const authToken = response.data.data.token;
+        localStorage.setItem('lb_auth_token', authToken);
+        localStorage.setItem('loginStatus', true);
+        const tokenGeneratedTime = Date.now(); 
+        localStorage.setItem("tokenGeneratedTime", tokenGeneratedTime.toString());
+        setLoginLoading(false);
+        window.location.replace(PATHS.orderLunch); 
+      } catch (error) {
+        if(!navOnline){
+          alert("Please check Your Internet Connection")
+        }else{
+          alert("Please check the Username and Password again")
+          console.error('Login Error:', error);
+        }
+      }
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    setLoginLoading(true);
+    if (event.key === 'Enter') {
+      handleLogin(event);
+    }
+  };
+
+  useEffect(() => {
+    if(localStorage.getItem('loginStatus')==='true')
+       setIsLogged(true);
+   }, []);
+
+   useEffect(() => {
+    if(navigator.onLine){
+        setNavOnline(true);
+    }else{
+        setNavOnline(false);
+    }
+}, [navigator.onLine]);
+
+ function handleLogout(){
+    const tokenGeneratedTime = parseInt(localStorage.getItem("tokenGeneratedTime"), 10);
+
+    const currentTime = Date.now() + 3550000;
+    const tokenExpiryTime = tokenGeneratedTime + 3550000;
+
+    if (currentTime >= tokenExpiryTime) {
+      localStorage.setItem('loginStatus', false);
+      window.location.replace(PATHS.login); 
+    }
+
+  }
 
     return (
         <>
-            <div className="full-container" >
+            {isLogged ? <div className="isLogged-content">
+            <div className="isLogged-content-notifi"> You Are Already Logged In! </div>
+            <button className="isLogged-content-logout-btn" onClick={handleLogout}> Logout </button>
+            </div>:
+            <div className="full-container">
                 <div className="login-form-container">
                     <div className="login-form-container-left">
-                        <Formik
-                            initialValues={initialValues}
-                            validationSchema={validationSchema}
-                            onSubmit={handleSubmit}
-                        >
-                            <Form>
-                                <div className="login-form-input-content">
-                                    <h2>Login</h2>
-                                    <div className="login-form-input-field">
-                                        <Field type="text" name="username" placeholder="Username" />
-                                        <ErrorMessage name="username" component="div" className="error-message" />
-                                    </div>
-                                    <div className="login-form-input-field">
-                                        <Field type="password" name="password" placeholder="Password" />
-                                        <ErrorMessage name="password" component="div" className="error-message" />
-                                    </div>
-                                    <br />
-                                    <button type="submit" className="login-submit-button">Submit</button>
-                                </div>
-                            </Form>
-                        </Formik>
+                <form onSubmit={handleLogin}>
+                <div className="login-form-input-content">
+                    <h2>Login</h2>
+                        <div>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Username"
+                                className="login-form-input-field"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            {errors.email && <div className="error-message">{errors.email}</div>}
+                        </div>
+                        <div>
+                                <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                className="login-form-input-field"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                onKeyPress={handleKeyPress}
+                            />
+                            {errors.password && <div className="error-message">{errors.password}</div>}
+                        </div>
+                        <br />
+                            <button type="submit" className="login-submit-button">Login</button>
+                        </div>
+                        </form>
                     </div>
                     <div>
                         <img src={LoginImg} alt="login vector" className="login-img" />
                     </div>
                 </div>
-            </div>
+                {loginLoading && <LoadingIndicator/>}
+            </div>}
         </>
     );
 }
+

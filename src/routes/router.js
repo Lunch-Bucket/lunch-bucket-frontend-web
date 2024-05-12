@@ -4,7 +4,8 @@ import AdminRoutes from './AdminRoutes';
 import Feedback from '../pages/feedback/Feedback';
 import User from '../pages/user/User';
 import MenuHome from '../pages/menu/MenuHome';
-import AddMenu from '../pages/menu/AddMenu';
+import SpecialMenuHome from '../pages/menu/SpecialMenuHome';
+import SettingHome from '../pages/setting/SettingHome';
 import OrderLunch from '../pages/order/OrderLunch';
 import OrderDinner from '../pages/order/OrderDinner';
 import AddWinner from '../pages/winner/AddWinner';
@@ -17,17 +18,17 @@ import Login from '../pages/login/Login';
 
 const router = createBrowserRouter([
     {
-        path: 'lunch-bucket-frontend-web',
+        // Prod
+        path: 'lunch-bucket-live', 
+        //Dev
+        // path: 'lunch-bucket-frontend-web',
         element: <AdminRoutes/>,
         children: [
             {
                 path: 'dashboard',
                 element: <DashboardHome/>
             },
-            {
-                path: '',
-                element: <OrderLunch/>
-            },
+         
             {
                 path: 'orderDinner',
                 element: <OrderDinner/>
@@ -49,8 +50,8 @@ const router = createBrowserRouter([
                 element: <MenuHome/>
             },
             {
-                path: 'addMenu',
-                element: <AddMenu/>
+                path: 'specialMenu',
+                element: <SpecialMenuHome/>
             },
             {
                 path: 'winner',
@@ -69,11 +70,15 @@ const router = createBrowserRouter([
                 element: <Promotion/>
             },
             {
+                path: 'setting',
+                element: <SettingHome/>,
+            },
+            {
                 path: 'chat',
                 element: <Chat/>,
             },
             {
-                path: 'login',
+                path: '',
                 element: <Login/>,
             },
         ]

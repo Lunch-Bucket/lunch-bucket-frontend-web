@@ -68,6 +68,7 @@
     height: auto;
     width: 30%;
     background-color: #ffffff;
+    border-right: 2px solid rgb(243, 240, 240);
     
 }
 
@@ -84,8 +85,8 @@
 .menu-detail-list-title{
     text-align: center;
     width: 100%;
-    background-color: #FFEF9C;
-    border-radius: 20px;
+    background-color: var(--button-color);
+    border-radius: 2px;
 }
 
 .menu-detail-list-title-icon{
@@ -111,11 +112,12 @@
     display: flex;
     justify-content: space-between;
     font-size: 14px;
-    padding-top: 0.5rem;
+    padding-top: 0.7rem;
+    margin: 0.3rem;
 }
 
 .menu-detail-list-item-name{
-    width: 80%;
+    width:100%;
     text-overflow: clip;
 }
 
@@ -179,13 +181,76 @@ hr {
 }
 
 .add-menu-item-form-label{
-    width: 25rem;
+    min-width: 15rem;
     font-size: 14px;
-    padding: 1.6rem;
+}
+
+.add-menu-item-field{
+    display: flex;
+    justify-content: start;
+    margin: 0.6rem;
 }
 
 #add-menu-item-form-input{
     width: 20rem;
-    margin-top: 1rem;
     height: 2rem;
+    text-overflow: ellipsis;
 }
+
+.special-menu-detail-content{
+    text-align: center;
+}
+
+.special-menu-detail-content-sub-category{
+    margin-bottom: 3rem;
+    border-bottom: 1px solid rgb(173, 173, 173);
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+ }
+
+.special-menu-card{
+    height: auto;
+    width: auto;
+    border-radius: 0px 6px 6px 6px;
+    background-color: #fcf9e3;
+    margin: 1rem;
+    padding: 1.2rem;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 2px 2px 2px rgb(153, 153, 153);
+}
+
+.special-menu-card-item-text{
+    text-align: left;
+    padding: 0.1rem;
+    font-size: 14px;
+}
+
+.food-item-img-container{
+    margin-top: 0.6rem;
+    margin-bottom: 0.5rem;
+    width: 6rem;
+    height: 6rem; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid #ccc;
+}
+
+.food-item-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+
+ #header-item-add-button-add-item{
+    border: none;
+ }
+
+ 

@@ -2,13 +2,16 @@ const STRINGS = {
     
     // Header Titles
     login: 'Login',
-    order: 'Orders',
-    menu: 'Menu',
+    lunchOrder: 'Lunch Orders',
+    dinnerOrder: 'Dinner Orders',
+    menu: 'Food List',
+    specialMenu: 'Special Food List',
     user: 'Users',
     feedback: 'Feedbacks',
     winner: 'Daily Winner',
     addWinner: 'Add Winner',
     promotion: 'Promotions',
+    setting: 'Settings',
     addPromotion: 'Add New Promotion',
     chat: 'Chats',
     dashboard: 'Dashboard',

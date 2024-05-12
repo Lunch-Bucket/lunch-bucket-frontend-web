@@ -1,0 +1,41 @@
+.setting-container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.setting-card{
+    height: 160px;
+    width: 20%;
+    border-radius: 5px;
+    background-color: #fffbc9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 1px 2px 2px 2px rgb(153, 153, 153);
+}
+
+.setting-card-input-count{
+    height: 2rem;
+    width: 6rem;
+    border-radius: 4px;
+    border: 2px solid rgb(0, 0, 0);
+    margin-right: 1rem;
+}
+
+button{
+    cursor: pointer;
+}
+
+.setting-card-edit-count{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 4rem;
+    padding: 2rem;
+    font-size: 16px;
+    border: 2px solid black;
+}

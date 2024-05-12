@@ -1,15 +1,17 @@
 {
-  "homepage": "https://lunch-bucket.github.io/lunch-bucket-frontend-web",
-  "name": "lunch-bucket-frontend-web",
+  "homepage": "lunch-bucket-live",
+  "name": "lunch-bucket",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fontsource/poppins": "^4.5.10",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.1.3",
+    "crypto-js": "^4.1.1",
+    "firebase": "^10.4.0",
+    "formik": "^2.4.2",
     "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
@@ -18,6 +20,7 @@
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.9.0",
     "react-scripts": "^5.0.1",
+    "react-to-print": "^2.14.15",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"
   },

@@ -2,121 +2,74 @@
     display: none;
   }
 
- /* Order Modal Styles */
-.order-modal{
-    position: absolute;
-    height: auto;
-    width: 65%;
-    z-index: 1000;
-    border-radius: 10px;
-    padding: 2%;
-    background-color: rgb(255, 252, 236);
-    box-shadow: .5 .5 rgb(105, 104, 104);
-    transform-style: preserve-3d; /* Preserve 3D transformations */
-    transform: rotateY(60deg) translateZ(-200px); /* Initial 3D transformation */
-    animation: modal-anim 0.5s ease-in-out forwards; 
-}
-@keyframes modal-anim {
-  0% {
-    transform: rotateY(60deg) translateZ(-200px);
-  }
-  100% {
-    transform: rotateY(0deg) translateZ(0);
-  }
-}
-
-/* 
-.modal-header{
-    height: 5%;
-    width: 100%;
-}
-
-.modal-detail-content{
-    border-bottom: solid black .1rem;
-}
-
-.modal-menu-content{
-    margin-top: 10px;
-    height: auto;
-    display: flex;
-    overflow-x: scroll;
-    width: 100%;
-}
-
-.modal-menu-content-card{
-    margin: 25px 0px 0px 15px;
-    flex-shrink: 0;
-    border-radius: 6px;
-    border: 2px solid black;
-    padding: 2%;
-    width: 90%;
-}
-
-.modal-menu-content-card-column-element{
-    display: flex;
-    justify-content: space-around;
-}
-
-
-.order-page-view-btn{
-    border: none;
-    background-color: transparent;
-    color: rgb(179, 178, 177);
-    cursor: pointer;
-    font-size: 16px;
-} */
-
 .order-page-table-row{
     display: flex;
-    margin-top: 1rem;
-    border-bottom: 2px solid rgb(165, 164, 164);
 }
-
 
 .order-page-data-row-description{
   width: 100%;
-  font-size: 12px;
+  font-size: 14px;
 }
 
-.order-page-data-row-noted-btn{
+.get-order-pdf-button{
+  background-color: #F18913;
+  color: white;
+  padding: 0.4rem;
   border: none;
-  background-color: #FFE662;
-  padding: 0.6rem;
-  height: 4rem;
-  cursor:pointer;
+  opacity: 0.9;
+  margin: 0.2rem;
 }
 
-.order-page-modal-header-chat-btn{
-    display: inline-flex;
-    align-items: center;
-    background-color: #FFE662;
-    float: right;
-    border: none;
-    box-shadow: 1px 0.5px rgb(201, 200, 172);
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    padding: 0.6rem;
-    max-height: 4rem;
+.inform-arrival{
+  background-color: #00B208;
 }
 
-.order-page-modal-header-chat-btn:hover, .order-page-data-row-noted-btn:hover{
-    background-color:#e4ca47;
+.generate-report{
+  background-color: #ffd500;
+  color: white;
+  font-weight:bold;
 }
 
-.order-page-view-btn:hover{
-    color: rgb(119, 118, 116);
+.get-order-pdf-button:hover{
+  opacity: 1;
 }
 
-.order-total-sales-content{
-  display: inline-flex;
-  align-items: center;
-  margin-left: 2rem;
+.filter-by{
+  display: flex;
+  font-weight:'bold';
 }
 
-.sales-content-amount{
-  font-weight: 600;
-  margin-left: 1rem;
-}
 
+@media (max-width: 768px) {
+  .report-content, .action-bar-btn-content{
+    margin: 1rem;
+
+  }
+  .filter-action-bar{
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .filter-by{
+    display: flex;
+    justify-content: flex-start;
+    margin:0.5rem;
+  }
+
+  .get-order-pdf-button{
+    padding: 0.2rem;
+  }
+
+  .order-button-content{
+    padding: 0.1rem;
+  }
+
+  .order-page-data-row-mobile-res{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .order-page-data-row-description{
+    margin-left: 1rem;
+  }
+}

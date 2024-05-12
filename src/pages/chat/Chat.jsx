@@ -1,135 +1,167 @@
-import React,{ useState } from "react";
+import React,{ useState, useEffect, useRef } from "react";
 import './ChatStyles.css';
 import '../../common/styles/CommonStyles.css';
-import strings from '../../common/strings/strings'
+import strings from '../../common/strings/strings';
+import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
+import {getChatData, addAdminReply, setAdminViewStatus} from '../../services/chatService';
+import LiveButton from "../../components/LiveButton";
+import SearchBar from "../../components/SearchBar";
 
-export default function Chat() {
+function Chat() {
 
-  const [chatType, setChatType] = useState("suggestion")
-  const [currUser, setCurrUser] = useState("")
-  const [chat, setChat] = useState([
-    {
-      userID:'User'+'#001',
-      regarding:'Can you please make the dishes as Halal, as I am a muslim person',
-      timestamp: '5:12 PM, 21-02-2023',
-      latestMessage: 'Can you please remove fish oil',
-      read: false,
-    },
-    {
-      userID:'User'+'#002',
-      regarding:'Order',
-      timestamp: '5:12 PM, 21-02-2023',
-      latestMessage: 'Can you please remove fish oil',
-      read: false,
-    },
-    {
-      userID:'User'+'#003',
-      regarding:'Other',
-      timestamp: '5:12 PM, 21-02-2023',
-      latestMessage: 'Can you please remove fish oil',
-      read: true,
-    },
-  ]);
+  const [chat, setChat] = useState([]);
+  const [currChat, setCurrChat] = useState('');
+  const [showSingleChat, setShowSingleChat] = useState(false);
+  const [adminReply, setAdminReply] = useState({
+    chat_id: '',
+    message: '',
+  });
 
-  const [suggestionList, setSuggestionList] = useState([
-      {
-        id: 1,
-        content: 'Please make the dishes more spicy'
-      },
-      {
-        id: 1,
-        content: 'Please make the dishes more sour taste'
-      },
-      {
-        id: 1,
-        content: 'Please make the dishes more '
-      },
-      {
-        id: 1,
-        content: 'Please make the dishes more '
-      },
-      {
-        id: 1,
-        content: 'Please make the dishes more '
-      },
-      {
-        id: 1,
-        content: 'Please make the dishes more '
-      },
-      {
-        id: 1,
-        content: 'Please make the dishes more spicy'
-      },
-      {
-        id: 1,
-        content: 'Please make the dishes more sour taste'
-      },
-      {
-        id: 1,
-        content: 'Please make the dishes more '
-      },
-      {
-        id: 1,
-        content: 'Please make the dishes more '
-      },
-      {
-        id: 1,
-        content: 'Please make the dishes more '
-      },
-      {
-        id: 1,
-        content: 'Please make the dishes more '
-      },
-  ])
+  const [navOnline,setNavOnline] = useState(true)
 
-  function openSingleChat(value){
-      setCurrUser(value);
-      setChatType('singleChat');
+  
+  async function fetchChats() {
+    try {
+      const chatList = await getChatData([]);
+      setChat(chatList.data.chats);
+      console.log('chat data in the component', chatList);
+    } catch (error) {
+      console.log('Error fetching chat data:', error.message);
+    }
+  }
+ 
+
+  function showSingleChatFunc(chatID)
+  {
+    handleAdminViewStatus(chatID);
+    setShowSingleChat(true);
+    setCurrChat(chatID);
   }
 
+  const handleAdminViewStatus = async (chat_id) => {
+
+    try {
+      const response = await setAdminViewStatus(chat_id);
+      console.log('Response from admin status:', response);
+      fetchChats();
+    } catch (error) {
+        console.log('Error:', error);
+    }
+  };
+
+  // Add Admin Reply Function
+  const handleAddReply = async (event) => {
+    event.preventDefault();
+    
+    if (adminReply.message.trim() === '') {
+      console.log('Empty message. Cannot proceed.');
+      return;
+    }
+  
+
+    try {
+      const response = await addAdminReply(adminReply);
+      console.log('Response from admin reply :', response);
+      fetchChats();
+      console.log("reply", adminReply)
+          // Clear the reply input
+          setAdminReply((prevData) => ({
+            ...prevData,
+            message: '',
+            reply: '',
+          }));
+
+    } catch (error) {
+        console.log('Error:', error);
+    }
+  };
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setAdminReply(() => ({
+      chat_id: currChat,
+      message : value,
+    }));
+  };
+  
+
+  const chatContentRef = useRef(null);
+
+  const scrollToBottom = () => {
+    if (chatContentRef.current) {
+      chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleChange(event);
+    }
+  };
+
+  useEffect(() => {
+    if(navigator.onLine){
+        setNavOnline(true);
+    }else{
+        setNavOnline(false);
+    }
+}, [navigator.onLine]);
+
+
+  useEffect(() => {
+    if(navOnline)
+      fetchChats();
+  }, []);
+
+  useEffect(() => {
+    if(navOnline)
+      scrollToBottom();
+  }, [chat.messages,showSingleChat]);
+
+
+
     return (
-      <div className="container">
+      <div className="full-container">
+           {navOnline === false && <p style={{ color: 'red', textAlign: 'center' }}>Please Check Your Network Connection</p>}
         <div className="header-title-bar">
           <h1 className="header-title-bar-text">{strings.chat}</h1>
-          <div>
-            <button className="action-bar-btn" onClick={()=>{setChatType('suggestion')}} style={{backgroundColor: chatType== 'suggestion'? '#FFEF9C' :''}}>Suggestions</button>
-            <button className="action-bar-btn" onClick={()=>{setChatType('live')}}>Live Chat</button>
-          </div>
+          {/* <SearchBar/> */}
         </div>
 
-        {chatType == 'live' &&  
-        <div className="chat-main-container">
-        {chat.map((chat, id)=>(  <div className="chat-card" style={{backgroundColor: chat.read ? '#f8eba3' : '#ECBA5D', cursor:'pointer'}} onClick={()=>openSingleChat(chat.userID)}>
-            {chat.latestMessage}
-        </div>))}
-        </div>}
 
-        
-        {chatType == 'singleChat' &&  
         <div className="chat-main-container">
-         {chat.map((chat, id)=>( <>
-         {currUser == (chat.userID) &&<div style={{display:'flex', flexDirection:'column'}}>
-         <div className="chat-card" style={{width:'auto'}}>
-                {chat.regarding}
-           </div>
-           <div className="chat-reply-content">
-              <input type="text" className="chat-reply-input" />
-              <button className="action-bar-btn chat-reply-send-btn">Send Reply</button>
-           </div>
-           </div>}
-       
-           </>))}
-           
-        </div>}
-
-
-        {chatType == 'suggestion' &&  
-        <div className="chat-main-container">
-         {suggestionList.map((chat, id)=>( <div className="chat-card">
-                {chat.content}
-           </div>))}
-        </div>}
+            {chat.map((singleChat, index) => (
+              <>
+                <div className="chat-main-container-chat-item" onClick={()=>showSingleChatFunc(singleChat.id)}>{singleChat.code} 
+                   {singleChat.view_admin_state === true && <LiveButton/>}
+                </div>
+                {(showSingleChat && (singleChat.id === currChat)) &&
+                <div className="single-chat-container">
+                   <div style={{display:'flex', justifyContent:'space-between'}}>
+                      <h4 style={{marginLeft:'1rem'}}>{singleChat.code} | {singleChat.contact}</h4>
+                      <button className="chat-popup-close-btn" onClick={()=>setShowSingleChat(false)}>close</button>
+                    </div> 
+                    <div className="chat-scroll-content" ref={chatContentRef}>
+                      {singleChat.messages.map((msg,index)=>(
+                        <div className={msg.sender === 'user' ? 'chatUser' : 'chatAdmin'}>{msg.message}</div>       
+                      ))}
+                    </div>
+                    <form className="chat-reply-content" onSubmit={handleAddReply}>
+                        <input type="text" className="chat-reply-input" 
+                        name="reply" 
+                        value={adminReply.reply} 
+                        onChange={handleChange} 
+                        onKeyPress={handleKeyPress}/>
+                        <button className="action-bar-btn chat-reply-send-btn" type="submit">Send Reply</button>
+                    </form> 
+                </div>
+                }
+              </>
+            ))}
+      </div>
 
         </div>
     )
 }
+
+export default withTokenExpirationCheck(Chat);

@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import "@fontsource/poppins";
 import {FaStar} from "react-icons/fa";
 import "./FeedbackStyles.css";
 import strings from '../../common/strings/strings'

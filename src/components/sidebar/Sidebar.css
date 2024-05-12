@@ -1,3 +1,6 @@
+@import '../../common/styles/Colors.css';
+
+
 .sidebar-container::-webkit-scrollbar{
     display: none;
   }
@@ -16,12 +19,16 @@
     box-shadow: 10px 10px 54px -6px rgb(224, 200, 134);
 }
 
+.sidebar-logo-img{
+    height: 5rem;
+    width: 5rem;
+}
+
 .sidebar-logo-container{
     font-size: 32px;
     padding: 2rem 2rem 2rem 2rem;
-    height: 8%;
+    height: 6%;
     text-align: center;
-    
 }
 
 .sidebar-logo a{
@@ -41,7 +48,6 @@
 
 
 .side-bar-page-list{
-    font-family: Poppins;
     font-size: 15px;
     font-weight: 600;
     line-height: 32px;
@@ -54,7 +60,7 @@
 }
 
 .side-bar-page-list-item a{
-    display: block;
+    display: flex;
     text-decoration: none;
     padding: 0.5rem 0.5rem 0.5rem 1rem;
     border-radius: 8px;
@@ -64,8 +70,56 @@
 }
 
 .active{
-    background-color: #F0BB59;
-    color: #685904;
+    background-color: var(--button-color);
+    color: var(--black-color);
     border-radius: 10px;
-    box-shadow: 6px 7px 10px -6px rgb(255, 192, 20);
+    box-shadow: 6px 7px 10px -6px var(--button-color);
 }
+
+
+@media (max-width: 768px) {
+    .sidebar-container{
+        display: flex;
+        height:auto;
+        width: 100%;
+        z-index: 800;
+        background-color: white;
+        border: none;
+    } 
+    .side-bar-page-list{
+        display: flex;
+        flex-direction: row;
+        line-height: 12px;
+        z-index: 1100;
+        padding: 0;
+    }
+
+    .sidebar-logo-container{
+       padding: 0.2rem;
+       display: flex;
+       justify-content: space-between;
+    }
+
+    .sidebar-logo-img{
+        height: 3rem;
+        width: 3rem;
+    }
+
+    .side-bar-page-list-item a{
+        display: block;
+        padding-left: 2px;
+        margin: 0.1rem;
+        font-weight: 700;
+        border-bottom: 2px black;
+        font-size: 10px;
+    }
+
+    .active{
+        background-color: transparent;
+        color: #2b0000;
+        border-radius: 0px;
+        box-shadow: none;
+    }
+    
+
+  }
