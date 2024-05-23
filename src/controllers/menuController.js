@@ -125,3 +125,17 @@ export async function getDinnerMenu() {
         console.log(error);
     }
 }
+
+
+//Delete Food
+export async function DeleteFood(foodId) {
+    try {
+        const token = localStorage.getItem('lb_auth_token');
+        const response = await axios.delete(`${baseUrl}deleteFood/${foodId}`,{headers: {'token': `${token}`}});
+        console.log('delete food', response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+

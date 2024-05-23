@@ -1,5 +1,4 @@
-import { getFood, getSpecialFood, addFood, addSpecialFood, setMealLunch as controllerSetMealLunch, setMealDinner as controllerSetMealDinner,setSpecialMealLunch as controllerSetSpecialMealLunch, setSpecialMealDinner as controllerSetSpecialMealDinner , getLunchMenu as controllerGetLunchMenu, getDinnerMenu as controllerGetDinnerMenu } from "../controllers/menuController";
-import axios from "axios";
+import { getFood, getSpecialFood, addFood, addSpecialFood, setMealLunch as controllerSetMealLunch, setMealDinner as controllerSetMealDinner,setSpecialMealLunch as controllerSetSpecialMealLunch, setSpecialMealDinner as controllerSetSpecialMealDinner , getLunchMenu as controllerGetLunchMenu, getDinnerMenu as controllerGetDinnerMenu, DeleteFood as controllerDeleteFood } from "../controllers/menuController";
 
 
 // get food
@@ -89,11 +88,8 @@ export async function setSpecialMealDinner(food_ids) {
 // delete food
 export const deleteFoodItem = async (foodId) => {
     try {
-        const token = localStorage.getItem('lb_auth_token');
-        const response = await axios.delete(`https://1p8cy9d7v2.execute-api.ap-south-1.amazonaws.com/dev/deleteFood/${foodId}`,
-            { headers: { 'token': `${token}` } }
-        );
-        return response.data;
+        const response = await controllerDeleteFood(foodId);
+        return response;
     } catch (error) {
         throw error;
     }

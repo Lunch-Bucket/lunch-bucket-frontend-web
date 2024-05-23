@@ -10,6 +10,12 @@ import { storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import LoadingIndicator from "../../components/LoadingIndicator";
  
+const initialState =
+{
+  meat: [],
+  stew: [],
+  vege: []
+}
 
 function MenuHome() {
  
@@ -21,11 +27,12 @@ function MenuHome() {
      const [popupMessage, setPopupMessage] = useState('');
      const [loading, setLoading] = useState(true);
      const [applyMealLoading, setApplyMealLoading] = useState(false);
-     const [selectedForDelete, setSelectedForDelete] = useState([]);
+     const [selectedForDelete, setSelectedForDelete] = useState(0);
      const [navOnline,setNavOnline] = useState(true)
      const [showProgress, setShowProgress] = useState(false);
      const [progress, setProgress] = useState(0);
    
+    
      const openPopup = (type, message) => {
        setPopupType(type);
        setPopupMessage(message);
@@ -43,12 +50,8 @@ function MenuHome() {
       vegetarian: true,
     });
 
-    const selectedFoodItems = {
-      meat: [],
-      stew: [],
-      vege: []
-    };
-
+  
+    const [selectedFoodItems,setSelectedFoodItems] = useState( initialState)
 
      async function fetchFood() {
       try {
@@ -76,7 +79,7 @@ function MenuHome() {
 
 
 
-function FoodItemChecked (category, id, item_id_for_delete ) {
+function FoodItemChecked (category, id, food_id) {
   const categoryItems = [...selectedFoodItems[category]]; 
 
   const selectedIndex = categoryItems.indexOf(id);
@@ -84,11 +87,15 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
     categoryItems.splice(selectedIndex, 1);
   } else {
     categoryItems.push(id);
-    // setSelectedForDelete(item_id_for_delete);
   }
-  selectedFoodItems[category] = categoryItems;
-  console.log('checked food items: ', selectedFoodItems);
-  // console.log('checked food items for delete: ', selectedForDelete);
+
+  setSelectedFoodItems(prevState => ({
+    ...prevState,
+    [category]: categoryItems
+  }));
+
+  setSelectedForDelete(food_id);
+  console.log('checked food items for delete: ', food_id);
 };
 
 
@@ -257,17 +264,22 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
   
 
     const handleDeleteFood = async () => {
-      console.log("selected for delete", selectedForDelete)
-      setShowDeleteItemModal(false)
-  
+      setApplyMealLoading(true);
+      console.log("selected for delete", selectedForDelete);
+      setShowDeleteItemModal(false);
+    
       try {
-          const response = await deleteFoodItem(selectedForDelete);
-          console.log('Response from delete item:', response);
-          fetchFood();
+        const response = await deleteFoodItem(selectedForDelete);
+        console.log('Response from delete item:', response);
+        setSelectedFoodItems(initialState);
+        setSelectedForDelete(0);
+        fetchFood();
+        setApplyMealLoading(false);
       } catch (error) {
-          console.log('Error:', error);
+        console.log('Error:', error);
       }
-  };
+    };
+    
   
 
 
@@ -280,7 +292,7 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
                 <button id="header-item-add-button"  onClick={handleSetMealLunch}>Apply Lunch Meal</button>
                 <button id="header-item-add-button"  onClick={handleSetMealDinner}>Apply Dinner Meal</button>
                 <button id="header-item-add-button" style={{border: '2px solid var(--cancel-color)', backgroundColor:'transparent'}}  onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
-                {/* <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button> */}
+                <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button>
               </div>
             </div>
             <hr/>
@@ -390,7 +402,7 @@ function FoodItemChecked (category, id, item_id_for_delete ) {
                     <button class="delete-confirm-btn" onClick={handleDeleteFood}>Confirm</button>
                   </div>
               </div>}
-              {applyMealLoading ? <LoadingIndicator showText="Applying to the Meal"/> :
+              {applyMealLoading ? <LoadingIndicator showText="Processing, Just Wait!"/> :
               <div>
               {loading ? <LoadingIndicator showText="Loading"/> :
             <div className="menu-detail-content">
