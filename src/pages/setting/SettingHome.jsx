@@ -33,11 +33,10 @@ function SettingHome() {
       };
 
     
+    const [limitsLunchSpecial, setLimitsLunchSpecial] = useState({});
     const [limitsLunch, setLimitsLunch] = useState({});
+    const [limitsDinnerSpecial, setLimitsDinnerSpecial] = useState({});
     const [limitsDinner, setLimitsDinner] = useState({});
-
-    const [specialMenuLunch, setSpecialMenuLunch] = useState([]);
-    const [specialMenuDinner, setSpecialMenuDinner] = useState([]);   
 
     const [navOnline,setNavOnline] = useState(true)
 
@@ -46,22 +45,27 @@ function SettingHome() {
         try {
             //Lunch
             const menuListLunch = await getLunchMenu([]);
-         
+
             const initialLimits = {};
             
+            menuListLunch.data.rice_menu_lunch.forEach(item => initialLimits[item.type] = item.limit || 0);
             menuListLunch.data.vege_menu_lunch.forEach(item => initialLimits[item.type] = item.limit || 0);
             menuListLunch.data.meat_menu_lunch.forEach(item => initialLimits[item.type] = item.limit || 0);
             menuListLunch.data.stew_menu_lunch.forEach(item => initialLimits[item.type] = item.limit || 0);
-            menuListLunch.data.rice_menu_lunch.forEach(item => initialLimits[item.type] = item.limit || 0);
             
-        if (Array.isArray(menuListLunch.data.special_menu_lunch)) {
-            menuListLunch.data.special_menu_lunch.forEach(category => {
-              if (Array.isArray(category)) {
-                category.forEach(item => initialLimits[item.type] = item.limit || 0);
-              }
-            });
-          }
+
+            const initialLimitsLunchSpecial = menuListLunch.data.special_menu_lunch.flatMap(item => 
+              item.category.map(data => ({
+                type: data.type,
+                id: data.id,
+                limit: data.limit || 0
+              }))
+            );
+
           setLimitsLunch(initialLimits);
+          setLimitsLunchSpecial(initialLimitsLunchSpecial);
+          console.log("lunch limit",limitsLunch)
+          console.log("lunch special limit",initialLimitsLunchSpecial)
   
 
           //Dinner
@@ -69,20 +73,23 @@ function SettingHome() {
 
           const initialLimitsDinner = {};
 
+          menuListDinner.data.rice_menu_dinner.forEach(itemDinner => initialLimitsDinner[itemDinner.type] = itemDinner.limitDinner || 0);
           menuListDinner.data.vege_menu_dinner.forEach(itemDinner => initialLimitsDinner[itemDinner.type] = itemDinner.limitDinner || 0);
           menuListDinner.data.meat_menu_dinner.forEach(itemDinner => initialLimitsDinner[itemDinner.type] = itemDinner.limitDinner || 0);
           menuListDinner.data.stew_menu_dinner.forEach(itemDinner => initialLimitsDinner[itemDinner.type] = itemDinner.limitDinner || 0);
-          menuListDinner.data.rice_menu_dinner.forEach(itemDinner => initialLimitsDinner[itemDinner.type] = itemDinner.limitDinner || 0);
           
-      if (Array.isArray(menuListDinner.data.special_menu_dinner)) {
-        menuListDinner.data.special_menu_dinner.forEach(category => {
-            if (Array.isArray(category)) {
-              category.forEach(itemDinner => initialLimitsDinner[itemDinner.type] = itemDinner.limit || 0);
-            }
-          });
-        }
+          const initialLimitsDinnerSpecial = menuListDinner.data.special_menu_dinner.flatMap(item => 
+            item.category.map(data => ({
+              type: data.type,
+              id: data.id,
+              limit: data.limit || 0
+            }))
+          );
 
-            setLimitsDinner(initialLimitsDinner);
+          setLimitsDinner(initialLimitsDinner);
+          setLimitsDinnerSpecial(initialLimitsDinnerSpecial);
+          console.log("lunch limit",limitsDinner)
+          console.log("lunch special limit",limitsDinnerSpecial)
   
 
         } catch (error) {
@@ -117,8 +124,10 @@ function SettingHome() {
       
           const response = await controllerUpdateLimits(formattedLimits);
           console.log('Response from updateLimits:', response);
+          alert('Limits updated successfully');
         } catch (error) {
           console.error('Error updating limits:', error);
+          alert('Error updating limits');
 
         }
       };
@@ -132,8 +141,10 @@ function SettingHome() {
       
           const response = await controllerUpdateLimits(formattedLimits);
           console.log('Response from updateLimits:', response);
+          alert('Limits updated successfully');
         } catch (error) {
           console.error('Error updating limits:', error);
+          alert('Error updating limits');
 
         }
       };
@@ -152,8 +163,23 @@ function SettingHome() {
       console.error(error);
     }
   }
+
+      //Update Limits
+      async function controllerUpdateLimitsSpecial({meal_type, limits}) {
+        try {
+          const token = localStorage.getItem('lb_auth_token');
+          const response = await axios.put(`${baseUrl}freeorder_updatelimit_special`, {
+            meal_type,
+            limits
+          }, { headers: { 'token': `${token}` }});
+          return response.data;
+        } catch (error) {
+          console.error(error);
+        }
+      }
+        
       
-    
+    //Lunch
       const handleLimitChangeLunch = (key, value) => {
         const numericValue = parseInt(value, 10);
         setLimitsLunch(prevLimits => ({
@@ -162,12 +188,65 @@ function SettingHome() {
         }));
       };
 
+      //Lunch - Special
+      const handleUpdateLimitsLunchSpecial = async () => {
+        try {
+          const formattedLimits = {
+            meal_type: mealType,
+            limits: limitsLunchSpecial.reduce((acc, item) => {
+              acc[item.type] = item.limit;  // Use item.type instead of item.id
+              return acc;
+            }, {})
+          };
+      
+          const response = await controllerUpdateLimitsSpecial(formattedLimits);
+          console.log('Limits updated successfully:', response);
+          alert('Limits updated successfully');
+        } catch (error) {
+          console.error('Error updating limits:', error);
+          alert('Error updating limits');
+        }
+      };
+      
+      
+      const handleLimitChangeLunchSpecial = (index, value) => {
+        const updatedLimits = [...limitsLunchSpecial];
+        updatedLimits[index].limit = Number(value);
+        setLimitsLunchSpecial(updatedLimits);
+      };
+
+      //Dinner
       const handleLimitChangeDinner = (key, value) => {
         const numericValue = parseInt(value, 10);
         setLimitsDinner(prevLimits => ({
           ...prevLimits,
           [key]: numericValue
         }));
+      };
+      
+      //Dinner - Special
+      const handleUpdateLimitsDinnerSpecial = async () => {
+        try {
+          const formattedLimits = {
+            meal_type: mealType,
+            limits: limitsDinnerSpecial.reduce((acc, item) => {
+              acc[item.type] = item.limit;  // Use item.type instead of item.id
+              return acc;
+            }, {})
+          };
+      
+          const response = await controllerUpdateLimitsSpecial(formattedLimits);
+          console.log('Limits updated successfully:', response);
+          alert('Limits updated successfully');
+        } catch (error) {
+          console.error('Error updating limits:', error);
+          alert('Error updating limits');
+        }
+      };
+      const handleLimitChangeLDinnerSpecial = (index, value) => {
+        const updatedLimits = [...limitsDinnerSpecial];
+        updatedLimits[index].limit = Number(value);
+        setLimitsDinnerSpecial(updatedLimits);
       };
 
 
@@ -319,19 +398,22 @@ function SettingHome() {
                            <button onClick={handleUpdateLimitsLunch}>Update Choice Limits</button>
                     <hr/>
                         <h3>Lunch - Special</h3>
-                        {specialMenuLunch.map((item,id)=>(
-                            <ul>
-                            {item.category.map((data,index)=>(
-                                <li>{data.type}</li>
-                            ))}
-                            
-                        </ul>
-                        ))}
-                          <button onClick={null}>Update Special Limits</button>
+                        {limitsLunchSpecial.map((item, index) => (
+                            <div key={index} style={{ display: 'flex', justifyContent: 'space-between', margin: '1rem' }}>
+                              <label>{item.type}</label>
+                              <input
+                                type="number"
+                                value={item.limit}
+                                onChange={(e) => handleLimitChangeLunchSpecial(index, e.target.value)}
+                                style={{ width: '3rem' }}
+                              />
+                            </div>
+                          ))}
+                          <button onClick={handleUpdateLimitsLunchSpecial}>Update Special Limits</button>
                     </div>
                   ) : (
                     <div>
-                      <p style={{maxWidth:'15rem', color:'red'}}>Update Lunch Limits in Between 10.00am - 11.00am</p>
+                      <p style={{maxWidth:'15rem', color:'red'}}>Update Lunch Limits in Between 10.00am - 10.30am</p>
                        <h3>Lunch - Choice</h3>
                         {Object.keys(limitsLunch).map((key, index) => (
                             <div key={index} style={{display:'flex',justifyContent:'space-between', margin:'1rem'}}>
@@ -340,14 +422,12 @@ function SettingHome() {
                         ))}
                     <hr/>
                         <h3>Lunch - Special</h3>
-                        {specialMenuLunch.map((item,id)=>(
-                            <ul>
-                            {item.category.map((data,index)=>(
-                                <li>{data.type}</li>
-                            ))}
-                            
-                        </ul>
-                    ))}
+                        {limitsLunchSpecial.map((item, index) => (
+                            <div key={index} style={{ display: 'flex', justifyContent: 'space-between', margin: '1rem' }}>
+                              <label>{item.type}</label>
+                            </div>
+                        ))}
+                      
                     </div>
                   )}
                    
@@ -374,19 +454,22 @@ function SettingHome() {
 
                     <hr/>
                     <h3>Dinner - Special</h3>
-                    {specialMenuDinner.map((item,id)=>(
-                         <ul>
-                         {item.category.map((data,index)=>(
-                             <li>{data.type}</li>
-                         ))}
-                         
-                     </ul>
-                    ))}
-                    <button onClick={null}>Update Special Limits</button>
+                    {limitsDinnerSpecial.map((item, index) => (
+                            <div key={index} style={{ display: 'flex', justifyContent: 'space-between', margin: '1rem' }}>
+                              <label>{item.type}</label>
+                              <input
+                                type="number"
+                                value={item.limit}
+                                onChange={(e) => handleLimitChangeLDinnerSpecial(index, e.target.value)}
+                                style={{ width: '3rem' }}
+                              />
+                            </div>
+                          ))}
+                    <button onClick={handleUpdateLimitsDinnerSpecial}>Update Special Limits</button>
 
                 </div> ) : (
                    <div>
-                    <p style={{maxWidth:'15rem', color:'red'}}>Update Dinner Limits in Between 6.00pm - 7.00pm</p>
+                    <p style={{maxWidth:'15rem', color:'red'}}>Update Dinner Limits in Between 6.00pm - 6.30pm</p>
                    <h3>Dinner - Choice</h3>
                       {Object.keys(limitsDinner).map((key, index) => (
                           <div key={index} style={{display:'flex',justifyContent:'space-between', margin:'1rem'}}>
@@ -395,14 +478,11 @@ function SettingHome() {
                 ))}
                 <hr/>
                     <h3>Dinner - Special</h3>
-                    {specialMenuDinner.map((item,id)=>(
-                        <ul>
-                        {item.category.map((data,index)=>(
-                            <li>{data.type}</li>
+                    {limitsDinnerSpecial.map((item, index) => (
+                            <div key={index} style={{ display: 'flex', justifyContent: 'space-between', margin: '1rem' }}>
+                              <label>{item.type}</label>
+                            </div>
                         ))}
-                        
-                    </ul>
-                    ))}
                 </div>
               )}
             </div>
