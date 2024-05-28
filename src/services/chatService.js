@@ -1,8 +1,8 @@
 import { getChats, setAdminMsg, setAdminViewState } from "../controllers/chatController";
 
-export async function getChatData() {
+export async function getChatData(startCollectionId) {
     try {
-        const result = await getChats();
+        const result = await getChats(startCollectionId);
         return await result;
     } catch (error) {
         console.log("error:", error.message);

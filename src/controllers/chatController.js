@@ -1,18 +1,34 @@
 import axios from "axios";
 import baseUrl from "./baseUrl";
 
-export async function getChats() {
+// export async function getChats() {
+//     try {
+//         const token = localStorage.getItem('lb_auth_token');
+//         if (token) {
+//             const response = await axios.get(`${baseUrl}getAdminChat`,{headers:{'token':`${token}`}});
+//             console.log('chat data in Controller: ',response.data);
+//             return response.data;
+//         }
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
+
+
+
+export async function getChats(startId) {
     try {
-        const token = localStorage.getItem('lb_auth_token');
-        if (token) {
-            const response = await axios.get(`${baseUrl}getAdminChat`,{headers:{'token':`${token}`}});
-            console.log('chat data in Controller: ',response.data);
-            return response.data;
-        }
+      const token = localStorage.getItem('lb_auth_token');
+      const response = await axios.get(`${baseUrl}getAdminChat`, {
+        params: { startCollectionId: startId }, // Use the correct parameter name
+        headers: { 'token': `${token}` } 
+      });
+      return response.data;
     } catch (error) {
-        console.log(error);
+      console.error('Error fetching chat data:', error);
+      throw error;
     }
-}
+  }
 
 // Admin Message
 export async function setAdminMsg(reply) {

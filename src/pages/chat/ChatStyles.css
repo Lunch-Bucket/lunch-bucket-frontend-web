@@ -131,3 +131,14 @@
 .chat-reply-send-btn:focus{
     background-color:  #f0d957;
 }
+
+.chat-pagination-next-btn{
+    float: right;
+    background-color:  #e4c82e;
+    border-radius: 0px 4px 4px 0px;
+    height: 2rem;
+    width: 4rem;
+    font-weight: 600;
+    margin: 0.5rem;
+    border: 2px solid rgb(56, 3, 3);
+}
