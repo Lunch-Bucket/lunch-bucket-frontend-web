@@ -4,10 +4,8 @@ import "./SettingStyles.css";
 import strings from '../../common/strings/strings';
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import { getLunchMenu, getDinnerMenu } from "../../services/menuService";
-import { updateMealCount } from "../../services/settingservice";
+import { updateMealCount, updateLimits,updateLimitsSpecial} from "../../services/settingservice";
 import Popup from "../../components/Popup";
-import axios from "axios";
-import baseUrl from "../../controllers/baseUrl";
 
 function SettingHome() {
 
@@ -122,7 +120,7 @@ function SettingHome() {
             limits: { ...limitsLunch } 
           };
       
-          const response = await controllerUpdateLimits(formattedLimits);
+          const response = await updateLimits(formattedLimits);
           console.log('Response from updateLimits:', response);
           alert('Limits updated successfully');
         } catch (error) {
@@ -139,7 +137,7 @@ function SettingHome() {
             limits: { ...limitsDinner } 
           };
       
-          const response = await controllerUpdateLimits(formattedLimits);
+          const response = await updateLimits(formattedLimits);
           console.log('Response from updateLimits:', response);
           alert('Limits updated successfully');
         } catch (error) {
@@ -149,35 +147,7 @@ function SettingHome() {
         }
       };
 
-
-    //Update Limits
-   async function controllerUpdateLimits({meal_type, limits}) {
-    try {
-      const token = localStorage.getItem('lb_auth_token');
-      const response = await axios.put(`${baseUrl}freeorder_updatelimit`, {
-        meal_type,
-        limits
-      }, { headers: { 'token': `${token}` }});
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-      //Update Limits
-      async function controllerUpdateLimitsSpecial({meal_type, limits}) {
-        try {
-          const token = localStorage.getItem('lb_auth_token');
-          const response = await axios.put(`${baseUrl}freeorder_updatelimit_special`, {
-            meal_type,
-            limits
-          }, { headers: { 'token': `${token}` }});
-          return response.data;
-        } catch (error) {
-          console.error(error);
-        }
-      }
-        
+ 
       
     //Lunch
       const handleLimitChangeLunch = (key, value) => {
@@ -199,7 +169,7 @@ function SettingHome() {
             }, {})
           };
       
-          const response = await controllerUpdateLimitsSpecial(formattedLimits);
+          const response = await updateLimitsSpecial(formattedLimits);
           console.log('Limits updated successfully:', response);
           alert('Limits updated successfully');
         } catch (error) {
@@ -235,7 +205,7 @@ function SettingHome() {
             }, {})
           };
       
-          const response = await controllerUpdateLimitsSpecial(formattedLimits);
+          const response = await updateLimitsSpecial(formattedLimits);
           console.log('Limits updated successfully:', response);
           alert('Limits updated successfully');
         } catch (error) {
