@@ -5,7 +5,6 @@ import strings from '../../common/strings/strings';
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import {getChatData, addAdminReply, setAdminViewStatus} from '../../services/chatService';
 import LiveButton from "../../components/LiveButton";
-import SearchBar from "../../components/SearchBar";
 
 function Chat() {
 
@@ -22,7 +21,7 @@ function Chat() {
   const [navOnline,setNavOnline] = useState(true)
 
 
-  async function fetchChats(startCollectionId = '0') {
+  async function fetchChats(startCollectionId) {
     try {
       const chatList = await getChatData(startCollectionId);
       if (startCollectionId === '0') {
@@ -49,7 +48,7 @@ function Chat() {
     try {
       const response = await setAdminViewStatus(chat_id);
       console.log('Response from admin status:', response);
-      fetchChats();
+      // fetchChats();
     } catch (error) {
         console.log('Error:', error);
     }
@@ -68,7 +67,7 @@ function Chat() {
     try {
       const response = await addAdminReply(adminReply);
       console.log('Response from admin reply :', response);
-      fetchChats();
+      fetchChats(startCollectionId);
       console.log("reply", adminReply)
           // Clear the reply input
           setAdminReply((prevData) => ({
@@ -127,6 +126,8 @@ useEffect(() => {
   const handleNextPage = () => {
     if (chat.length > 0) {
       setStartCollectionId(chat[chat.length - 1].id);
+      setChat([])
+      fetchChats(startCollectionId);
     }
   };
 
