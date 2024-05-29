@@ -8,6 +8,7 @@ import Popup from "../../components/Popup";
 import { storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import LoadingIndicator from "../../components/LoadingIndicator";
+import SearchBar from "../../components/SearchBar";
  
 const initialState =
 {
@@ -30,6 +31,8 @@ function MenuHome() {
      const [navOnline,setNavOnline] = useState(true)
      const [showProgress, setShowProgress] = useState(false);
      const [progress, setProgress] = useState(0);
+     const [searchQuery, setSearchQuery] = useState('');
+     const [filteredItems, setFilteredItems] = useState([]);
    
     
      const openPopup = (type, message) => {
@@ -49,33 +52,18 @@ function MenuHome() {
       vegetarian: true,
     });
 
-  
     const [selectedFoodItems,setSelectedFoodItems] = useState( initialState)
 
      async function fetchFood() {
       try {
         const foodDetail = await getFoodItem([]);
         setfoodItem(foodDetail);
+        console.log("menu", foodDetail)
         setLoading(false);
       } catch (error) {
         console.log('Error fetching menu data:', error.message);
       }
     }
-
-    useEffect(() => {
-      if(navigator.onLine){
-          setNavOnline(true);
-      }else{
-          setNavOnline(false);
-      }
-  }, [navigator.onLine]);
-
- 
-     useEffect(() => {
-      if(navOnline)
-         fetchFood();
-     }, []);
-
 
 
 function FoodItemChecked (category, id, food_id) {
@@ -278,6 +266,31 @@ function FoodItemChecked (category, id, food_id) {
         console.log('Error:', error);
       }
     };
+
+
+    useEffect(() => {
+      if(navigator.onLine){
+          setNavOnline(true);
+      }else{
+          setNavOnline(false);
+      }
+  }, [navigator.onLine]);
+
+ 
+     useEffect(() => {
+      if(navOnline)
+         fetchFood();
+     }, []);
+
+
+     //Search Food Items
+     useEffect(() => {
+        const results = foodItem.filter(foodDetail =>
+        foodDetail.type.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredItems(results);
+    }, [searchQuery, foodItem]);
+
     
   
 
@@ -293,6 +306,7 @@ function FoodItemChecked (category, id, food_id) {
                 <button id="header-item-add-button" style={{border: '2px solid var(--cancel-color)', backgroundColor:'transparent'}}  onClick={()=>{setShowAddItemModal(true)}}>Add Item</button>
                 <button className="header-item-add-button" style={{backgroundColor: 'rgb(185, 2, 2)', color: 'white'}} onClick={()=>{setShowDeleteItemModal(true)}} >Delete Item</button>
               </div>
+              <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </div>
             <hr/>
 
@@ -408,7 +422,7 @@ function FoodItemChecked (category, id, food_id) {
                 <div className="menu-detail-list">
                 <div className="menu-detail-list-title">Vegetables</div> 
                         <ul>
-                          {foodItem.map((item,id)=>( 
+                          {filteredItems.map((item,id)=>( 
                             <>
                             {item.category === 'vege' && <>
                             <li className="menu-detail-list-item">
@@ -433,7 +447,7 @@ function FoodItemChecked (category, id, food_id) {
                 <div className="menu-detail-list">
                     <div className="menu-detail-list-title">Meat</div> 
                         <ul>
-                          {foodItem.map((item,id)=>( 
+                          {filteredItems.map((item,id)=>( 
                             <>
                             {item.category === 'meat' && <>
                             <li className="menu-detail-list-item">
@@ -457,7 +471,7 @@ function FoodItemChecked (category, id, food_id) {
                 <div className="menu-detail-list" style={{borderRight:'none'}}>
                 <div className="menu-detail-list-title">Condiments</div> 
                         <ul>
-                          {foodItem.map((item,id)=>( 
+                          {filteredItems.map((item,id)=>( 
                             <>
                             {item.category == 'stew' && <>
                             <li className="menu-detail-list-item">

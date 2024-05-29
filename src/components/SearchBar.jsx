@@ -11,10 +11,9 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder="Search customer code"
+        placeholder="Search"
         className="search-bar-input"
       />
-      <button type="button" className='search-bar-icon'><BsSearch/></button>
     </div>
   );
 };
