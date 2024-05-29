@@ -4,7 +4,6 @@ import "../../common/styles/CommonStyles.css"
 import strings from '../../common/strings/strings';
 import SearchBar from "../../components/SearchBar";
 import { getUserData, userAddToThreat, userRemoveFromThreat } from "../../services/userService";
-import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import Popup from "../../components/Popup";
 
 
@@ -148,4 +147,4 @@ function User() {
     );
 }
 
-export default withTokenExpirationCheck(User);
+export default User;

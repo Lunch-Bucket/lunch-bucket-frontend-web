@@ -4,7 +4,6 @@ import "./MenuStyles.css";
 import "../../components/PopupStyles.css";
 import strings from '../../common/strings/strings'
 import {getFoodItem, addFoodItem,setMealLunch, setMealDinner, deleteFoodItem } from "../../services/menuService";
-import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import Popup from "../../components/Popup";
 import { storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
@@ -489,4 +488,4 @@ function FoodItemChecked (category, id, food_id) {
     );
 }
 
-export default withTokenExpirationCheck(MenuHome);
+export default MenuHome;

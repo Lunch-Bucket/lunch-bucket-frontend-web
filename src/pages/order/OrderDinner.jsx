@@ -3,9 +3,7 @@ import "../../common/styles/CommonStyles.css";
 import "./OrderStyles.css";
 import "../../common/styles/Colors.css";
 import strings from "../../common/strings/strings";
-import SearchBar from "../../components/SearchBar";
 import { getPendingOrderData, getConfirmedOrderData, confirmOrderData , generateReport, generateOrdersPDF, informArrival} from "../../services/orderService";
-import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import Popup from "../../components/Popup";
 
@@ -481,4 +479,4 @@ function OrderHome_Dinner()
     );
 }
 
-export default withTokenExpirationCheck(OrderHome_Dinner);
+export default OrderHome_Dinner;

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../../common/styles/CommonStyles.css";
 import "./SettingStyles.css";
 import strings from '../../common/strings/strings';
-import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import { getLunchMenu, getDinnerMenu } from "../../services/menuService";
 import { updateMealCount, updateLimits,updateLimitsSpecial} from "../../services/settingservice";
 import Popup from "../../components/Popup";
@@ -469,4 +468,4 @@ function SettingHome() {
     );
 }
 
-export default withTokenExpirationCheck(SettingHome);
+export default SettingHome;
