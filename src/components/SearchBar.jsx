@@ -3,18 +3,16 @@ import './SearchBarStyles.css';
 import { BsSearch } from "react-icons/bs";
 
 
-const SearchBar = () => {
-  const handleChange = event => {
-    // onChange(event.target.value);
-  };
+const SearchBar = ({ searchQuery, setSearchQuery }) => {
 
   return (
     <div className="search-bar">
-      <input
+    <input
         type="text"
-        placeholder="Search..."
-        onChange= {handleChange}
-        className='search-bar-input'
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        placeholder="Search customer code"
+        className="search-bar-input"
       />
       <button type="button" className='search-bar-icon'><BsSearch/></button>
     </div>
