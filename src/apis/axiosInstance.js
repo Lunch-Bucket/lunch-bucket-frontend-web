@@ -1,5 +1,6 @@
 import axios from 'axios';
 import baseUrl from "../controllers/baseUrl";
+import PATHS from '../common/paths/paths';
 
 const axiosInstance = axios.create({
   baseURL: baseUrl,
@@ -24,10 +25,12 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   response => response,
   error => {
-    if (error.response && error.response.status === 401) {
+    if (error.response || error.response && error.response.status === 401) {
       // Redirect to login if 401 Unauthorized response
-      window.location.href = '/login';
+      localStorage.setItem('loginStatus', false);
+      window.location.replace(PATHS.login); 
     }
+    console.log('error',error)
     return Promise.reject(error);
   }
 );
