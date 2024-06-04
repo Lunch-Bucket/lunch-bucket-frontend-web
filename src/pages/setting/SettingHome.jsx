@@ -5,6 +5,7 @@ import strings from '../../common/strings/strings';
 import { getLunchMenu, getDinnerMenu } from "../../services/menuService";
 import { updateMealCount, updateLimits,updateLimitsSpecial} from "../../services/settingservice";
 import Popup from "../../components/Popup";
+import PredictLimitModal from "../../components/PredictLimitModal";
 
 function SettingHome() {
 
@@ -15,6 +16,7 @@ function SettingHome() {
     const [mealType, setMealType] = useState('normal');
     const [mealCount, setMealCount] = useState('');
     const [packetCountGet, setPacketCountGet] = useState({});
+    const [predictionType, setPredictionType] = useState('limits');
 
     const [isBetweenLunch, setIsBetweenLunch] = useState(false); //Time check
     const [isBetweenDinner, setIsBetweenDinner] = useState(false); 
@@ -37,7 +39,14 @@ function SettingHome() {
 
     const [navOnline,setNavOnline] = useState(true)
 
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = (type) => {
+      setPredictionType(type);
+      setIsModalOpen(true);
+    };
+    const closeModal = () => {
+      setIsModalOpen(false);
+    };
     async function fetchMenu() {
         try {
             //Lunch
@@ -319,8 +328,12 @@ function SettingHome() {
                     <h4>Today's Menu</h4>
                 </div>
                 <div className="setting-card"  onClick={()=>{handleSettingsCard(3)}} >
-                    <h4>Notifications</h4>
+                    <button className="get-order-pdf-button prediction"   onClick={() => openModal('limits')}>Predict Limits</button>
+                    <button className="get-order-pdf-button prediction"   onClick={() => openModal('menu')}>Predict Menu</button>
                 </div>
+                
+                {isModalOpen && <PredictLimitModal onClose={closeModal} type={predictionType} />}
+
             </div>
             
             {showmealCount &&

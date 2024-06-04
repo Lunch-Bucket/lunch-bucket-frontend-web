@@ -1,4 +1,6 @@
 import axiosInstance from "../apis/axiosInstance";
+import axios from "axios";
+import { expertUrl } from "./baseUrl";
 
 
 export async function controllerSetMealCount(type, limit_type, limit) {
@@ -40,5 +42,27 @@ export async function controllerSetMealCount(type, limit_type, limit) {
       }
     }
       
+
+    export async function controllerPredictLimits(formData) {
+      try {
+        const token = localStorage.getItem('lb_auth_token');
+        const response = await axios.get(`${expertUrl}predict_limits`,formData,{headers:{'token':`${token}`}});
+        return response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    export async function controllerPredictMenu(formData) {
+      try {
+        const token = localStorage.getItem('lb_auth_token');
+        const response = await axios.get(`${expertUrl}predict_menu`,formData,{headers:{'token':`${token}`}});
+        return response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+      
+  
   
   

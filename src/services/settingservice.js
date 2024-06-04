@@ -1,4 +1,4 @@
-import { controllerSetMealCount, controllerGetMealCount, controllerUpdateLimitsSpecial, controllerUpdateLimits} from "../controllers/settingController";
+import { controllerSetMealCount, controllerGetMealCount, controllerUpdateLimitsSpecial, controllerUpdateLimits, controllerPredictLimits, controllerPredictMenu} from "../controllers/settingController";
 
 
 export async function updateMealCount(mealTime, mealType, count) {
@@ -41,4 +41,25 @@ export async function updateMealCount(mealTime, mealType, count) {
       throw error;
     }
   }
+
+  //Predict Limits
+  export async function predictLimits(formData) {
+    try {
+      const response = await controllerPredictLimits(formData);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
   
+
+    //Predict Menu
+    export async function predictMenu(formData) {
+      try {
+        const response = await controllerPredictMenu(formData);
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    }
+    
