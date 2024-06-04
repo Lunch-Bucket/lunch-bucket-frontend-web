@@ -25,7 +25,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   response => response,
   error => {
-    if (error.response || error.response && error.response.status === 401) {
+    if (error.response && error.response.status === 401) {
       // Redirect to login if 401 Unauthorized response
       localStorage.setItem('loginStatus', false);
       window.location.replace(PATHS.login); 
