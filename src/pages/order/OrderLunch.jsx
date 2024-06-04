@@ -28,9 +28,11 @@ function OrderHome()
     const lunchTime_2 = '12:30 PM';
     const lunchTime_3 = '1:00 PM';
     const lunchTime_4 = '1:30 PM';
+    const lunchTime_5 = '2:00 PM';
 
-    const place_1 = 'Back gate';
-    // const place_2 = 'Back gate';
+    const place_1 = 'Location';
+    const place_3 = 'Location - Priority';
+    const place_2 = 'Back Gate';
 
 
     const [showPopup, setShowPopup] = useState(false);
@@ -225,13 +227,17 @@ function OrderHome()
   const packagingPDF_ = async () => {
     alert("Orders Packaging pdf is generating...")
     const placeMapping = {
-        "Back gate": "Back"
+        "Your Own Location(Priority)": "location",
+        "Your Own Location(Normal)": "location",
+        "Back gate distribution center": "Back"
     };
+
     const timeMapping = {
         "11:00 AM": "11",
         "12:30 PM": "12",
         "1:00 PM": "1",
-        "1:30 PM": "13"
+        "1:30 PM": "13",
+        "2:00 PM": "2"
     };
 
     const modifiedPlace = placeMapping[selectedPlaceFilter] || selectedPlaceFilter;
@@ -246,6 +252,12 @@ function OrderHome()
     const arrvalNotifi  = await informArrival('Lunch',selectedPlaceFilter);
     console.log("arrvalNotifi Lunch",arrvalNotifi) 
     }
+    
+    const handleRedirectToLocation = (latitude, longitude) => {
+        const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+        window.open(googleMapsUrl, '_blank');
+    };
+ 
   
  
     return(
@@ -287,6 +299,7 @@ function OrderHome()
                             <option value={lunchTime_2}>{lunchTime_2}</option>
                             <option value={lunchTime_3}>{lunchTime_3}</option>
                             <option value={lunchTime_4}>{lunchTime_4}</option>
+                            <option value={lunchTime_5}>{lunchTime_5}</option>
                         </select>
                     </div>
 
@@ -297,8 +310,9 @@ function OrderHome()
                         value={selectedPlaceFilter}
                         onChange={handlePlaceFilterChange}>
                             <option value='all'>ALL</option>
-                            <option value={place_1}>{place_1}</option>
-                            {/* <option value={place_2}>{place_2}</option> */}
+                            <option value="Back gate distribution center">{place_2}</option>
+                            <option value='Your Own Location(Priority)'>{place_3}</option>
+                            <option value='Your Own Location(Normal)'>{place_1}</option>
                         </select>
                     </div>
                 </div>
@@ -332,8 +346,19 @@ function OrderHome()
                                 </td>
 
                             <td className="order-page-data-row-description" key={id}>
-                                <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code}
-                                <br/> Rs. {data.price} <br/>  Packet Count: {data.packet_amount} </span> 
+                                <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   
+                                    Customer Code: {data.customer_code} <br/>  
+                                    Order Code: {data.order_code} <br/> 
+                                    Rs. {data.price} <br/>  
+                                    Packet Count: {data.packet_amount} <br/>  
+                                    <span style={{color:'blue', cursor:'pointer'}}
+                                    onClick={() =>
+                                        handleRedirectToLocation(
+                                            data.user_location.latitude,
+                                            data.user_location.longitude
+                                        )}
+                                    >{data.delivery_place}</span> 
+                                    </span> 
                                 {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
                                 <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
                                 <td>
@@ -383,6 +408,7 @@ function OrderHome()
                         <option value={lunchTime_2}>{lunchTime_2}</option>
                         <option value={lunchTime_3}>{lunchTime_3}</option>
                         <option value={lunchTime_4}>{lunchTime_4}</option>
+                        <option value={lunchTime_5}>{lunchTime_5}</option>
                     </select>
                     </div>
                     <div className="filter-by">
@@ -392,8 +418,9 @@ function OrderHome()
                     value={selectedPlaceFilter}
                     onChange={handlePlaceFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value={place_1}>{place_1}</option>
-                        {/* <option value={place_2}>{place_2}</option> */}
+                        <option value="Back gate distribution center">{place_2}</option>
+                        <option value='Your Own Location(Priority)'>{place_3}</option>
+                        <option value='Your Own Location(Normal)'>{place_1}</option>
                     </select>
                     </div>
                 </div>
@@ -420,8 +447,19 @@ function OrderHome()
                                     }
                                 </td>
                                 <td className="order-page-data-row-description" key={id}>
-                                    <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code}
-                                    <br/> Rs. {data.price} <br/>  Packet Count: {data.packet_amount} </span> 
+                                    <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   
+                                    Customer Code: {data.customer_code} <br/>  
+                                    Order Code: {data.order_code} <br/> 
+                                    Rs. {data.price} <br/>  
+                                    Packet Count: {data.packet_amount} <br/>  
+                                    <span style={{color:'blue', cursor:'pointer'}}
+                                    onClick={() =>
+                                        handleRedirectToLocation(
+                                            data.user_location.latitude,
+                                            data.user_location.longitude
+                                        )}
+                                    >{data.delivery_place}</span> 
+                                    </span> 
                                     {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
                                     <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
                                 </td>

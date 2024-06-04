@@ -1,6 +1,5 @@
 import axios from "axios";
 import { expertUrl } from "./baseUrl";
-import baseUrl from "./baseUrl";
 import axiosInstance from "../apis/axiosInstance";
 
 
@@ -46,7 +45,7 @@ export async function getPendingOrders(meal) {
 export async function getReport(meal) {
     try {
         const token = localStorage.getItem('lb_auth_token');
-        const response = await axios.get(`${expertUrl}${meal}`,{headers:{'token':`${token}`}});
+        const response = await axios.get(`${expertUrl}getReport/${meal}`,{headers:{'token':`${token}`}});
         return response.data;
     } catch (error) {
         console.log(error);
