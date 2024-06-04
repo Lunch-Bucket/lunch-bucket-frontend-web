@@ -33,7 +33,7 @@ const handleLogin = async (event) => {
           password: password,
           project_code: projectCode, 
         });
-
+        console.log('response login', response);
         const authToken = response.data.data.token;
         localStorage.setItem('lb_auth_token', authToken);
         localStorage.setItem('loginStatus', true);

@@ -3,9 +3,7 @@ import "../../common/styles/CommonStyles.css";
 import "./OrderStyles.css";
 import "../../common/styles/Colors.css";
 import strings from "../../common/strings/strings";
-import SearchBar from "../../components/SearchBar";
 import { getPendingOrderData, getConfirmedOrderData, confirmOrderData , generateReport, generateOrdersPDF, informArrival} from "../../services/orderService";
-import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import Popup from "../../components/Popup";
 
@@ -22,7 +20,7 @@ function OrderHome_Dinner()
 
     const [selectedPlaceFilter, setSelectedPlaceFilter] = useState('all');
     const [selectedTimeFilter, setSelectedTimeFilter] = useState('all');
-   
+
     const [navOnline,setNavOnline] = useState(true)
 
     const eveningTime_1 = '3:30 PM';
@@ -34,8 +32,9 @@ function OrderHome_Dinner()
     const dinnerTime_3 = '9:00 PM';
     const dinnerTime_4 = '9:30 PM';
 
-    const place_1 = 'Front gate';
-    const place_2 = 'Back gate';
+    const place_1 = 'Location';
+    const place_3 = 'Location - Priority';
+    const place_2 = 'Back Gate';
 
     const [showPopup, setShowPopup] = useState(false);
     const [popupType, setPopupType] = useState('');
@@ -224,8 +223,9 @@ function OrderHome_Dinner()
   const packagingPDF_ = async () => {
     alert("Orders Packaging pdf is generating...")
     const placeMapping = {
-        "Front gate": "Front",
-        "Back gate": "Back"
+        "Your Own Location(Priority)": "location",
+        "Your Own Location(Normal)": "location",
+        "Back gate distribution center": "Back"
     };
     const timeMapping = {
         "7:00 PM": "7",
@@ -247,9 +247,10 @@ function OrderHome_Dinner()
     console.log("arrvalNotifi",arrvalNotifi) 
     }
   
-    function filterAuthentics(){
-        
-    }
+    const handleRedirectToLocation = (latitude, longitude) => {
+        const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+        window.open(googleMapsUrl, '_blank');
+    };
  
     return(
         <div className="full-container">
@@ -298,14 +299,15 @@ function OrderHome_Dinner()
                     value={selectedPlaceFilter}
                     onChange={handlePlaceFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value={place_1}>{place_1}</option>
-                        <option value={place_2}>{place_2}</option>
+                        <option value="Back gate distribution center">{place_2}</option>
+                        <option value='Your Own Location(Priority)'>{place_3}</option>
+                        <option value='Your Own Location(Normal)'>{place_1}</option>
                     </select>
                 </div>
-                <div>
+                {/* <div>
                     <button className="get-order-pdf-button" style={{backgroundColor:'#FFA200', borderRadius:'4px',height:'2.2rem'}}  
                     onClick={()=>{filterAuthentics()}}>Evening Authentics</button>
-                </div>
+                </div> */}
                 </div>
                 <div className="action-bar-btn-content">
                     <button style={{marginRight:'0.3rem', backgroundColor:'transparent', border:'none'}}  onClick={handleSelectAll}>
@@ -335,8 +337,19 @@ function OrderHome_Dinner()
                                 </td>
 
                                 <td className="order-page-data-row-description" key={id}>
-                                <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code}
-                                <br/> Rs. {data.price} <br/>  Packet Count: {data.packet_amount} </span> 
+                                <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   
+                                    Customer Code: {data.customer_code} <br/>  
+                                    Order Code: {data.order_code} <br/> 
+                                    Rs. {data.price} <br/>  
+                                    Packet Count: {data.packet_amount} <br/>
+                                    <span style={{color:'blue', cursor:'pointer'}}
+                                    onClick={() =>
+                                        handleRedirectToLocation(
+                                            data.user_location.latitude,
+                                            data.user_location.longitude
+                                        )}
+                                    >{data.delivery_place}</span>
+                                    </span> 
                                 {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
                                 <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
                                 <td style={{fontSize:'14px'}}>
@@ -391,8 +404,9 @@ function OrderHome_Dinner()
                     value={selectedPlaceFilter}
                     onChange={handlePlaceFilterChange}>
                         <option value='all'>ALL</option>
-                        <option value={place_1}>{place_1}</option>
-                        <option value={place_2}>{place_2}</option>
+                        <option value="Back gate distribution center">{place_2}</option>
+                        <option value='Your Own Location(Priority)'>{place_3}</option>
+                        <option value='Your Own Location(Normal)'>{place_1}</option>
                     </select>
                 </div>
             </div>
@@ -419,8 +433,19 @@ function OrderHome_Dinner()
                                     }
                                 </td>
                                 <td className="order-page-data-row-description" key={id}>
-                                    <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   Customer Code: {data.customer_code} <br/>  Order Code: {data.order_code}
-                                    <br/> Rs. {data.price} <br/>  Packet Count: {data.packet_amount} </span> 
+                                    <span style={{float:'right', fontWeight:'700', fontSize:'14px', color: data.threat === true? 'red':'black'}}>   
+                                        Customer Code: {data.customer_code} <br/>  
+                                        Order Code: {data.order_code} <br/> 
+                                        Rs. {data.price} <br/>  
+                                        Packet Count: {data.packet_amount} 
+                                        <span style={{color:'blue', cursor:'pointer'}}
+                                        onClick={() =>
+                                        handleRedirectToLocation(
+                                            data.user_location.latitude,
+                                            data.user_location.longitude
+                                        )}
+                                    >{data.delivery_place} </span>
+                                    </span>  
                                     {data.order_type === "special" && <span style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: '#970050', float:'right'}}></span>}
                                     <div style={{height:'1.2rem', width:'1.2rem',marginRight:'0.4rem', backgroundColor: data.order_type === 'vegi'? 'green':'', float:'right'}}></div>
                                 </td>
@@ -481,4 +506,4 @@ function OrderHome_Dinner()
     );
 }
 
-export default withTokenExpirationCheck(OrderHome_Dinner);
+export default OrderHome_Dinner;

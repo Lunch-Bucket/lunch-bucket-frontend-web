@@ -4,7 +4,6 @@ import "../../common/styles/CommonStyles.css"
 import strings from '../../common/strings/strings';
 import SearchBar from "../../components/SearchBar";
 import { getUserData, userAddToThreat, userRemoveFromThreat } from "../../services/userService";
-import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import Popup from "../../components/Popup";
 
 
@@ -16,6 +15,8 @@ function User() {
     const [popupType, setPopupType] = useState('');
     const [popupMessage, setPopupMessage] = useState('');
     const [selectedUserLevelFilter, setSelectedUserLevelFilter] = useState('all');
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredUsers, setFilteredUsers] = useState([]);
 
     const [navOnline,setNavOnline] = useState(true)
 
@@ -30,6 +31,7 @@ function User() {
             const userData  = await getUserData([]);
             const filteredUsers = filterByUserLevel(userData, selectedUserLevelFilter);
             setUser(filteredUsers);
+            console.log("users", filteredUsers)
 
         } catch (error) {
             console.log("Error fetching user data:", error.message);
@@ -91,6 +93,13 @@ function User() {
         }   
     }
 
+    useEffect(() => {
+          const results = user.filter(users =>
+          users.code.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredUsers(results);
+      }, [searchQuery, user]);
+
     return (
         <div className="full-container">
             {navOnline === false && <p style={{ color: 'red', textAlign: 'center' }}>Please Check Your Network Connection</p>}
@@ -110,7 +119,7 @@ function User() {
                         <option value='false'>Not-Threat </option>
                     </select>
                 </div>
-              {/* <SearchBar/> */}
+                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </div>
             <hr/>
             <div>
@@ -124,7 +133,7 @@ function User() {
                         <th className="user-page-data-row" >User Level</th>
                     </thead>
                 <tbody>
-                    {user.map((dataList, id) => (
+                    {filteredUsers.map((dataList, id) => (
                         <tr className="user-page-table-row" >
                             <td className="user-page-data-row" style={{fontWeight:'bold'}}>{dataList.code}</td>
                             <td className="user-page-data-row">{dataList.contact_no}</td>
@@ -148,4 +157,4 @@ function User() {
     );
 }
 
-export default withTokenExpirationCheck(User);
+export default User;

@@ -1,16 +1,11 @@
-import axios from "axios";
-import baseUrl from "./baseUrl";
+import axiosInstance from '../apis/axiosInstance';
 
 
 // get food
 export async function getFood() {
     try {
-        const token = localStorage.getItem('lb_auth_token');
-        if (token) {
-            const response = await axios.get(`${baseUrl}getFood`,{headers:{'token':`${token}`}});
-            console.log('menu list',response.data);
-            return response.data;
-        }
+        const response = await axiosInstance.get('getFood');
+        return response.data;
     } catch (error) {
         console.log(error);
     }
@@ -20,8 +15,7 @@ export async function getSpecialFood() {
     try {
         const token = localStorage.getItem('lb_auth_token');
         if (token) {
-            const response = await axios.get(`${baseUrl}getSpecialMeal`,{headers:{'token':`${token}`}});
-            console.log('special menu',response.data);
+            const response = await axiosInstance.get('getSpecialMeal');
             return response.data;
         }
     } catch (error) {
@@ -33,9 +27,7 @@ export async function getSpecialFood() {
 // add food
 export async function addFood(formData) {
     try {
-        const token = localStorage.getItem('lb_auth_token');
-        const response = await axios.post(`${baseUrl}addFood`,formData,{headers: {'token': `${token}`}});
-        console.log('lunch menu', response.data);
+        const response = await axiosInstance.post('addFood',formData);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -44,9 +36,7 @@ export async function addFood(formData) {
 
 export async function addSpecialFood(formData) {
     try {
-        const token = localStorage.getItem('lb_auth_token');
-        const response = await axios.post(`${baseUrl}addSpecialMeal`,formData,{headers: {'token': `${token}`}});
-        console.log('lunch menu', response.data);
+        const response = await axiosInstance.post('addSpecialMeal',formData);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -56,9 +46,7 @@ export async function addSpecialFood(formData) {
 // set meal
 export async function setMealLunch(food_ids) {
     try {
-        const token = localStorage.getItem('lb_auth_token');
-        const response = await axios.post( `${baseUrl}lunch/setMenu`,food_ids,{headers: {'token': `${token}`}});
-        console.log('lunch menu', response.data);
+        const response = await axiosInstance.post( 'lunch/setMenu',food_ids);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -67,9 +55,7 @@ export async function setMealLunch(food_ids) {
 
 export async function setMealDinner(food_ids) {
     try {
-        const token = localStorage.getItem('lb_auth_token');
-        const response = await axios.post(`${baseUrl}dinner/setMenu`,food_ids,{headers: {'token': `${token}`}});
-        console.log('dinner menu', response.data);
+        const response = await axiosInstance.post('dinner/setMenu',food_ids);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -82,8 +68,7 @@ export async function setMealDinner(food_ids) {
 export async function setSpecialMealLunch(food_ids) {
     try {
         const token = localStorage.getItem('lb_auth_token');
-        const response = await axios.post(`${baseUrl}lunch/setSpecialMenu`,food_ids,{headers: {'token': `${token}`}});
-        console.log('lunch special menu', response.data);
+        const response = await axiosInstance.post('lunch/setSpecialMenu',food_ids);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -92,9 +77,7 @@ export async function setSpecialMealLunch(food_ids) {
 
 export async function setSpecialMealDinner(food_ids) {
     try {
-        const token = localStorage.getItem('lb_auth_token');
-        const response = await axios.post(`${baseUrl}dinner/setSpecialMenu`,food_ids,{headers: {'token': `${token}`}});
-        console.log('dinner special menu', response.data);
+        const response = await axiosInstance.post('dinner/setSpecialMenu',food_ids);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -106,7 +89,7 @@ export async function getLunchMenu() {
     try {
         const token = localStorage.getItem('lb_auth_token');
         if (token) {
-            const response = await axios.get(`${baseUrl}lunch/getMenus`,{headers:{'token':`${token}`}});
+            const response = await axiosInstance.get('lunch/getMenus');
             return response.data;
         }
     } catch (error) {
@@ -118,7 +101,7 @@ export async function getDinnerMenu() {
     try {
         const token = localStorage.getItem('lb_auth_token');
         if (token) {
-            const response = await axios.get(`${baseUrl}dinner/getMenus`,{headers:{'token':`${token}`}});
+            const response = await axiosInstance.get('dinner/getMenus');
             return response.data;
         }
     } catch (error) {
@@ -130,8 +113,7 @@ export async function getDinnerMenu() {
 //Delete Food
 export async function DeleteFood(foodId) {
     try {
-        const token = localStorage.getItem('lb_auth_token');
-        const response = await axios.delete(`${baseUrl}deleteFood/${foodId}`,{headers: {'token': `${token}`}});
+        const response = await axiosInstance.delete(`deleteFood/${foodId}`);
         console.log('delete food', response.data);
         return response.data;
     } catch (error) {

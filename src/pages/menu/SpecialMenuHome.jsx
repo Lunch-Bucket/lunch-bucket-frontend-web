@@ -4,7 +4,6 @@ import "./MenuStyles.css";
 import "../../components/PopupStyles.css";
 import strings from '../../common/strings/strings'
 import { getSpecialMenu, setSpecialMealLunch, setSpecialMealDinner, addSpecialFoodItem, deleteFoodItem } from "../../services/menuService";
-import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import Popup from "../../components/Popup";
 import { storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
@@ -574,4 +573,4 @@ const handleDeleteFood = async () => {
         </div>
     );
 }
-export default withTokenExpirationCheck(SpecialMenuHome);
+export default SpecialMenuHome;

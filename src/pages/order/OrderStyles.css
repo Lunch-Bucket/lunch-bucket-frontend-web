@@ -39,6 +39,11 @@
   font-weight:'bold';
 }
 
+.prediction{
+  background-color: #464646;
+  color: white;
+}
+
 
 @media (max-width: 768px) {
   .report-content, .action-bar-btn-content{

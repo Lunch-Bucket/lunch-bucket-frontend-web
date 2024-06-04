@@ -5,7 +5,6 @@ import strings from '../../common/strings/strings';
 import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import {getChatData, addAdminReply, setAdminViewStatus} from '../../services/chatService';
 import LiveButton from "../../components/LiveButton";
-import SearchBar from "../../components/SearchBar";
 
 function Chat() {
 
@@ -16,20 +15,26 @@ function Chat() {
     chat_id: '',
     message: '',
   });
+  const[startCollectionId,setStartCollectionId] = useState('0');
+  const [hasMore, setHasMore] = useState(true); 
 
   const [navOnline,setNavOnline] = useState(true)
 
-  
-  async function fetchChats() {
+
+  async function fetchChats(startCollectionId) {
     try {
-      const chatList = await getChatData([]);
-      setChat(chatList.data.chats);
+      const chatList = await getChatData(startCollectionId);
+      if (startCollectionId === '0') {
+        setChat(chatList.data.chats);
+      } else {
+        setChat(prevChats => [...prevChats, ...chatList.data.chats]);
+      }
+      setHasMore(chatList.data.chats.length > 0);
       console.log('chat data in the component', chatList);
     } catch (error) {
       console.log('Error fetching chat data:', error.message);
     }
   }
- 
 
   function showSingleChatFunc(chatID)
   {
@@ -43,7 +48,7 @@ function Chat() {
     try {
       const response = await setAdminViewStatus(chat_id);
       console.log('Response from admin status:', response);
-      fetchChats();
+      // fetchChats();
     } catch (error) {
         console.log('Error:', error);
     }
@@ -62,7 +67,7 @@ function Chat() {
     try {
       const response = await addAdminReply(adminReply);
       console.log('Response from admin reply :', response);
-      fetchChats();
+      fetchChats(startCollectionId);
       console.log("reply", adminReply)
           // Clear the reply input
           setAdminReply((prevData) => ({
@@ -108,10 +113,9 @@ function Chat() {
 }, [navigator.onLine]);
 
 
-  useEffect(() => {
-    if(navOnline)
-      fetchChats();
-  }, []);
+useEffect(() => {
+  if (navOnline) fetchChats(startCollectionId);
+}, [navOnline, startCollectionId]);
 
   useEffect(() => {
     if(navOnline)
@@ -119,16 +123,24 @@ function Chat() {
   }, [chat.messages,showSingleChat]);
 
 
+  const handleNextPage = () => {
+    if (chat.length > 0) {
+      setStartCollectionId(chat[chat.length - 1].id);
+      setChat([])
+      fetchChats(startCollectionId);
+    }
+  };
+
 
     return (
       <div className="full-container">
            {navOnline === false && <p style={{ color: 'red', textAlign: 'center' }}>Please Check Your Network Connection</p>}
         <div className="header-title-bar">
           <h1 className="header-title-bar-text">{strings.chat}</h1>
-          {/* <SearchBar/> */}
         </div>
 
-
+        <button className= "chat-pagination-next-btn"
+        onClick={handleNextPage} disabled={!hasMore}>Next </button>
         <div className="chat-main-container">
             {chat.map((singleChat, index) => (
               <>

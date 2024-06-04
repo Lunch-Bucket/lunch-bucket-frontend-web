@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import "./Sidebar.css";
 import {Link, NavLink} from "react-router-dom";
 import PATHS from "../../common/paths/paths";
-import logo from '../../resources/images/LunchBucketLogo.png'
+import logo from '../../resources/images/lb_logo.png'
 
 const Sidebar = () => {
 

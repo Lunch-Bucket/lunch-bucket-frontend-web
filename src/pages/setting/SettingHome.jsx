@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import "../../common/styles/CommonStyles.css";
 import "./SettingStyles.css";
 import strings from '../../common/strings/strings';
-import withTokenExpirationCheck from "../../tokenExpirationCheck/withTokenExpirationCheck";
 import { getLunchMenu, getDinnerMenu } from "../../services/menuService";
-import { updateMealCount } from "../../services/settingservice";
+import { updateMealCount, updateLimits,updateLimitsSpecial} from "../../services/settingservice";
 import Popup from "../../components/Popup";
-import axios from "axios";
-import baseUrl from "../../controllers/baseUrl";
+import PredictLimitModal from "../../components/PredictLimitModal";
 
 function SettingHome() {
 
@@ -18,6 +16,7 @@ function SettingHome() {
     const [mealType, setMealType] = useState('normal');
     const [mealCount, setMealCount] = useState('');
     const [packetCountGet, setPacketCountGet] = useState({});
+    const [predictionType, setPredictionType] = useState('limits');
 
     const [isBetweenLunch, setIsBetweenLunch] = useState(false); //Time check
     const [isBetweenDinner, setIsBetweenDinner] = useState(false); 
@@ -40,7 +39,14 @@ function SettingHome() {
 
     const [navOnline,setNavOnline] = useState(true)
 
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = (type) => {
+      setPredictionType(type);
+      setIsModalOpen(true);
+    };
+    const closeModal = () => {
+      setIsModalOpen(false);
+    };
     async function fetchMenu() {
         try {
             //Lunch
@@ -122,7 +128,7 @@ function SettingHome() {
             limits: { ...limitsLunch } 
           };
       
-          const response = await controllerUpdateLimits(formattedLimits);
+          const response = await updateLimits(formattedLimits);
           console.log('Response from updateLimits:', response);
           alert('Limits updated successfully');
         } catch (error) {
@@ -139,7 +145,7 @@ function SettingHome() {
             limits: { ...limitsDinner } 
           };
       
-          const response = await controllerUpdateLimits(formattedLimits);
+          const response = await updateLimits(formattedLimits);
           console.log('Response from updateLimits:', response);
           alert('Limits updated successfully');
         } catch (error) {
@@ -149,35 +155,7 @@ function SettingHome() {
         }
       };
 
-
-    //Update Limits
-   async function controllerUpdateLimits({meal_type, limits}) {
-    try {
-      const token = localStorage.getItem('lb_auth_token');
-      const response = await axios.put(`${baseUrl}freeorder_updatelimit`, {
-        meal_type,
-        limits
-      }, { headers: { 'token': `${token}` }});
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-      //Update Limits
-      async function controllerUpdateLimitsSpecial({meal_type, limits}) {
-        try {
-          const token = localStorage.getItem('lb_auth_token');
-          const response = await axios.put(`${baseUrl}freeorder_updatelimit_special`, {
-            meal_type,
-            limits
-          }, { headers: { 'token': `${token}` }});
-          return response.data;
-        } catch (error) {
-          console.error(error);
-        }
-      }
-        
+ 
       
     //Lunch
       const handleLimitChangeLunch = (key, value) => {
@@ -199,7 +177,7 @@ function SettingHome() {
             }, {})
           };
       
-          const response = await controllerUpdateLimitsSpecial(formattedLimits);
+          const response = await updateLimitsSpecial(formattedLimits);
           console.log('Limits updated successfully:', response);
           alert('Limits updated successfully');
         } catch (error) {
@@ -235,7 +213,7 @@ function SettingHome() {
             }, {})
           };
       
-          const response = await controllerUpdateLimitsSpecial(formattedLimits);
+          const response = await updateLimitsSpecial(formattedLimits);
           console.log('Limits updated successfully:', response);
           alert('Limits updated successfully');
         } catch (error) {
@@ -350,8 +328,12 @@ function SettingHome() {
                     <h4>Today's Menu</h4>
                 </div>
                 <div className="setting-card"  onClick={()=>{handleSettingsCard(3)}} >
-                    <h4>Notifications</h4>
+                    <button className="get-order-pdf-button prediction"   onClick={() => openModal('limits')}>Predict Limits</button>
+                    <button className="get-order-pdf-button prediction"   onClick={() => openModal('menu')}>Predict Menu</button>
                 </div>
+                
+                {isModalOpen && <PredictLimitModal onClose={closeModal} type={predictionType} />}
+
             </div>
             
             {showmealCount &&
@@ -499,4 +481,4 @@ function SettingHome() {
     );
 }
 
-export default withTokenExpirationCheck(SettingHome);
+export default SettingHome;
