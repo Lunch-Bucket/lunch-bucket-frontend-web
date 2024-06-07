@@ -131,6 +131,10 @@ useEffect(() => {
     }
   };
 
+  function closeSingleChat(){
+    setShowSingleChat(false);
+    fetchChats(startCollectionId);
+  }
 
     return (
       <div className="full-container">
@@ -151,7 +155,7 @@ useEffect(() => {
                 <div className="single-chat-container">
                    <div style={{display:'flex', justifyContent:'space-between'}}>
                       <h4 style={{marginLeft:'1rem'}}>{singleChat.code} | {singleChat.contact}</h4>
-                      <button className="chat-popup-close-btn" onClick={()=>setShowSingleChat(false)}>close</button>
+                      <button className="chat-popup-close-btn" onClick={closeSingleChat}>close</button>
                     </div> 
                     <div className="chat-scroll-content" ref={chatContentRef}>
                       {singleChat.messages.map((msg,index)=>(
