@@ -428,7 +428,8 @@ function FoodItemChecked (category, id, food_id) {
                             <li className="menu-detail-list-item">
                               <label class="checkbox-container">
                                   <input type="checkbox" className="item-checkbox" 
-                                  onClick={()=>{FoodItemChecked('vege', item.id, item.food_id)}}/>
+                                  onClick={()=>{FoodItemChecked('vege', item.id, item.food_id)}}
+                                  checked={selectedFoodItems['vege'].includes(item.id)}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               < div className="menu-detail-list-item-name">{item.type}</div>
@@ -452,7 +453,8 @@ function FoodItemChecked (category, id, food_id) {
                             {item.category === 'meat' && <>
                             <li className="menu-detail-list-item">
                               <label class="checkbox-container">
-                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('meat', item.id, item.food_id)}}/>
+                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('meat', item.id, item.food_id)}}
+                                  checked={selectedFoodItems['meat'].includes(item.id)}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               <div className="menu-detail-list-item-name">{item.type}</div>
@@ -476,7 +478,8 @@ function FoodItemChecked (category, id, food_id) {
                             {item.category == 'stew' && <>
                             <li className="menu-detail-list-item">
                               <label class="checkbox-container">
-                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('stew', item.id, item.food_id)}}/>
+                                  <input type="checkbox" className="item-checkbox" onClick={()=>{FoodItemChecked('stew', item.id, item.food_id)}}
+                                  checked={selectedFoodItems['stew'].includes(item.id)}/>
                                   <span className="item-checkbox-checkmark"></span>
                               </label>   
                               <div className="menu-detail-list-item-name">{item.type}</div>
