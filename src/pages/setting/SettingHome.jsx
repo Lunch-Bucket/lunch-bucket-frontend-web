@@ -118,7 +118,37 @@ function SettingHome() {
             }
         }, [navigator.onLine]);
 
-   
+      //Time checker
+      useEffect(() => {
+        const checkTime = () => {
+          const now = new Date();
+         
+          //Lunch
+          const startTimeLunch = new Date();
+          const endTimeLunch = new Date();
+
+          startTimeLunch.setHours(10, 0, 0, 0); // 10:00
+          endTimeLunch.setHours(11, 0, 0, 0);   // 11:00
+
+          setIsBetweenLunch(now >= startTimeLunch && now <= endTimeLunch);
+
+          //Dinner
+          const startTimeDinner = new Date();
+          const endTimeDinner = new Date();
+
+          startTimeDinner.setHours(18, 0, 0, 0); // 18:00
+          endTimeDinner.setHours(19, 0, 0, 0);   // 19:00
+  
+          setIsBetweenDinner(now >= startTimeDinner && now <= endTimeDinner);
+        };
+    
+        checkTime();
+        const interval = setInterval(checkTime, 60000); // Check every minute
+    
+        return () => clearInterval(interval); // Cleanup interval on component unmount
+      }, []);
+
+
        useEffect(() => {
         if(navOnline){
             fetchMenu();
@@ -281,37 +311,7 @@ function SettingHome() {
             }
           };
 
-          //Time checker
-          useEffect(() => {
-            const checkTime = () => {
-              const now = new Date();
-             
-              //Lunch
-              const startTimeLunch = new Date();
-              const endTimeLunch = new Date();
-
-              startTimeLunch.setHours(10, 0, 0, 0); // 10:00
-              endTimeLunch.setHours(11, 0, 0, 0);   // 11:00
-
-              setIsBetweenLunch(now >= startTimeLunch && now <= endTimeLunch);
-
-              //Dinner
-              const startTimeDinner = new Date();
-              const endTimeDinner = new Date();
-
-              startTimeDinner.setHours(18, 0, 0, 0); // 18:00
-              endTimeDinner.setHours(19, 0, 0, 0);   // 19:00
-      
-              setIsBetweenDinner(now >= startTimeDinner && now <= endTimeDinner);
-            };
-        
-            checkTime();
-            const interval = setInterval(checkTime, 60000); // Check every minute
-        
-            return () => clearInterval(interval); // Cleanup interval on component unmount
-          }, []);
-
-
+       
 
     return (<>
         <div className="full-container">
@@ -401,19 +401,25 @@ function SettingHome() {
                   ) : (
                     <div>
                       <p style={{maxWidth:'15rem', color:'red'}}>Update Lunch Limits in Between 10.00am - 10.30am</p>
-                       <h3>Lunch - Choice</h3>
-                        {Object.keys(limitsLunch).map((key, index) => (
-                            <div key={index} style={{display:'flex',justifyContent:'space-between', margin:'1rem'}}>
-                            <label>{key}</label>
-                            </div>
-                        ))}
+                      {limitsLunch && Object.keys(limitsLunch).length > 0 ? (
+                        <div>
+                        <h3>Lunch - Choice</h3>
+                          {Object.keys(limitsLunch).map((key, index) => (
+                              <div key={index} style={{display:'flex',justifyContent:'space-between', margin:'1rem'}}>
+                              <label>{key}</label>
+                              </div>
+                          ))}
+                        </div>):( <div>No lunch choices available.</div>)}
                     <hr/>
+                    {limitsLunchSpecial && limitsLunchSpecial.length > 0 ? (
+                        <div>
                         <h3>Lunch - Special</h3>
                         {limitsLunchSpecial.map((item, index) => (
                             <div key={index} style={{ display: 'flex', justifyContent: 'space-between', margin: '1rem' }}>
                               <label>{item.type}</label>
                             </div>
                         ))}
+                        </div>):(<div>No lunch specials available.</div>)}
                       
                     </div>
                   )}
@@ -457,19 +463,25 @@ function SettingHome() {
                 </div> ) : (
                    <div>
                     <p style={{maxWidth:'15rem', color:'red'}}>Update Dinner Limits in Between 6.00pm - 6.30pm</p>
+                    {limitsDinner && Object.keys(limitsDinner).length > 0 ? (
+                      <div>
                    <h3>Dinner - Choice</h3>
                       {Object.keys(limitsDinner).map((key, index) => (
                           <div key={index} style={{display:'flex',justifyContent:'space-between', margin:'1rem'}}>
                           <label>{key}</label>
                           </div>
                 ))}
+                  </div>):(<div>No dinner choices available.</div>)}
                 <hr/>
+                {limitsDinnerSpecial && limitsDinnerSpecial.length > 0 ? (
+                    <div>
                     <h3>Dinner - Special</h3>
                     {limitsDinnerSpecial.map((item, index) => (
                             <div key={index} style={{ display: 'flex', justifyContent: 'space-between', margin: '1rem' }}>
                               <label>{item.type}</label>
                             </div>
                         ))}
+                    </div>):(<div>No dinner specials available.</div>)}
                 </div>
               )}
             </div>
