@@ -25,7 +25,7 @@ export async function setAdminMsg(reply) {
 // Admin View Status Update
 export async function setAdminViewState(chatID) {
     try {
-        const response = await axiosInstance.post('setAdminViewStatus', { chatID });
+        const response = await axiosInstance.get(`setAdminView/${chatID}`);
         return response.data;
     } catch (error) {
         console.log(error);
