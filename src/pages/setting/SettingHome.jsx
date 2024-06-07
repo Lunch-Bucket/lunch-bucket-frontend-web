@@ -52,6 +52,7 @@ function SettingHome() {
             //Lunch
             const menuListLunch = await getLunchMenu([]);
 
+            if (menuListLunch?.data) {
             const initialLimits = {};
             
             menuListLunch.data.rice_menu_lunch.forEach(item => initialLimits[item.type] = item.limit || 0);
@@ -72,10 +73,13 @@ function SettingHome() {
           setLimitsLunchSpecial(initialLimitsLunchSpecial);
           console.log("lunch limit",limitsLunch)
           console.log("lunch special limit",initialLimitsLunchSpecial)
+          }
   
 
           //Dinner
           const menuListDinner = await getDinnerMenu([]);
+
+          if (menuListDinner?.data) {
 
           const initialLimitsDinner = {};
 
@@ -96,6 +100,7 @@ function SettingHome() {
           setLimitsDinnerSpecial(initialLimitsDinnerSpecial);
           console.log("lunch limit",limitsDinner)
           console.log("lunch special limit",limitsDinnerSpecial)
+        }
   
 
         } catch (error) {
