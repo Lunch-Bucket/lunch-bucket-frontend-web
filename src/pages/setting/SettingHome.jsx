@@ -207,7 +207,7 @@ function SettingHome() {
           const formattedLimits = {
             meal_type: mealType,
             limits: limitsLunchSpecial.reduce((acc, item) => {
-              acc[item.type] = item.limit;  // Use item.type instead of item.id
+              acc[item.id] = item.limit;  // Use item.type instead of item.id
               return acc;
             }, {})
           };
@@ -243,7 +243,7 @@ function SettingHome() {
           const formattedLimits = {
             meal_type: mealType,
             limits: limitsDinnerSpecial.reduce((acc, item) => {
-              acc[item.type] = item.limit;  // Use item.type instead of item.id
+              acc[item.id] = item.limit;  // Use item.type instead of item.id
               return acc;
             }, {})
           };
