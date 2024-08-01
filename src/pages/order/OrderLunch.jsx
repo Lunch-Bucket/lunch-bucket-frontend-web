@@ -367,12 +367,14 @@ function OrderHome()
                                         {data.items.map((food, index) => (
                                             <li key={index}>{food}</li>
                                         ))}
+                                        <li style={{color:"#055F14"}}>{data.gravy}</li>
                                     </ul>
                                     }
                                     { data.order_type === "special" &&
                                     <ul style={{listStyle:'square'}}>
                                         <li>{data.category}</li>
                                         <li>{data.type}</li>
+                                        <li style={{color:"#055F14"}}>{data.gravy}</li>
                                     </ul>
                                     }
                                 </td>
@@ -437,12 +439,14 @@ function OrderHome()
                                         {data.items.map((food, index) => (
                                             <li key={index}>{food}</li>
                                         ))}
+                                        <li style={{color:"#055F14"}}>{data.gravy}</li>
                                     </ul>
                                     }
                                     { data.order_type === "special" &&
                                     <ul style={{listStyle:'square'}}>
                                         <li>{data.category}</li>
                                         <li>{data.type}</li>
+                                        <li style={{color:"#055F14"}}>{data.gravy}</li>
                                     </ul>
                                     }
                                 </td>
