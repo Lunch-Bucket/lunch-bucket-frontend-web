@@ -24,7 +24,7 @@ function OrderHome()
 
     const [navOnline,setNavOnline] = useState(true)
 
-    const lunchTime_1 = '11:00 AM';
+    const lunchTime_1 = '11:30 AM';
     const lunchTime_2 = '12:30 PM';
     const lunchTime_3 = '1:00 PM';
     const lunchTime_4 = '1:30 PM';
@@ -233,7 +233,7 @@ function OrderHome()
     };
 
     const timeMapping = {
-        "11:00 AM": "11",
+        "11:30 AM": "113",
         "12:30 PM": "12",
         "1:00 PM": "1",
         "1:30 PM": "13",
