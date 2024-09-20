@@ -15,16 +15,18 @@ function OrderHome()
     const [checkedOrders, setCheckedOrders] = useState([]);
     const [orderStatus, setOrderStatus] = useState("pending")
     const [selectAll, setSelectAll] = useState(false); 
+
     const [pendingOrderLoading, setPendingOrderLoading] = useState(true);
     const [confirmOrderLoading, setConfirmOrderLoading] = useState(true);
     const [confirmFuncLoading, setConfirmFuncLoading] = useState(false);
+    const [loadingIndicator, setLoadingIndicator] = useState(false);
 
     const [selectedPlaceFilter, setSelectedPlaceFilter] = useState('all');
     const [selectedTimeFilter, setSelectedTimeFilter] = useState('all');
 
     const [navOnline,setNavOnline] = useState(true)
 
-    const lunchTime_1 = '11:00 AM';
+    const lunchTime_1 = '11:30 AM';
     const lunchTime_2 = '12:30 PM';
     const lunchTime_3 = '1:00 PM';
     const lunchTime_4 = '1:30 PM';
@@ -219,12 +221,14 @@ function OrderHome()
   }, [checkedOrders]);
 
   const generateReport_ = async () => {
-    alert("Please wait a while, Your report is generating")
+    setLoadingIndicator(true);
     const ordersForPDF  = await generateReport('Lunch'); 
+    setLoadingIndicator(false);
     console.log("ordersForPDF",ordersForPDF) 
   }
 
   const packagingPDF_ = async () => {
+    setLoadingIndicator(true);
     alert("Orders Packaging pdf is generating...")
     const placeMapping = {
         "Your Own Location(Priority)": "location",
@@ -233,7 +237,7 @@ function OrderHome()
     };
 
     const timeMapping = {
-        "11:00 AM": "11",
+        "11:30 AM": "113",
         "12:30 PM": "12",
         "1:00 PM": "1",
         "1:30 PM": "13",
@@ -244,13 +248,17 @@ function OrderHome()
     const modifiedTime = timeMapping[selectedTimeFilter] || selectedTimeFilter;
 
     const orderForPDF  = await generateOrdersPDF('Lunch',modifiedPlace,modifiedTime);
+    setLoadingIndicator(false);
     console.log("packingOrdersPDF",orderForPDF) 
+    alert("Manufacturing Completed!")
   }
 
   const informArrival_ = async () => {
-    alert("Sending Arrival Notification...")
+    setLoadingIndicator(true);
     const arrvalNotifi  = await informArrival('Lunch',selectedPlaceFilter);
     console.log("arrvalNotifi Lunch",arrvalNotifi) 
+    setLoadingIndicator(false);
+    alert("Arrival Notification has been sent!")
     }
     
     const handleRedirectToLocation = (latitude, longitude) => {
@@ -326,6 +334,7 @@ function OrderHome()
             </div>
           <hr/>
             {confirmFuncLoading && <LoadingIndicator/>}
+            {loadingIndicator && <LoadingIndicator/>}
             {pendingOrderLoading ? <LoadingIndicator/> :
                 <div>
                     <table className="detail-table">  
@@ -426,6 +435,7 @@ function OrderHome()
                 </div>
             </div>
             <hr/> 
+            {loadingIndicator && <LoadingIndicator/>} 
             {confirmOrderLoading ? <LoadingIndicator/> :<div>
                     <table className="detail-table">  
                        <tbody>
