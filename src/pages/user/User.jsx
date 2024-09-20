@@ -18,6 +18,8 @@ function User() {
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredUsers, setFilteredUsers] = useState([]);
 
+    const [sortOrder, setSortOrder] = useState('asc'); 
+
     const [navOnline,setNavOnline] = useState(true)
 
     const openPopup = (type, message) => {
@@ -93,6 +95,19 @@ function User() {
         }   
     }
 
+     // Sorting function
+     const handleSort = () => {
+        const sortedUsers = [...filteredUsers].sort((a, b) => {
+            if (sortOrder === 'asc') {
+                return a.total_packets - b.total_packets;
+            } else {
+                return b.total_packets - a.total_packets;
+            }
+        });
+        setFilteredUsers(sortedUsers);
+        setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    };
+
     useEffect(() => {
           const results = user.filter(users =>
           users.code.toLowerCase().includes(searchQuery.toLowerCase())
@@ -127,7 +142,11 @@ function User() {
                     <thead className="user-page-table-row">
                         <th className="user-page-data-row">Customer Code</th>
                         <th className="user-page-data-row">Contact Number</th>
-                        <th className="user-page-data-row">Ordered Packets</th>
+                        <th className="user-page-data-row">Ordered Packets
+                            <button onClick={handleSort} style={{border:'none', backgroundColor:'transparent'}}>
+                                {sortOrder === 'asc' ? '⬆️' : '⬇️'}
+                            </button>
+                        </th>
                         <th className="user-page-data-row">Returned Packets</th>
                         <th className="user-page-data-row">Earned Points</th>
                         <th className="user-page-data-row" >User Level</th>
