@@ -6,6 +6,7 @@ import { getLunchMenu, getDinnerMenu } from "../../services/menuService";
 import { updateMealCount, updateLimits,updateLimitsSpecial} from "../../services/settingservice";
 import Popup from "../../components/Popup";
 import PredictLimitModal from "../../components/PredictLimitModal";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 function SettingHome() {
 
@@ -17,6 +18,8 @@ function SettingHome() {
     const [mealCount, setMealCount] = useState('');
     const [packetCountGet, setPacketCountGet] = useState({});
     const [predictionType, setPredictionType] = useState('limits');
+
+    const [loadingIndicator, setLoadingIndicator] = useState(false);
 
     const [isBetweenLunch, setIsBetweenLunch] = useState(false); //Time check
     const [isBetweenDinner, setIsBetweenDinner] = useState(false); 
@@ -48,6 +51,7 @@ function SettingHome() {
       setIsModalOpen(false);
     };
     async function fetchMenu() {
+      setLoadingIndicator(true);
         try {
             //Lunch
             const menuListLunch = await getLunchMenu([]);
@@ -98,8 +102,9 @@ function SettingHome() {
 
           setLimitsDinner(initialLimitsDinner);
           setLimitsDinnerSpecial(initialLimitsDinnerSpecial);
-          console.log("lunch limit",limitsDinner)
-          console.log("lunch special limit",limitsDinnerSpecial)
+          setLoadingIndicator(false);
+          console.log("dinner limit",limitsDinner)
+          console.log("dinner special limit",limitsDinnerSpecial)
         }
   
 
@@ -157,6 +162,7 @@ function SettingHome() {
 
 //reduced api calls by making two functions
        const handleUpdateLimitsLunch = async () => {
+        setLoadingIndicator(true);
         try {
           const formattedLimits = {
             meal_type: 'Lunch', 
@@ -165,6 +171,7 @@ function SettingHome() {
       
           const response = await updateLimits(formattedLimits);
           console.log('Response from updateLimits:', response);
+          setLoadingIndicator(false);
           alert('Limits updated successfully');
         } catch (error) {
           console.error('Error updating limits:', error);
@@ -174,6 +181,7 @@ function SettingHome() {
       };
 
       const handleUpdateLimitsDinner = async () => {
+        setLoadingIndicator(true);
         try {
           const formattedLimits = {
             meal_type: 'Dinner', 
@@ -182,6 +190,7 @@ function SettingHome() {
       
           const response = await updateLimits(formattedLimits);
           console.log('Response from updateLimits:', response);
+          setLoadingIndicator(false);
           alert('Limits updated successfully');
         } catch (error) {
           console.error('Error updating limits:', error);
@@ -203,6 +212,7 @@ function SettingHome() {
 
       //Lunch - Special
       const handleUpdateLimitsLunchSpecial = async () => {
+        setLoadingIndicator(true);
         try {
           const formattedLimits = {
             meal_type: mealType,
@@ -214,6 +224,7 @@ function SettingHome() {
       
           const response = await updateLimitsSpecial(formattedLimits);
           console.log('Limits updated successfully:', response);
+          setLoadingIndicator(false);
           alert('Limits updated successfully');
         } catch (error) {
           console.error('Error updating limits:', error);
@@ -239,6 +250,7 @@ function SettingHome() {
       
       //Dinner - Special
       const handleUpdateLimitsDinnerSpecial = async () => {
+        setLoadingIndicator(true);
         try {
           const formattedLimits = {
             meal_type: mealType,
@@ -250,6 +262,7 @@ function SettingHome() {
       
           const response = await updateLimitsSpecial(formattedLimits);
           console.log('Limits updated successfully:', response);
+          setLoadingIndicator(false);
           alert('Limits updated successfully');
         } catch (error) {
           console.error('Error updating limits:', error);
@@ -367,6 +380,7 @@ function SettingHome() {
 
             {showMenu &&
             <div style={{display:'flex', justifyContent:'space-around', margin:'3rem'}}>
+                     {loadingIndicator && <LoadingIndicator/>} 
                 <div>
                 {isBetweenLunch ? (
                     <div>

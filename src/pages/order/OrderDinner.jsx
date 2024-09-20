@@ -14,18 +14,16 @@ function OrderHome_Dinner()
     const [checkedOrders, setCheckedOrders] = useState([]);
     const [selectAll, setSelectAll] = useState(false); 
     const [orderStatus, setOrderStatus] = useState("pending");
+
     const [pendingOrderLoading, setPendingOrderLoading] = useState(true);
     const [confirmOrderLoading, setConfirmOrderLoading] = useState(true);
     const [confirmFuncLoading, setConfirmFuncLoading] = useState(false);
+    const [loadingIndicator, setLoadingIndicator] = useState(false);
 
     const [selectedPlaceFilter, setSelectedPlaceFilter] = useState('all');
     const [selectedTimeFilter, setSelectedTimeFilter] = useState('all');
 
     const [navOnline,setNavOnline] = useState(true)
-
-    const eveningTime_1 = '3:30 PM';
-    const eveningTime_2 = '4:30 PM';
-    const eveningTime_3 = '5:30 PM';
 
     const dinnerTime_1 = '7:30 PM';
     const dinnerTime_2 = '8:30 PM';
@@ -222,6 +220,7 @@ function OrderHome_Dinner()
       
   const packagingPDF_ = async () => {
     alert("Orders Packaging pdf is generating...")
+    setLoadingIndicator(true);
     const placeMapping = {
         "Your Own Location(Priority)": "location",
         "Your Own Location(Normal)": "location",
@@ -238,12 +237,16 @@ function OrderHome_Dinner()
     const modifiedTime = timeMapping[selectedTimeFilter] || selectedTimeFilter;
 
     const orderForPDF  = await generateOrdersPDF('Dinner',modifiedPlace,modifiedTime);
+    setLoadingIndicator(false);
+    alert("Manufacturing Completed!")
     console.log("orderForPDF",orderForPDF) 
   }
 
   const informArrival_ = async () => {
-    alert("Sending Arrival Notification...")
+    setLoadingIndicator(true);
     const arrvalNotifi  = await informArrival('Dinner',selectedPlaceFilter);
+    setLoadingIndicator(false);
+    alert("Arrival Notification has been sent!")
     console.log("arrvalNotifi",arrvalNotifi) 
     }
   
@@ -317,7 +320,8 @@ function OrderHome_Dinner()
                     <button className="action-bar-btn-cancel"  onClick={()=>handleOrderStatus('reject')}>Reject</button>
                 </div>
             </div>
-            <hr/> 
+            <hr/>
+            {loadingIndicator && <LoadingIndicator/>} 
             {confirmFuncLoading && <LoadingIndicator/>}
             {/* Pending Order List */}
             {pendingOrderLoading ? <LoadingIndicator/> :
@@ -413,6 +417,7 @@ function OrderHome_Dinner()
                 </div>
             </div>
             <hr/> 
+            {loadingIndicator && <LoadingIndicator/>} 
             {confirmOrderLoading ? <LoadingIndicator/> :
                 <div>
                     <table className="detail-table">  
