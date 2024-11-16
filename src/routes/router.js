@@ -14,6 +14,7 @@ import Chat from '../pages/chat/Chat';
 import AddPromotion from '../pages/promotion/AddPromotion';
 import Promotion from '../pages/promotion/PromotionHome';
 import Login from '../pages/login/Login';
+import OrderBreakfast from '../pages/order/OrderBreakfast';
 
 
 const router = createBrowserRouter([
@@ -28,7 +29,10 @@ const router = createBrowserRouter([
                 path: 'dashboard',
                 element: <DashboardHome/>
             },
-         
+            {
+                path: 'orderBreakfast',
+                element: <OrderBreakfast/>
+            },
             {
                 path: 'orderDinner',
                 element: <OrderDinner/>
