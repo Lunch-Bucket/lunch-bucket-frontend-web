@@ -3,7 +3,7 @@ import devConfig from '../config/dev';
 import prodConfig from '../config/prod';
 
 // const config = process.env.NODE_ENV === 'development' ? prodConfig : devConfig;
-const config = prodConfig;
+const config = devConfig;
 
 export const projectCode = config.projectCode;
 export const baseUrl = config.baseUrl;

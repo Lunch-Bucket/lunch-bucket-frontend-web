@@ -14,21 +14,25 @@ import Chat from '../pages/chat/Chat';
 import AddPromotion from '../pages/promotion/AddPromotion';
 import Promotion from '../pages/promotion/PromotionHome';
 import Login from '../pages/login/Login';
+import OrderBreakfast from '../pages/order/OrderBreakfast';
 
 
 const router = createBrowserRouter([
     {
         // Prod
-        path: 'lunch-bucket-live', 
+        // path: 'lunch-bucket-live', 
         //Dev
-        // path: 'lunch-bucket-frontend-web',
+        path: 'lunch-bucket-frontend-web',
         element: <AdminRoutes/>,
         children: [
             {
                 path: 'dashboard',
                 element: <DashboardHome/>
             },
-         
+            {
+                path: 'orderBreakfast',
+                element: <OrderBreakfast/>
+            },
             {
                 path: 'orderDinner',
                 element: <OrderDinner/>

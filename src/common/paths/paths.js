@@ -1,7 +1,7 @@
 // Dev
 // const initialPath = '/lunch-bucket-frontend-web/';
 // Prod
-const initialPath = '/lunch-bucket-live/';
+const initialPath = '/lunch-bucket-frontend-web/';
 
 const PATHS = {
     orderLunch: initialPath + 'orderLunch',
