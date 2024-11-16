@@ -65,6 +65,7 @@ const Sidebar = () => {
                 </span>
             </div>
           {isLoggedIn && <div className="side-bar-page-list">
+                <p className="side-bar-page-list-item"><NavLink to={PATHS.orderBreakfast}>Breakfast</NavLink></p>
                 <p className="side-bar-page-list-item" ><NavLink to={PATHS.orderLunch}>Lunch Orders</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.orderDinner}>Dinner Orders</NavLink></p>
                 <p className="side-bar-page-list-item"><NavLink to={PATHS.menu}>Food List</NavLink></p>

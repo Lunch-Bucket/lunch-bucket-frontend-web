@@ -6,6 +6,7 @@ const initialPath = '/lunch-bucket-live/';
 const PATHS = {
     orderLunch: initialPath + 'orderLunch',
     orderDinner: initialPath + 'orderDinner',
+    orderBreakfast: initialPath + 'orderBreakfast',
     menu: initialPath + 'menu',
     specialMenu: initialPath + 'specialMenu',
     addMenu: initialPath + 'addMenu',

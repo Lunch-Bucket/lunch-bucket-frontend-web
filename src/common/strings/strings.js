@@ -4,6 +4,7 @@ const STRINGS = {
     login: 'Login',
     lunchOrder: 'Lunch Orders',
     dinnerOrder: 'Dinner Orders',
+    breakfastOrder: 'Breakfast',
     menu: 'Food List',
     specialMenu: 'Special Food List',
     user: 'Users',
