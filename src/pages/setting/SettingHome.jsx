@@ -69,6 +69,7 @@ function SettingHome() {
               item.category.map(data => ({
                 type: data.type,
                 id: data.id,
+                price: data.price,
                 limit: data.limit || 0
               }))
             );
@@ -96,6 +97,7 @@ function SettingHome() {
             item.category.map(data => ({
               type: data.type,
               id: data.id,
+              price: data.price,
               limit: data.limit || 0
             }))
           );
@@ -421,6 +423,7 @@ function SettingHome() {
                           {Object.keys(limitsLunch).map((key, index) => (
                               <div key={index} style={{display:'flex',justifyContent:'space-between', margin:'1rem'}}>
                               <label>{key}</label>
+                              {/* <span>{limitsLunch[key].price}</span> */}
                               </div>
                           ))}
                         </div>):( <div>No lunch choices available.</div>)}
@@ -431,6 +434,7 @@ function SettingHome() {
                         {limitsLunchSpecial.map((item, index) => (
                             <div key={index} style={{ display: 'flex', justifyContent: 'space-between', margin: '1rem' }}>
                               <label>{item.type}</label>
+                              <label>{item.price}</label>
                             </div>
                         ))}
                         </div>):(<div>No lunch specials available.</div>)}
@@ -483,6 +487,7 @@ function SettingHome() {
                       {Object.keys(limitsDinner).map((key, index) => (
                           <div key={index} style={{display:'flex',justifyContent:'space-between', margin:'1rem'}}>
                           <label>{key}</label>
+                          {/* <span>{limitsLunch[key].price}</span> */}
                           </div>
                 ))}
                   </div>):(<div>No dinner choices available.</div>)}
@@ -493,6 +498,7 @@ function SettingHome() {
                     {limitsDinnerSpecial.map((item, index) => (
                             <div key={index} style={{ display: 'flex', justifyContent: 'space-between', margin: '1rem' }}>
                               <label>{item.type}</label>
+                              <label>{item.price}</label>
                             </div>
                         ))}
                     </div>):(<div>No dinner specials available.</div>)}
