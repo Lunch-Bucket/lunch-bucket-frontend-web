@@ -6,6 +6,7 @@ import strings from "../../common/strings/strings";
 import { getPendingOrderData, getConfirmedOrderData, confirmOrderData , generateReport, generateOrdersPDF, informArrival} from "../../services/orderService";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import Popup from "../../components/Popup";
+import ConfirmPopup from "../../components/ConfirmPopup";
 
 function OrderHome_Dinner()
 {
@@ -26,9 +27,10 @@ function OrderHome_Dinner()
     const [navOnline,setNavOnline] = useState(true)
 
     const dinnerTime_1 = '7:30 PM';
-    const dinnerTime_2 = '8:30 PM';
-    const dinnerTime_3 = '9:00 PM';
-    const dinnerTime_4 = '9:30 PM';
+    const dinnerTime_2 = '8:00 PM';
+    const dinnerTime_3 = '8:30 PM';
+    const dinnerTime_4 = '9:00 PM';
+    const dinnerTime_5 = '9:30 PM';
 
     const place_1 = 'Location';
     const place_3 = 'Location - Priority';
@@ -44,6 +46,22 @@ function OrderHome_Dinner()
         setShowPopup(true);
       };
 
+      //Confirm Popup Logic
+    const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+
+    const handleRejectClick = () => {
+        setShowConfirmPopup(true);
+      };
+
+      const confirmReject = () => {
+        setShowConfirmPopup(false);
+        handleOrderStatus('reject')
+        console.log("Order rejected");
+      };
+    
+      const cancelReject = () => {
+        setShowConfirmPopup(false);
+      };
 
     async function fetchOrderData() {
         try {
@@ -227,8 +245,9 @@ function OrderHome_Dinner()
         "Back gate distribution center": "Back"
     };
     const timeMapping = {
-        "7:00 PM": "7",
+        "7:30 PM": "7",
         "8:00 PM": "8",
+        "8:30 PM": "83",
         "9:00 PM": "9",
         "9:30 PM": "93",
     };
@@ -293,6 +312,7 @@ function OrderHome_Dinner()
                         <option value={dinnerTime_2}>{dinnerTime_2}</option>
                         <option value={dinnerTime_3}>{dinnerTime_3}</option>
                         <option value={dinnerTime_4}>{dinnerTime_4}</option>
+                        <option value={dinnerTime_5}>{dinnerTime_5}</option>
                     </select>
                 </div>
                 <div className="filter-by">
@@ -317,7 +337,7 @@ function OrderHome_Dinner()
                         {selectAll ? "Deselect All" : "Select All"}
                     </button>
                     <button className="action-bar-btn-confirm"  onClick={()=>handleOrderStatus('confirm')}>Confirm</button>
-                    <button className="action-bar-btn-cancel"  onClick={()=>handleOrderStatus('reject')}>Reject</button>
+                    <button className="action-bar-btn-cancel"  onClick={handleRejectClick}>Reject</button>
                 </div>
             </div>
             <hr/>
@@ -402,6 +422,7 @@ function OrderHome_Dinner()
                         <option value={dinnerTime_2}>{dinnerTime_2}</option>
                         <option value={dinnerTime_3}>{dinnerTime_3}</option>
                         <option value={dinnerTime_4}>{dinnerTime_4}</option>
+                        <option value={dinnerTime_5}>{dinnerTime_5}</option>
                     </select>
 
                     <div style={{paddingLeft:'1rem'}}>Filter By Place</div>
@@ -510,6 +531,14 @@ function OrderHome_Dinner()
                 {showPopup && (
               <Popup type={popupType} message={popupMessage} onClose={() => setShowPopup(false)} />
             )}
+
+        {  showConfirmPopup && (
+        <ConfirmPopup
+          message="Are you sure you want to reject the orders?"
+          onConfirm={confirmReject}
+          onCancel={cancelReject}
+        />
+      )}
 
         </div>
     );
