@@ -57,13 +57,22 @@ function SettingHome() {
             const menuListLunch = await getLunchMenu([]);
 
             if (menuListLunch?.data) {
-            const initialLimits = {};
-            
-            menuListLunch.data.rice_menu_lunch.forEach(item => initialLimits[item.type] = item.limit || 0);
-            menuListLunch.data.vege_menu_lunch.forEach(item => initialLimits[item.type] = item.limit || 0);
-            menuListLunch.data.meat_menu_lunch.forEach(item => initialLimits[item.type] = item.limit || 0);
-            menuListLunch.data.stew_menu_lunch.forEach(item => initialLimits[item.type] = item.limit || 0);
-            
+              const initialLimits = {};
+
+              const applyMenuToLimits = (menuArray) => {
+                menuArray.forEach(item => {
+                  initialLimits[item.type] = {
+                    limit: 0,
+                    price: item.price || 0
+                  };
+                });
+              };
+              
+              applyMenuToLimits(menuListLunch.data.rice_menu_lunch);
+              applyMenuToLimits(menuListLunch.data.vege_menu_lunch);
+              applyMenuToLimits(menuListLunch.data.meat_menu_lunch);
+              applyMenuToLimits(menuListLunch.data.stew_menu_lunch);
+              
 
             const initialLimitsLunchSpecial = menuListLunch.data.special_menu_lunch.flatMap(item => 
               item.category.map(data => ({
@@ -86,12 +95,22 @@ function SettingHome() {
 
           if (menuListDinner?.data) {
 
-          const initialLimitsDinner = {};
+            const initialLimitsDinner = {};
 
-          menuListDinner.data.rice_menu_dinner.forEach(itemDinner => initialLimitsDinner[itemDinner.type] = itemDinner.limitDinner || 0);
-          menuListDinner.data.vege_menu_dinner.forEach(itemDinner => initialLimitsDinner[itemDinner.type] = itemDinner.limitDinner || 0);
-          menuListDinner.data.meat_menu_dinner.forEach(itemDinner => initialLimitsDinner[itemDinner.type] = itemDinner.limitDinner || 0);
-          menuListDinner.data.stew_menu_dinner.forEach(itemDinner => initialLimitsDinner[itemDinner.type] = itemDinner.limitDinner || 0);
+            const applyDinnerMenuToLimits = (menuArray) => {
+              menuArray.forEach(itemDinner => {
+                initialLimitsDinner[itemDinner.type] = {
+                  limit: 0, // default initial value
+                  price: itemDinner.price || 0
+                };
+              });
+            };
+            
+            applyDinnerMenuToLimits(menuListDinner.data.rice_menu_dinner);
+            applyDinnerMenuToLimits(menuListDinner.data.vege_menu_dinner);
+            applyDinnerMenuToLimits(menuListDinner.data.meat_menu_dinner);
+            applyDinnerMenuToLimits(menuListDinner.data.stew_menu_dinner);
+            
           
           const initialLimitsDinnerSpecial = menuListDinner.data.special_menu_dinner.flatMap(item => 
             item.category.map(data => ({
@@ -345,7 +364,7 @@ function SettingHome() {
                     </div>
 
                 <div className="setting-card"  onClick={()=>{handleSettingsCard(2)}} >
-                    <h4>Today's Menu</h4>
+                    <h4>Menu and Limits</h4>
                 </div>
                 <div className="setting-card"  onClick={()=>{handleSettingsCard(3)}} >
                     <button className="get-order-pdf-button prediction"   onClick={() => openModal('limits')}>Predict Limits</button>
@@ -420,12 +439,13 @@ function SettingHome() {
                       {limitsLunch && Object.keys(limitsLunch).length > 0 ? (
                         <div>
                         <h3>Lunch - Choice</h3>
-                          {Object.keys(limitsLunch).map((key, index) => (
-                              <div key={index} style={{display:'flex',justifyContent:'space-between', margin:'1rem'}}>
-                              <label>{key}</label>
-                              {/* <span>{limitsLunch[key].price}</span> */}
-                              </div>
-                          ))}
+                        {Object.keys(limitsLunch).map((key, index) => (
+                          <div key={index} style={{ display: 'flex', justifyContent: 'space-between', margin: '1rem' }}>
+                            <label>{key}</label>
+                            <label>Rs. {limitsLunch[key].price}</label>
+                          </div>
+                        ))}
+
                         </div>):( <div>No lunch choices available.</div>)}
                     <hr/>
                     {limitsLunchSpecial && limitsLunchSpecial.length > 0 ? (
@@ -486,8 +506,8 @@ function SettingHome() {
                    <h3>Dinner - Choice</h3>
                       {Object.keys(limitsDinner).map((key, index) => (
                           <div key={index} style={{display:'flex',justifyContent:'space-between', margin:'1rem'}}>
-                          <label>{key}</label>
-                          {/* <span>{limitsLunch[key].price}</span> */}
+                          <label style={{scrollPaddingRight:'2px'}}>{key}</label>
+                           <label>Rs. {limitsDinner[key].price}</label>
                           </div>
                 ))}
                   </div>):(<div>No dinner choices available.</div>)}
